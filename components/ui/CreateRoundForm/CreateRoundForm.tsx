@@ -51,7 +51,7 @@ const CreateRoundForm = () => {
       </div>
       <div>
         <Input
-          className="h-1 py-0 pl-3 pr-3 mt-3 bg-black cursor-default focus:border-gray-400 dark:focus:border-gray-500"
+          className="!h-1 !py-0 !pl-3 !pr-3 !mt-3 !bg-black !cursor-default focus:!border-gray-400 dark:!focus:border-gray-500"
           type="range"
           label={`Reserved stake for participants: ${reservedStake}%`}
           min={0}
