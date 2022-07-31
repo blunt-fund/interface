@@ -3,7 +3,7 @@ import Document, {
   Head,
   Main,
   NextScript,
-  DocumentContext,
+  DocumentContext
 } from "next/document"
 
 class MyDocument extends Document {
@@ -17,7 +17,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
             rel="stylesheet"
           />
         </Head>

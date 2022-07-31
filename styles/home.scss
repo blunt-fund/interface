@@ -8,7 +8,7 @@
 }
 
 .clickable {
-  @apply cursor-pointer font-medium;
+  @apply cursor-pointer;
 
   &.active {
     text-decoration-line: underline;
@@ -21,4 +21,14 @@
 
 .imageContainer > div {
   min-width: 100%;
+}
+
+.background-modal {
+  background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, white 1px);
+  background-size: 4px 4px;
+  backdrop-filter: brightness(100%) blur(3px);
+}
+
+.dark .background-modal {
+  background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, black 1px);
 }

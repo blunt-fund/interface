@@ -24,7 +24,7 @@ const Button: FC<ButtonProps> = (props) => {
     ...rest
   } = props
 
-  const rootClassName = `px-7 h-[40px] min-w-[150px] focus:outline-none ${color} ${className}`
+  const rootClassName = `nightwind-prevent px-7 h-[40px] min-w-[150px] focus:outline-none ${color} ${className}`
 
   return href ? (
     <Link href={href} passHref>

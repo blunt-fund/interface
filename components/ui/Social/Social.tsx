@@ -21,10 +21,10 @@ type Props = {
 
 export const accounts = {
   twitter: "https://twitter.com/slice__so",
-  discord: "https://discord.gg/CdyHUzdZks",
-  notion: "https://slicedao.notion.site",
+  // discord: "https://discord.gg/CdyHUzdZks",
+  // notion: "https://slicedao.notion.site",
   github: "https://github.com/slice-so",
-  blog: "/blog",
+  // blog: "/blog",
   juicebox: "https://juicebox.money/#/p/slice"
   // reddit: "https://reddit.com/r/slice",
 }
@@ -56,7 +56,7 @@ const Social: FC<Props> = ({ wrapperClassName, accounts }, props) => {
         return (
           <a
             key={key}
-            className={`${componentColor} ${size} mx-[18px]`}
+            className={`${componentColor} ${size} mx-6`}
             href={accounts[key]}
             target="_blank"
             rel="noreferrer"

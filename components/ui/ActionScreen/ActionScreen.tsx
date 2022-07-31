@@ -25,7 +25,7 @@ const ActionScreen: FC<ActionScreenProps> = ({
   href = "",
   loading = false,
   onClick = () => null,
-  onClickSecondary = () => null,
+  onClickSecondary = () => null
 }) => {
   return (
     <main className="w-full max-w-screen-sm mx-auto">
@@ -33,7 +33,7 @@ const ActionScreen: FC<ActionScreenProps> = ({
       <div className="flex flex-col items-center text-center">
         {highlightTitle && <h1>{highlightTitle}</h1>}
         {text && typeof text === "string" ? (
-          <h3 className="font-semibold mb-7">{text}</h3>
+          <h3 className="font-bold mb-7">{text}</h3>
         ) : (
           text
         )}

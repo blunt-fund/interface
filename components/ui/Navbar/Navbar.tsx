@@ -1,16 +1,13 @@
 import Link from "next/link"
-import { useRouter } from "next/router"
-// import { signIn, useSession } from "next-auth/client"
 import Logo from "@components/icons/Logo"
-// import Nightwind from "@components/icons/Nightwind"
 import { Container } from "@components/ui"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
+import saEvent from "@utils/saEvent"
+import Nightwind from "@components/icons/Nightwind"
 
 const Navbar = () => {
-  // const [session, loading] = useSession()
-  // const router = useRouter()
-
   return (
-    <header className="shadow-sm bg-gray-50">
+    <header className="shadow-md">
       <Container>
         <nav className="relative px-3 sm:px-6 h-[4.25rem] items-center mx-auto flex justify-between">
           <div className="flex items-center space-x-7 sm:space-x-10">
@@ -20,12 +17,20 @@ const Navbar = () => {
               </a>
             </Link>
           </div>
-          {/* <div className="flex items-center">
+          <div className="flex items-center gap-6">
             <Nightwind size="h-[24px]" />
-          </div> */}
+            <div onClick={() => saEvent("connect_wallet_attempt")}>
+              <ConnectButton
+                accountStatus={{
+                  smallScreen: "avatar",
+                  largeScreen: "full"
+                }}
+              />
+            </div>
+          </div>
         </nav>
       </Container>
-      <hr className="w-full border-gray-200" />
+      <hr className="w-full h-[2px] bg-gray-800" />
     </header>
   )
 }

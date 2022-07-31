@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo"
-import { Button, Container } from "@components/ui"
+import { ConnectBlock, Container, CreateRoundForm } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
@@ -7,11 +7,11 @@ import {
   domain
 } from "@components/common/Head"
 
-export default function Home() {
+export default function Create() {
   return (
     <>
       <NextSeo
-        title="Blunt Finance | Manage terms sheets, fundraising, cashflow, and capital allocation, bluntly in the open with your community."
+        title="Create round | Blunt Finance"
         openGraph={{
           title: longTitle,
           description: defaultDescription,
@@ -27,14 +27,12 @@ export default function Home() {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto space-y-10">
-          <h1>Blunt Finance</h1>
-          <p className="sm:text-lg">
-            Manage terms sheets, fundraising, cashflow, and capital allocation,
-            bluntly in the open with your community
-          </p>
-          <Button label="Create round" href="/create" />
-        </main>
+        <ConnectBlock>
+          <main className="max-w-screen-sm mx-auto space-y-10 ">
+            <h1>Create round</h1>
+            <CreateRoundForm />
+          </main>
+        </ConnectBlock>
       </Container>
     </>
   )

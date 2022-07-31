@@ -8,11 +8,11 @@ h2 {
 }
 
 h3 {
-  @apply text-xl pb-2 font-medium sm:text-2xl;
+  @apply text-xl pb-2 sm:text-2xl;
 }
 
 a {
-  @apply cursor-pointer font-medium text-black hover:text-blue-600;
+  @apply cursor-pointer text-black hover:text-blue-600;
   text-decoration: none;
 }
 
