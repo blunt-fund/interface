@@ -1,5 +1,11 @@
-import { Input, Button, Textarea } from "@components/ui"
-import { useState } from "react"
+import {
+  Input,
+  Button,
+  PieChart,
+  ReservedTable,
+  Textarea
+} from "@components/ui"
+import { useEffect, useState } from "react"
 
 const CreateRoundForm = () => {
   const [name, setName] = useState("")
@@ -7,10 +13,16 @@ const CreateRoundForm = () => {
   const [target, setTarget] = useState(0)
   const [tokens, setTokens] = useState(0)
   const [reservedPool, setReservedPool] = useState(50)
-  const [reservedStake, setReservedStake] = useState(20)
+  const [reservedStake, setReservedStake] = useState(10)
   const [description, setDescription] = useState("")
 
   const currency = isEth ? "Ξ" : "$"
+
+  useEffect(() => {
+    if (Number(reservedStake) > Number(reservedPool)) {
+      setReservedStake(reservedPool)
+    }
+  }, [reservedPool])
 
   return (
     <div className="space-y-6 text-left">
@@ -52,10 +64,14 @@ const CreateRoundForm = () => {
       </div>
       <div>
         <Input
-          className="!h-1 !py-0 !pl-3 !pr-3 !mt-3 !bg-black !cursor-default focus:!border-gray-400 dark:!focus:border-gray-500"
           type="range"
-          label={`Reserved rate pool: ${reservedPool}%`}
+          label={
+            <>
+              Reserved rate pool: <b>{Number(reservedPool).toFixed(1)}%</b>
+            </>
+          }
           min={0}
+          step={0.5}
           value={reservedPool}
           onChange={setReservedPool}
           question={
@@ -68,10 +84,17 @@ const CreateRoundForm = () => {
       </div>
       <div>
         <Input
-          className="!h-1 !py-0 !pl-3 !pr-3 !mt-3 !bg-black !cursor-default focus:!border-gray-400 dark:!focus:border-gray-500"
           type="range"
-          label={`Reserved stake for round: ${reservedStake}%`}
+          label={
+            <>
+              Round stake: <b>{Number(reservedStake).toFixed(1)}%</b> (
+              {Number((reservedStake * 100) / reservedPool).toFixed(1)}% of
+              pool)
+            </>
+          }
           min={0}
+          max={reservedPool}
+          step={0.5}
           value={reservedStake}
           onChange={setReservedStake}
           question={
@@ -80,6 +103,26 @@ const CreateRoundForm = () => {
               participants in future cycles.
             </>
           }
+        />
+      </div>
+      <div className="pt-12 pb-8">
+        <p className="pb-8 text-base text-center">Token emission preview</p>
+        <div className="text-black">
+          <PieChart
+            addresses={["Contributor", "Other reserved", "Blunt round"]}
+            shares={[
+              100 - reservedPool,
+              reservedPool - reservedStake,
+              reservedStake
+            ]}
+            total={100}
+          />
+        </div>
+      </div>
+      <div className="pb-6">
+        <ReservedTable
+          reservedPool={reservedPool}
+          reservedStake={reservedStake}
         />
       </div>
       <div className="pt-6 text-center">

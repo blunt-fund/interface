@@ -5,7 +5,7 @@ import Question from "../Question"
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
-  label?: string
+  label?: string | JSX.Element
   prefix?: string
   after?: string
   error?: boolean

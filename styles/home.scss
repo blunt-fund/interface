@@ -32,3 +32,48 @@
 .dark .background-modal {
   background-image: radial-gradient(rgba(0, 0, 0, 0) 1px, black 1px);
 }
+
+input[type="range"] {
+  @apply h-1 py-0 pl-3 pr-3 mt-3 rounded-none bg-black cursor-default focus:border-gray-400 dark:focus:border-gray-500;
+}
+
+/* Special styling for WebKit/Blink */
+input[type="range"]::-webkit-slider-thumb {
+  @apply focus:outline-none;
+  -webkit-appearance: none;
+  border: 2px solid theme("colors.blue.600");
+  height: 13px;
+  width: 13px;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 1px 1px 0.5px #000000;
+}
+
+/* All the same stuff for Firefox */
+input[type="range"]::-moz-range-thumb {
+  @apply focus:outline-none;
+  box-shadow: 1px 1px 0.5px #000000;
+  border: 2px solid theme("colors.blue.600");
+  height: 13px;
+  width: 13px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+// Table styling
+table {
+  @apply w-full mx-auto border border-gray-200 border-collapse text-sm;
+}
+
+th,
+td {
+  @apply py-2.5 px-2;
+}
+
+th {
+  @apply font-normal;
+}
+
+th[scope="row"] {
+  @apply font-bold;
+}
