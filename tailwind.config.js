@@ -19,7 +19,7 @@ module.exports = {
 
   theme: {
     nightwind: {
-      transitionDuration: "150ms",
+      transitionDuration: "120ms",
       colorClasses: ["gradient", "placeholder"],
       typography: {
         strong: {

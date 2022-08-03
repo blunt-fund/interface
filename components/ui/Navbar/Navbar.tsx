@@ -16,7 +16,7 @@ const Navbar = () => {
               </a>
             </Link>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
             <Nightwind size="h-[24px]" />
             <div onClick={() => saEvent("connect_wallet_attempt")}>
               <CustomConnectButton />
@@ -24,7 +24,7 @@ const Navbar = () => {
           </div>
         </nav>
       </Container>
-      <hr className="w-full h-[2px] bg-gray-800" />
+      <hr className="w-full border-gray-200" />
     </header>
   )
 }
