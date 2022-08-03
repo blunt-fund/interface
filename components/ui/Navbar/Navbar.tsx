@@ -1,7 +1,6 @@
 import Link from "next/link"
 import Logo from "@components/icons/Logo"
-import { Container } from "@components/ui"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
+import { Container, CustomConnectButton } from "@components/ui"
 import saEvent from "@utils/saEvent"
 import Nightwind from "@components/icons/Nightwind"
 
@@ -20,12 +19,7 @@ const Navbar = () => {
           <div className="flex items-center gap-6">
             <Nightwind size="h-[24px]" />
             <div onClick={() => saEvent("connect_wallet_attempt")}>
-              <ConnectButton
-                accountStatus={{
-                  smallScreen: "avatar",
-                  largeScreen: "full"
-                }}
-              />
+              <CustomConnectButton />
             </div>
           </div>
         </nav>

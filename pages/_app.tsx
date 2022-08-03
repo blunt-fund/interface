@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               lightTheme({
                 accentColor: "#2563eb",
                 accentColorForeground: "white",
-                borderRadius: "medium"
+                borderRadius: "small"
               })
             }
             showRecentTransactions={true}

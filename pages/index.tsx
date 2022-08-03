@@ -30,8 +30,8 @@ export default function Home() {
         <main className="max-w-screen-sm mx-auto space-y-10">
           <h1>Blunt Finance</h1>
           <p className="sm:text-lg">
-            Manage terms sheets, fundraising, cashflow, and capital allocation,
-            bluntly in the open with your community
+            Fundraise by giving contributors a share of future tokens and manage
+            terms bluntly in the open with your community
           </p>
           <Button label="Create round" href="/create" />
         </main>
