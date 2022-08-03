@@ -6,7 +6,8 @@ const CreateRoundForm = () => {
   const [isEth, setIsEth] = useState(true)
   const [target, setTarget] = useState(0)
   const [tokens, setTokens] = useState(0)
-  const [reservedStake, setReservedStake] = useState(0)
+  const [reservedPool, setReservedPool] = useState(50)
+  const [reservedStake, setReservedStake] = useState(20)
   const [description, setDescription] = useState("")
 
   const currency = isEth ? "Ξ" : "$"
@@ -53,7 +54,23 @@ const CreateRoundForm = () => {
         <Input
           className="!h-1 !py-0 !pl-3 !pr-3 !mt-3 !bg-black !cursor-default focus:!border-gray-400 dark:!focus:border-gray-500"
           type="range"
-          label={`Reserved stake for participants: ${reservedStake}%`}
+          label={`Reserved rate pool: ${reservedPool}%`}
+          min={0}
+          value={reservedPool}
+          onChange={setReservedPool}
+          question={
+            <>
+              Percentage of tokens minted to the reserved pool for every
+              treasury contribution.
+            </>
+          }
+        />
+      </div>
+      <div>
+        <Input
+          className="!h-1 !py-0 !pl-3 !pr-3 !mt-3 !bg-black !cursor-default focus:!border-gray-400 dark:!focus:border-gray-500"
+          type="range"
+          label={`Reserved stake for round: ${reservedStake}%`}
           min={0}
           value={reservedStake}
           onChange={setReservedStake}

@@ -12,7 +12,7 @@ h3 {
 }
 
 a {
-  @apply text-black cursor-pointer hover:text-blue-600;
+  @apply text-black cursor-pointer hover:text-blue-600 dark:hover:text-blue-300;
   text-decoration: none;
 }
 
@@ -24,7 +24,7 @@ a {
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-color: theme("colors.blue.600");
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 1px;
 }
 
