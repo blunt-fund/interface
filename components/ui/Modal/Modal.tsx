@@ -1,9 +1,6 @@
 import Cross from "@components/icons/Cross"
 import { Dispatch, SetStateAction } from "react"
-import {
-  View
-  // VIEW,
-} from "@lib/content/modals"
+import { View, ROUND_INFO_VIEW } from "@lib/content/modals"
 
 type Props = {
   modalView: View
@@ -14,11 +11,11 @@ const Modal = ({ modalView, setModalView }: Props) => {
   let content: JSX.Element
   const { name, cross, params } = modalView
 
-  // switch (name) {
-  //   case "VIEW":
-  //     content = VIEW()
-  //     break
-  // }
+  switch (name) {
+    case "ROUND_INFO_VIEW":
+      content = ROUND_INFO_VIEW()
+      break
+  }
 
   return (
     <div className="fixed top-0 z-50 w-screen h-screen py-12 overflow-y-scroll xs:py-20 background-modal">
@@ -30,7 +27,7 @@ const Modal = ({ modalView, setModalView }: Props) => {
         className="flex items-center justify-center"
         style={{ minHeight: "100%" }}
       >
-        <div className="relative w-full px-4 py-16 mx-4 bg-white shadow-xl xs:py-20 xs:px-8 rounded-xl max-w-screen-xs">
+        <div className="relative w-full max-w-screen-sm px-2 py-16 mx-2 bg-white shadow-xl xs:py-20 xs:px-8 rounded-xl">
           {cross && (
             <div className="absolute top-[24px] right-[24px]">
               <Cross

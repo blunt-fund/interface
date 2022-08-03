@@ -32,7 +32,7 @@ const Input: React.FC<Props> = ({
   inverted,
   submit,
   question,
-  questionPosition = "bottom-[20px] left-[-40px] xs:left-0",
+  questionPosition = "bottom-[10px] left-0 xs:left-0",
   prefixAction,
   onClick,
   onClickLabel,
