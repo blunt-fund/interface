@@ -1,6 +1,11 @@
 import Cross from "@components/icons/Cross"
 import { Dispatch, SetStateAction } from "react"
-import { View, ROUND_INFO_VIEW } from "@lib/content/modals"
+import {
+  View,
+  CREATE_ROUND_PROCESS,
+  CREATE_ROUND_REVIEW,
+  ROUND_INFO_VIEW
+} from "@lib/content/modals"
 
 type Props = {
   modalView: View
@@ -14,6 +19,12 @@ const Modal = ({ modalView, setModalView }: Props) => {
   switch (name) {
     case "ROUND_INFO_VIEW":
       content = ROUND_INFO_VIEW()
+      break
+    case "CREATE_ROUND_REVIEW":
+      content = CREATE_ROUND_REVIEW(params)
+      break
+    case "CREATE_ROUND_PROCESS":
+      content = CREATE_ROUND_PROCESS(params)
       break
   }
 

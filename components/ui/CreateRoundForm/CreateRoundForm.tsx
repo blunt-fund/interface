@@ -8,8 +8,11 @@ import {
   Textarea
 } from "@components/ui"
 import React, { useEffect, useState } from "react"
+import { useAppContext } from "../context"
 
 const CreateRoundForm = () => {
+  const { setModalView } = useAppContext()
+
   const [name, setName] = useState("")
   const [tokenSymbol, setTokenSymbol] = useState("")
   const [tokenIssuance, setTokenIssuance] = useState(0)
@@ -49,8 +52,37 @@ const CreateRoundForm = () => {
     )
   }, [reservedStake])
 
+  const submit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    setModalView({
+      name: "CREATE_ROUND_REVIEW",
+      cross: true,
+      params: {
+        name,
+        tokenSymbol,
+        tokenIssuance,
+        reservedStake,
+        description,
+        website,
+        twitter,
+        discord,
+        docs,
+        duration,
+        isTargetEth,
+        target,
+        isCapEth,
+        cap,
+        reservedError,
+        success,
+        addresses,
+        shares,
+        totalShares
+      }
+    })
+  }
+
   return (
-    <div className="space-y-8 text-left">
+    <form className="space-y-6 text-left" onSubmit={submit}>
       <div>
         <Input label="Project name" value={name} onChange={setName} />
       </div>
@@ -317,9 +349,9 @@ const CreateRoundForm = () => {
         />
       </div>
       <div className="pt-6 text-center">
-        <Button label="Create" />
+        <Button label="Review" type="submit" />
       </div>
-    </div>
+    </form>
   )
 }
 
