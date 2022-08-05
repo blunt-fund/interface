@@ -44,6 +44,13 @@ const CreateRoundForm = () => {
     let items = shares
     items[0] = reservedStake
     setShares(items)
+
+    setTotalShares(
+      shares.length > 1
+        ? Number(shares.slice(1).reduce((a, b) => Number(a) + Number(b))) +
+            Number(reservedStake)
+        : Number(reservedStake)
+    )
   }, [reservedStake])
 
   return (
@@ -142,7 +149,7 @@ const CreateRoundForm = () => {
             </>
           }
           min={0}
-          max={100}
+          max={100 - Number(totalShares) + Number(reservedStake)}
           step={0.5}
           value={reservedStake}
           onChange={setReservedStake}
@@ -266,7 +273,11 @@ const CreateRoundForm = () => {
         <div className="text-black">
           <PieChart
             addresses={["Contributor", ...addresses.slice(1), "Blunt round"]}
-            shares={[100 - totalShares, ...shares.slice(1), reservedStake]}
+            shares={[
+              100 - totalShares,
+              ...shares.slice(1),
+              Number(reservedStake)
+            ]}
             total={100}
           />
         </div>
@@ -274,7 +285,7 @@ const CreateRoundForm = () => {
       <div className="pb-6">
         <ReservedTable
           reservedPool={totalShares}
-          reservedStake={reservedStake}
+          reservedStake={Number(reservedStake)}
         />
       </div>
       <div className="pt-6 text-center">

@@ -77,11 +77,12 @@ const ReservedInputBlock = ({
   useEffect(() => {
     handleChange(sharesAmount, shares, setShares)
     setTotalShares(
-      shares.reduce((a, b) => Number(a) + Number(b)) -
-        Number(shares[0]) +
-        Number(reservedStake)
+      shares.length > 1
+        ? Number(shares.slice(1).reduce((a, b) => Number(a) + Number(b))) +
+            Number(reservedStake)
+        : Number(reservedStake)
     )
-  }, [sharesAmount, reservedStake])
+  }, [sharesAmount])
 
   return (
     visible && (
