@@ -8,21 +8,29 @@ type Props = {
   addresses: string[]
   shares: number[]
   totalShares: number
+  reservedStake: number
   setAddresses: Dispatch<SetStateAction<string[]>>
   setShares: Dispatch<SetStateAction<number[]>>
+  setTotalShares: Dispatch<SetStateAction<number>>
+  setReservedError: Dispatch<SetStateAction<boolean>>
 }
 
 const ReservedBlockSplitter = ({
   success,
   addresses,
   shares,
+  reservedStake,
   totalShares,
   setAddresses,
-  setShares
+  setShares,
+  setTotalShares,
+  setReservedError
 }: Props) => {
   const { account } = useAppContext()
   const [initAddress, setInitAddress] = useState("")
-  const [inputCount, setInputCount] = useState(1)
+  const [inputCount, setInputCount] = useState(
+    shares.length > 2 ? shares.length : 2
+  )
   const [removedCount, setRemovedCount] = useState(0)
 
   useEffect(() => {
@@ -35,6 +43,11 @@ const ReservedBlockSplitter = ({
     }
   }, [success])
 
+  useEffect(() => {
+    const errorCondition = totalShares > 100
+    setReservedError(errorCondition)
+  }, [totalShares])
+
   const resetInputs = () => {
     setInputCount(2)
     setRemovedCount(0)
@@ -43,7 +56,7 @@ const ReservedBlockSplitter = ({
   }
 
   return (
-    <div className="grid items-center grid-cols-8 text-left xs:grid-cols-10 md:grid-cols-12 gap-x-4 gap-y-6 xs:gap-y-12">
+    <div className="grid items-center grid-cols-8 text-left xs:grid-cols-10 md:grid-cols-12 gap-x-4 gap-y-6 xs:gap-y-10">
       <p className="mb-[-25px] text-sm text-gray-700 font-semibold hidden xs:block xs:col-span-6 xs:col-start-2 md:col-span-7 md:col-start-2">
         Beneficiary
       </p>
@@ -59,11 +72,13 @@ const ReservedBlockSplitter = ({
             signerAddress={initAddress}
             addresses={addresses}
             shares={shares}
+            totalShares={totalShares}
+            reservedStake={reservedStake}
             removedCount={removedCount}
             setAddresses={setAddresses}
             setShares={setShares}
             setRemovedCount={setRemovedCount}
-            placeholder="up to 100"
+            setTotalShares={setTotalShares}
           />
         )
       })}
@@ -78,15 +93,15 @@ const ReservedBlockSplitter = ({
         </p>
       </div>
 
-      {/* <div className="flex items-center col-span-2 col-start-7 xs:col-start-8">
+      <div className="flex items-center col-span-3 col-start-6 xs:col-start-8">
         <p
           className={`text-sm font-bold ${
             totalShares > 100 ? "text-red-500" : ""
           }`}
         >
-          {totalShares}% Total
+          Total: {totalShares}%
         </p>
-      </div> */}
+      </div>
     </div>
   )
 }

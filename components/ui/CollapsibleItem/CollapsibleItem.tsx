@@ -1,3 +1,4 @@
+import Alert from "@components/icons/Alert"
 import Chevron from "@components/icons/Chevron"
 import { useState } from "react"
 
@@ -7,6 +8,7 @@ type Props = {
   id?: string
   anchor?: string
   wrapperClassName?: string
+  error?: boolean
 }
 
 const CollapsibleItem = ({
@@ -14,7 +16,8 @@ const CollapsibleItem = ({
   detail,
   id,
   anchor,
-  wrapperClassName
+  wrapperClassName,
+  error
 }: Props) => {
   const [showDetail, setShowDetail] = useState(id && anchor == id)
   return (
@@ -36,6 +39,11 @@ const CollapsibleItem = ({
           />
         </div>
         <p>{label}</p>
+        {error && (
+          <div className="w-5 h-5 ml-2 text-red-500">
+            <Alert />
+          </div>
+        )}
       </div>
       {showDetail && (
         <div className="px-3 py-4 mt-3 border border-gray-200 xs:pl-8 xs:pr-4">

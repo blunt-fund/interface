@@ -7,11 +7,12 @@ import {
   ReservedTable,
   Textarea
 } from "@components/ui"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const CreateRoundForm = () => {
   const [name, setName] = useState("")
-  const [tokens, setTokens] = useState(0)
+  const [tokenSymbol, setTokenSymbol] = useState("")
+  const [tokenIssuance, setTokenIssuance] = useState(0)
   const [reservedPool, setReservedPool] = useState(50)
   const [reservedStake, setReservedStake] = useState(10)
   const [description, setDescription] = useState("")
@@ -22,22 +23,28 @@ const CreateRoundForm = () => {
   const [isCapEth, setIsCapEth] = useState(true)
   const [cap, setCap] = useState(0)
 
+  const [settingsError, setSettingsError] = useState(false)
+  const [reservedError, setReservedError] = useState(false)
   const [success, setSuccess] = useState(false)
   const [addresses, setAddresses] = useState([""])
   const [shares, setShares] = useState([100])
   const [totalShares, setTotalShares] = useState(100)
 
-  useEffect(() => {
-    console.log(123)
-
-    setTotalShares(shares.reduce((a, b) => a + b))
-  }, [shares])
+  const handleSetTokenSymbol = (a: string) => {
+    setTokenSymbol(a.toUpperCase())
+  }
 
   useEffect(() => {
     if (Number(reservedStake) > Number(reservedPool)) {
       setReservedStake(reservedPool)
     }
   }, [reservedPool])
+
+  useEffect(() => {
+    let items = shares
+    items[0] = reservedStake
+    setShares(items)
+  }, [reservedStake])
 
   return (
     <div className="space-y-8 text-left">
@@ -51,22 +58,40 @@ const CreateRoundForm = () => {
           onChange={setDescription}
         />
       </div>
-      <div>
-        <Input
-          type="number"
-          label="Tokens issued per ETH"
-          min={0}
-          value={tokens}
-          onChange={setTokens}
-          question={
-            <>
-              Number of tokens to issue per ETH contributed. How many reserved
-              out of the gates.
-            </>
-          }
-        />
+      <div className="xs:flex xs:gap-8">
+        <div className="xs:w-48">
+          <Input
+            type="string"
+            label="Token symbol"
+            value={tokenSymbol}
+            onChange={handleSetTokenSymbol}
+            question={
+              <>
+                Symbol of the ERC20 token to be issued for the project.
+                Tipically between 3 and 7 letters.
+              </>
+            }
+          />
+        </div>
+        <div className="pt-8 xs:pt-0 xs:flex-grow">
+          <Input
+            type="number"
+            label="Tokens issued per ETH"
+            min={0}
+            value={tokenIssuance != 0 ? tokenIssuance : ""}
+            onChange={setTokenIssuance}
+            placeholder="Optional"
+            question={
+              <>
+                Number of tokens to issue per ETH contributed during the blunt
+                round.
+              </>
+            }
+            questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
+          />
+        </div>
       </div>
-      <div>
+      {/* <div>
         <Input
           type="range"
           label={
@@ -85,15 +110,16 @@ const CreateRoundForm = () => {
             </>
           }
         />
-      </div>
-      <div>
+      </div> */}
+      <div className="pb-6">
         <Input
           type="range"
           label={
             <>
-              Round stake: <b>{Number(reservedStake).toFixed(1)}%</b> (
-              {Number((reservedStake * 100) / reservedPool).toFixed(1)}% of
-              pool)
+              Round stake: <b>{Number(reservedStake).toFixed(1)}%</b>
+              {/* 
+              ( {Number((reservedStake * 100) / reservedPool).toFixed(1)}% of pool) 
+              */}
             </>
           }
           min={0}
@@ -102,14 +128,11 @@ const CreateRoundForm = () => {
           value={reservedStake}
           onChange={setReservedStake}
           question={
-            <>
-              Percentage of reserved tokens being committed to share between the
-              participants in future cycles.
-            </>
+            <>Percentage of tokens shared between the round participants.</>
           }
         />
       </div>
-      <div className="pt-12 pb-8">
+      {/* <div className="pt-12 pb-8">
         <p className="pb-8 text-base text-center">Token emission preview</p>
         <div className="text-black">
           <PieChart
@@ -122,7 +145,7 @@ const CreateRoundForm = () => {
             total={100}
           />
         </div>
-      </div>
+      </div> */}
       <div className="pb-6">
         <ReservedTable
           reservedPool={reservedPool}
@@ -133,6 +156,7 @@ const CreateRoundForm = () => {
       <ul className="space-y-6">
         <CollapsibleItem
           label="Fundraise duration, target and cap"
+          error={settingsError}
           detail={
             <>
               <div className="py-3 space-y-6">
@@ -205,6 +229,7 @@ const CreateRoundForm = () => {
         />
         <CollapsibleItem
           label="Reserved rate configuration"
+          error={reservedError}
           detail={
             <>
               <div className="py-3 space-y-6">
@@ -216,8 +241,11 @@ const CreateRoundForm = () => {
                   addresses={addresses}
                   shares={shares}
                   totalShares={totalShares}
+                  reservedStake={reservedStake}
                   setAddresses={setAddresses}
                   setShares={setShares}
+                  setTotalShares={setTotalShares}
+                  setReservedError={setReservedError}
                 />
               </div>
             </>

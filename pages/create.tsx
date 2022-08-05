@@ -29,7 +29,7 @@ export default function Create() {
       <Container page={true}>
         <ConnectBlock>
           <main className="max-w-screen-sm mx-auto space-y-10 ">
-            <h1>Create round</h1>
+            <h1>Create blunt round</h1>
             <CreateRoundForm />
           </main>
         </ConnectBlock>

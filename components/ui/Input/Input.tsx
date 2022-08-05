@@ -32,14 +32,18 @@ const Input: React.FC<Props> = ({
   inverted,
   submit,
   question,
-  questionPosition = "bottom-[10px] left-0 xs:left-0",
+  questionPosition = "bottom-[-4px] left-0",
   prefixAction,
   onClick,
   onClickLabel,
   onChange,
   ...rest
 }) => {
-  const rootClassName = `peer bg-white rounded-sm py-2 pl-6 w-full appearance-none pr-4 border border-gray-400 text-black focus:outline-none focus:border-blue-600 placeholder-gray-500 disabled:text-gray-400 disabled:border-gray-700 disabled:bg-gray-900 ${className}`
+  const rootClassName = `peer bg-white rounded-sm py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-500 disabled:text-gray-500 disabled:border-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:text-gray-400 ${
+    error
+      ? "border-red-500 text-red-500 focus:border-red-500"
+      : "border-gray-400 text-black focus:border-blue-600"
+  } ${className}`
 
   const handleOnChange = (e: any) => {
     if (onChange) {

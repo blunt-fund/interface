@@ -9,12 +9,14 @@ type Props = {
   index: number
   addresses: string[]
   shares: number[]
+  totalShares: number
+  reservedStake: number
   removedCount: number
   setAddresses: Dispatch<SetStateAction<string[]>>
   setShares: Dispatch<SetStateAction<number[]>>
+  setTotalShares: Dispatch<SetStateAction<number>>
   setRemovedCount: Dispatch<SetStateAction<number>>
   signerAddress?: string
-  placeholder?: string
 }
 
 const ReservedInputBlock = ({
@@ -22,11 +24,13 @@ const ReservedInputBlock = ({
   signerAddress,
   addresses,
   shares,
+  totalShares,
+  reservedStake,
   setAddresses,
   setShares,
+  setTotalShares,
   removedCount,
-  setRemovedCount,
-  placeholder
+  setRemovedCount
 }: Props) => {
   const { account, provider } = useAppContext()
 
@@ -58,8 +62,10 @@ const ReservedInputBlock = ({
   }
 
   useEffect(() => {
-    if (index == 0 && address == "" && signerAddress) {
-      setAddress(signerAddress)
+    if (address == "" && signerAddress) {
+      if (index == 1) {
+        setAddress(signerAddress)
+      }
       resolveEns(provider, signerAddress, setResolvedSignerAddress)
     }
   }, [signerAddress])
@@ -69,26 +75,29 @@ const ReservedInputBlock = ({
   }, [address])
 
   useEffect(() => {
-    console.log("asd")
-
     handleChange(sharesAmount, shares, setShares)
-  }, [sharesAmount])
+    setTotalShares(
+      shares.reduce((a, b) => Number(a) + Number(b)) -
+        Number(shares[0]) +
+        Number(reservedStake)
+    )
+  }, [sharesAmount, reservedStake])
 
   return (
     visible && (
       <>
         <div className="col-span-1 col-start-1 mx-auto">
           <div className="">
-            {index === 0 ? (
+            {index != 0 ? (
               address &&
               (account === address || resolvedSignerAddress === address) ? (
                 <div className="w-5 h-5">
                   <Crown />
                 </div>
-              ) : null
-            ) : (
-              <Delete onClick={handleRemove} />
-            )}
+              ) : (
+                <Delete onClick={handleRemove} />
+              )
+            ) : null}
           </div>
         </div>
         <div className="col-span-7 xs:col-span-6 md:col-span-8">
@@ -98,20 +107,28 @@ const ReservedInputBlock = ({
             required={sharesAmount != 0}
             resolvedAddress={resolvedAddress}
             setResolvedAddress={setResolvedAddress}
+            disabled={index === 0}
+            placeholder={index === 0 ? "Blunt round" : undefined}
           />
         </div>
         <p className="col-span-5 pr-2 text-sm text-right xs:hidden">
           Reserved %
         </p>
-        <div className="col-span-3 xs:col-span-3">
+        <div className="col-span-3">
           <Input
             type="number"
-            placeholder={placeholder}
+            placeholder={
+              totalShares <= 100 ? `up to ${100 - totalShares}` : undefined
+            }
             min="0"
-            max="100"
-            value={sharesAmount != 0 ? sharesAmount : ""}
+            max={100}
+            value={
+              index == 0 ? reservedStake : sharesAmount != 0 ? sharesAmount : ""
+            }
+            error={sharesAmount > 100}
             required={address && true}
             onChange={setSharesAmount}
+            disabled={index === 0}
           />
         </div>
 
