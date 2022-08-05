@@ -4,7 +4,6 @@ import Add from "@components/icons/Add"
 import { useAppContext } from "@components/ui/context"
 
 type Props = {
-  success: boolean
   addresses: string[]
   shares: number[]
   totalShares: number
@@ -16,7 +15,6 @@ type Props = {
 }
 
 const ReservedBlockSplitter = ({
-  success,
   addresses,
   shares,
   reservedStake,
@@ -38,22 +36,9 @@ const ReservedBlockSplitter = ({
   }, [account])
 
   useEffect(() => {
-    if (success) {
-      resetInputs()
-    }
-  }, [success])
-
-  useEffect(() => {
     const errorCondition = totalShares > 100
     setReservedError(errorCondition)
   }, [totalShares])
-
-  const resetInputs = () => {
-    setInputCount(2)
-    setRemovedCount(0)
-    setAddresses([initAddress])
-    setShares([totalShares])
-  }
 
   return (
     <div className="grid items-center grid-cols-8 text-left xs:grid-cols-10 md:grid-cols-12 gap-x-4 gap-y-6 xs:gap-y-10">

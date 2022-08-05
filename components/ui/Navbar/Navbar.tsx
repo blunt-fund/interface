@@ -16,7 +16,7 @@ const Navbar = () => {
               </a>
             </Link>
           </div>
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 xs:gap-8">
             <Nightwind size="h-[24px]" />
             <div onClick={() => saEvent("connect_wallet_attempt")}>
               <CustomConnectButton />

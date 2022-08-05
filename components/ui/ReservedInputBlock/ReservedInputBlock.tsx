@@ -92,7 +92,7 @@ const ReservedInputBlock = ({
             {index != 0 ? (
               address &&
               (account === address || resolvedSignerAddress === address) ? (
-                <div className="w-5 h-5">
+                <div className="w-5 h-5" title="Project owner">
                   <Crown />
                 </div>
               ) : (

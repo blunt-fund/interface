@@ -13,9 +13,12 @@ const CreateRoundForm = () => {
   const [name, setName] = useState("")
   const [tokenSymbol, setTokenSymbol] = useState("")
   const [tokenIssuance, setTokenIssuance] = useState(0)
-  const [reservedPool, setReservedPool] = useState(50)
   const [reservedStake, setReservedStake] = useState(10)
   const [description, setDescription] = useState("")
+  const [website, setWebsite] = useState("")
+  const [twitter, setTwitter] = useState("")
+  const [discord, setDiscord] = useState("")
+  const [docs, setDocs] = useState("")
 
   const [duration, setDuration] = useState(0)
   const [isTargetEth, setIsTargetEth] = useState(true)
@@ -23,7 +26,6 @@ const CreateRoundForm = () => {
   const [isCapEth, setIsCapEth] = useState(true)
   const [cap, setCap] = useState(0)
 
-  const [settingsError, setSettingsError] = useState(false)
   const [reservedError, setReservedError] = useState(false)
   const [success, setSuccess] = useState(false)
   const [addresses, setAddresses] = useState([""])
@@ -33,12 +35,6 @@ const CreateRoundForm = () => {
   const handleSetTokenSymbol = (a: string) => {
     setTokenSymbol(a.toUpperCase())
   }
-
-  useEffect(() => {
-    if (Number(reservedStake) > Number(reservedPool)) {
-      setReservedStake(reservedPool)
-    }
-  }, [reservedPool])
 
   useEffect(() => {
     let items = shares
@@ -65,87 +61,12 @@ const CreateRoundForm = () => {
           onChange={setDescription}
         />
       </div>
-      <div className="xs:flex xs:gap-8">
-        <div className="xs:w-48">
-          <Input
-            type="string"
-            label="Token symbol"
-            value={tokenSymbol}
-            onChange={handleSetTokenSymbol}
-            question={
-              <>
-                Symbol of the ERC20 token to be issued for the project.
-                Tipically between 3 and 7 letters.
-              </>
-            }
-          />
-        </div>
-        <div className="pt-8 xs:pt-0 xs:flex-grow">
-          <Input
-            type="number"
-            label="Tokens issued per ETH"
-            min={0}
-            value={tokenIssuance != 0 ? tokenIssuance : ""}
-            onChange={setTokenIssuance}
-            placeholder="Optional"
-            question={
-              <>
-                Number of tokens to issue per ETH contributed during the blunt
-                round.
-              </>
-            }
-            questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
-          />
-        </div>
-      </div>
-      {/* <div>
-        <Input
-          type="range"
-          label={
-            <>
-              Reserved rate pool: <b>{Number(reservedPool).toFixed(1)}%</b>
-            </>
-          }
-          min={0}
-          step={0.5}
-          value={reservedPool}
-          onChange={setReservedPool}
-          question={
-            <>
-              Percentage of tokens minted to the reserved pool for every
-              treasury contribution.
-            </>
-          }
-        />
-      </div> */}
-      {/* <div className="pb-6">
-        <Input
-          type="range"
-          label={
-            <>
-              Round stake: <b>{Number(reservedStake).toFixed(1)}%</b>
-              ( {Number((reservedStake * 100) / reservedPool).toFixed(1)}% of pool) 
-            </>
-          }
-          min={0}
-          max={reservedPool}
-          step={0.5}
-          value={reservedStake}
-          onChange={setReservedStake}
-          question={
-            <>
-              Percentage of future issued tokens shared between the round
-              participants.
-            </>
-          }
-        />
-      </div> */}
       <div className="pb-6">
         <Input
           type="range"
           label={
             <>
-              Round stake: <b>{Number(reservedStake).toFixed(1)}%</b>
+              Round token allocation: <b>{Number(reservedStake).toFixed(1)}%</b>
             </>
           }
           min={0}
@@ -161,17 +82,10 @@ const CreateRoundForm = () => {
           }
         />
       </div>
-      {/* <div className="pb-6">
-        <ReservedTable
-          reservedPool={reservedPool}
-          reservedStake={reservedStake}
-        />
-      </div> */}
       <p className="font-bold">Advanced settings</p>
       <ul className="space-y-6">
         <CollapsibleItem
           label="Fundraise duration, target and cap"
-          error={settingsError}
           detail={
             <>
               <div className="py-3 space-y-6">
@@ -184,12 +98,13 @@ const CreateRoundForm = () => {
                     type="number"
                     label="Fundraise duration (days)"
                     min={0}
-                    value={duration}
+                    value={duration || ""}
                     onChange={setDuration}
+                    placeholder="14"
                     question={
                       <>
                         <p>Choose how long will the round last.</p>
-                        <p>Set to 0 to make duration unlimited.</p>
+                        <p>Leave blank to set duration unlimited.</p>
                       </>
                     }
                   />
@@ -203,8 +118,11 @@ const CreateRoundForm = () => {
                       setIsTargetEth((isTargetEth) => !isTargetEth)
                     }
                     min={0}
-                    value={target}
+                    value={target || ""}
                     onChange={setTarget}
+                    placeholder={`Minimum ${
+                      isTargetEth ? "ETH" : "USD"
+                    } to raise`}
                     question={
                       <>
                         <p>
@@ -212,7 +130,7 @@ const CreateRoundForm = () => {
                           round will close and contributions can be fully
                           refunded.
                         </p>
-                        <p>Set to 0 to disable.</p>
+                        <p>Leave blank to disable.</p>
                       </>
                     }
                   />
@@ -224,8 +142,9 @@ const CreateRoundForm = () => {
                     prefix={isCapEth ? "Ξ" : "$"}
                     prefixAction={() => setIsCapEth((isCapEth) => !isCapEth)}
                     min={0}
-                    value={cap}
+                    value={cap || ""}
                     onChange={setCap}
+                    placeholder={`Maximum ${isCapEth ? "ETH" : "USD"} to raise`}
                     question={
                       <>
                         <p>
@@ -233,7 +152,7 @@ const CreateRoundForm = () => {
                           reached. This guarantees contributors{" "}
                           <b>a minimum guaranteed amount of reserved rate</b>.
                         </p>
-                        <p>Set to 0 to disable.</p>
+                        <p>Leave blank to disable.</p>
                       </>
                     }
                   />
@@ -243,25 +162,134 @@ const CreateRoundForm = () => {
           }
         />
         <CollapsibleItem
-          label="Reserved rate configuration"
+          label="ERC20 token issuance"
+          detail={
+            <>
+              <div className="py-3 space-y-6">
+                <p>
+                  Configure the token to be used for the project and the
+                  quantity issued during the blunt round.
+                </p>
+                <div>
+                  <Input
+                    type="string"
+                    label="Token symbol"
+                    value={tokenSymbol}
+                    onChange={handleSetTokenSymbol}
+                    placeholder={
+                      name
+                        ? name
+                            .replaceAll(/[^a-zA-Z]+/g, "")
+                            .slice(0, 5)
+                            .toUpperCase()
+                        : "BLUNT"
+                    }
+                    question={
+                      <>
+                        Symbol of the ERC20 token to be issued for the project.
+                        Tipically between 3 and 7 letters.
+                      </>
+                    }
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    label="Tokens issued per ETH"
+                    min={0}
+                    value={tokenIssuance != 0 ? tokenIssuance : ""}
+                    onChange={setTokenIssuance}
+                    placeholder="1000000"
+                    question={
+                      <>
+                        Number of tokens to issue per ETH contributed during the
+                        blunt round.
+                      </>
+                    }
+                    questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
+                  />
+                </div>
+              </div>
+            </>
+          }
+        />
+        <CollapsibleItem
+          label="Customize reserved rate"
           error={reservedError}
           detail={
             <>
               <div className="py-3 space-y-6">
-                <p className="pt-8">
-                  Customize the beneficiaries for <i>other reserved</i>
+                <p>
+                  Add beneficiaries to the reserved rate in addition to the
+                  blunt round participants.
                 </p>
                 <ReservedBlockSplitter
-                  success={success}
                   addresses={addresses}
                   shares={shares}
-                  totalShares={totalShares}
                   reservedStake={reservedStake}
+                  totalShares={totalShares}
                   setAddresses={setAddresses}
                   setShares={setShares}
                   setTotalShares={setTotalShares}
                   setReservedError={setReservedError}
                 />
+              </div>
+            </>
+          }
+        />
+        <CollapsibleItem
+          label="Project links"
+          detail={
+            <>
+              <div className="py-3 space-y-6">
+                <p>Add website and social links to your project</p>
+                {/* 
+                <div>
+                  <Input
+                    type="string"
+                    label="Logo"
+                    value={website}
+                    onChange={setWebsite}
+                    placeholder="https://blunt.finance"
+                  />
+                </div> 
+                */}
+                <div>
+                  <Input
+                    type="string"
+                    label="Website"
+                    value={website}
+                    onChange={setWebsite}
+                    placeholder="https://blunt.finance"
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="string"
+                    label="Twitter"
+                    value={twitter}
+                    onChange={setTwitter}
+                    placeholder="@bluntfinance"
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="string"
+                    label="Discord"
+                    value={discord}
+                    onChange={setDiscord}
+                    placeholder="https://discord.gg/bluntfinance"
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="string"
+                    label="Docs"
+                    value={docs}
+                    onChange={setDocs}
+                    placeholder="https://blunt.notion.site"
+                  />
+                </div>
               </div>
             </>
           }
