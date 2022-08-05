@@ -31,7 +31,12 @@ export default function chartGenerator({
 
     const percentageToRender =
       Math.floor((Number(share) / totalShares) * 10000) / 100
-    const color = colorList[index % colorList.length]
+    const color =
+      index == 0
+        ? colorList[0]
+        : index == shares.length - 1
+        ? colorList[2]
+        : colorList[1]
 
     // define start angle
     const startAngle = (currentPercentage / 100) * 360

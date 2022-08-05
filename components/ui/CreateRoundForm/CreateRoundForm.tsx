@@ -111,15 +111,13 @@ const CreateRoundForm = () => {
           }
         />
       </div> */}
-      <div className="pb-6">
+      {/* <div className="pb-6">
         <Input
           type="range"
           label={
             <>
               Round stake: <b>{Number(reservedStake).toFixed(1)}%</b>
-              {/* 
               ( {Number((reservedStake * 100) / reservedPool).toFixed(1)}% of pool) 
-              */}
             </>
           }
           min={0}
@@ -128,30 +126,40 @@ const CreateRoundForm = () => {
           value={reservedStake}
           onChange={setReservedStake}
           question={
-            <>Percentage of tokens shared between the round participants.</>
+            <>
+              Percentage of future issued tokens shared between the round
+              participants.
+            </>
+          }
+        />
+      </div> */}
+      <div className="pb-6">
+        <Input
+          type="range"
+          label={
+            <>
+              Round stake: <b>{Number(reservedStake).toFixed(1)}%</b>
+            </>
+          }
+          min={0}
+          max={100}
+          step={0.5}
+          value={reservedStake}
+          onChange={setReservedStake}
+          question={
+            <>
+              Percentage of future issued tokens shared between the round
+              participants.
+            </>
           }
         />
       </div>
-      {/* <div className="pt-12 pb-8">
-        <p className="pb-8 text-base text-center">Token emission preview</p>
-        <div className="text-black">
-          <PieChart
-            addresses={["Contributor", "Other reserved", "Blunt round"]}
-            shares={[
-              100 - reservedPool,
-              reservedPool - reservedStake,
-              reservedStake
-            ]}
-            total={100}
-          />
-        </div>
-      </div> */}
-      <div className="pb-6">
+      {/* <div className="pb-6">
         <ReservedTable
           reservedPool={reservedPool}
           reservedStake={reservedStake}
         />
-      </div>
+      </div> */}
       <p className="font-bold">Advanced settings</p>
       <ul className="space-y-6">
         <CollapsibleItem
@@ -247,6 +255,33 @@ const CreateRoundForm = () => {
                   setTotalShares={setTotalShares}
                   setReservedError={setReservedError}
                 />
+
+                <div className="py-8">
+                  <p className="pb-8 text-base text-center">
+                    Token emission preview
+                  </p>
+                  <div className="text-black">
+                    <PieChart
+                      addresses={[
+                        "Contributor",
+                        ...addresses.slice(1),
+                        "Blunt round"
+                      ]}
+                      shares={[
+                        100 - totalShares,
+                        ...shares.slice(1),
+                        reservedStake
+                      ]}
+                      total={100}
+                    />
+                  </div>
+                </div>
+                <div className="pb-6">
+                  <ReservedTable
+                    reservedPool={totalShares}
+                    reservedStake={reservedStake}
+                  />
+                </div>
               </div>
             </>
           }

@@ -83,7 +83,7 @@ const ReservedBlockSplitter = ({
         )
       })}
 
-      <div className="flex col-span-5 pl-1 text-blue-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2">
+      <div className="flex col-span-5 pl-1 text-blue-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
         <Add onClick={() => setInputCount(inputCount + 1)} />
         <p
           className="inline-block pl-4 font-semibold"

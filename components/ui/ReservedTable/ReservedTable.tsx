@@ -11,23 +11,23 @@ const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
       <table>
         <thead>
           <tr className="bg-gray-100">
-            <th scope="col">Cycle</th>
+            {/* <th scope="col">Cycle</th> */}
             <th scope="col">Contributor</th>
             <th scope="col">Blunt round</th>
             <th scope="col">Other reserved</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Current</th>
+          {/*<tr className="border-b border-gray-200">
+             <th scope="row">Current</th> 
             <td>{Number(100 - reservedPool).toFixed(1)}%</td>
             <td>0%</td>
             <td className="font-bold text-blue-400 dark:text-blue-300 ">
               {Number(reservedPool).toFixed(1)}%
             </td>
-          </tr>
-          <tr className="border border-gray-200">
-            <th scope="row">Next</th>
+          </tr>*/}
+          <tr className="border-b border-gray-200">
+            {/* <th scope="row">Next</th> */}
             <td>{Number(100 - reservedPool).toFixed(1)}%</td>
             <td className="font-bold text-blue-600 nightwind-prevent">
               {Number(reservedStake).toFixed(1)}%
