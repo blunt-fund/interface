@@ -28,7 +28,7 @@ const CreateRoundForm = () => {
   const [success, setSuccess] = useState(false)
   const [addresses, setAddresses] = useState([""])
   const [shares, setShares] = useState([100])
-  const [totalShares, setTotalShares] = useState(100)
+  const [totalShares, setTotalShares] = useState(10)
 
   const handleSetTokenSymbol = (a: string) => {
     setTokenSymbol(a.toUpperCase())
@@ -255,38 +255,28 @@ const CreateRoundForm = () => {
                   setTotalShares={setTotalShares}
                   setReservedError={setReservedError}
                 />
-
-                <div className="py-8">
-                  <p className="pb-8 text-base text-center">
-                    Token emission preview
-                  </p>
-                  <div className="text-black">
-                    <PieChart
-                      addresses={[
-                        "Contributor",
-                        ...addresses.slice(1),
-                        "Blunt round"
-                      ]}
-                      shares={[
-                        100 - totalShares,
-                        ...shares.slice(1),
-                        reservedStake
-                      ]}
-                      total={100}
-                    />
-                  </div>
-                </div>
-                <div className="pb-6">
-                  <ReservedTable
-                    reservedPool={totalShares}
-                    reservedStake={reservedStake}
-                  />
-                </div>
               </div>
             </>
           }
         />
       </ul>
+
+      <div className="py-8">
+        <p className="pb-8 text-base text-center">Token emission preview</p>
+        <div className="text-black">
+          <PieChart
+            addresses={["Contributor", ...addresses.slice(1), "Blunt round"]}
+            shares={[100 - totalShares, ...shares.slice(1), reservedStake]}
+            total={100}
+          />
+        </div>
+      </div>
+      <div className="pb-6">
+        <ReservedTable
+          reservedPool={totalShares}
+          reservedStake={reservedStake}
+        />
+      </div>
       <div className="pt-6 text-center">
         <Button label="Create" />
       </div>
