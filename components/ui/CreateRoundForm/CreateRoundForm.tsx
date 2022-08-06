@@ -5,10 +5,8 @@ import {
   CreateFormAdvancedERC20,
   CreateFormAdvancedFundraise,
   CreateFormAdvancedLinks,
-  PieChart,
   CreateFormAdvancedReservedRate,
   ReservedTable,
-  ProgressBar,
   Textarea
 } from "@components/ui"
 import React, { useEffect, useState } from "react"
@@ -211,23 +209,12 @@ const CreateRoundForm = () => {
 
       <div className="py-8">
         <p className="pb-8 text-base text-center">Token emission preview</p>
-        <div className="text-black">
-          <PieChart
-            addresses={["Contributor", ...addresses.slice(1), "Blunt round"]}
-            shares={[
-              100 - totalShares,
-              ...shares.slice(1),
-              Number(reservedStake)
-            ]}
-            total={100}
+        <div className="pb-6">
+          <ReservedTable
+            reservedPool={totalShares}
+            reservedStake={Number(reservedStake)}
           />
         </div>
-      </div>
-      <div className="pb-6">
-        <ReservedTable
-          reservedPool={totalShares}
-          reservedStake={Number(reservedStake)}
-        />
       </div>
 
       <div className="text-center">

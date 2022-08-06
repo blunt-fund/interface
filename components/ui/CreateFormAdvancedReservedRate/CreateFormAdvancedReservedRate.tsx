@@ -1,5 +1,5 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { ReservedInputBlock } from "@components/ui"
+import { PieChart, ReservedInputBlock } from "@components/ui"
 import Add from "@components/icons/Add"
 import { useAppContext } from "@components/ui/context"
 
@@ -92,6 +92,17 @@ const CreateFormAdvancedReservedRate = ({
             Total: {totalShares}%
           </p>
         </div>
+      </div>
+      <div className="text-black">
+        <PieChart
+          addresses={["Contributor", ...addresses.slice(1), "Blunt round"]}
+          shares={[
+            100 - totalShares,
+            ...shares.slice(1),
+            Number(reservedStake)
+          ]}
+          total={100}
+        />
       </div>
     </div>
   )
