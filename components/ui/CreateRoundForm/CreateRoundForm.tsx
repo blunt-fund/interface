@@ -8,6 +8,7 @@ import {
   PieChart,
   CreateFormAdvancedReservedRate,
   ReservedTable,
+  ProgressBar,
   Textarea
 } from "@components/ui"
 import React, { useEffect, useState } from "react"
@@ -42,6 +43,7 @@ This is a [test link](https://blunt.finance)`)
   const [discord, setDiscord] = useState("")
   const [docs, setDocs] = useState("")
 
+  const [targetError, setTargetError] = useState(false)
   const [reservedError, setReservedError] = useState(false)
   const [addresses, setAddresses] = useState([""])
   const [shares, setShares] = useState([100])
@@ -62,36 +64,37 @@ This is a [test link](https://blunt.finance)`)
 
   const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
+    if (!reservedError && !targetError) {
+      const markdownToHtml = (await import("@lib/markdownToHtml")).default
+      const descriptionHtml = await markdownToHtml(description)
 
-    const markdownToHtml = (await import("@lib/markdownToHtml")).default
-    const descriptionHtml = await markdownToHtml(description)
-
-    setModalView({
-      name: "CREATE_ROUND_REVIEW",
-      cross: true,
-      params: {
-        name,
-        tokenSymbol,
-        tokenIssuance,
-        reservedStake,
-        description,
-        descriptionHtml,
-        image,
-        website,
-        twitter,
-        discord,
-        docs,
-        duration,
-        isTargetEth,
-        target,
-        isCapEth,
-        cap,
-        reservedError,
-        addresses,
-        shares,
-        totalShares
-      }
-    })
+      setModalView({
+        name: "CREATE_ROUND_REVIEW",
+        cross: true,
+        params: {
+          name,
+          tokenSymbol,
+          tokenIssuance,
+          reservedStake,
+          description,
+          descriptionHtml,
+          image,
+          website,
+          twitter,
+          discord,
+          docs,
+          duration,
+          isTargetEth,
+          target,
+          isCapEth,
+          cap,
+          reservedError,
+          addresses,
+          shares,
+          totalShares
+        }
+      })
+    }
   }
 
   return (
@@ -134,6 +137,7 @@ This is a [test link](https://blunt.finance)`)
       <ul className="space-y-6">
         <CollapsibleItem
           label="Fundraise duration, target and cap"
+          error={targetError}
           detail={
             <CreateFormAdvancedFundraise
               duration={duration}
@@ -141,11 +145,13 @@ This is a [test link](https://blunt.finance)`)
               target={target}
               isCapEth={isCapEth}
               cap={cap}
+              targetError={targetError}
               setDuration={setDuration}
               setIsTargetEth={setIsTargetEth}
               setTarget={setTarget}
               setIsCapEth={setIsCapEth}
               setCap={setCap}
+              setTargetError={setTargetError}
             />
           }
         />

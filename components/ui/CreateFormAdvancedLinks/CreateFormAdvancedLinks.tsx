@@ -2,7 +2,6 @@ import Image from "next/image"
 import { Input } from "@components/ui"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import Camera from "@components/icons/Camera"
-
 import projectDefault from "public/project_default.png"
 import { Message } from "@utils/handleMessage"
 
@@ -69,9 +68,9 @@ const CreateFormAdvancedLinks = ({
         <p className="pb-2 text-sm">Logo</p>
         <label
           htmlFor="upload"
-          className="relative flex items-center justify-center bg-gray-800 cursor-pointer w-36 h-36 group"
+          className="relative flex items-center justify-center bg-white border border-gray-200 rounded-sm shadow-md cursor-pointer bg-opacity-20 w-36 h-36 group"
         >
-          <div className="flex flex-grow opacity-50 group-hover:opacity-20">
+          <div className="flex flex-grow group-hover:opacity-20">
             <Image
               src={image.url || projectDefault}
               alt={image.url ? `${name} logo` : "Default project logo"}
@@ -80,7 +79,7 @@ const CreateFormAdvancedLinks = ({
             />
           </div>
           <Camera
-            className={`absolute top-[8px] right-[8px] w-4 h-4 text-white group-hover:text-blue-300 dark:group-hover:text-blue-600`}
+            className={`absolute top-[8px] right-[8px] w-4 h-4 text-black group-hover:text-blue-300 dark:group-hover:text-blue-600`}
           />
         </label>
         {image.url && (

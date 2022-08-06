@@ -1,5 +1,5 @@
 import { Input } from "@components/ui"
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useEffect } from "react"
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -8,11 +8,13 @@ type Props = {
   cap: number
   isTargetEth: boolean
   isCapEth: boolean
+  targetError: boolean
   setDuration: Dispatch<SetStateAction<number>>
   setTarget: Dispatch<SetStateAction<number>>
   setCap: Dispatch<SetStateAction<number>>
   setIsTargetEth: Dispatch<SetStateAction<boolean>>
   setIsCapEth: Dispatch<SetStateAction<boolean>>
+  setTargetError: Dispatch<SetStateAction<boolean>>
 }
 
 const CreateFormAdvancedFundraise = ({
@@ -21,12 +23,18 @@ const CreateFormAdvancedFundraise = ({
   target,
   isCapEth,
   cap,
+  targetError,
   setDuration,
   setIsTargetEth,
   setTarget,
   setIsCapEth,
-  setCap
+  setCap,
+  setTargetError
 }: Props) => {
+  useEffect(() => {
+    setTargetError(target != 0 && cap != 0 && Number(target) > Number(cap))
+  }, [target, cap])
+
   return (
     <div className="py-3 space-y-6">
       <p>
@@ -53,6 +61,7 @@ const CreateFormAdvancedFundraise = ({
         <Input
           type="number"
           label="Target"
+          error={targetError}
           prefix={isTargetEth ? "Ξ" : "$"}
           prefixAction={() => setIsTargetEth((isTargetEth) => !isTargetEth)}
           min={0}
@@ -74,6 +83,7 @@ const CreateFormAdvancedFundraise = ({
         <Input
           type="number"
           label="Hard cap"
+          error={targetError}
           prefix={isCapEth ? "Ξ" : "$"}
           prefixAction={() => setIsCapEth((isCapEth) => !isCapEth)}
           min={0}
@@ -92,6 +102,11 @@ const CreateFormAdvancedFundraise = ({
           }
         />
       </div>
+      {targetError && (
+        <p className="text-sm text-red-500">
+          Target cannot be higher than hard cap
+        </p>
+      )}
     </div>
   )
 }
