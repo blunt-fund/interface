@@ -246,30 +246,6 @@ const CreateRoundForm = () => {
           }
         />
         <CollapsibleItem
-          label="Customize reserved rate"
-          error={reservedError}
-          detail={
-            <>
-              <div className="py-3 space-y-6">
-                <p>
-                  Add beneficiaries to the reserved rate in addition to the
-                  blunt round participants.
-                </p>
-                <ReservedBlockSplitter
-                  addresses={addresses}
-                  shares={shares}
-                  reservedStake={reservedStake}
-                  totalShares={totalShares}
-                  setAddresses={setAddresses}
-                  setShares={setShares}
-                  setTotalShares={setTotalShares}
-                  setReservedError={setReservedError}
-                />
-              </div>
-            </>
-          }
-        />
-        <CollapsibleItem
           label="Project links"
           detail={
             <>
@@ -322,6 +298,30 @@ const CreateRoundForm = () => {
                     placeholder="https://blunt.notion.site"
                   />
                 </div>
+              </div>
+            </>
+          }
+        />
+        <CollapsibleItem
+          label="Customize reserved rate"
+          error={reservedError}
+          detail={
+            <>
+              <div className="py-3 space-y-6">
+                <p>
+                  Add beneficiaries to the reserved rate in addition to the
+                  blunt round participants.
+                </p>
+                <ReservedBlockSplitter
+                  addresses={addresses}
+                  shares={shares}
+                  reservedStake={reservedStake}
+                  totalShares={totalShares}
+                  setAddresses={setAddresses}
+                  setShares={setShares}
+                  setTotalShares={setTotalShares}
+                  setReservedError={setReservedError}
+                />
               </div>
             </>
           }
