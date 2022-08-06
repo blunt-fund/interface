@@ -40,6 +40,7 @@ const CreateFormAdvancedERC20 = ({
   isFundraiseEth
 }: Props) => {
   const currency = isFundraiseEth ? "Ξ" : "USD"
+  const twitterUrl = `https://twitter.com/${twitter.replace("@", "")}`
 
   return (
     <div className="text-left">
@@ -71,7 +72,7 @@ const CreateFormAdvancedERC20 = ({
                   className="w-5 h-5 higlight"
                   target="_blank"
                   rel="noreferrer"
-                  href={twitter}
+                  href={twitterUrl}
                 >
                   <Twitter />
                 </a>
