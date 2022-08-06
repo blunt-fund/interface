@@ -30,8 +30,7 @@ const CustomConnectButton = () => {
                     label="Connect Wallet"
                     onClick={openConnectModal}
                     type="button"
-                    className="px-5 overflow-hidden text-sm font-bold tracking-wide rounded-sm"
-                    color="dark:!text-white text-blue-600 border-blue-600 border-2 hover:bg-blue-700 focus:bg-blue-700 hover:text-white"
+                    secondary
                   />
                 )
               }
@@ -42,7 +41,7 @@ const CustomConnectButton = () => {
                     label="Wrong network"
                     onClick={openChainModal}
                     type="button"
-                    className="px-5 overflow-hidden text-sm font-bold tracking-wide rounded-sm"
+                    customClassName="px-5 overflow-hidden text-sm font-bold tracking-wide rounded-sm"
                   />
                 )
               }

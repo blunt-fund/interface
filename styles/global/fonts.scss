@@ -26,8 +26,15 @@ a {
   text-decoration-color: theme("colors.blue.600");
   text-decoration-thickness: 1.5px;
   text-underline-offset: 1px;
+  &.highlight-red {
+    @apply hover:text-red-500;
+    text-decoration-color: theme("colors.red.500");
+  }
 }
 
 .dark .highlight {
   text-decoration-color: theme("colors.blue.300");
+  &.highlight-red {
+    text-decoration-color: theme("colors.red.500");
+  }
 }

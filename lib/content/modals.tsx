@@ -1,5 +1,6 @@
 import { Button } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
+import { useState } from "react"
 
 export type View = {
   name: ViewNames
@@ -62,6 +63,7 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
     tokenIssuance,
     reservedStake,
     description,
+    descriptionHtml,
     website,
     twitter,
     discord,
@@ -80,12 +82,20 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
 
   return (
     <div className="text-center">
-      <h1 className="text-2xl sm:text-3xl">Blunt round review</h1>
+      <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-6">
         <p>
-          WIP || Preview screen of the blunt round page with following data ||
-          WIP
+          Proceeding will create a project on Juicebox with the following
+          settings, and a slicer on Slice to handle token distribution to the
+          blunt round participants.
         </p>
+        <hr className="w-20 !my-12 mx-auto border-gray-300" />
+        <div className="text-left">
+          <h1 className="text-2xl sm:text-3xl">{name}</h1>
+          <div className="prose">
+            <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+          </div>
+        </div>
         <table>
           <thead>
             <tr className="bg-gray-100">
@@ -96,7 +106,10 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
           <tbody>
             {Object.entries(params).map((el, i) => {
               return (
-                <tr key={i} className="border-b border-gray-200">
+                <tr
+                  key={i}
+                  className="border-b border-gray-100 even:bg-gray-50"
+                >
                   {/* <th scope="row">Next</th> */}
                   <td>{el[0]}</td>
                   <td className="font-bold">{String(el[1])}</td>
