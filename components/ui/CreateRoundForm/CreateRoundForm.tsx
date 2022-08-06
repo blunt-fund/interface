@@ -100,7 +100,7 @@ const CreateRoundForm = () => {
   }
 
   return (
-    <form className="space-y-6 text-left" onSubmit={submit}>
+    <form className="space-y-8 text-left" onSubmit={submit}>
       <div>
         <Input label="Project name" value={name} onChange={setName} required />
       </div>
@@ -135,7 +135,7 @@ const CreateRoundForm = () => {
         />
       </div>
 
-      <p className="font-bold">Advanced settings</p>
+      <p className="pt-4 font-bold">Advanced settings</p>
       <ul className="space-y-6">
         <CollapsibleItem
           label="Fundraise duration, target and cap"
@@ -204,7 +204,9 @@ const CreateRoundForm = () => {
       </ul>
 
       <div className="py-8">
-        <p className="pb-8 text-base text-center">Token emission preview</p>
+        <p className="pb-6 text-base font-bold text-left">
+          Token emission preview
+        </p>
         <div className="pb-6">
           <ReservedTable
             reservedPool={totalShares}

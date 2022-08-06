@@ -46,7 +46,7 @@ const CollapsibleItem = ({
         )}
       </div>
       {showDetail && (
-        <div className="px-3 py-4 mt-3 border border-gray-200 xs:px-5">
+        <div className="px-3 py-5 mt-3 border border-gray-200 xs:px-5">
           {typeof detail == "string" ? <p className="">{detail}</p> : detail}
         </div>
       )}
