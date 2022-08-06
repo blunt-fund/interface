@@ -18,11 +18,17 @@ import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 const CreateRoundForm = () => {
   const { setModalView } = useAppContext()
 
-  const [name, setName] = useState("test project")
-  const [description, setDescription] = useState(`A test project description
-  
-### More info
-This is a [test link](https://blunt.finance)`)
+  const [name, setName] = useState(
+    ""
+    // "Test project"
+  )
+  const [description, setDescription] = useState(
+    ""
+    //`A test project description
+
+    // ### More info
+    // This is a [test link](https://blunt.finance)`
+  )
   const [reservedStake, setReservedStake] = useState(10)
 
   const [duration, setDuration] = useState(0)
