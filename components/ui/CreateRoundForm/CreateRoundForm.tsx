@@ -30,9 +30,8 @@ const CreateRoundForm = () => {
   const [reservedStake, setReservedStake] = useState(10)
 
   const [duration, setDuration] = useState(0)
-  const [isTargetEth, setIsTargetEth] = useState(true)
   const [target, setTarget] = useState(0)
-  const [isCapEth, setIsCapEth] = useState(true)
+  const [isFundraiseEth, setIsFundraiseEth] = useState(true)
   const [cap, setCap] = useState(0)
 
   const [tokenSymbol, setTokenSymbol] = useState("")
@@ -88,9 +87,8 @@ const CreateRoundForm = () => {
           discord,
           docs,
           duration,
-          isTargetEth,
           target,
-          isCapEth,
+          isFundraiseEth,
           cap,
           reservedError,
           addresses,
@@ -145,15 +143,13 @@ const CreateRoundForm = () => {
           detail={
             <CreateFormAdvancedFundraise
               duration={duration}
-              isTargetEth={isTargetEth}
               target={target}
-              isCapEth={isCapEth}
+              isFundraiseEth={isFundraiseEth}
               cap={cap}
               targetError={targetError}
               setDuration={setDuration}
-              setIsTargetEth={setIsTargetEth}
               setTarget={setTarget}
-              setIsCapEth={setIsCapEth}
+              setIsFundraiseEth={setIsFundraiseEth}
               setCap={setCap}
               setTargetError={setTargetError}
             />

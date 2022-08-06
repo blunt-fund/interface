@@ -6,34 +6,30 @@ type Props = {
   duration: number
   target: number
   cap: number
-  isTargetEth: boolean
-  isCapEth: boolean
+  isFundraiseEth: boolean
   targetError: boolean
   setDuration: Dispatch<SetStateAction<number>>
   setTarget: Dispatch<SetStateAction<number>>
   setCap: Dispatch<SetStateAction<number>>
-  setIsTargetEth: Dispatch<SetStateAction<boolean>>
-  setIsCapEth: Dispatch<SetStateAction<boolean>>
+  setIsFundraiseEth: Dispatch<SetStateAction<boolean>>
   setTargetError: Dispatch<SetStateAction<boolean>>
 }
 
 const CreateFormAdvancedFundraise = ({
   duration,
-  isTargetEth,
   target,
-  isCapEth,
+  isFundraiseEth,
   cap,
   targetError,
   setDuration,
-  setIsTargetEth,
   setTarget,
-  setIsCapEth,
+  setIsFundraiseEth,
   setCap,
   setTargetError
 }: Props) => {
   useEffect(() => {
     setTargetError(target != 0 && cap != 0 && Number(target) > Number(cap))
-  }, [target, cap])
+  }, [setTargetError, target, cap])
 
   return (
     <div className="py-3 space-y-6">
@@ -62,12 +58,14 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Target"
           error={targetError}
-          prefix={isTargetEth ? "Ξ" : "$"}
-          prefixAction={() => setIsTargetEth((isTargetEth) => !isTargetEth)}
+          prefix={isFundraiseEth ? "Ξ" : "$"}
+          prefixAction={() =>
+            setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
+          }
           min={0}
           value={target || ""}
           onChange={setTarget}
-          placeholder={`Minimum ${isTargetEth ? "ETH" : "USD"} to raise`}
+          placeholder={`Minimum ${isFundraiseEth ? "ETH" : "USD"} to raise`}
           question={
             <>
               <p>
@@ -84,12 +82,14 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Hard cap"
           error={targetError}
-          prefix={isCapEth ? "Ξ" : "$"}
-          prefixAction={() => setIsCapEth((isCapEth) => !isCapEth)}
+          prefix={isFundraiseEth ? "Ξ" : "$"}
+          prefixAction={() =>
+            setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
+          }
           min={0}
           value={cap || ""}
           onChange={setCap}
-          placeholder={`Maximum ${isCapEth ? "ETH" : "USD"} to raise`}
+          placeholder={`Maximum ${isFundraiseEth ? "ETH" : "USD"} to raise`}
           question={
             <>
               <p>
@@ -102,6 +102,9 @@ const CreateFormAdvancedFundraise = ({
           }
         />
       </div>
+      <p className="text-sm text-gray-600">
+        Note: Target and cap need to be in the same currency
+      </p>
       {targetError && (
         <p className="text-sm text-red-500">
           Target cannot be higher than hard cap
