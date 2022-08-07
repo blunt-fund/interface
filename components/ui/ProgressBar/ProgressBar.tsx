@@ -8,8 +8,6 @@ type Props = {
 }
 
 const ProgressBar = ({ min, max, target, raised }: Props) => {
-  console.log(max)
-
   return (
     <div className="relative flex items-center w-full h-1 text-black bg-white border border-gray-400 rounded-sm ">
       <div className="absolute w-full p-3 overflow-hidden">

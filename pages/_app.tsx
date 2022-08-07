@@ -1,6 +1,6 @@
 import { ClickToComponent } from "click-to-react-component"
 import { ThemeProvider } from "next-themes"
-import Head from "@components/common/Head"
+import Head, { defaultTitle } from "@components/common/Head"
 import { Background, Layout } from "@components/ui"
 import "../styles/global/styles.scss"
 import { AppWrapper } from "@components/ui/context"
@@ -27,7 +27,7 @@ const { chains, provider } = configureChains(defaultChains, [
 ])
 
 const { connectors } = getDefaultWallets({
-  appName: "Slice",
+  appName: defaultTitle,
   chains
 })
 
