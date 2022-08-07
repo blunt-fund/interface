@@ -135,6 +135,14 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
               })
             }
           />
+          <p>
+            <span
+              className="inline-block mt-4 text-sm font-bold text-red-500 cursor-pointer hover:underline"
+              onClick={() => setModalView({ name: "" })}
+            >
+              Go back
+            </span>
+          </p>
         </div>
       </div>
     </div>

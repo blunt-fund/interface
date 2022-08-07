@@ -22,6 +22,7 @@ type Props = {
   target: number
   cap: number
   isFundraiseEth: boolean
+  raised?: number
 }
 
 const CreateFormAdvancedERC20 = ({
@@ -37,9 +38,10 @@ const CreateFormAdvancedERC20 = ({
   duration,
   target,
   cap,
-  isFundraiseEth
+  isFundraiseEth,
+  raised = 0
 }: Props) => {
-  const currency = isFundraiseEth ? "Ξ" : "USD"
+  const currency = isFundraiseEth ? "ETH" : "USD"
   const twitterUrl = `https://twitter.com/${twitter.replace("@", "")}`
 
   return (
@@ -103,19 +105,19 @@ const CreateFormAdvancedERC20 = ({
             <ProgressBar max={cap || target * 5} target={target} />
             <div className="flex justify-between pt-6 pb-2">
               <p>
-                Target:{" "}
+                Raised:{" "}
                 <b>
-                  {target != 0
-                    ? `${formatNumber(target, 1)} ${currency}`
-                    : "none"}
+                  {raised} {cap != 0 && `/ ${formatNumber(cap, 1)}`} {currency}
                 </b>
               </p>
-              <p>
-                Cap:{" "}
-                <b>
-                  {cap ? `${formatNumber(cap, 1)} ${currency}` : "unlimited"}
-                </b>
-              </p>
+              {target != 0 && (
+                <p>
+                  Target:{" "}
+                  <b>
+                    {formatNumber(target, 1)} {currency}
+                  </b>
+                </p>
+              )}
             </div>
             <div className="flex justify-between">
               <p>

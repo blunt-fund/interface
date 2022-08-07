@@ -34,7 +34,7 @@ export default function Create() {
         <main className="max-w-screen-sm mx-auto space-y-10 ">
           <h1>Blunt round #{id}</h1>
           <RoundViewMain
-            name={"test"}
+            name={"Test"}
             descriptionHtml={""}
             image={{ url: "", file: undefined }}
             website={""}
