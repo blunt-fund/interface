@@ -7,10 +7,13 @@ import {
   domain
 } from "@components/common/Head"
 import { useRouter } from "next/router"
+import { rounds } from "@components/ui/MyRounds/MyRounds"
 
 export default function Create() {
   const router = useRouter()
   const { id } = router.query
+
+  const round = rounds.filter((r) => r.roundId == Number(id))[0]
 
   return (
     <>
@@ -32,22 +35,24 @@ export default function Create() {
       />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10 ">
-          <h1>Blunt round #{id}</h1>
-          <RoundViewMain
-            name={"Test"}
-            descriptionHtml={""}
-            image={{ url: "", file: undefined }}
-            website={""}
-            twitter={"@jj_ranalli"}
-            discord={""}
-            docs={""}
-            tokenSymbol={"TEST"}
-            tokenIssuance={12345}
-            duration={21}
-            target={123}
-            cap={456}
-            isFundraiseEth={true}
-          />
+          {round && (
+            <RoundViewMain
+              name={round.name}
+              descriptionHtml={round.descriptionHtml}
+              image={round.image}
+              website={round.website}
+              twitter={round.twitter}
+              discord={round.discord}
+              docs={round.docs}
+              tokenSymbol={round.tokenSymbol}
+              tokenIssuance={round.tokenIssuance}
+              duration={round.duration}
+              target={round.target}
+              cap={round.cap}
+              isFundraiseEth={round.isFundraiseEth}
+              raised={round.raised}
+            />
+          )}
         </main>
       </Container>
     </>
