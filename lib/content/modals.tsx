@@ -47,10 +47,17 @@ export const CREATE_ROUND_PROCESS = (params: any) => {
     totalShares
   } = params
 
+  const roundId = 1
+
   return (
     <div className="text-center">
-      <h1 className="text-2xl sm:text-3xl">Blunt round in progress</h1>
-      <p>{name}</p>
+      <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
+      <div className="pt-8 space-y-6">
+        <p>Let&apos;s suppose all went right, yay!</p>
+        <div onClick={() => setModalView({ name: "" })}>
+          <Button label="Go to round" href={`/round/${roundId}`} />
+        </div>
+      </div>
     </div>
   )
 }

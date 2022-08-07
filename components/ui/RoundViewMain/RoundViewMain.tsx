@@ -58,7 +58,7 @@ const CreateFormAdvancedERC20 = ({
         <div className="flex-grow pt-6 xs:pt-0">
           <h1 className="text-2xl sm:text-3xl">{name}</h1>
           {(website || twitter || discord || docs) && (
-            <div className="flex items-center gap-6 mt-3 ml-1">
+            <div className="flex items-center gap-6 mt-4 ml-1">
               {website && (
                 <a
                   className="w-5 h-5 higlight"
@@ -101,34 +101,45 @@ const CreateFormAdvancedERC20 = ({
               )}
             </div>
           )}
-          <div className="mt-10 text-xs xs:text-sm">
+          <div className="text-xs mt-9 xs:text-sm">
             <ProgressBar max={cap || target * 5} target={target} />
-            <div className="flex justify-between pt-6 pb-2">
+            <div className="flex justify-between pt-5 pb-2">
               <p>
                 Raised:{" "}
                 <b>
-                  {raised} {cap != 0 && `/ ${formatNumber(cap, 1)}`} {currency}
+                  <span
+                    className={
+                      raised < target
+                        ? "text-yellow-600"
+                        : "text-blue-600 nightwind prevent"
+                    }
+                  >
+                    {raised}
+                  </span>{" "}
+                  {cap != 0 && `/ ${formatNumber(cap, 1)}`} {currency}
                 </b>
               </p>
+              <p>
+                Deadline: <b>{duration ? `${duration} days` : "none"}</b>
+              </p>
+            </div>
+            <div className="flex justify-between">
+              {tokenIssuance != 0 && (
+                <p>
+                  Issuance:{" "}
+                  <b>
+                    <span className="text-blue-600">
+                      {formatNumber(tokenIssuance, 1)} {tokenSymbol || "tokens"}
+                    </span>{" "}
+                    / ETH
+                  </b>
+                </p>
+              )}
               {target != 0 && (
                 <p>
                   Target:{" "}
                   <b>
                     {formatNumber(target, 1)} {currency}
-                  </b>
-                </p>
-              )}
-            </div>
-            <div className="flex justify-between">
-              <p>
-                Deadline: <b>{duration ? `${duration} days` : "none"}</b>
-              </p>
-              {tokenIssuance != 0 && (
-                <p>
-                  Issued:{" "}
-                  <b>
-                    {formatNumber(tokenIssuance, 1)} {tokenSymbol || "tokens"} /
-                    ETH
                   </b>
                 </p>
               )}

@@ -42,10 +42,10 @@ export default function Create() {
             discord={""}
             docs={""}
             tokenSymbol={"TEST"}
-            tokenIssuance={1000}
-            duration={2}
-            target={3}
-            cap={4}
+            tokenIssuance={12345}
+            duration={21}
+            target={123}
+            cap={456}
             isFundraiseEth={true}
           />
         </main>
