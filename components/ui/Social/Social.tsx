@@ -12,6 +12,7 @@ import {
   Juicebox,
   Notion
 } from "@components/icons/Social"
+import Slice from "@components/icons/Slice"
 
 type Props = {
   accounts: object
@@ -23,10 +24,10 @@ export const accounts = {
   twitter: "https://twitter.com/slice__so",
   // discord: "https://discord.gg/CdyHUzdZks",
   // notion: "https://slicedao.notion.site",
-  github: "https://github.com/slice-so",
+  github: "https://github.com/jjranalli/blunt-finance",
   // blog: "/blog",
+  slice: "https://slice.so",
   juicebox: "https://juicebox.money/#/p/slice"
-  // reddit: "https://reddit.com/r/slice",
 }
 
 const Social: FC<Props> = ({ wrapperClassName, accounts }, props) => {
@@ -43,13 +44,14 @@ const Social: FC<Props> = ({ wrapperClassName, accounts }, props) => {
     instagram: { color: "hover:text-pink-500", element: Instagram },
     reddit: { color: "hover:text-red-500", element: Reddit },
     linkedin: { color: "hover:text-blue-700", element: Linkedin },
+    slice: { color: "hover:text-blue-600", element: Slice },
     mail: { color: "hover:text-gray-500", element: Mail }
   }
 
   const size = "h-6"
 
   return (
-    <div className={`${wrapperClassName} flex justify-center`}>
+    <div className={`${wrapperClassName} flex justify-center items-center`}>
       {Object.keys(accounts).map((key) => {
         const DynamicComponent = components[key].element
         const componentColor = components[key].color
