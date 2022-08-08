@@ -67,7 +67,7 @@ const Input: React.FC<Props> = ({
       >
         {onClick && (
           <div
-            className={`relative text-sm font-bold group flex items-center justify-center px-5 text-white nightwind-prevent ${
+            className={`relative text-sm font-bold group flex items-center justify-center px-8 text-white nightwind-prevent ${
               error
                 ? "cursor-pointer bg-red-500"
                 : `bg-blue-600 ${
@@ -82,14 +82,15 @@ const Input: React.FC<Props> = ({
               <span className={`mr-1 ${loading ? "-z-10" : ""}`}>
                 {onClickLabel}
               </span>
-            )}{" "}
+            )}
+            {/* {" "}
             <div
               className={`w-[1.2rem] h-[1.2rem] text-white nightwind-prevent transition-transform duration-150 group-hover:translate-x-1 ${
                 loading ? "-z-10" : ""
               }`}
             >
               <Arrow />
-            </div>
+            </div> */}
             {loading && (
               <div className="absolute flex items-center justify-center w-full h-full">
                 <Spinner color="text-white nightwind-prevent" />

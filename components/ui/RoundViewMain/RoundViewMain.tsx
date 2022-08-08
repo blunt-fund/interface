@@ -11,38 +11,42 @@ import ProgressBar from "../ProgressBar"
 
 type Props = {
   name: string
-  descriptionHtml: string
   image: ImageType
   website: string
   twitter: string
   discord: string
   docs: string
-  tokenSymbol: string
-  tokenIssuance: number
-  duration: number
   target: number
+  tokenIssuance: number
+  tokenSymbol: string
+  duration: number
   cap: number
   isFundraiseEth: boolean
+  reservedStake: number
+  descriptionHtml?: string
   raised?: number
   roundId?: number
+  secondary?: boolean
 }
 
 const CreateFormAdvancedERC20 = ({
   name,
-  descriptionHtml,
   image,
   website,
   twitter,
   discord,
   docs,
-  tokenSymbol,
-  tokenIssuance,
-  duration,
   target,
+  tokenIssuance,
+  tokenSymbol,
+  duration,
   cap,
   isFundraiseEth,
+  reservedStake,
+  descriptionHtml,
   raised = 0,
-  roundId
+  roundId,
+  secondary = false
 }: Props) => {
   const currency = isFundraiseEth ? "ETH" : "USD"
   const twitterUrl = `https://twitter.com/${twitter.replace("@", "")}`
@@ -69,54 +73,70 @@ const CreateFormAdvancedERC20 = ({
             )}
           </div>
           <div className="flex-grow pt-6 xs:pt-0">
-            <h1 className="text-2xl sm:text-3xl">{name}</h1>
-            {!roundId && (website || twitter || discord || docs) && (
-              <div className="flex items-center gap-6 mt-4 ml-1">
-                {website && (
-                  <a
-                    className="w-5 h-5 higlight"
-                    target="_blank"
-                    rel="noreferrer"
-                    href={website}
-                  >
-                    <Link />
-                  </a>
-                )}
-                {twitter && (
-                  <a
-                    className="w-5 h-5 higlight"
-                    target="_blank"
-                    rel="noreferrer"
-                    href={twitterUrl}
-                  >
-                    <Twitter />
-                  </a>
-                )}
-                {discord && (
-                  <a
-                    className="w-5 h-5 mt-0.5 higlight"
-                    target="_blank"
-                    rel="noreferrer"
-                    href={discord}
-                  >
-                    <Discord />
-                  </a>
-                )}
-                {docs && (
-                  <a
-                    className="w-5 h-5 higlight"
-                    target="_blank"
-                    rel="noreferrer"
-                    href={docs}
-                  >
-                    <File />
-                  </a>
-                )}
-              </div>
+            <h1
+              className={
+                secondary ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"
+              }
+            >
+              {name}
+            </h1>
+            {!roundId ? (
+              (website || twitter || discord || docs) && (
+                <div className="flex items-center gap-6 mt-4 ml-1">
+                  {website && (
+                    <a
+                      className="w-5 h-5 higlight"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={website}
+                    >
+                      <Link />
+                    </a>
+                  )}
+                  {twitter && (
+                    <a
+                      className="w-5 h-5 higlight"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={twitterUrl}
+                    >
+                      <Twitter />
+                    </a>
+                  )}
+                  {discord && (
+                    <a
+                      className="w-5 h-5 mt-0.5 higlight"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={discord}
+                    >
+                      <Discord />
+                    </a>
+                  )}
+                  {docs && (
+                    <a
+                      className="w-5 h-5 higlight"
+                      target="_blank"
+                      rel="noreferrer"
+                      href={docs}
+                    >
+                      <File />
+                    </a>
+                  )}
+                </div>
+              )
+            ) : (
+              <p className="pt-2 text-sm">Round allocation: {reservedStake}%</p>
             )}
-            <div className="text-xs mt-9 xs:text-sm">
+            <div className="mt-8 text-xs xs:text-sm">
               <ProgressBar
-                max={cap || raised < target ? target * 1.5 : raised * 1.25}
+                max={
+                  cap != 0
+                    ? cap
+                    : raised < target
+                    ? target * 1.5
+                    : raised * 1.25
+                }
                 target={target}
                 raised={raised}
               />
@@ -141,25 +161,23 @@ const CreateFormAdvancedERC20 = ({
                 </p>
               </div>
               <div className="flex justify-between">
-                {tokenIssuance != 0 && (
-                  <p>
-                    Issuance:{" "}
-                    <b>
-                      <span className="text-blue-600">
-                        {formatNumber(tokenIssuance, 1)}{" "}
-                        {tokenSymbol || "tokens"}
-                      </span>{" "}
-                      / ETH
-                    </b>
-                  </p>
-                )}
                 {target != 0 && (
                   <p>
                     Target:{" "}
                     <b>
                       <span className="text-blue-600">
-                        {formatNumber(target, 1)} {currency}
-                      </span>
+                        {formatNumber(target, 1)}
+                      </span>{" "}
+                      {currency}
+                    </b>
+                  </p>
+                )}
+                {tokenIssuance != 0 && (
+                  <p>
+                    Issuance:{" "}
+                    <b>
+                      {formatNumber(tokenIssuance, 1)} {tokenSymbol || "tokens"}{" "}
+                      / ETH
                     </b>
                   </p>
                 )}
@@ -168,9 +186,11 @@ const CreateFormAdvancedERC20 = ({
           </div>
         </div>
 
-        <div className="pt-2 prose">
-          <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-        </div>
+        {descriptionHtml && (
+          <div className="pt-6 prose-sm">
+            <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+          </div>
+        )}
       </div>
     </ConditionalLink>
   )

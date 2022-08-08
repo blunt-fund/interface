@@ -108,6 +108,7 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
           target={target}
           cap={cap}
           isFundraiseEth={isFundraiseEth}
+          reservedStake={reservedStake}
         />
         <div className="py-8">
           <p className="pb-8 text-base text-center">

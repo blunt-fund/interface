@@ -2,8 +2,8 @@ import RoundViewMain from "../RoundViewMain"
 
 export const rounds = [
   {
-    name: "Test round 1",
-    descriptionHtml: "",
+    name: "Token round",
+    description: "A nice test project description **with markdown syntax**",
     image: { url: "", file: undefined },
     website: "https://slice.so",
     twitter: "@jj_ranalli",
@@ -16,11 +16,13 @@ export const rounds = [
     cap: 1000,
     isFundraiseEth: true,
     raised: 160,
-    roundId: 1
+    roundId: 1,
+    reservedStake: 0,
+    totalReserved: 10
   },
   {
-    name: "Test round 2",
-    descriptionHtml: "",
+    name: "Slice round",
+    description: "A nice test project description **with markdown syntax**",
     image: { url: "", file: undefined },
     website: "",
     twitter: "",
@@ -33,7 +35,28 @@ export const rounds = [
     cap: 0,
     isFundraiseEth: false,
     raised: 1200000,
-    roundId: 2
+    roundId: 2,
+    reservedStake: 15,
+    totalReserved: 30
+  },
+  {
+    name: "Token & slice round",
+    description: "A nice test project description **with markdown syntax**",
+    image: { url: "", file: undefined },
+    website: "",
+    twitter: "",
+    discord: "",
+    docs: "",
+    tokenSymbol: "TEST3",
+    tokenIssuance: 1000000,
+    duration: 14,
+    target: 500,
+    cap: 800,
+    isFundraiseEth: true,
+    raised: 400,
+    roundId: 3,
+    reservedStake: 10,
+    totalReserved: 25
   }
 ]
 
@@ -44,7 +67,6 @@ const MyRounds = () => {
         <div key={i}>
           <RoundViewMain
             name={round.name}
-            descriptionHtml={round.descriptionHtml}
             image={round.image}
             website={round.website}
             twitter={round.twitter}
@@ -58,6 +80,8 @@ const MyRounds = () => {
             isFundraiseEth={round.isFundraiseEth}
             raised={round.raised}
             roundId={round.roundId}
+            reservedStake={round.reservedStake}
+            secondary
           />
         </div>
       ))}
