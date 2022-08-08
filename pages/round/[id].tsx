@@ -77,6 +77,14 @@ export default function Create() {
                 reservedStake={round.reservedStake}
               />
 
+              <PayButton
+                round={round}
+                payment={payment}
+                setPayment={setPayment}
+                isPaymentEth={isPaymentEth}
+                setIsPaymentEth={setIsPaymentEth}
+              />
+
               <div className="py-8">
                 <p className="pb-8 text-base text-center">
                   Token emission (after round)
@@ -99,14 +107,6 @@ export default function Create() {
                   reservedStake={Number(round.reservedStake)}
                 />
               </div>
-
-              <PayButton
-                round={round}
-                payment={payment}
-                setPayment={setPayment}
-                isPaymentEth={isPaymentEth}
-                setIsPaymentEth={setIsPaymentEth}
-              />
             </>
           )}
         </main>
