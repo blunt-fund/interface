@@ -93,7 +93,7 @@ const CreateFormAdvancedReservedRate = ({
           </p>
         </div>
       </div>
-      <div className="text-black">
+      {/* <div className="text-black">
         <PieChart
           addresses={["Contributor", ...addresses.slice(1), "Blunt round"]}
           shares={[
@@ -103,7 +103,7 @@ const CreateFormAdvancedReservedRate = ({
           ]}
           total={100}
         />
-      </div>
+      </div> */}
     </div>
   )
 }
