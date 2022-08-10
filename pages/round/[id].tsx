@@ -38,8 +38,6 @@ export default function Create() {
     }
   }, [round])
 
-  console.log(round?.releaseTimestamp)
-
   return (
     <>
       <NextSeo

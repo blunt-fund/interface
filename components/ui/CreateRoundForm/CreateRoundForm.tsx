@@ -90,8 +90,6 @@ const CreateRoundForm = () => {
     )
   }, [reservedStake])
 
-  console.log({ transferTimestamp, transferLockDate })
-
   const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (!reservedError && !targetError) {
