@@ -1,7 +1,6 @@
 import { FC } from "react"
 import NextHead from "next/head"
 import { DefaultSeo } from "next-seo"
-import { accounts } from "@components/ui/Social/Social"
 import Script from "next/script"
 
 export const defaultTitle = "Blunt Finance"
@@ -10,7 +9,7 @@ export const longTitle =
 export const defaultDescription =
   "Manage terms sheets, fundraising, cashflow, and capital allocation, bluntly in the open with your community."
 export const domain = process.env.NEXT_PUBLIC_APP_URL
-const twitterAccount = accounts.twitter.split("twitter.com/").pop()
+export const twitterAccount = "bluntfinance_"
 
 const Head: FC = () => {
   return (

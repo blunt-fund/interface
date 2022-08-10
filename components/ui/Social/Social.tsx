@@ -13,6 +13,7 @@ import {
   Notion
 } from "@components/icons/Social"
 import Slice from "@components/icons/Slice"
+import { twitterAccount } from "@components/common/Head"
 
 type Props = {
   accounts: object
@@ -21,7 +22,7 @@ type Props = {
 }
 
 export const accounts = {
-  twitter: "https://twitter.com/slice__so",
+  twitter: `https://twitter.com/${twitterAccount}`,
   // discord: "https://discord.gg/CdyHUzdZks",
   // notion: "https://slicedao.notion.site",
   github: "https://github.com/jjranalli/blunt-finance",
