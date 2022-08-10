@@ -1,6 +1,7 @@
 import { NextSeo } from "next-seo"
 import {
   Container,
+  Locks,
   PayButton,
   PieChart,
   ReservedTable,
@@ -32,15 +33,17 @@ export default function Create() {
   }
 
   useEffect(() => {
-    if (round && round.description) {
+    if (round?.description) {
       getDescriptionHtml()
     }
   }, [round])
 
+  console.log(round?.releaseTimestamp)
+
   return (
     <>
       <NextSeo
-        title={`${round && round.name} | Blunt round | Blunt Finance`}
+        title={`${round?.name} | Blunt round | Blunt Finance`}
         openGraph={{
           title: longTitle,
           description: defaultDescription,
@@ -101,6 +104,12 @@ export default function Create() {
                   />
                 </div>
               </div>
+
+              <Locks
+                transferTimestamp={round?.transferTimestamp}
+                releaseTimestamp={round?.releaseTimestamp}
+              />
+
               <div className="pb-6">
                 <ReservedTable
                   reservedPool={round.totalReserved}

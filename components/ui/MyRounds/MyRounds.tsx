@@ -1,5 +1,6 @@
 import RoundViewMain from "../RoundViewMain"
 
+export const nullDate = 777600000
 export const rounds = [
   {
     name: "Token round",
@@ -18,7 +19,9 @@ export const rounds = [
     raised: 160,
     roundId: 1,
     reservedStake: 0,
-    totalReserved: 10
+    totalReserved: 10,
+    transferTimestamp: 0,
+    releaseTimestamp: 0
   },
   {
     name: "Slice round",
@@ -37,7 +40,9 @@ export const rounds = [
     raised: 1200000,
     roundId: 2,
     reservedStake: 15,
-    totalReserved: 30
+    totalReserved: 30,
+    transferTimestamp: 1669820296053,
+    releaseTimestamp: 0
   },
   {
     name: "Token & slice round",
@@ -56,7 +61,9 @@ export const rounds = [
     raised: 400,
     roundId: 3,
     reservedStake: 10,
-    totalReserved: 25
+    totalReserved: 25,
+    transferTimestamp: 1669820296053,
+    releaseTimestamp: 1679820296053
   }
 ]
 

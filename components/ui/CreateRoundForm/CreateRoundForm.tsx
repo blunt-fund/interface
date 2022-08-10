@@ -4,6 +4,7 @@ import {
   CollapsibleItem,
   CreateFormAdvancedERC20,
   CreateFormAdvancedFundraise,
+  CreateFormAdvancedLock,
   CreateFormAdvancedLinks,
   CreateFormAdvancedReservedRate,
   ReservedTable,
@@ -29,14 +30,37 @@ const CreateRoundForm = () => {
   )
   const [reservedStake, setReservedStake] = useState(10)
 
+  // Advanced settings
+
+  // Fundraise
   const [duration, setDuration] = useState(0)
   const [target, setTarget] = useState(0)
   const [isFundraiseEth, setIsFundraiseEth] = useState(true)
   const [cap, setCap] = useState(0)
 
+  // Lock
+  const [transferTimeLock, setTransferTimeLock] = useState(0)
+  const [releaseTimeLock, setReleaseTimeLock] = useState(0)
+  const now = new Date()
+  let transferLockDate = transferTimeLock != 0 ? new Date() : new Date(0)
+  let releaseLockDate = releaseTimeLock != 0 ? new Date() : new Date(0)
+
+  transferLockDate.setDate(
+    now.getDate() + Number(transferTimeLock) + Number(duration)
+  )
+  releaseLockDate.setDate(
+    now.getDate() + Number(releaseTimeLock) + Number(duration)
+  )
+  const transferTimestamp = transferLockDate.getTime()
+  const releaseTimestamp = releaseLockDate.getTime()
+
+  // TODO: Fix this timestamp mess
+
+  // ERC20
   const [tokenSymbol, setTokenSymbol] = useState("")
   const [tokenIssuance, setTokenIssuance] = useState(0)
 
+  // Links
   const [image, setImage] = useState<ImageType>({
     url: "",
     file: undefined
@@ -46,6 +70,7 @@ const CreateRoundForm = () => {
   const [discord, setDiscord] = useState("")
   const [docs, setDocs] = useState("")
 
+  // Reserved rate
   const [targetError, setTargetError] = useState(false)
   const [reservedError, setReservedError] = useState(false)
   const [addresses, setAddresses] = useState([""])
@@ -64,6 +89,8 @@ const CreateRoundForm = () => {
         : Number(reservedStake)
     )
   }, [reservedStake])
+
+  console.log({ transferTimestamp, transferLockDate })
 
   const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -90,6 +117,8 @@ const CreateRoundForm = () => {
           target,
           isFundraiseEth,
           cap,
+          transferTimestamp,
+          releaseTimestamp,
           reservedError,
           addresses,
           shares,
@@ -152,6 +181,19 @@ const CreateRoundForm = () => {
               setIsFundraiseEth={setIsFundraiseEth}
               setCap={setCap}
               setTargetError={setTargetError}
+            />
+          }
+        />
+        <CollapsibleItem
+          label="Token locks"
+          detail={
+            <CreateFormAdvancedLock
+              transferTimeLock={transferTimeLock}
+              releaseTimeLock={releaseTimeLock}
+              transferLockDate={transferLockDate}
+              releaseLockDate={releaseLockDate}
+              setTransferTimeLock={setTransferTimeLock}
+              setReleaseTimeLock={setReleaseTimeLock}
             />
           }
         />

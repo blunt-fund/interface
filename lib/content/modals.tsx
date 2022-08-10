@@ -1,4 +1,10 @@
-import { Button, PieChart, ReservedTable, RoundViewMain } from "@components/ui"
+import {
+  Button,
+  Locks,
+  PieChart,
+  ReservedTable,
+  RoundViewMain
+} from "@components/ui"
 import { useAppContext } from "@components/ui/context"
 
 export type View = {
@@ -78,6 +84,8 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
     duration,
     target,
     cap,
+    transferTimestamp,
+    releaseTimestamp,
     addresses,
     shares,
     totalShares,
@@ -126,6 +134,12 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
             />
           </div>
         </div>
+
+        <Locks
+          transferTimestamp={transferTimestamp}
+          releaseTimestamp={releaseTimestamp}
+        />
+
         <div className="pb-6">
           <ReservedTable
             reservedPool={totalShares}
