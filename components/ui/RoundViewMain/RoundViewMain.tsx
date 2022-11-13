@@ -49,7 +49,7 @@ const CreateFormAdvancedERC20 = ({
   secondary = false
 }: Props) => {
   const currency = isFundraiseEth ? "ETH" : "USD"
-  const twitterUrl = `https://twitter.com/${twitter.replace("@", "")}`
+  const twitterUrl = `https://twitter.com/${twitter}`
 
   return (
     <ConditionalLink
