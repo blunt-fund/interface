@@ -1,6 +1,10 @@
 import { Input } from "@components/ui"
+import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import executeTransaction from "@utils/executeTransaction"
 import formatNumber from "@utils/formatNumber"
-import { Dispatch, SetStateAction } from "react"
+import { ethers } from "ethers"
+import { Dispatch, SetStateAction, useState } from "react"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
 
 type Props = {
   round: any
@@ -17,6 +21,20 @@ const PayButton = ({
   isPaymentEth,
   setIsPaymentEth
 }: Props) => {
+  const [loading, setLoading] = useState(false)
+  const addRecentTransaction = useAddRecentTransaction()
+  const { config } = usePrepareContractWrite({
+    addressOrName: "JBTerminal",
+    contractInterface: "",
+    functionName: "pay",
+    args: [],
+    overrides: {
+      value: payment // TODO: FIX
+    }
+  })
+
+  const { writeAsync } = useContractWrite(config)
+
   return (
     <div>
       <Input
@@ -27,7 +45,15 @@ const PayButton = ({
         onChange={setPayment}
         prefix={isPaymentEth ? "Ξ" : "$"}
         prefixAction={() => setIsPaymentEth(!isPaymentEth)}
-        onClick={() => null}
+        loading={loading}
+        onClick={async () =>
+          await executeTransaction(
+            writeAsync,
+            setLoading,
+            `Pay ${round.name}`,
+            addRecentTransaction
+          )
+        }
       />
       <p className="pt-1.5 text-xs xs:text-sm text-left">
         Receive{" "}
