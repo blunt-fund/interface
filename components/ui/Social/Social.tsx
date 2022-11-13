@@ -10,9 +10,9 @@ import {
   Discord,
   Blog,
   Juicebox,
+  Slice,
   Notion
 } from "@components/icons/Social"
-import Slice from "@components/icons/Slice"
 import { twitterAccount } from "@components/common/Head"
 
 type Props = {

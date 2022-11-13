@@ -88,7 +88,7 @@ export default function Create() {
 
               <div className="py-8">
                 <p className="pb-8 text-base text-center">
-                  Token emission (after round)
+                  Token emission (after blunt round)
                 </p>
                 <div className="text-black">
                   <PieChart

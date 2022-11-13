@@ -88,17 +88,17 @@ const ReservedInputBlock = ({
     visible && (
       <>
         <div className="col-span-1 col-start-1 mx-auto">
-          <div className="">
-            {index != 0 ? (
-              address &&
-              (account === address || resolvedSignerAddress === address) ? (
-                <div className="w-5 h-5" title="Project owner">
+          <div className="relative">
+            <Delete onClick={handleRemove} />
+            {address &&
+              (account === address || resolvedSignerAddress === address) && (
+                <div
+                  className="hidden sm:block absolute top-[6px] right-[-20px] w-3 h-3"
+                  title="Project owner"
+                >
                   <Crown />
                 </div>
-              ) : (
-                <Delete onClick={handleRemove} />
-              )
-            ) : null}
+              )}
           </div>
         </div>
         <div className="col-span-7 xs:col-span-6 md:col-span-8">

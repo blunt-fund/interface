@@ -2,8 +2,8 @@ import Cross from "@components/icons/Cross"
 import { Dispatch, SetStateAction } from "react"
 import {
   View,
-  CREATE_ROUND_PROCESS,
-  CREATE_ROUND_REVIEW,
+  CREATE_ROUND_VIEW,
+  REVIEW_ROUND_VIEW,
   ROUND_INFO_VIEW
 } from "@lib/content/modals"
 
@@ -20,11 +20,11 @@ const Modal = ({ modalView, setModalView }: Props) => {
     case "ROUND_INFO_VIEW":
       content = ROUND_INFO_VIEW()
       break
-    case "CREATE_ROUND_REVIEW":
-      content = CREATE_ROUND_REVIEW(params)
+    case "REVIEW_ROUND_VIEW":
+      content = REVIEW_ROUND_VIEW(params)
       break
-    case "CREATE_ROUND_PROCESS":
-      content = CREATE_ROUND_PROCESS(params)
+    case "CREATE_ROUND_VIEW":
+      content = CREATE_ROUND_VIEW(params)
       break
   }
 

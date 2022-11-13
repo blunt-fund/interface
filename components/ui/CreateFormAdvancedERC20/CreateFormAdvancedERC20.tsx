@@ -24,8 +24,8 @@ const CreateFormAdvancedERC20 = ({
   return (
     <div className="py-3 space-y-6">
       <p>
-        Configure the token to be used for the project and the quantity issued
-        during the blunt round.
+        Configure the project&apos;s ERC20 token and the amount to be issued to
+        blunt round participants.
       </p>
       <div>
         <Input

@@ -26,9 +26,7 @@ const CreateFormAdvancedReservedRate = ({
 }: Props) => {
   const { account } = useAppContext()
   const [initAddress, setInitAddress] = useState("")
-  const [inputCount, setInputCount] = useState(
-    shares.length > 2 ? shares.length : 2
-  )
+  const [inputCount, setInputCount] = useState(shares.length)
   const [removedCount, setRemovedCount] = useState(0)
 
   useEffect(() => {
@@ -43,7 +41,7 @@ const CreateFormAdvancedReservedRate = ({
   return (
     <div className="py-3 space-y-6">
       <p>
-        Add beneficiaries to the reserved rate in addition to the blunt round
+        Add beneficiaries to the reserved rate in addition to blunt round
         participants.
       </p>
       <div className="grid items-center grid-cols-8 text-left xs:grid-cols-10 md:grid-cols-12 gap-x-4 gap-y-6 xs:gap-y-10">

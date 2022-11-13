@@ -34,8 +34,8 @@ const CreateFormAdvancedFundraise = ({
   return (
     <div className="py-3 space-y-6">
       <p>
-        Blunt rounds are unlimited, uncapped and without target by default.
-        Customize your round by specifying them below
+        Blunt rounds are unlimited in duration, uncapped and without target by
+        default.
       </p>
       <div>
         <Input
@@ -48,7 +48,7 @@ const CreateFormAdvancedFundraise = ({
           question={
             <>
               <p>Choose how long will the round last.</p>
-              <p>Leave blank to set duration unlimited.</p>
+              <p>Leave blank to set unlimited duration.</p>
             </>
           }
         />
@@ -59,9 +59,9 @@ const CreateFormAdvancedFundraise = ({
           label="Target"
           error={targetError}
           prefix={isFundraiseEth ? "Ξ" : "$"}
-          prefixAction={() =>
-            setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
-          }
+          // prefixAction={() =>
+          //   setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
+          // }
           min={0}
           value={target || ""}
           onChange={setTarget}
@@ -83,9 +83,9 @@ const CreateFormAdvancedFundraise = ({
           label="Hard cap"
           error={targetError}
           prefix={isFundraiseEth ? "Ξ" : "$"}
-          prefixAction={() =>
-            setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
-          }
+          // prefixAction={() =>
+          //   setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
+          // }
           min={0}
           value={cap || ""}
           onChange={setCap}
@@ -102,9 +102,9 @@ const CreateFormAdvancedFundraise = ({
           }
         />
       </div>
-      <p className="text-sm text-gray-600">
+      {/* <p className="text-sm text-gray-600">
         Note: Target and cap need to be in the same currency
-      </p>
+      </p> */}
       {targetError && (
         <p className="text-sm text-red-500">
           Target cannot be higher than hard cap

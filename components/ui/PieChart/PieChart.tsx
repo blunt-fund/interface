@@ -103,7 +103,7 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
                 total > 4000000000 ? "text-red-500" : ""
               }`}
             >
-              tokens minted
+              tokens
             </p>
           </>
         )}

@@ -1,5 +1,5 @@
 import { Input } from "@components/ui"
-import React, { Dispatch, SetStateAction, useEffect } from "react"
+import React, { Dispatch, SetStateAction } from "react"
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -22,11 +22,11 @@ const CreateFormAdvancedLock = ({
   return (
     <div className="py-3 space-y-6">
       <p>
-        Slices are ERC1155 tokens which represent ownership over the blunt round
-        and cannot be transferred until the round closes.
+        Slices are ERC1155 tokens representing ownership over the blunt round
+        participants.
       </p>
       <p>
-        Optionally, you can also lock transfer and / or token releases for a
+        You can decide to lock slice transfers and / or token withdrawals for a
         period of time.
       </p>
       <div className="relative">
@@ -36,16 +36,16 @@ const CreateFormAdvancedLock = ({
           min={0}
           value={transferTimeLock || ""}
           onChange={setTransferTimeLock}
-          placeholder="Leave blank for unlocked transfers"
+          placeholder="Leave blank to disable"
           question={
             <>
-              <p>Leave blank to allow transfers at any time.</p>
+              <p>Leave blank to always allow slice transfers.</p>
             </>
           }
         />
         {transferTimeLock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
-            Lock date:{" "}
+            Unlock date:{" "}
             <span className="font-bold text-blue-600">
               {transferLockDate.toLocaleDateString()}
             </span>
@@ -55,20 +55,20 @@ const CreateFormAdvancedLock = ({
       <div className="relative">
         <Input
           type="number"
-          label="Token release lock (days)"
+          label="Token withdrawal lock (days)"
           min={0}
           value={releaseTimeLock || ""}
           onChange={setReleaseTimeLock}
-          placeholder="Leave blank for unlocked token releases"
+          placeholder="Leave blank to disable"
           question={
             <>
-              <p>Leave blank to allow token releases at any time.</p>
+              <p>Leave blank to always allow token withdrawals.</p>
             </>
           }
         />
         {releaseTimeLock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
-            Lock date:{" "}
+            Unlock date:{" "}
             <span className="font-bold text-blue-600">
               {releaseLockDate.toLocaleDateString()}
             </span>

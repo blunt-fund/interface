@@ -1,5 +1,6 @@
 import {
   Button,
+  LoadingStep,
   Locks,
   PieChart,
   ReservedTable,
@@ -14,8 +15,8 @@ export type View = {
 }
 type ViewNames =
   | ""
-  | "CREATE_ROUND_REVIEW"
-  | "CREATE_ROUND_PROCESS"
+  | "REVIEW_ROUND_VIEW"
+  | "CREATE_ROUND_VIEW"
   | "ROUND_INFO_VIEW"
 
 export const ROUND_INFO_VIEW = () => {
@@ -29,46 +30,85 @@ export const ROUND_INFO_VIEW = () => {
   )
 }
 
-export const CREATE_ROUND_PROCESS = (params: any) => {
+export const CREATE_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const {
-    name,
-    tokenSymbol,
-    tokenIssuance,
-    reservedStake,
-    description,
-    website,
-    twitter,
-    discord,
-    docs,
-    duration,
-    isTargetEth,
-    target,
-    isCapEth,
-    cap,
-    reservedError,
-    success,
-    addresses,
-    shares,
-    totalShares
-  } = params
-
+  const { uploadStep, tokenSymbol } = params
   const roundId = 1
+
+  let uploadState: string
+  switch (uploadStep) {
+    case 1:
+      uploadState = "Saving metadata"
+      break
+    case 2:
+      uploadState = "Settin up round"
+      break
+    case 3:
+      uploadState = "Issuing ERC20 token"
+      break
+    case 4:
+      uploadState = "Reverting"
+      break
+    case 5:
+      uploadState = "Reverted"
+      break
+    case 6:
+      uploadState = "Success!"
+      break
+  }
 
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
       <div className="pt-8 space-y-6">
-        <p>Let&apos;s suppose all went right, yay!</p>
-        <div onClick={() => setModalView({ name: "" })}>
-          <Button label="Go to round" href={`/round/${roundId}`} />
+        <p className="pb-8">Please wait</p>
+        <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 mx-auto">
+          <LoadingStep
+            initCondition={uploadStep < 2}
+            uploadState={uploadState}
+            endState={uploadStep == 4 || uploadStep == 5 ? uploadState : "Done"}
+          />
+          <LoadingStep
+            nullCondition={uploadStep < 2}
+            initCondition={uploadStep < 3}
+            uploadState={uploadState}
+            waitingState="Create round"
+            endState={uploadStep == 4 || uploadStep == 5 ? uploadState : "Done"}
+          />
+          {tokenSymbol && (
+            <LoadingStep
+              nullCondition={uploadStep < 3}
+              initCondition={uploadStep < 4}
+              uploadState={uploadState}
+              waitingState="Issue token"
+              endState={
+                uploadStep == 4 || uploadStep == 5 ? uploadState : "Done"
+              }
+            />
+          )}
+        </div>
+        <div className="pt-10">
+          {uploadStep > 4 ? (
+            uploadStep > 5 ? (
+              <Button label={"Go to round"} href={`/round/${roundId}`} />
+            ) : (
+              <Button
+                label={"Go back"}
+                onClick={() => setModalView({ name: "" })}
+              />
+            )
+          ) : (
+            <p className="mx-auto text-sm font-bold text-yellow-600">
+              Wait until the process is completed
+            </p>
+          )}
         </div>
       </div>
     </div>
   )
 }
 
-export const CREATE_ROUND_REVIEW = (params: any) => {
+export const REVIEW_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
   const {
     name,
@@ -89,7 +129,8 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
     addresses,
     shares,
     totalShares,
-    isFundraiseEth
+    isFundraiseEth,
+    createRound
   } = params
 
   return (
@@ -97,9 +138,8 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-6">
         <p>
-          Proceeding will create a project on Juicebox with the following
-          settings, and a slicer on Slice to handle token distribution to the
-          blunt round participants.
+          Proceeding will create a Juicebox project and a slicer to handle token
+          distribution to blunt round participants.
         </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
@@ -120,7 +160,7 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
         />
         <div className="py-8">
           <p className="pb-8 text-base text-center">
-            Token emission (after round)
+            Token emission (after blunt round)
           </p>
           <div className="text-black">
             <PieChart
@@ -149,13 +189,7 @@ export const CREATE_ROUND_REVIEW = (params: any) => {
         <div className="pt-6 text-center">
           <Button
             label="Create round"
-            onClick={() =>
-              setModalView({
-                name: "CREATE_ROUND_PROCESS",
-                cross: true,
-                params: params
-              })
-            }
+            onClick={async () => await createRound()}
           />
           <p>
             <span

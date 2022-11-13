@@ -10,24 +10,23 @@ import {
   ReservedTable,
   Textarea
 } from "@components/ui"
+import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import deletePin from "@utils/deletePin"
+import jsonToFile from "@utils/jsonToFile"
+import constants from "constants.json"
+import web3Storage from "lib/web3Storage"
 import React, { useEffect, useState } from "react"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import { useAppContext } from "../context"
 import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 
 const CreateRoundForm = () => {
   const { setModalView } = useAppContext()
+  const [uploadStep, setUploadStep] = useState(0)
 
-  const [name, setName] = useState(
-    ""
-    // "Test project"
-  )
-  const [description, setDescription] = useState(
-    ""
-    //`A test project description
-
-    // ### More info
-    // This is a [test link](https://blunt.finance)`
-  )
+  // General settings
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
   const [reservedStake, setReservedStake] = useState(10)
 
   // Advanced settings
@@ -77,18 +76,63 @@ const CreateRoundForm = () => {
   const [shares, setShares] = useState([100])
   const [totalShares, setTotalShares] = useState(10)
 
-  useEffect(() => {
-    let items = shares
-    items[0] = reservedStake
-    setShares(items)
+  const addRecentTransaction = useAddRecentTransaction()
+  const { config } = usePrepareContractWrite({
+    addressOrName: "BluntDelegateProjectDeployer",
+    contractInterface: "",
+    functionName: "launchProjectFor",
+    args: []
+  })
 
-    setTotalShares(
-      shares.length > 1
-        ? Number(shares.slice(1).reduce((a, b) => Number(a) + Number(b))) +
-            Number(reservedStake)
-        : Number(reservedStake)
-    )
-  }, [reservedStake])
+  const { writeAsync } = useContractWrite(config)
+
+  const createRound = async () => {
+    setUploadStep(1)
+    // let cid: string
+    // const logoCid = image.file
+    //   ? await web3Storage().put([image.file])
+    //   : "bafybeicztnsvwbgvtkohk6fu354thww6ytha7l4klkykhazhth2ftvh5su/og_image.jpg"
+    try {
+      // const metadata = jsonToFile(
+      //   {
+      //     name,
+      //     description,
+      //     logoUri: constants.ipfsGateway + logoCid,
+      //     website,
+      //     twitter,
+      //     discord,
+      //     docs
+      //   },
+      //   "metadata"
+      // )
+
+      // cid = await web3Storage().put(metadata)
+
+      setUploadStep(2)
+      // const tx = await writeAsync()
+      // addRecentTransaction({
+      //   hash: tx.hash,
+      //   description: "Create Blunt round"
+      // })
+      // await tx.wait()
+
+      if (tokenSymbol) {
+        setUploadStep(3)
+        // TODO: Add issue token?
+      }
+      setUploadStep(4)
+    } catch (error) {
+      setUploadStep(5)
+
+      // if (cid) {
+      //   deletePin(cid)
+      // }
+      // if (image.file) {
+      //   deletePin(logoCid)
+      // }
+      setUploadStep(6)
+    }
+  }
 
   const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -97,7 +141,7 @@ const CreateRoundForm = () => {
       const descriptionHtml = await markdownToHtml(description)
 
       setModalView({
-        name: "CREATE_ROUND_REVIEW",
+        name: "REVIEW_ROUND_VIEW",
         cross: true,
         params: {
           name,
@@ -120,11 +164,57 @@ const CreateRoundForm = () => {
           reservedError,
           addresses,
           shares,
-          totalShares
+          totalShares,
+          createRound
         }
       })
     }
   }
+
+  useEffect(() => {
+    let items = shares
+    items[0] = reservedStake
+    setShares(items)
+
+    setTotalShares(
+      shares.length > 1
+        ? Number(shares.slice(1).reduce((a, b) => Number(a) + Number(b))) +
+            Number(reservedStake)
+        : Number(reservedStake)
+    )
+  }, [reservedStake])
+
+  useEffect(() => {
+    if (uploadStep != 0) {
+      setModalView({
+        cross: false,
+        name: `CREATE_ROUND_VIEW`,
+        params: {
+          name,
+          uploadStep,
+          tokenSymbol,
+          tokenIssuance,
+          reservedStake,
+          description,
+          image,
+          website,
+          twitter,
+          discord,
+          docs,
+          duration,
+          target,
+          isFundraiseEth,
+          cap,
+          transferTimestamp,
+          releaseTimestamp,
+          reservedError,
+          addresses,
+          shares,
+          totalShares
+        }
+      })
+    }
+  }, [uploadStep])
 
   return (
     <form className="space-y-8 text-left" onSubmit={submit}>
@@ -183,7 +273,7 @@ const CreateRoundForm = () => {
           }
         />
         <CollapsibleItem
-          label="Token locks"
+          label="Vesting"
           detail={
             <CreateFormAdvancedLock
               transferTimeLock={transferTimeLock}
@@ -226,7 +316,7 @@ const CreateRoundForm = () => {
           }
         />
         <CollapsibleItem
-          label="Customize reserved rate"
+          label="Reserved rate"
           error={reservedError}
           detail={
             <CreateFormAdvancedReservedRate

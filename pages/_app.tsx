@@ -18,11 +18,11 @@ import "@rainbow-me/rainbowkit/styles.css"
 
 const defaultChains =
   process.env.NEXT_PUBLIC_CHAIN_ID === "1"
-    ? [chain.mainnet, chain.rinkeby]
-    : [chain.rinkeby, chain.mainnet]
+    ? [chain.mainnet, chain.goerli]
+    : [chain.goerli, chain.mainnet]
 
 const { chains, provider } = configureChains(defaultChains, [
-  alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
   publicProvider()
 ])
 

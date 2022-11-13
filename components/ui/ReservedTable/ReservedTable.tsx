@@ -38,14 +38,14 @@ const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
           </tr>
         </tbody>
       </table>
-      <p className="pt-2 text-sm text-right">
+      {/* <p className="pt-2 text-sm text-right">
         <a
           className="text-gray-600 highlight"
           onClick={() => setModalView({ name: "ROUND_INFO_VIEW", cross: true })}
         >
           WTF is this?
         </a>
-      </p>
+      </p> */}
     </div>
   )
 }
