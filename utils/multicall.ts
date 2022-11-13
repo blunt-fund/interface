@@ -4,41 +4,29 @@ import defaultProvider from "./defaultProvider"
 const multicall = async (
   to: string | string[],
   functionSignature: string,
-  args: string[],
-  nestedCalls = true
+  args: string
 ) => {
   const promises = []
   const selector = getSelector(functionSignature)
 
-  args.forEach((arg, i) => {
-    const data = selector + arg
-    if (typeof to === "string") {
+  const data = selector + args
+  if (typeof to === "string") {
+    promises.push(
+      defaultProvider.call({
+        to,
+        data
+      })
+    )
+  } else {
+    to.forEach((callAddress) => {
       promises.push(
         defaultProvider.call({
-          to,
+          to: callAddress,
           data
         })
       )
-    } else {
-      if (nestedCalls) {
-        to.forEach((callAddress) => {
-          promises.push(
-            defaultProvider.call({
-              to: callAddress,
-              data
-            })
-          )
-        })
-      } else {
-        promises.push(
-          defaultProvider.call({
-            to: to[i],
-            data
-          })
-        )
-      }
-    }
-  })
+    })
+  }
 
   const results = await Promise.all(promises.map((p) => p.catch(() => "")))
 

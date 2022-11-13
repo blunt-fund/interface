@@ -17,6 +17,10 @@ import { useRouter } from "next/router"
 import { rounds } from "@components/ui/MyRounds/MyRounds"
 import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
+import multicall from "@utils/multicall"
+import useQuery from "@utils/subgraphQuery"
+import fetcher from "@utils/fetcher"
+import constants from "constants.json"
 
 export default function Create() {
   const router = useRouter()
@@ -37,6 +41,36 @@ export default function Create() {
       getDescriptionHtml()
     }
   }, [round])
+
+  // TODO: Add subgraph fetch
+  // const tokensQuery = /* GraphQL */ `
+  //     project(id: "${id}") {
+  //       ...
+  //     }
+  //   `
+  // let subgraphData = useQuery(tokensQuery)
+
+  // TODO: Add on-chain fetch
+  // const [roundInfo, setRoundInfo] = useState(null)
+
+  // useEffect(() => {
+  //   const getRoundInfo = async () => {
+  //     const [cid, bluntDelegate] = subgraphData.map(
+  //       ({ cid, bluntDelegateAddress }) => [cid, bluntDelegateAddress]
+  //     )
+
+  //     const [metadata, info] = await Promise.all([
+  //       fetcher(constants.ipfsGateway + cid),
+  //       multicall(bluntDelegate, "getRoundInfo()", "")
+  //     ])
+
+  //     setRoundInfo({ metadata, info })
+  //   }
+
+  //   if (subgraphData) {
+  //     getRoundInfo()
+  //   }
+  // }, [subgraphData])
 
   return (
     <>

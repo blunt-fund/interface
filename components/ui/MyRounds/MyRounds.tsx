@@ -80,7 +80,7 @@ const MyRounds = () => {
 
   // const tokensQuery = /* GraphQL */ `
   //     projects(account: "${account?.toLowerCase()}") {
-  //       id
+  //       ...
   //     }
   //   `
   // let subgraphData = useQuery(tokensQuery, [account])
@@ -104,7 +104,7 @@ const MyRounds = () => {
 
   //     const [metadata, info] = await Promise.all([
   //       metadataPromises,
-  //       multicall(bluntDelegates, "getRoundInfo()", [])
+  //       multicall(bluntDelegates, "getRoundInfo()", "")
   //     ])
 
   //     setRoundInfo({ metadata, info })
