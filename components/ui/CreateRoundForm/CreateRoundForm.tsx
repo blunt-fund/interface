@@ -11,7 +11,8 @@ import {
   Textarea
 } from "@components/ui"
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import deletePin from "@utils/deletePin"
+import deletePins from "@utils/deletePins"
+import getRequestIds from "@utils/getRequestIds"
 import jsonToFile from "@utils/jsonToFile"
 import constants from "constants.json"
 import web3Storage from "lib/web3Storage"
@@ -88,25 +89,30 @@ const CreateRoundForm = () => {
 
   const createRound = async () => {
     setUploadStep(1)
-    // let cid: string
-    // const logoCid = image.file
-    //   ? await web3Storage().put([image.file])
-    //   : "bafybeicztnsvwbgvtkohk6fu354thww6ytha7l4klkykhazhth2ftvh5su/og_image.jpg"
+    let cid: string
+    const logoCid = image.file
+      ? await web3Storage().put([image.file], {
+          wrapWithDirectory: false
+        })
+      : "bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu"
     try {
-      // const metadata = jsonToFile(
-      //   {
-      //     name,
-      //     description,
-      //     logoUri: constants.ipfsGateway + logoCid,
-      //     website,
-      //     twitter,
-      //     discord,
-      //     docs
-      //   },
-      //   "metadata"
-      // )
+      const metadata = jsonToFile(
+        {
+          name,
+          description,
+          logoUri: constants.ipfsGateway + logoCid,
+          website,
+          twitter,
+          discord,
+          docs
+        },
+        "metadata"
+      )
 
-      // cid = await web3Storage().put(metadata)
+      cid = await web3Storage().put(metadata, {
+        wrapWithDirectory: false,
+        name
+      })
 
       setUploadStep(2)
       // const tx = await writeAsync()
@@ -120,17 +126,17 @@ const CreateRoundForm = () => {
         setUploadStep(3)
         // TODO: Add issue token?
       }
-      setUploadStep(4)
-    } catch (error) {
-      setUploadStep(5)
-
-      // if (cid) {
-      //   deletePin(cid)
-      // }
-      // if (image.file) {
-      //   deletePin(logoCid)
-      // }
       setUploadStep(6)
+    } catch (error) {
+      // TODO: Handle revert
+      // setUploadStep(4)
+      // const cids: string[] = []
+      // if (cid) cids.push(cid)
+      // if (image.file) cids.push(logoCid)
+      // const requestIds: string[] = await getRequestIds(cids)
+      // deletePins(requestIds)
+
+      setUploadStep(5)
     }
   }
 

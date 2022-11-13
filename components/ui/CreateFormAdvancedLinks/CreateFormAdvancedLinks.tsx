@@ -123,7 +123,7 @@ const CreateFormAdvancedLinks = ({
           label="Twitter"
           value={twitter}
           onChange={setTwitter}
-          placeholder="@bluntfinance"
+          placeholder="bluntfinance"
         />
       </div>
       <div>

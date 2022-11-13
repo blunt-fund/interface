@@ -102,6 +102,7 @@ export default function Create() {
                   />
                 </div>
               </div>
+              {/* TODO: Add "Contributed" section */}
 
               <Locks
                 transferTimestamp={round?.transferTimestamp}

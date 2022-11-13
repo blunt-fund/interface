@@ -32,22 +32,15 @@ const PayButton = ({
       <p className="pt-1.5 text-xs xs:text-sm text-left">
         Receive{" "}
         <span className="font-bold text-blue-600">
+          {formatNumber(payment ? payment * 1000 : 1000, 1)} slices{" "}
           {round.tokenIssuance != 0 &&
-            `${formatNumber(
+            `+ ${formatNumber(
               payment
                 ? Number(Number(payment * round.tokenIssuance).toFixed(0))
                 : round.tokenIssuance,
               3
             )} 
                 ${round.tokenSymbol} `}
-          {round.tokenIssuance != 0 && round.reservedStake != 0 && "+ "}
-          {round.reservedStake != 0 &&
-            `${formatNumber(
-              payment
-                ? payment * round.reservedStake * 1000
-                : round.reservedStake * 1000,
-              1
-            )} slices `}
         </span>
         {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
       </p>
