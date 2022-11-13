@@ -1,4 +1,5 @@
 export { default as ActionScreen } from "./ActionScreen"
+export { default as AllRounds } from "./AllRounds"
 export { default as Background } from "./Background"
 export { default as Button } from "./Button"
 export { default as CollapsibleItem } from "./CollapsibleItem"

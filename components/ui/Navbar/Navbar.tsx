@@ -21,6 +21,9 @@ const Navbar = () => {
                 <Logo />
               </a>
             </Link>
+            <Link href="/explore">
+              <a className="text-sm">Explore rounds</a>
+            </Link>
           </div>
 
           <div className="relative z-10 flex items-center space-x-5 xs:space-x-6">

@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo"
-import { ConnectBlock, Container, MyRounds } from "@components/ui"
+import { ConnectBlock, Container, AllRounds } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
@@ -7,11 +7,11 @@ import {
   domain
 } from "@components/common/Head"
 
-export default function Rounds() {
+export default function Explore() {
   return (
     <>
       <NextSeo
-        title="My rounds | Blunt Finance"
+        title="Explore rounds | Blunt Finance"
         openGraph={{
           title: longTitle,
           description: defaultDescription,
@@ -29,8 +29,8 @@ export default function Rounds() {
       <Container page={true}>
         <ConnectBlock>
           <main className="max-w-screen-sm mx-auto">
-            <h1 className="pb-20">My rounds</h1>
-            <MyRounds />
+            <h1 className="pb-20">Active rounds</h1>
+            <AllRounds />
           </main>
         </ConnectBlock>
       </Container>
