@@ -6,6 +6,7 @@ import Question from "../Question"
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   label?: string | JSX.Element
+  helptext?: string | JSX.Element
   prefix?: string
   after?: string
   error?: boolean
@@ -23,6 +24,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const Input: React.FC<Props> = ({
   className,
   label,
+  helptext,
   prefix = "",
   after,
   children,
@@ -60,6 +62,7 @@ const Input: React.FC<Props> = ({
           {question && <Question position={questionPosition} text={question} />}
         </div>
       )}
+      {helptext && <p className="pb-2 text-xs text-gray-600">{helptext}</p>}
       <div
         className={`flex flex-row-reverse ${
           prefix && !error ? "overflow-hidden" : ""
