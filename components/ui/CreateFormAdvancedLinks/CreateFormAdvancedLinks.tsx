@@ -4,36 +4,35 @@ import React, { Dispatch, SetStateAction, useState } from "react"
 import Camera from "@components/icons/Camera"
 import { Message } from "@utils/handleMessage"
 import Logo from "@components/icons/Logo"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import handleSetObject from "@utils/handleSetObject"
 
 export type ImageType = { url: string; file: File }
 
 type Props = {
-  name: string
-  image: ImageType
-  website: string
-  twitter: string
-  discord: string
-  docs: string
-  setImage: Dispatch<SetStateAction<ImageType>>
-  setWebsite: Dispatch<SetStateAction<string>>
-  setTwitter: Dispatch<SetStateAction<string>>
-  setDiscord: Dispatch<SetStateAction<string>>
-  setDocs: Dispatch<SetStateAction<string>>
+  createRoundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
 }
 
-const CreateFormAdvancedLinks = ({
-  name,
-  image,
-  website,
-  twitter,
-  discord,
-  docs,
-  setWebsite,
-  setTwitter,
-  setDiscord,
-  setDocs,
-  setImage
-}: Props) => {
+const CreateFormAdvancedLinks = ({ createRoundData, setRoundData }: Props) => {
+  const { name, image, twitter, website, discord, docs } = createRoundData
+
+  const handleSetWebsite = (value: string) => {
+    handleSetObject("website", value, createRoundData, setRoundData)
+  }
+  const handleSetTwitter = (value: string) => {
+    handleSetObject("twitter", value, createRoundData, setRoundData)
+  }
+  const handleSetDiscord = (value: string) => {
+    handleSetObject("discord", value, createRoundData, setRoundData)
+  }
+  const handleSetDocs = (value: string) => {
+    handleSetObject("docs", value, createRoundData, setRoundData)
+  }
+  const handleSetImage = (value: ImageType) => {
+    handleSetObject("image", value, createRoundData, setRoundData)
+  }
+
   const [msg, setMsg] = useState<Message>({
     message: "",
     messageStatus: "success"
@@ -52,7 +51,7 @@ const CreateFormAdvancedLinks = ({
           )
         } else {
           const url = URL.createObjectURL(file)
-          setImage({ url, file })
+          handleSetImage({ url, file })
         }
       }
     } catch (err) {
@@ -91,7 +90,7 @@ const CreateFormAdvancedLinks = ({
         {image.url && (
           <a
             className="text-sm text-gray-600 highlight highlight-red"
-            onClick={() => setImage({ url: "", file: undefined })}
+            onClick={() => handleSetImage({ url: "", file: undefined })}
           >
             Remove image
           </a>
@@ -113,7 +112,7 @@ const CreateFormAdvancedLinks = ({
           type="string"
           label="Website"
           value={website}
-          onChange={setWebsite}
+          onChange={handleSetWebsite}
           placeholder="https://blunt.finance"
         />
       </div>
@@ -122,7 +121,7 @@ const CreateFormAdvancedLinks = ({
           type="string"
           label="Twitter"
           value={twitter}
-          onChange={setTwitter}
+          onChange={handleSetTwitter}
           placeholder="bluntfinance"
         />
       </div>
@@ -131,7 +130,7 @@ const CreateFormAdvancedLinks = ({
           type="string"
           label="Discord"
           value={discord}
-          onChange={setDiscord}
+          onChange={handleSetDiscord}
           placeholder="https://discord.gg/bluntfinance"
         />
       </div>
@@ -140,7 +139,7 @@ const CreateFormAdvancedLinks = ({
           type="string"
           label="Docs"
           value={docs}
-          onChange={setDocs}
+          onChange={handleSetDocs}
           placeholder="https://blunt.notion.site"
         />
       </div>

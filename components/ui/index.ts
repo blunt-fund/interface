@@ -12,6 +12,7 @@ export { default as CreateFormAdvancedFundraise } from "./CreateFormAdvancedFund
 export { default as CreateFormAdvancedLock } from "./CreateFormAdvancedLock"
 export { default as CreateFormAdvancedLinks } from "./CreateFormAdvancedLinks"
 export { default as CreateFormAdvancedReservedRate } from "./CreateFormAdvancedReservedRate"
+export { default as CreateFormGeneral } from "./CreateFormGeneral"
 export { default as CustomConnectButton } from "./CustomConnectButton"
 export { default as DropdownMenu } from "./DropdownMenu"
 export { default as DropdownMenuElement } from "./DropdownMenuElement"

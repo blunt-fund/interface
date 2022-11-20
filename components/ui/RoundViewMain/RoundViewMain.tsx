@@ -6,23 +6,11 @@ import { Discord, Twitter } from "@components/icons/Social"
 import formatNumber from "@utils/formatNumber"
 import Image from "next/image"
 import ConditionalLink from "../ConditionalLink"
-import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 import ProgressBar from "../ProgressBar"
 
 type Props = {
-  name: string
-  image: ImageType
-  website: string
-  twitter: string
-  discord: string
-  docs: string
-  target: number
-  tokenIssuance: number
-  tokenSymbol: string
-  duration: number
-  cap: number
-  isFundraiseEth: boolean
-  reservedStake: number
+  roundData: RoundData
   descriptionHtml?: string
   raised?: number
   roundId?: number
@@ -30,24 +18,29 @@ type Props = {
 }
 
 const CreateFormAdvancedERC20 = ({
-  name,
-  image,
-  website,
-  twitter,
-  discord,
-  docs,
-  target,
-  tokenIssuance,
-  tokenSymbol,
-  duration,
-  cap,
-  isFundraiseEth,
-  reservedStake,
+  roundData,
   descriptionHtml,
   raised = 0,
   roundId,
   secondary = false
 }: Props) => {
+  const {
+    name,
+    image,
+    website,
+    twitter,
+    discord,
+    docs,
+    tokenName,
+    tokenSymbol,
+    tokenIssuance,
+    duration,
+    target,
+    cap,
+    shares,
+    isFundraiseEth
+  } = roundData
+
   const currency = isFundraiseEth ? "ETH" : "USD"
   const twitterUrl = `https://twitter.com/${twitter}`
 
@@ -126,7 +119,7 @@ const CreateFormAdvancedERC20 = ({
                 </div>
               )
             ) : (
-              <p className="pt-2 text-sm">Round allocation: {reservedStake}%</p>
+              <p className="pt-2 text-sm">Round allocation: {shares[0]}%</p>
             )}
             <div className="mt-8 text-xs xs:text-sm">
               <ProgressBar

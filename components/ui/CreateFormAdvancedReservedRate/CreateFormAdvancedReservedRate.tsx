@@ -1,42 +1,27 @@
-import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { PieChart, ReservedInputBlock } from "@components/ui"
+import { Dispatch, SetStateAction } from "react"
+import { ReservedInputBlock } from "@components/ui"
 import Add from "@components/icons/Add"
-import { useAppContext } from "@components/ui/context"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 
 type Props = {
-  addresses: string[]
-  shares: number[]
+  createRoundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
   totalShares: number
-  reservedStake: number
-  setAddresses: Dispatch<SetStateAction<string[]>>
-  setShares: Dispatch<SetStateAction<number[]>>
-  setTotalShares: Dispatch<SetStateAction<number>>
-  setReservedError: Dispatch<SetStateAction<boolean>>
 }
 
 const CreateFormAdvancedReservedRate = ({
-  addresses,
-  shares,
-  reservedStake,
-  totalShares,
-  setAddresses,
-  setShares,
-  setTotalShares,
-  setReservedError
+  createRoundData,
+  setRoundData,
+  totalShares
 }: Props) => {
-  const { account } = useAppContext()
-  const [initAddress, setInitAddress] = useState("")
-  const [inputCount, setInputCount] = useState(shares.length)
-  const [removedCount, setRemovedCount] = useState(0)
+  const { addresses } = createRoundData
 
-  useEffect(() => {
-    setInitAddress(account)
-  }, [account])
-
-  useEffect(() => {
-    const errorCondition = totalShares > 100
-    setReservedError(errorCondition)
-  }, [totalShares])
+  const addAccount = () => {
+    const data = { ...createRoundData }
+    data["addresses"].push("")
+    data["shares"].push(0)
+    setRoundData(data)
+  }
 
   return (
     <div className="py-3 space-y-6">
@@ -51,31 +36,24 @@ const CreateFormAdvancedReservedRate = ({
         <p className="mb-[-25px] col-span-3 text-gray-700 relative hidden pr-1 text-sm font-semibold xs:block">
           Reserved %
         </p>
-        {[...Array(inputCount)].map((el, key) => {
+        {addresses.map((el, key) => {
           const i = key
           return (
             <ReservedInputBlock
               key={key}
               index={i}
-              signerAddress={initAddress}
-              addresses={addresses}
-              shares={shares}
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
               totalShares={totalShares}
-              reservedStake={reservedStake}
-              removedCount={removedCount}
-              setAddresses={setAddresses}
-              setShares={setShares}
-              setRemovedCount={setRemovedCount}
-              setTotalShares={setTotalShares}
             />
           )
         })}
 
         <div className="flex col-span-5 pl-1 text-blue-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
-          <Add onClick={() => setInputCount(inputCount + 1)} />
+          <Add onClick={() => addAccount()} />
           <p
             className="inline-block pl-4 font-semibold"
-            onClick={() => setInputCount(inputCount + 1)}
+            onClick={() => addAccount()}
           >
             Add beneficiary
           </p>

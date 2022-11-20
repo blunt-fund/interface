@@ -1,33 +1,41 @@
 import { Input } from "@components/ui"
+import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  transferTimeLock: number
-  releaseTimeLock: number
+  createRoundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
   transferLockDate: Date
   releaseLockDate: Date
-  setTransferTimeLock: Dispatch<SetStateAction<number>>
-  setReleaseTimeLock: Dispatch<SetStateAction<number>>
+  roundLockDate: Date
 }
 
 const CreateFormAdvancedLock = ({
-  transferTimeLock,
-  releaseTimeLock,
+  createRoundData,
+  setRoundData,
   transferLockDate,
   releaseLockDate,
-  setTransferTimeLock,
-  setReleaseTimeLock
+  roundLockDate
 }: Props) => {
+  const { transferTimeLock, releaseTimeLock, roundTimeLock } = createRoundData
+
+  const handleSetTransferTimeLock = (value: number) => {
+    handleSetObject("transferTimeLock", value, createRoundData, setRoundData)
+  }
+  const handleSetReleaseTimeLock = (value: number) => {
+    handleSetObject("releaseTimeLock", value, createRoundData, setRoundData)
+  }
+  const handleSetRoundTimeLock = (value: number) => {
+    handleSetObject("roundTimeLock", value, createRoundData, setRoundData)
+  }
+
   return (
     <div className="py-3 space-y-6">
       <p>
-        Slices are ERC1155 tokens representing ownership over the blunt round
-        participants.
-      </p>
-      <p>
-        You can decide to lock slice transfers and / or token withdrawals for a
-        period of time.
+        Lock slice transfers, token withdrawals and future changes in the blunt
+        round allocation.
       </p>
       <div className="relative">
         <Input
@@ -35,10 +43,18 @@ const CreateFormAdvancedLock = ({
           label="Slice transfer lock (days)"
           min={0}
           value={transferTimeLock || ""}
-          onChange={setTransferTimeLock}
+          onChange={handleSetTransferTimeLock}
           placeholder="Leave blank to disable"
           question={
             <>
+              <p>
+                Slices are ERC1155 tokens which represent ownership over the
+                slicer related to a blunt round.
+              </p>
+              <p>
+                By default, round participants can transfer slices and trade
+                them on NFT marketplaces.
+              </p>
               <p>Leave blank to always allow slice transfers.</p>
             </>
           }
@@ -58,7 +74,7 @@ const CreateFormAdvancedLock = ({
           label="Token withdrawal lock (days)"
           min={0}
           value={releaseTimeLock || ""}
-          onChange={setReleaseTimeLock}
+          onChange={handleSetReleaseTimeLock}
           placeholder="Leave blank to disable"
           question={
             <>
@@ -75,10 +91,30 @@ const CreateFormAdvancedLock = ({
           </p>
         )}
       </div>
-      <p className="pt-4 text-sm text-gray-600">
-        Note: If a fundraise duration is set, locks are calculated after the
-        round finishes.
-      </p>
+      <div className="relative">
+        <Input
+          type="number"
+          label="Round token allocation lock (days)"
+          helptext="Prevent reserved rate allocation for blunt round participants to be changed for a period of time."
+          min={0}
+          value={roundTimeLock || ""}
+          onChange={handleSetRoundTimeLock}
+          placeholder="Leave blank to disable"
+          question={
+            <>
+              <p>A longer timelock can act as assurance to contributors.</p>
+            </>
+          }
+        />
+        {roundTimeLock != 0 && (
+          <p className="absolute text-xs left-0 bottom-[-20px]">
+            Unlock date:{" "}
+            <span className="font-bold text-blue-600">
+              {roundLockDate.toLocaleDateString()}
+            </span>
+          </p>
+        )}
+      </div>
     </div>
   )
 }

@@ -26,21 +26,30 @@ export default function Create() {
   const router = useRouter()
   const { id } = router.query
 
-  const round = rounds.filter((r) => r.roundId == Number(id))[0]
+  const roundData = rounds.filter((r) => r.roundId == Number(id))[0]
+  const {
+    name,
+    description,
+    transferTimeLock,
+    releaseTimeLock,
+    shares,
+    raised
+  } = roundData || {}
+  const totalShares = shares?.reduce((a, b) => Number(a) + Number(b))
 
   const [payment, setPayment] = useState(0)
   const [isPaymentEth, setIsPaymentEth] = useState(true)
   const [descriptionHtml, setDescriptionHtml] = useState("")
 
   const getDescriptionHtml = async () => {
-    setDescriptionHtml(await markdownToHtml(round.description))
+    setDescriptionHtml(await markdownToHtml(description))
   }
 
   useEffect(() => {
-    if (round?.description) {
+    if (description) {
       getDescriptionHtml()
     }
-  }, [round])
+  }, [roundData])
 
   // TODO: Add subgraph fetch
   // const tokensQuery = /* GraphQL */ `
@@ -75,7 +84,7 @@ export default function Create() {
   return (
     <>
       <NextSeo
-        title={`${round?.name} | Blunt round | Blunt Finance`}
+        title={`${name} | Blunt round | Blunt Finance`}
         openGraph={{
           title: longTitle,
           description: defaultDescription,
@@ -92,28 +101,16 @@ export default function Create() {
       />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10 ">
-          {round && (
+          {roundData && (
             <>
               <RoundViewMain
-                name={round.name}
+                roundData={roundData}
                 descriptionHtml={descriptionHtml}
-                image={round.image}
-                website={round.website}
-                twitter={round.twitter}
-                discord={round.discord}
-                docs={round.docs}
-                tokenSymbol={round.tokenSymbol}
-                tokenIssuance={0}
-                duration={round.duration}
-                target={round.target}
-                cap={round.cap}
-                isFundraiseEth={round.isFundraiseEth}
-                raised={round.raised}
-                reservedStake={round.reservedStake}
+                raised={raised}
               />
 
               <PayButton
-                round={round}
+                round={roundData}
                 payment={payment}
                 setPayment={setPayment}
                 isPaymentEth={isPaymentEth}
@@ -128,9 +125,9 @@ export default function Create() {
                   <PieChart
                     addresses={["Contributor", "Other reserved", "Blunt round"]}
                     shares={[
-                      100 - round.totalReserved,
-                      Number(round.totalReserved) - Number(round.reservedStake),
-                      Number(round.reservedStake)
+                      100 - totalShares,
+                      ...shares.slice(1),
+                      Number(shares[0])
                     ]}
                     total={100}
                   />
@@ -139,14 +136,14 @@ export default function Create() {
               {/* TODO: Add "Contributed" section */}
 
               <Locks
-                transferTimestamp={round?.transferTimestamp}
-                releaseTimestamp={round?.releaseTimestamp}
+                transferTimestamp={transferTimeLock}
+                releaseTimestamp={releaseTimeLock}
               />
 
               <div className="pb-6">
                 <ReservedTable
-                  reservedPool={round.totalReserved}
-                  reservedStake={Number(round.reservedStake)}
+                  reservedPool={totalShares}
+                  reservedStake={Number(shares[0])}
                 />
               </div>
             </>

@@ -5,10 +5,14 @@ import useQuery from "@utils/subgraphQuery"
 import constants from "constants.json"
 import { useEffect, useState } from "react"
 import { useAppContext } from "../context"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 import RoundViewMain from "../RoundViewMain"
 
 export const nullDate = 777600000
-export const rounds = [
+export const rounds: (RoundData & {
+  raised: number
+  roundId: number
+})[] = [
   {
     name: "Token round",
     description: "A nice test project description **with markdown syntax**",
@@ -17,6 +21,7 @@ export const rounds = [
     twitter: "jj_ranalli",
     discord: "https://slice.so",
     docs: "https://slice.so",
+    tokenName: "Test round 1",
     tokenSymbol: "TEST1",
     tokenIssuance: 12345,
     duration: 21,
@@ -25,10 +30,11 @@ export const rounds = [
     isFundraiseEth: true,
     raised: 160,
     roundId: 1,
-    reservedStake: 0,
-    totalReserved: 10,
-    transferTimestamp: 0,
-    releaseTimestamp: 0
+    transferTimeLock: 0,
+    releaseTimeLock: 0,
+    roundTimeLock: 0,
+    addresses: ["Blunt round"],
+    shares: [10]
   },
   {
     name: "Slice round",
@@ -38,6 +44,7 @@ export const rounds = [
     twitter: "",
     discord: "",
     docs: "",
+    tokenName: "Test round 2",
     tokenSymbol: "TEST2",
     tokenIssuance: 0,
     duration: 0,
@@ -46,10 +53,11 @@ export const rounds = [
     isFundraiseEth: false,
     raised: 1200000,
     roundId: 2,
-    reservedStake: 15,
-    totalReserved: 30,
-    transferTimestamp: 1669820296053,
-    releaseTimestamp: 0
+    transferTimeLock: 1669820296053,
+    releaseTimeLock: 0,
+    roundTimeLock: 0,
+    addresses: ["Blunt round"],
+    shares: [10]
   },
   {
     name: "Token & slice round",
@@ -59,6 +67,7 @@ export const rounds = [
     twitter: "",
     discord: "",
     docs: "",
+    tokenName: "Test round 3",
     tokenSymbol: "TEST3",
     tokenIssuance: 1000000,
     duration: 14,
@@ -67,10 +76,11 @@ export const rounds = [
     isFundraiseEth: true,
     raised: 400,
     roundId: 3,
-    reservedStake: 10,
-    totalReserved: 25,
-    transferTimestamp: 1669820296053,
-    releaseTimestamp: 1679820296053
+    transferTimeLock: 1669820296053,
+    releaseTimeLock: 1679820296053,
+    roundTimeLock: 0,
+    addresses: ["Blunt round"],
+    shares: [10]
   }
 ]
 
@@ -124,21 +134,9 @@ const MyRounds = () => {
       {rounds.map((round, i) => (
         <div key={i}>
           <RoundViewMain
-            name={round.name}
-            image={round.image}
-            website={round.website}
-            twitter={round.twitter}
-            discord={round.discord}
-            docs={round.docs} // roundInfo && roundInfo[i].metadata.
-            tokenSymbol={round.tokenSymbol} // roundInfo && roundInfo[i].info.
-            tokenIssuance={round.tokenIssuance}
-            duration={round.duration}
-            target={round.target}
-            cap={round.cap}
-            isFundraiseEth={round.isFundraiseEth}
+            roundData={round}
             raised={round.raised}
             roundId={round.roundId}
-            reservedStake={round.reservedStake}
             secondary
           />
         </div>

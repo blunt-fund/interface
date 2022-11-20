@@ -32,7 +32,7 @@ export const ROUND_INFO_VIEW = () => {
 
 export const CREATE_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const { uploadStep, tokenSymbol } = params
+  const { uploadStep } = params
   const roundId = 1
 
   let uploadState: string
@@ -44,15 +44,12 @@ export const CREATE_ROUND_VIEW = (params: any) => {
       uploadState = "Settin up round"
       break
     case 3:
-      uploadState = "Issuing ERC20 token"
-      break
-    case 4:
       uploadState = "Reverting"
       break
-    case 5:
+    case 4:
       uploadState = "Reverted"
       break
-    case 6:
+    case 5:
       uploadState = "Success!"
       break
   }
@@ -61,36 +58,26 @@ export const CREATE_ROUND_VIEW = (params: any) => {
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
       <div className="pt-8 space-y-6">
-        <p className="pb-8">Please wait</p>
         <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 mx-auto">
           <LoadingStep
             initCondition={uploadStep < 2}
             uploadState={uploadState}
-            endState={uploadStep == 4 || uploadStep == 5 ? uploadState : "Done"}
+            endState={uploadStep == 3 || uploadStep == 4 ? uploadState : "Done"}
           />
           <LoadingStep
             nullCondition={uploadStep < 2}
             initCondition={uploadStep < 3}
             uploadState={uploadState}
             waitingState="Create round"
-            endState={uploadStep == 4 || uploadStep == 5 ? uploadState : "Done"}
+            endState={uploadStep == 3 || uploadStep == 4 ? uploadState : "Done"}
           />
-          {tokenSymbol && (
-            <LoadingStep
-              nullCondition={uploadStep < 3}
-              initCondition={uploadStep < 4}
-              uploadState={uploadState}
-              waitingState="Issue token"
-              endState={
-                uploadStep == 4 || uploadStep == 5 ? uploadState : "Done"
-              }
-            />
-          )}
         </div>
         <div className="pt-10">
-          {uploadStep > 4 ? (
-            uploadStep > 5 ? (
-              <Button label={"Go to round"} href={`/round/${roundId}`} />
+          {uploadStep > 3 ? (
+            uploadStep > 4 ? (
+              <div onClick={() => setModalView({ name: "" })}>
+                <Button label={"Go to round"} href={`/round/${roundId}`} />
+              </div>
             ) : (
               <Button
                 label={"Go back"}
@@ -110,28 +97,9 @@ export const CREATE_ROUND_VIEW = (params: any) => {
 
 export const REVIEW_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const {
-    name,
-    descriptionHtml,
-    image,
-    website,
-    twitter,
-    discord,
-    docs,
-    tokenSymbol,
-    tokenIssuance,
-    reservedStake,
-    duration,
-    target,
-    cap,
-    transferTimestamp,
-    releaseTimestamp,
-    addresses,
-    shares,
-    totalShares,
-    isFundraiseEth,
-    createRound
-  } = params
+  const { createRoundData, descriptionHtml, totalShares, createRound } = params
+  const { transferTimestamp, releaseTimestamp, addresses, shares } =
+    createRoundData
 
   return (
     <div className="text-center">
@@ -143,20 +111,8 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
         </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
-          name={name}
+          roundData={createRoundData}
           descriptionHtml={descriptionHtml}
-          image={image}
-          website={website}
-          twitter={twitter}
-          discord={discord}
-          docs={docs}
-          tokenSymbol={tokenSymbol}
-          tokenIssuance={tokenIssuance}
-          duration={duration}
-          target={target}
-          cap={cap}
-          isFundraiseEth={isFundraiseEth}
-          reservedStake={reservedStake}
         />
         <div className="py-8">
           <p className="pb-8 text-base text-center">
@@ -168,7 +124,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
               shares={[
                 100 - totalShares,
                 ...shares.slice(1),
-                Number(reservedStake)
+                Number(shares[0])
               ]}
               total={100}
             />
@@ -183,7 +139,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
         <div className="pb-6">
           <ReservedTable
             reservedPool={totalShares}
-            reservedStake={Number(reservedStake)}
+            reservedStake={Number(shares[0])}
           />
         </div>
         <div className="pt-6 text-center">

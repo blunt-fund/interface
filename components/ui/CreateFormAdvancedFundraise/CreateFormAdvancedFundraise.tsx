@@ -1,35 +1,31 @@
 import { Input } from "@components/ui"
+import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useEffect } from "react"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  duration: number
-  target: number
-  cap: number
-  isFundraiseEth: boolean
+  createRoundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
   targetError: boolean
-  setDuration: Dispatch<SetStateAction<number>>
-  setTarget: Dispatch<SetStateAction<number>>
-  setCap: Dispatch<SetStateAction<number>>
-  setIsFundraiseEth: Dispatch<SetStateAction<boolean>>
-  setTargetError: Dispatch<SetStateAction<boolean>>
 }
 
 const CreateFormAdvancedFundraise = ({
-  duration,
-  target,
-  isFundraiseEth,
-  cap,
-  targetError,
-  setDuration,
-  setTarget,
-  setIsFundraiseEth,
-  setCap,
-  setTargetError
+  createRoundData,
+  setRoundData,
+  targetError
 }: Props) => {
-  useEffect(() => {
-    setTargetError(target != 0 && cap != 0 && Number(target) > Number(cap))
-  }, [setTargetError, target, cap])
+  const { duration, target, cap, isFundraiseEth } = createRoundData
+
+  const handleSetDuration = (value: number) => {
+    handleSetObject("duration", value, createRoundData, setRoundData)
+  }
+  const handleSetTarget = (value: number) => {
+    handleSetObject("target", value, createRoundData, setRoundData)
+  }
+  const handleSetCap = (value: number) => {
+    handleSetObject("cap", value, createRoundData, setRoundData)
+  }
 
   return (
     <div className="py-3 space-y-6">
@@ -43,7 +39,7 @@ const CreateFormAdvancedFundraise = ({
           label="Fundraise duration (days)"
           min={0}
           value={duration || ""}
-          onChange={setDuration}
+          onChange={handleSetDuration}
           placeholder="Leave blank for unlimited"
           question={
             <>
@@ -64,7 +60,7 @@ const CreateFormAdvancedFundraise = ({
           // }
           min={0}
           value={target || ""}
-          onChange={setTarget}
+          onChange={handleSetTarget}
           placeholder={`Minimum ${isFundraiseEth ? "ETH" : "USD"} to raise`}
           question={
             <>
@@ -88,7 +84,7 @@ const CreateFormAdvancedFundraise = ({
           // }
           min={0}
           value={cap || ""}
-          onChange={setCap}
+          onChange={handleSetCap}
           placeholder={`Maximum ${isFundraiseEth ? "ETH" : "USD"} to raise`}
           question={
             <>

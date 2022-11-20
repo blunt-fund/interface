@@ -1,24 +1,32 @@
 import { Input } from "@components/ui"
+import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
+import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  name: string
-  tokenSymbol: string
-  tokenIssuance: number
-  setTokenSymbol: Dispatch<SetStateAction<string>>
-  setTokenIssuance: Dispatch<SetStateAction<number>>
+  createRoundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
 }
 
-const CreateFormAdvancedERC20 = ({
-  name,
-  tokenSymbol,
-  tokenIssuance,
-  setTokenSymbol,
-  setTokenIssuance
-}: Props) => {
-  const handleSetTokenSymbol = (tokenSymbol: string) => {
-    setTokenSymbol(tokenSymbol.toUpperCase())
+const CreateFormAdvancedERC20 = ({ createRoundData, setRoundData }: Props) => {
+  const { name, tokenName, tokenSymbol, tokenIssuance } = createRoundData
+
+  const handleSetTokenIssuance = (value: number) => {
+    handleSetObject("tokenIssuance", value, createRoundData, setRoundData)
+  }
+
+  const handleSetTokenName = (value: string) => {
+    handleSetObject("tokenName", value, createRoundData, setRoundData)
+  }
+
+  const handleSetTokenSymbol = (value: string) => {
+    handleSetObject(
+      "tokenSymbol",
+      value.toUpperCase(),
+      createRoundData,
+      setRoundData
+    )
   }
 
   return (
@@ -27,6 +35,33 @@ const CreateFormAdvancedERC20 = ({
         Configure the project&apos;s ERC20 token and the amount to be issued to
         blunt round participants.
       </p>
+      <div>
+        <Input
+          type="number"
+          label="Tokens issued per ETH"
+          min={0}
+          value={tokenIssuance != 0 ? tokenIssuance : ""}
+          onChange={handleSetTokenIssuance}
+          placeholder="1000000"
+          question={
+            <>
+              Number of tokens to issue per ETH contributed during the blunt
+              round.
+            </>
+          }
+          questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
+        />
+      </div>
+      <div>
+        <Input
+          type="string"
+          label="Token name"
+          value={tokenName}
+          onChange={handleSetTokenName}
+          placeholder={name ? name : "Blunt Finance"}
+          question={<>Name of the ERC20 token to be issued for the project.</>}
+        />
+      </div>
       <div>
         <Input
           type="string"
@@ -49,23 +84,9 @@ const CreateFormAdvancedERC20 = ({
           }
         />
       </div>
-      <div>
-        <Input
-          type="number"
-          label="Tokens issued per ETH"
-          min={0}
-          value={tokenIssuance != 0 ? tokenIssuance : ""}
-          onChange={setTokenIssuance}
-          placeholder="1000000"
-          question={
-            <>
-              Number of tokens to issue per ETH contributed during the blunt
-              round.
-            </>
-          }
-          questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
-        />
-      </div>
+      <p className="pt-4 text-sm text-gray-600">
+        Note: You can also set token name and symbol later.
+      </p>
     </div>
   )
 }

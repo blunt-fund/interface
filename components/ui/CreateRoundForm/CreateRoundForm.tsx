@@ -7,8 +7,8 @@ import {
   CreateFormAdvancedLock,
   CreateFormAdvancedLinks,
   CreateFormAdvancedReservedRate,
-  ReservedTable,
-  Textarea
+  CreateFormGeneral,
+  ReservedTable
 } from "@components/ui"
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import deletePins from "@utils/deletePins"
@@ -21,29 +21,77 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import { useAppContext } from "../context"
 import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 
+export type RoundData = {
+  name: string
+  description: string
+  duration: number
+  target: number
+  cap: number
+  isFundraiseEth: boolean
+  transferTimeLock: number
+  releaseTimeLock: number
+  roundTimeLock: number
+  tokenName: string
+  tokenSymbol: string
+  tokenIssuance: number
+  image: ImageType
+  website: string
+  twitter: string
+  discord: string
+  docs: string
+  addresses: string[]
+  shares: number[]
+}
+
 const CreateRoundForm = () => {
   const { setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
 
-  // General settings
-  const [name, setName] = useState("")
-  const [description, setDescription] = useState("")
-  const [reservedStake, setReservedStake] = useState(10)
-
-  // Advanced settings
-
-  // Fundraise
-  const [duration, setDuration] = useState(0)
-  const [target, setTarget] = useState(0)
-  const [isFundraiseEth, setIsFundraiseEth] = useState(true)
-  const [cap, setCap] = useState(0)
+  const [createRoundData, setRoundData] = useState<RoundData>({
+    name: "",
+    description: "",
+    duration: 0,
+    target: 0,
+    cap: 0,
+    isFundraiseEth: true,
+    transferTimeLock: 0,
+    releaseTimeLock: 0,
+    roundTimeLock: 0,
+    tokenName: "",
+    tokenSymbol: "",
+    tokenIssuance: 0,
+    image: {
+      url: "",
+      file: undefined
+    },
+    website: "",
+    twitter: "",
+    discord: "",
+    docs: "",
+    addresses: [""],
+    shares: [10]
+  })
 
   // Lock
-  const [transferTimeLock, setTransferTimeLock] = useState(0)
-  const [releaseTimeLock, setReleaseTimeLock] = useState(0)
+  const {
+    target,
+    cap,
+    duration,
+    transferTimeLock,
+    releaseTimeLock,
+    roundTimeLock,
+    shares
+  } = createRoundData
+
+  const totalShares = shares.reduce((a, b) => Number(a) + Number(b))
+  const reservedError = totalShares > 100
+  const targetError = target != 0 && cap != 0 && Number(target) > Number(cap)
+
+  // TODO: Fix this timestamp mess
   const now = new Date()
   let transferLockDate = transferTimeLock != 0 ? new Date() : new Date(0)
   let releaseLockDate = releaseTimeLock != 0 ? new Date() : new Date(0)
+  let roundLockDate = roundTimeLock != 0 ? new Date() : new Date(0)
 
   transferLockDate.setDate(
     now.getDate() + Number(transferTimeLock) + Number(duration)
@@ -51,43 +99,29 @@ const CreateRoundForm = () => {
   releaseLockDate.setDate(
     now.getDate() + Number(releaseTimeLock) + Number(duration)
   )
+  roundLockDate.setDate(
+    now.getDate() + Number(roundTimeLock) + Number(duration)
+  )
   const transferTimestamp = transferLockDate.getTime()
   const releaseTimestamp = releaseLockDate.getTime()
-
-  // TODO: Fix this timestamp mess
-
-  // ERC20
-  const [tokenSymbol, setTokenSymbol] = useState("")
-  const [tokenIssuance, setTokenIssuance] = useState(0)
-
-  // Links
-  const [image, setImage] = useState<ImageType>({
-    url: "",
-    file: undefined
-  })
-  const [website, setWebsite] = useState("")
-  const [twitter, setTwitter] = useState("")
-  const [discord, setDiscord] = useState("")
-  const [docs, setDocs] = useState("")
-
-  // Reserved rate
-  const [targetError, setTargetError] = useState(false)
-  const [reservedError, setReservedError] = useState(false)
-  const [addresses, setAddresses] = useState([""])
-  const [shares, setShares] = useState([100])
-  const [totalShares, setTotalShares] = useState(10)
+  const roundTimestamp = roundLockDate.getTime()
 
   const addRecentTransaction = useAddRecentTransaction()
-  const { config } = usePrepareContractWrite({
-    addressOrName: "BluntDelegateProjectDeployer",
-    contractInterface: "",
-    functionName: "launchProjectFor",
-    args: []
-  })
 
-  const { writeAsync } = useContractWrite(config)
+  // const { config } = usePrepareContractWrite({
+  //   addressOrName: "BluntDelegateProjectDeployer",
+  //   contractInterface: "",
+  //   functionName: "launchProjectFor",
+  //   args: []
+  // })
+
+  // const { writeAsync } = useContractWrite(config)
 
   const createRound = async () => {
+    // Lock
+    const { name, description, image, website, twitter, discord, docs } =
+      createRoundData
+
     setUploadStep(1)
     let cid: string
     const logoCid = image.file
@@ -108,12 +142,10 @@ const CreateRoundForm = () => {
         },
         "metadata"
       )
-
       cid = await web3Storage().put(metadata, {
         wrapWithDirectory: false,
         name
       })
-
       setUploadStep(2)
       // const tx = await writeAsync()
       // addRecentTransaction({
@@ -121,22 +153,16 @@ const CreateRoundForm = () => {
       //   description: "Create Blunt round"
       // })
       // await tx.wait()
-
-      if (tokenSymbol) {
-        setUploadStep(3)
-        // TODO: Add issue token?
-      }
-      setUploadStep(6)
+      setUploadStep(5)
     } catch (error) {
       // TODO: Handle revert
-      // setUploadStep(4)
+      // setUploadStep(3)
       // const cids: string[] = []
       // if (cid) cids.push(cid)
       // if (image.file) cids.push(logoCid)
       // const requestIds: string[] = await getRequestIds(cids)
       // deletePins(requestIds)
-
-      setUploadStep(5)
+      setUploadStep(4)
     }
   }
 
@@ -144,32 +170,15 @@ const CreateRoundForm = () => {
     e.preventDefault()
     if (!reservedError && !targetError) {
       const markdownToHtml = (await import("@lib/markdownToHtml")).default
+      const { description } = createRoundData
       const descriptionHtml = await markdownToHtml(description)
 
       setModalView({
         name: "REVIEW_ROUND_VIEW",
         cross: true,
         params: {
-          name,
-          tokenSymbol,
-          tokenIssuance,
-          reservedStake,
-          description,
+          createRoundData,
           descriptionHtml,
-          image,
-          website,
-          twitter,
-          discord,
-          docs,
-          duration,
-          target,
-          isFundraiseEth,
-          cap,
-          transferTimestamp,
-          releaseTimestamp,
-          reservedError,
-          addresses,
-          shares,
           totalShares,
           createRound
         }
@@ -178,45 +187,12 @@ const CreateRoundForm = () => {
   }
 
   useEffect(() => {
-    let items = shares
-    items[0] = reservedStake
-    setShares(items)
-
-    setTotalShares(
-      shares.length > 1
-        ? Number(shares.slice(1).reduce((a, b) => Number(a) + Number(b))) +
-            Number(reservedStake)
-        : Number(reservedStake)
-    )
-  }, [reservedStake])
-
-  useEffect(() => {
     if (uploadStep != 0) {
       setModalView({
         cross: false,
         name: `CREATE_ROUND_VIEW`,
         params: {
-          name,
-          uploadStep,
-          tokenSymbol,
-          tokenIssuance,
-          reservedStake,
-          description,
-          image,
-          website,
-          twitter,
-          discord,
-          docs,
-          duration,
-          target,
-          isFundraiseEth,
-          cap,
-          transferTimestamp,
-          releaseTimestamp,
-          reservedError,
-          addresses,
-          shares,
-          totalShares
+          uploadStep
         }
       })
     }
@@ -224,40 +200,10 @@ const CreateRoundForm = () => {
 
   return (
     <form className="space-y-8 text-left" onSubmit={submit}>
-      <div>
-        <Input label="Project name" value={name} onChange={setName} required />
-      </div>
-      <div>
-        <Textarea
-          label="Project description"
-          value={description}
-          onChange={setDescription}
-          rows={5}
-          required
-        />
-      </div>
-      <div className="pb-6">
-        <Input
-          type="range"
-          label={
-            <>
-              Round token allocation: <b>{Number(reservedStake).toFixed(1)}%</b>
-            </>
-          }
-          min={0}
-          max={100 - Number(totalShares) + Number(reservedStake)}
-          step={0.5}
-          value={reservedStake}
-          onChange={setReservedStake}
-          question={
-            <>
-              Percentage of future issued tokens shared between the round
-              participants.
-            </>
-          }
-        />
-      </div>
-
+      <CreateFormGeneral
+        createRoundData={createRoundData}
+        setRoundData={setRoundData}
+      />
       <p className="pt-4 font-bold">Advanced settings</p>
       <ul className="space-y-6">
         <CollapsibleItem
@@ -265,29 +211,21 @@ const CreateRoundForm = () => {
           error={targetError}
           detail={
             <CreateFormAdvancedFundraise
-              duration={duration}
-              target={target}
-              isFundraiseEth={isFundraiseEth}
-              cap={cap}
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
               targetError={targetError}
-              setDuration={setDuration}
-              setTarget={setTarget}
-              setIsFundraiseEth={setIsFundraiseEth}
-              setCap={setCap}
-              setTargetError={setTargetError}
             />
           }
         />
         <CollapsibleItem
-          label="Vesting"
+          label="Vesting and locks"
           detail={
             <CreateFormAdvancedLock
-              transferTimeLock={transferTimeLock}
-              releaseTimeLock={releaseTimeLock}
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
               transferLockDate={transferLockDate}
               releaseLockDate={releaseLockDate}
-              setTransferTimeLock={setTransferTimeLock}
-              setReleaseTimeLock={setReleaseTimeLock}
+              roundLockDate={roundLockDate}
             />
           }
         />
@@ -295,11 +233,8 @@ const CreateRoundForm = () => {
           label="ERC20 token issuance"
           detail={
             <CreateFormAdvancedERC20
-              name={name}
-              tokenSymbol={tokenSymbol}
-              tokenIssuance={tokenIssuance}
-              setTokenSymbol={setTokenSymbol}
-              setTokenIssuance={setTokenIssuance}
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
             />
           }
         />
@@ -307,17 +242,8 @@ const CreateRoundForm = () => {
           label="Project logo and links"
           detail={
             <CreateFormAdvancedLinks
-              name={name}
-              image={image}
-              website={website}
-              twitter={twitter}
-              discord={discord}
-              docs={docs}
-              setWebsite={setWebsite}
-              setTwitter={setTwitter}
-              setDiscord={setDiscord}
-              setDocs={setDocs}
-              setImage={setImage}
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
             />
           }
         />
@@ -326,14 +252,9 @@ const CreateRoundForm = () => {
           error={reservedError}
           detail={
             <CreateFormAdvancedReservedRate
-              addresses={addresses}
-              shares={shares}
-              reservedStake={reservedStake}
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
               totalShares={totalShares}
-              setAddresses={setAddresses}
-              setShares={setShares}
-              setTotalShares={setTotalShares}
-              setReservedError={setReservedError}
             />
           }
         />
@@ -344,10 +265,7 @@ const CreateRoundForm = () => {
           Token emission preview
         </p>
         <div className="pb-6">
-          <ReservedTable
-            reservedPool={totalShares}
-            reservedStake={Number(reservedStake)}
-          />
+          <ReservedTable reservedPool={totalShares} reservedStake={shares[0]} />
         </div>
       </div>
 
