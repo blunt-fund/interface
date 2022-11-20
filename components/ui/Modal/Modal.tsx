@@ -38,7 +38,7 @@ const Modal = ({ modalView, setModalView }: Props) => {
         className="flex items-center justify-center"
         style={{ minHeight: "100%" }}
       >
-        <div className="relative w-full max-w-screen-md px-2 py-16 mx-2 bg-white border border-gray-200 shadow-xl xs:py-20 xs:px-8 rounded-xl">
+        <div className="relative w-full max-w-screen-md px-2 py-16 mx-2 bg-white border border-gray-200 shadow-xl xs:py-20 xs:px-8 rounded-sm">
           {cross && (
             <div className="absolute top-[24px] right-[24px]">
               <Cross
