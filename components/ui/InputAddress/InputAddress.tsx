@@ -12,6 +12,8 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   address: string
   resolvedAddress: string
   setResolvedAddress: Dispatch<SetStateAction<string>>
+  helptext?: string | JSX.Element
+  question?: JSX.Element
   label?: string
   onChange?: (...args: any[]) => any
   placeholder?: string
@@ -26,6 +28,8 @@ const InputAddress: React.FC<Props> = (props) => {
     required,
     disabled,
     label,
+    helptext,
+    question,
     placeholder = "0x… / bluntly.eth",
     onChange,
     resolvedAddress,
@@ -67,6 +71,8 @@ const InputAddress: React.FC<Props> = (props) => {
         error={resolvedAddress === "Invalid ENS name"}
         onChange={onChange}
         disabled={disabled}
+        helptext={helptext}
+        question={question}
       />
       {resolvedAddress && (
         <p

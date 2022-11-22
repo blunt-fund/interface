@@ -97,7 +97,6 @@ const ReservedInputBlock = ({
           error={sharesAmount > 100}
           required={address && true}
           onChange={handleSetShareAmount}
-          disabled={index === 0}
         />
       </div>
 
