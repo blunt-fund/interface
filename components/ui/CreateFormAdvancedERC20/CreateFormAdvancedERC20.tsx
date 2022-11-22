@@ -47,17 +47,16 @@ const CreateFormAdvancedERC20 = ({ createRoundData, setRoundData }: Props) => {
           question={
             <>
               <p>
-                Number of tokens to issue per ETH contributed during the blunt
+                Amount of tokens to issue per ETH contributed during the blunt
                 round.
               </p>
               <p>
-                If left blank or set to 0, a small amount of tokens is issued
-                (0.001 tokens per ETH) in order to handle redemptions.
+                If left blank, a small amount of tokens is still issued (0.001
+                tokens per ETH) in order to handle redemptions.
               </p>
               <p>Once the blunt round ends, token emission will be 1M / ETH.</p>
             </>
           }
-          questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
         />
       </div>
       <div>
@@ -92,7 +91,7 @@ const CreateFormAdvancedERC20 = ({ createRoundData, setRoundData }: Props) => {
           }
         />
       </div>
-      <NoteText text="You can also set token name and symbol later" />
+      <NoteText text="Token name and symbol can also be set later, while the round is in progress" />
     </div>
   )
 }

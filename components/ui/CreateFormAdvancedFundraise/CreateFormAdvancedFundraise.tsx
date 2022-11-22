@@ -71,7 +71,6 @@ const CreateFormAdvancedFundraise = ({
           value={duration || ""}
           onChange={handleSetDuration}
           placeholder="Leave blank for unlimited"
-          helptext="How long will the round last?"
           question={<p>Leave blank to set unlimited duration.</p>}
         />
       </div>

@@ -122,7 +122,7 @@ const CreateFormAdvancedLinks = ({ createRoundData, setRoundData }: Props) => {
           label="Twitter"
           value={twitter}
           onChange={handleSetTwitter}
-          placeholder="bluntfinance"
+          placeholder="blunt_finance"
         />
       </div>
       <div>
