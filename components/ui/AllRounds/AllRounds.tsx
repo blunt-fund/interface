@@ -55,24 +55,7 @@ const AllRounds = () => {
     <div className="space-y-20">
       {rounds.map((round, i) => (
         <div key={i}>
-          <RoundViewMain
-            name={round.name}
-            image={round.image}
-            website={round.website}
-            twitter={round.twitter}
-            discord={round.discord}
-            docs={round.docs} // roundInfo && roundInfo[i].metadata.
-            tokenSymbol={round.tokenSymbol} // roundInfo && roundInfo[i].info.
-            tokenIssuance={round.tokenIssuance}
-            duration={round.duration}
-            target={round.target}
-            cap={round.cap}
-            isFundraiseEth={round.isFundraiseEth}
-            raised={round.raised}
-            roundId={round.roundId}
-            reservedStake={round.reservedStake}
-            secondary
-          />
+          <RoundViewMain roundData={round} secondary />
         </div>
       ))}
     </div>
