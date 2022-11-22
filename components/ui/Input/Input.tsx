@@ -8,7 +8,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string | JSX.Element
   helptext?: string | JSX.Element
   prefix?: string
-  after?: string
+  after?: string | JSX.Element
   error?: boolean
   loading?: boolean
   inverted?: boolean
@@ -41,7 +41,7 @@ const Input: React.FC<Props> = ({
   onChange,
   ...rest
 }) => {
-  const rootClassName = `peer bg-white rounded-sm py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-500 disabled:text-gray-500 disabled:border-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:text-gray-400 ${
+  const rootClassName = `peer bg-white rounded-sm py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-400 disabled:text-gray-400 disabled:border-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:text-gray-500 ${
     error
       ? "border-red-500 text-red-500 focus:border-red-500"
       : "border-gray-400 text-black focus:border-blue-600"
@@ -57,14 +57,14 @@ const Input: React.FC<Props> = ({
   return (
     <label>
       {(label || question) && (
-        <div className="relative flex items-center h-9">
+        <div className={`relative flex items-center ${question ? "" : "pb-2"}`}>
           {label && <p className="text-sm">{label}</p>}
           {question && <Question position={questionPosition} text={question} />}
         </div>
       )}
       {helptext && <p className="pb-2 text-xs text-gray-600">{helptext}</p>}
       <div
-        className={`flex flex-row-reverse ${
+        className={`relative flex flex-row-reverse ${
           prefix && !error ? "overflow-hidden" : ""
         }`}
       >
@@ -101,6 +101,9 @@ const Input: React.FC<Props> = ({
             )}
           </div>
         )}
+        <p className="absolute right-[40px] flex items-center h-full text-sm text-gray-400">
+          {after}
+        </p>
         <input
           className={rootClassName}
           onChange={handleOnChange}
