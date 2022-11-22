@@ -82,6 +82,7 @@ const CreateFormAdvancedFundraise = ({
           prefix={isTargetEth ? "Ξ" : "$"}
           prefixAction={() => handleSetUsd("isTargetEth", !isTargetEth)}
           min={0}
+          step={isTargetEth ? 0.1 : 1}
           value={target || ""}
           onChange={handleSetTarget}
           placeholder="Leave blank to disable"
@@ -105,15 +106,17 @@ const CreateFormAdvancedFundraise = ({
           prefix={isCapEth ? "Ξ" : "$"}
           prefixAction={() => handleSetUsd("isCapEth", !isCapEth)}
           min={0}
+          step={isCapEth ? 0.1 : 1}
           value={cap || ""}
           onChange={handleSetCap}
           placeholder="Leave blank to disable"
           helptext={`Maximum ${isCapEth ? "ETH" : "USD"} to raise`}
           question={
             <>
+              <p>Contributions will be rejected once the cap is reached.</p>
               <p>
-                Contributions will be rejected once the cap is reached, limiting
-                ownership dilution among round participants.
+                If a slicer is to be created, it limits ownership dilution among
+                round participants.
               </p>
               <p>Leave blank to disable.</p>
             </>
@@ -138,9 +141,8 @@ const CreateFormAdvancedFundraise = ({
                 The project owner is responsible for closing the blunt round.
               </p>
               <p>
-                If the funding target has been reached at the moment it&apos;s
-                closed, ownership of the JB project will be transferred to this
-                account.
+                If the funding target has been reached when the round is closed,
+                ownership of the JB project will be transferred to this account.
               </p>
             </>
           }

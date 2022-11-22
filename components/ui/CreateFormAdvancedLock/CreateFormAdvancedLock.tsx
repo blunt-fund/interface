@@ -34,7 +34,7 @@ const CreateFormAdvancedLock = ({
   return (
     <div className="py-3 space-y-6">
       <p>
-        Lock slice transfers, token withdrawals and future changes in the blunt
+        Lock slice transfers, token withdrawals and modifications to the blunt
         round allocation.
       </p>
       <div className="relative">
@@ -42,18 +42,19 @@ const CreateFormAdvancedLock = ({
           type="number"
           label="Slice transfer lock (days)"
           min={0}
-          value={transferTimeLock || ""}
+          value={transferTimeLock != 0 ? transferTimeLock : ""}
           onChange={handleSetTransferTimeLock}
           placeholder="Leave blank to disable"
           question={
             <>
               <p>
-                Slices are ERC1155 tokens which represent ownership over the
-                slicer related to a blunt round.
+                Slices are the ERC1155 tokens representing ownership over the
+                blunt round slicer.
               </p>
               <p>
-                By default, round participants can transfer slices and trade
-                them on NFT marketplaces.
+                By default, slices are transferable. This lock prevents round
+                participants to transfer or trade their slices until the
+                specified date.
               </p>
               <p>Leave blank to always allow slice transfers.</p>
             </>
@@ -71,13 +72,18 @@ const CreateFormAdvancedLock = ({
       <div className="relative">
         <Input
           type="number"
-          label="Token withdrawal lock (days)"
+          label="Token withdrawals lock (days)"
           min={0}
-          value={releaseTimeLock || ""}
+          value={releaseTimeLock != 0 ? releaseTimeLock : ""}
           onChange={handleSetReleaseTimeLock}
           placeholder="Leave blank to disable"
           question={
             <>
+              <p>
+                This lock prevents round participants to withdraw any currency
+                earned by the slicer until the specified date, including the
+                project tokens reserved for the round allocation.
+              </p>
               <p>Leave blank to always allow token withdrawals.</p>
             </>
           }
@@ -95,14 +101,20 @@ const CreateFormAdvancedLock = ({
         <Input
           type="number"
           label="Round token allocation lock (days)"
-          helptext="Prevent reserved rate allocation for blunt round participants to be changed for a period of time."
           min={0}
-          value={roundTimeLock || ""}
+          value={roundTimeLock != 0 ? roundTimeLock : ""}
           onChange={handleSetRoundTimeLock}
           placeholder="Leave blank to disable"
           question={
             <>
-              <p>A longer timelock can act as assurance to contributors.</p>
+              <p>
+                This lock prevents the project owner to reduce the round token
+                allocation by reconfiguring a future funding cycle.
+              </p>
+              <p>
+                A longer timelock can act as assurance to prospective
+                contributors.
+              </p>
             </>
           }
         />

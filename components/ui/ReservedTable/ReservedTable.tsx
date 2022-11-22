@@ -14,7 +14,7 @@ const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
             {/* <th scope="col">Cycle</th> */}
             <th scope="col">Contributor</th>
             <th scope="col">Blunt round</th>
-            <th scope="col">Other reserved</th>
+            <th scope="col">Others reserved</th>
           </tr>
         </thead>
         <tbody>

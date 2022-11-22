@@ -238,6 +238,15 @@ const CreateRoundForm = () => {
           }
         />
         <CollapsibleItem
+          label="ERC20 token issuance"
+          detail={
+            <CreateFormAdvancedERC20
+              createRoundData={createRoundData}
+              setRoundData={setRoundData}
+            />
+          }
+        />
+        <CollapsibleItem
           label="Vesting and locks"
           detail={
             <CreateFormAdvancedLock
@@ -246,15 +255,6 @@ const CreateRoundForm = () => {
               transferLockDate={transferLockDate}
               releaseLockDate={releaseLockDate}
               roundLockDate={roundLockDate}
-            />
-          }
-        />
-        <CollapsibleItem
-          label="ERC20 token issuance"
-          detail={
-            <CreateFormAdvancedERC20
-              createRoundData={createRoundData}
-              setRoundData={setRoundData}
             />
           }
         />
@@ -282,7 +282,7 @@ const CreateRoundForm = () => {
 
       <div className="py-8">
         <p className="pb-6 text-base font-bold text-left">
-          Token emission preview
+          Token emission after round (preview)
         </p>
         <div className="pb-6">
           <ReservedTable reservedPool={totalShares} reservedStake={shares[0]} />

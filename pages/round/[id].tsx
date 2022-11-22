@@ -123,7 +123,11 @@ export default function Create() {
                 </p>
                 <div className="text-black">
                   <PieChart
-                    addresses={["Contributor", "Other reserved", "Blunt round"]}
+                    addresses={[
+                      "Contributor",
+                      "Others reserved",
+                      "Blunt round"
+                    ]}
                     shares={[
                       100 - totalShares,
                       ...shares.slice(1),
