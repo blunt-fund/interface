@@ -15,13 +15,13 @@ import deletePins from "@utils/deletePins"
 import fetcher from "@utils/fetcher"
 import getRequestIds from "@utils/getRequestIds"
 import jsonToFile from "@utils/jsonToFile"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import constants from "constants.json"
 import web3Storage from "lib/web3Storage"
 import React, { useEffect, useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import { useAppContext } from "../context"
 import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
-import useSWR from "swr"
 
 export type RoundData = {
   name: string
@@ -49,10 +49,6 @@ export type RoundData = {
 }
 
 const CreateRoundForm = () => {
-  const { data: ethUsd } = useSWR(
-    "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
-    fetcher
-  )
   const { account, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
 
@@ -101,10 +97,10 @@ const CreateRoundForm = () => {
   const totalShares = shares.reduce((a, b) => Number(a) + Number(b))
   const reservedError = totalShares > 100
 
-  const formattedCap = isCapEth ? cap : cap / ethUsd?.price
-  const formattedTarget = isTargetEth ? target : target / ethUsd?.price
-  const riskMargin = formattedTarget / formattedCap
-  const targetError = cap != 0 && formattedTarget >= formattedCap
+  const normalizedTarget = useNormalizeCurrency(target, isTargetEth)
+  const normalizedCap = useNormalizeCurrency(cap, isCapEth)
+  const riskMargin = normalizedTarget / normalizedCap
+  const targetError = cap != 0 && normalizedTarget >= normalizedCap
 
   // TODO: Fix this timestamp mess
   const now = new Date()

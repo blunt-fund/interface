@@ -127,9 +127,12 @@ const CreateFormAdvancedFundraise = ({
         <NoteText error text="Target cannot be higher than cap" />
       )}
       <NoteText text="Hint: Click on the currency icon to toggle between ETH and USD" />
-      {!targetError && isTargetEth != isCapEth && riskMargin > 0.5 && (
-        <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
-      )}
+      {cap != 0 &&
+        !targetError &&
+        isTargetEth != isCapEth &&
+        riskMargin > 0.5 && (
+          <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
+        )}
       <div className="pb-2">
         <InputAddress
           label="Project owner"

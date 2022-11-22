@@ -4,6 +4,7 @@ import Logo from "@components/icons/Logo"
 import { Discord, Twitter } from "@components/icons/Social"
 
 import formatNumber from "@utils/formatNumber"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import Image from "next/image"
 import ConditionalLink from "../ConditionalLink"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
@@ -38,11 +39,15 @@ const CreateFormAdvancedERC20 = ({
     target,
     cap,
     shares,
-    isFundraiseEth
+    isTargetEth,
+    isCapEth
   } = roundData
 
-  const currency = isFundraiseEth ? "ETH" : "USD"
+  const currency = (isEth: boolean) => (isEth ? "ETH" : "USD")
   const twitterUrl = `https://twitter.com/${twitter}`
+  const targetEth = useNormalizeCurrency(target, isTargetEth)
+  const capEth = useNormalizeCurrency(cap, isCapEth)
+  const raisedUsd = useNormalizeCurrency(raised, true, false)
 
   return (
     <ConditionalLink
@@ -125,12 +130,12 @@ const CreateFormAdvancedERC20 = ({
               <ProgressBar
                 max={
                   cap != 0
-                    ? cap
-                    : raised < target
-                    ? target * 1.5
+                    ? capEth
+                    : raised < targetEth
+                    ? targetEth * 1.5
                     : raised * 1.25
                 }
-                target={target}
+                target={targetEth}
                 raised={raised}
               />
               <div className="flex justify-between pt-5 pb-2">
@@ -139,14 +144,15 @@ const CreateFormAdvancedERC20 = ({
                   <b>
                     <span
                       className={
-                        raised < target
+                        raised < targetEth
                           ? "text-yellow-500 dark:text-yellow-300"
                           : "text-blue-600 nightwind prevent"
                       }
                     >
-                      {formatNumber(raised, 1)}
+                      {formatNumber(isCapEth ? raised : raisedUsd, 1)}
                     </span>{" "}
-                    {cap != 0 && `/ ${formatNumber(cap, 1)}`} {currency}
+                    {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
+                    {currency(isCapEth)}
                   </b>
                 </p>
                 <p>
@@ -161,7 +167,7 @@ const CreateFormAdvancedERC20 = ({
                       <span className="text-blue-600">
                         {formatNumber(target, 1)}
                       </span>{" "}
-                      {currency}
+                      {currency(isTargetEth)}
                     </b>
                   </p>
                 )}
