@@ -90,8 +90,8 @@ const CreateFormAdvancedFundraise = ({
           question={
             <>
               <p>
-                If the target is not reached before the round ends, the round
-                will close and contributions can be fully refunded.
+                If the target is not reached in time, the round will close and
+                all contributions can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
             </>
@@ -114,7 +114,7 @@ const CreateFormAdvancedFundraise = ({
             <>
               <p>
                 Contributions will be rejected once the cap is reached, limiting
-                ownership dilution among contributors.
+                ownership dilution among round participants.
               </p>
               <p>Leave blank to disable.</p>
             </>
