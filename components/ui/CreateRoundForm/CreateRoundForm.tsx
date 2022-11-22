@@ -12,6 +12,7 @@ import {
 } from "@components/ui"
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import deletePins from "@utils/deletePins"
+import fetcher from "@utils/fetcher"
 import getRequestIds from "@utils/getRequestIds"
 import jsonToFile from "@utils/jsonToFile"
 import constants from "constants.json"
@@ -20,6 +21,7 @@ import React, { useEffect, useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import { useAppContext } from "../context"
 import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
+import useSWR from "swr"
 
 export type RoundData = {
   name: string
@@ -27,7 +29,10 @@ export type RoundData = {
   duration: number
   target: number
   cap: number
-  isFundraiseEth: boolean
+  isTargetEth: boolean
+  isCapEth: boolean
+  enforceSlicerCreation: boolean
+  projectOwner: string
   transferTimeLock: number
   releaseTimeLock: number
   roundTimeLock: number
@@ -44,7 +49,11 @@ export type RoundData = {
 }
 
 const CreateRoundForm = () => {
-  const { setModalView } = useAppContext()
+  const { data: ethUsd } = useSWR(
+    "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+    fetcher
+  )
+  const { account, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
 
   const [createRoundData, setRoundData] = useState<RoundData>({
@@ -53,7 +62,10 @@ const CreateRoundForm = () => {
     duration: 0,
     target: 0,
     cap: 0,
-    isFundraiseEth: true,
+    isTargetEth: true,
+    isCapEth: true,
+    enforceSlicerCreation: true,
+    projectOwner: account || "",
     transferTimeLock: 0,
     releaseTimeLock: 0,
     roundTimeLock: 0,
@@ -76,16 +88,23 @@ const CreateRoundForm = () => {
   const {
     target,
     cap,
+    isTargetEth,
+    isCapEth,
     duration,
     transferTimeLock,
     releaseTimeLock,
     roundTimeLock,
-    shares
+    shares,
+    projectOwner
   } = createRoundData
 
   const totalShares = shares.reduce((a, b) => Number(a) + Number(b))
   const reservedError = totalShares > 100
-  const targetError = target != 0 && cap != 0 && Number(target) > Number(cap)
+
+  const formattedCap = isCapEth ? cap : cap / ethUsd?.price
+  const formattedTarget = isTargetEth ? target : target / ethUsd?.price
+  const riskMargin = formattedTarget / formattedCap
+  const targetError = cap != 0 && formattedTarget >= formattedCap
 
   // TODO: Fix this timestamp mess
   const now = new Date()
@@ -207,13 +226,14 @@ const CreateRoundForm = () => {
       <p className="pt-4 font-bold">Advanced settings</p>
       <ul className="space-y-6">
         <CollapsibleItem
-          label="Fundraise duration, target and cap"
+          label="Fundraise parameters"
           error={targetError}
           detail={
             <CreateFormAdvancedFundraise
               createRoundData={createRoundData}
               setRoundData={setRoundData}
               targetError={targetError}
+              riskMargin={riskMargin}
             />
           }
         />

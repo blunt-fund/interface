@@ -1,4 +1,4 @@
-import { Input, Textarea } from "@components/ui"
+import { Input, MySwitch, Textarea } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
@@ -9,13 +9,21 @@ type Props = {
 }
 
 const CreateFormGeneral = ({ createRoundData, setRoundData }: Props) => {
-  const { name, description, shares } = createRoundData
+  const { name, description, shares, enforceSlicerCreation } = createRoundData
 
   const handleSetName = (value: string) => {
     handleSetObject("name", value, createRoundData, setRoundData)
   }
   const handleSetDescription = (value: string) => {
     handleSetObject("description", value, createRoundData, setRoundData)
+  }
+  const handleSetEnforceSlicerCreation = (value: boolean) => {
+    handleSetObject(
+      "enforceSlicerCreation",
+      value,
+      createRoundData,
+      setRoundData
+    )
   }
 
   const handleSetReservedStake = (value: number) => {
@@ -64,6 +72,26 @@ const CreateFormGeneral = ({ createRoundData, setRoundData }: Props) => {
           }
         />
       </div>
+      {shares[0] == 0 && (
+        <MySwitch
+          enabled={enforceSlicerCreation}
+          setEnabled={handleSetEnforceSlicerCreation}
+          label="Create slicer"
+          question={
+            <>
+              <p>
+                Enable to create a slicer and allow round participants to claim
+                slices once the round ends successfully.
+              </p>
+              <p>
+                Can be used to later split payments and tokens among
+                contributors.
+              </p>
+            </>
+          }
+          alignRight
+        />
+      )}
     </>
   )
 }

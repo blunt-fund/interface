@@ -1,6 +1,6 @@
-import { Input } from "@components/ui"
+import { Input, InputAddress, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
-import React, { Dispatch, SetStateAction, useEffect } from "react"
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
@@ -8,14 +8,20 @@ type Props = {
   createRoundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   targetError: boolean
+  riskMargin: number
 }
 
 const CreateFormAdvancedFundraise = ({
   createRoundData,
   setRoundData,
-  targetError
+  targetError,
+  riskMargin
 }: Props) => {
-  const { duration, target, cap, isFundraiseEth } = createRoundData
+  const { duration, target, cap, isTargetEth, isCapEth, projectOwner } =
+    createRoundData
+
+  const [address, setAddress] = useState("")
+  const [resolvedAddress, setResolvedAddress] = useState("")
 
   const handleSetDuration = (value: number) => {
     handleSetObject("duration", value, createRoundData, setRoundData)
@@ -26,6 +32,30 @@ const CreateFormAdvancedFundraise = ({
   const handleSetCap = (value: number) => {
     handleSetObject("cap", value, createRoundData, setRoundData)
   }
+  const handleSetUsd = (property: string, value: boolean) => {
+    handleSetObject(property, value, createRoundData, setRoundData)
+  }
+
+  useEffect(() => {
+    if (projectOwner) setAddress(projectOwner)
+  }, [])
+
+  useEffect(() => {
+    if (resolvedAddress && resolvedAddress != "Invalid ENS name") {
+      let newProjectOwner: string
+      if (resolvedAddress.substring(resolvedAddress.length - 4) !== ".eth") {
+        newProjectOwner = resolvedAddress
+      } else {
+        newProjectOwner = address
+      }
+      handleSetObject(
+        "projectOwner",
+        newProjectOwner,
+        createRoundData,
+        setRoundData
+      )
+    }
+  }, [resolvedAddress])
 
   return (
     <div className="py-3 space-y-6">
@@ -41,12 +71,8 @@ const CreateFormAdvancedFundraise = ({
           value={duration || ""}
           onChange={handleSetDuration}
           placeholder="Leave blank for unlimited"
-          question={
-            <>
-              <p>Choose how long will the round last.</p>
-              <p>Leave blank to set unlimited duration.</p>
-            </>
-          }
+          helptext="How long will the round last?"
+          question={<p>Leave blank to set unlimited duration.</p>}
         />
       </div>
       <div>
@@ -54,19 +80,18 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Target"
           error={targetError}
-          prefix={isFundraiseEth ? "Ξ" : "$"}
-          // prefixAction={() =>
-          //   setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
-          // }
+          prefix={isTargetEth ? "Ξ" : "$"}
+          prefixAction={() => handleSetUsd("isTargetEth", !isTargetEth)}
           min={0}
           value={target || ""}
           onChange={handleSetTarget}
-          placeholder={`Minimum ${isFundraiseEth ? "ETH" : "USD"} to raise`}
+          placeholder="Leave blank to disable"
+          helptext={`Minimum ${isTargetEth ? "ETH" : "USD"} to raise`}
           question={
             <>
               <p>
-                If the target is not reached before the duration, the round will
-                close and contributions can be fully refunded.
+                If the target is not reached before the round ends, the round
+                will close and contributions can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
             </>
@@ -78,34 +103,54 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Hard cap"
           error={targetError}
-          prefix={isFundraiseEth ? "Ξ" : "$"}
-          // prefixAction={() =>
-          //   setIsFundraiseEth((isFundraiseEth) => !isFundraiseEth)
-          // }
+          prefix={isCapEth ? "Ξ" : "$"}
+          prefixAction={() => handleSetUsd("isCapEth", !isCapEth)}
           min={0}
           value={cap || ""}
           onChange={handleSetCap}
-          placeholder={`Maximum ${isFundraiseEth ? "ETH" : "USD"} to raise`}
+          placeholder="Leave blank to disable"
+          helptext={`Maximum ${isCapEth ? "ETH" : "USD"} to raise`}
           question={
             <>
               <p>
-                Contributions will be rejected once the hard cap is reached.
-                This guarantees contributors{" "}
-                <b>a minimum guaranteed amount of reserved rate</b>.
+                Contributions will be rejected once the cap is reached, limiting
+                ownership dilution among contributors.
               </p>
               <p>Leave blank to disable.</p>
             </>
           }
         />
       </div>
-      {/* <p className="text-sm text-gray-600">
-        Note: Target and cap need to be in the same currency
-      </p> */}
       {targetError && (
-        <p className="text-sm text-red-500">
-          Target cannot be higher than hard cap
-        </p>
+        <NoteText error text="Target cannot be higher than cap" />
       )}
+      <NoteText text="Hint: Click on the currency icon to toggle between ETH and USD" />
+      {!targetError && isTargetEth != isCapEth && riskMargin > 0.5 && (
+        <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
+      )}
+      <div className="pb-2">
+        <InputAddress
+          label="Project owner"
+          address={address}
+          onChange={setAddress}
+          question={
+            <>
+              <p>
+                The project owner is responsible for closing the blunt round.
+              </p>
+              <p>
+                If the funding target has been reached at the moment it&apos;s
+                closed, ownership of the JB project will be transferred to this
+                account.
+              </p>
+            </>
+          }
+          helptext="The future owner of the Juicebox project if the round is successful"
+          required
+          resolvedAddress={resolvedAddress}
+          setResolvedAddress={setResolvedAddress}
+        />
+      </div>
     </div>
   )
 }

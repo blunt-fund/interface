@@ -1,4 +1,4 @@
-import { Input } from "@components/ui"
+import { Input, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
@@ -38,15 +38,23 @@ const CreateFormAdvancedERC20 = ({ createRoundData, setRoundData }: Props) => {
       <div>
         <Input
           type="number"
-          label="Tokens issued per ETH"
+          label="Tokens issued during round"
           min={0}
           value={tokenIssuance != 0 ? tokenIssuance : ""}
           onChange={handleSetTokenIssuance}
           placeholder="1000000"
+          after="/ ETH"
           question={
             <>
-              Number of tokens to issue per ETH contributed during the blunt
-              round.
+              <p>
+                Number of tokens to issue per ETH contributed during the blunt
+                round.
+              </p>
+              <p>
+                If left blank or set to 0, a small amount of tokens is issued
+                (0.001 tokens per ETH) in order to handle redemptions.
+              </p>
+              <p>Once the blunt round ends, token emission will be 1M / ETH.</p>
             </>
           }
           questionPosition="bottom-[-4px] left-0 xs:left-[-96px]"
@@ -84,9 +92,7 @@ const CreateFormAdvancedERC20 = ({ createRoundData, setRoundData }: Props) => {
           }
         />
       </div>
-      <p className="pt-4 text-sm text-gray-600">
-        Note: You can also set token name and symbol later.
-      </p>
+      <NoteText text="You can also set token name and symbol later" />
     </div>
   )
 }
