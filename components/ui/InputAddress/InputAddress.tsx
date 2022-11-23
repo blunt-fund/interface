@@ -1,3 +1,4 @@
+import formatAddress from "@utils/formatAddress"
 import resolveEns from "@utils/resolveEns"
 import React, {
   Dispatch,
@@ -40,10 +41,7 @@ const InputAddress: React.FC<Props> = (props) => {
   const addressReduced = resolvedAddress
     ? resolvedAddress.substring(resolvedAddress.length - 4) !== ".eth" &&
       resolvedAddress !== "Invalid ENS name"
-      ? resolvedAddress.replace(
-          resolvedAddress.substring(5, resolvedAddress.length - 3),
-          `___`
-        )
+      ? formatAddress(resolvedAddress)
       : resolvedAddress
     : null
 
