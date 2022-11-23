@@ -1,3 +1,4 @@
+import Crown from "@components/icons/Crown"
 import {
   Button,
   EmissionPreview,
@@ -6,6 +7,7 @@ import {
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
+import formatAddress from "@utils/formatAddress"
 
 export type View = {
   name: ViewNames
@@ -103,7 +105,8 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     createRound,
     transferTimestamp,
     releaseTimestamp,
-    roundTimestamp
+    roundTimestamp,
+    projectOwner
   } = params
   const { shares } = createRoundData
 
@@ -128,6 +131,13 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
         />
 
         <EmissionPreview shares={shares} totalShares={totalShares} />
+
+        <div className="flex items-center justify-center gap-3">
+          <div className="w-4 h-4">
+            <Crown />
+          </div>
+          <p>Project owner: {formatAddress(projectOwner)}</p>
+        </div>
 
         <div className="pt-6 text-center">
           <Button
