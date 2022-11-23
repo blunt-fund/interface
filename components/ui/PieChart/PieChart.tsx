@@ -37,7 +37,8 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
             <circle
               onMouseEnter={() => {
                 setSliceData({
-                  percentageToRender: slice.percentageToRender,
+                  percentageToRender:
+                    Math.round(slice.percentageToRender * 10) / 10,
                   address: slice.address,
                   isSuperOwner: slice.isSuperOwner
                 })
@@ -73,13 +74,10 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
           className="text-white"
         />
       </svg>
-      <div className="absolute mt-0 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+      <div className="absolute mt-0 text-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         {sliceData.percentageToRender ? (
           <>
-            <p className={`sm:text-3xl text-xl font-black text-center`}>
-              {sliceData.percentageToRender * 10}
-            </p>
-            <p className="text-xs text-center">
+            <p className="text-xs">
               {sliceData.address.length === 42
                 ? sliceData.address.slice(0, 5) +
                   "___" +
@@ -87,23 +85,17 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
                 : sliceData.address}
               {minimumShares && (sliceData.isSuperOwner ? " 👑" : "")}
             </p>
+            <p className={`sm:text-3xl text-xl font-black`}>
+              {sliceData.percentageToRender * 10}
+            </p>
+            <p className="text-xs">out of 1000</p>
           </>
         ) : (
           <>
-            <p className="text-xs text-center">Issuance for</p>
-            <p
-              className={`sm:text-3xl text-xl font-black text-center ${
-                total > 4000000000 ? "text-red-500 font-bold" : ""
-              }`}
-            >
-              {total * 10}
-            </p>
-            <p
-              className={`text-xs text-center ${
-                total > 4000000000 ? "text-red-500" : ""
-              }`}
-            >
-              tokens
+            <p className="text-sm">
+              Token emission
+              <br />
+              on contribution
             </p>
           </>
         )}
