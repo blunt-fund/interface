@@ -1,4 +1,4 @@
-import { Input } from "@components/ui"
+import { Input, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
@@ -19,7 +19,13 @@ const CreateFormAdvancedLock = ({
   releaseLockDate,
   roundLockDate
 }: Props) => {
-  const { transferTimeLock, releaseTimeLock, roundTimeLock } = createRoundData
+  const {
+    transferTimeLock,
+    releaseTimeLock,
+    roundTimeLock,
+    enforceSlicerCreation,
+    shares
+  } = createRoundData
 
   const handleSetTransferTimeLock = (value: number) => {
     handleSetObject("transferTimeLock", value, createRoundData, setRoundData)
@@ -45,6 +51,7 @@ const CreateFormAdvancedLock = ({
           value={transferTimeLock != 0 ? transferTimeLock : ""}
           onChange={handleSetTransferTimeLock}
           placeholder="Leave blank to disable"
+          disabled={!enforceSlicerCreation && shares[0] == 0}
           question={
             <>
               <p>
@@ -77,6 +84,7 @@ const CreateFormAdvancedLock = ({
           value={releaseTimeLock != 0 ? releaseTimeLock : ""}
           onChange={handleSetReleaseTimeLock}
           placeholder="Leave blank to disable"
+          disabled={!enforceSlicerCreation && shares[0] == 0}
           question={
             <>
               <p>
@@ -97,6 +105,9 @@ const CreateFormAdvancedLock = ({
           </p>
         )}
       </div>
+      {!enforceSlicerCreation && shares[0] == 0 && (
+        <NoteText text='Set a token round allocation or enable "Create slicer" to set transfer / withdraw locks' />
+      )}
       <div className="relative">
         <Input
           type="number"
