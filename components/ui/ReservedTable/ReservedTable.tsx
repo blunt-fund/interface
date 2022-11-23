@@ -5,16 +5,21 @@ type Props = {
   reservedStake: number
 }
 const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
-  const { setModalView } = useAppContext()
   return (
     <div>
       <table>
         <thead>
           <tr className="bg-gray-100">
             {/* <th scope="col">Cycle</th> */}
-            <th scope="col">Contributor</th>
-            <th scope="col">Blunt round</th>
-            <th scope="col">Others reserved</th>
+            <th className="w-1/3 text-xs xs:text-sm" scope="col">
+              Contributor
+            </th>
+            <th className="w-1/3 text-xs xs:text-sm" scope="col">
+              Blunt round
+            </th>
+            <th className="w-1/3 text-xs xs:text-sm" scope="col">
+              Others reserved
+            </th>
           </tr>
         </thead>
         <tbody>
