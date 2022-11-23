@@ -49,7 +49,7 @@ const CreateFormAdvancedERC20 = ({
   const twitterUrl = `https://twitter.com/${twitter}`
   const targetEth = useNormalizeCurrency(target, isTargetEth)
   const capEth = useNormalizeCurrency(cap, isCapEth)
-  const raisedUsd = useNormalizeCurrency(raised, true, false) || "..."
+  const raisedUsd = useNormalizeCurrency(raised, true, false) || undefined
 
   return (
     <ConditionalLink

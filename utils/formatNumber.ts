@@ -1,4 +1,6 @@
-const formatNumber = (number: number, decimals = 1) => {
+const formatNumber = (number: number | undefined, decimals = 1) => {
+  if (number == undefined) return "..."
+
   const SI_SYMBOL = ["", "k", "M", "B", "T", "P", "E"]
   const tier = (Math.log10(Math.abs(number)) / 3) | 0
   if (tier == 0) return number
