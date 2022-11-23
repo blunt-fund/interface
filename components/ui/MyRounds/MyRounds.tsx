@@ -37,7 +37,7 @@ export const rounds: (RoundData & {
     releaseTimeLock: 0,
     roundTimeLock: 0,
     addresses: ["Blunt round"],
-    shares: [10]
+    shares: [0]
   },
   {
     name: "Slice round",
@@ -57,7 +57,7 @@ export const rounds: (RoundData & {
     isCapEth: false,
     enforceSlicerCreation: false,
     projectOwner: "0xAe009d532328FF09e09E5d506aB5BBeC3c25c0FF",
-    raised: 1200000,
+    raised: 310,
     roundId: 2,
     transferTimeLock: 1669820296053,
     releaseTimeLock: 0,
@@ -83,7 +83,7 @@ export const rounds: (RoundData & {
     isCapEth: false,
     enforceSlicerCreation: false,
     projectOwner: "0xAe009d532328FF09e09E5d506aB5BBeC3c25c0FF",
-    raised: 400,
+    raised: 40,
     roundId: 3,
     transferTimeLock: 1669820296053,
     releaseTimeLock: 1679820296053,
@@ -115,7 +115,7 @@ export const rounds: (RoundData & {
     releaseTimeLock: 0,
     roundTimeLock: 0,
     addresses: ["Blunt round"],
-    shares: [10]
+    shares: [0, 10, 2]
   }
 ]
 

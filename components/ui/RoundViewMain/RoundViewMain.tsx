@@ -15,6 +15,7 @@ type Props = {
   descriptionHtml?: string
   raised?: number
   roundId?: number
+  issuance?: boolean
   secondary?: boolean
 }
 
@@ -23,6 +24,7 @@ const CreateFormAdvancedERC20 = ({
   descriptionHtml,
   raised = 0,
   roundId,
+  issuance = true,
   secondary = false
 }: Props) => {
   const {
@@ -47,7 +49,7 @@ const CreateFormAdvancedERC20 = ({
   const twitterUrl = `https://twitter.com/${twitter}`
   const targetEth = useNormalizeCurrency(target, isTargetEth)
   const capEth = useNormalizeCurrency(cap, isCapEth)
-  const raisedUsd = useNormalizeCurrency(raised, true, false)
+  const raisedUsd = useNormalizeCurrency(raised, true, false) || "..."
 
   return (
     <ConditionalLink
@@ -171,7 +173,7 @@ const CreateFormAdvancedERC20 = ({
                     </b>
                   </p>
                 )}
-                {tokenIssuance != 0 && (
+                {issuance && tokenIssuance != 0 && (
                   <p>
                     Issuance:{" "}
                     <b>
@@ -186,7 +188,7 @@ const CreateFormAdvancedERC20 = ({
         </div>
 
         {descriptionHtml && (
-          <div className="pt-6 prose-sm">
+          <div className="py-6 prose-sm">
             <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           </div>
         )}

@@ -1,9 +1,8 @@
 import {
   Button,
+  EmissionPreview,
   LoadingStep,
   Locks,
-  PieChart,
-  ReservedTable,
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
@@ -97,14 +96,21 @@ export const CREATE_ROUND_VIEW = (params: any) => {
 
 export const REVIEW_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const { createRoundData, descriptionHtml, totalShares, createRound } = params
-  const { transferTimestamp, releaseTimestamp, addresses, shares } =
-    createRoundData
+  const {
+    createRoundData,
+    descriptionHtml,
+    totalShares,
+    createRound,
+    transferTimestamp,
+    releaseTimestamp,
+    roundTimestamp
+  } = params
+  const { shares } = createRoundData
 
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
-      <div className="pt-8 space-y-6">
+      <div className="pt-8 space-y-8">
         <p>
           Proceeding will create a Juicebox project and a slicer to distribute
           future token emissions to blunt round participants.
@@ -114,34 +120,15 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
           roundData={createRoundData}
           descriptionHtml={descriptionHtml}
         />
-        <div className="py-8">
-          <p className="pb-8 text-base text-center">
-            Token emission (after blunt round)
-          </p>
-          <div className="text-black">
-            <PieChart
-              addresses={["Contributor", ...addresses.slice(1), "Blunt round"]}
-              shares={[
-                100 - totalShares,
-                ...shares.slice(1),
-                Number(shares[0])
-              ]}
-              total={100}
-            />
-          </div>
-        </div>
 
         <Locks
           transferTimestamp={transferTimestamp}
           releaseTimestamp={releaseTimestamp}
+          roundTimestamp={roundTimestamp}
         />
 
-        <div className="pb-6">
-          <ReservedTable
-            reservedPool={totalShares}
-            reservedStake={Number(shares[0])}
-          />
-        </div>
+        <EmissionPreview shares={shares} totalShares={totalShares} />
+
         <div className="pt-6 text-center">
           <Button
             label="Create round"

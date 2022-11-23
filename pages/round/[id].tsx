@@ -1,6 +1,7 @@
 import { NextSeo } from "next-seo"
 import {
   Container,
+  EmissionPreview,
   Locks,
   PayButton,
   PieChart,
@@ -32,8 +33,10 @@ export default function Create() {
     description,
     transferTimeLock,
     releaseTimeLock,
+    roundTimeLock,
     shares,
-    raised
+    raised,
+    enforceSlicerCreation
   } = roundData || {}
   const totalShares = shares?.reduce((a, b) => Number(a) + Number(b))
 
@@ -100,13 +103,14 @@ export default function Create() {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto space-y-10 ">
+        <main className="max-w-screen-sm mx-auto space-y-10">
           {roundData && (
             <>
               <RoundViewMain
                 roundData={roundData}
                 descriptionHtml={descriptionHtml}
                 raised={raised}
+                issuance={false}
               />
 
               <PayButton
@@ -115,41 +119,18 @@ export default function Create() {
                 setPayment={setPayment}
                 isPaymentEth={isPaymentEth}
                 setIsPaymentEth={setIsPaymentEth}
+                isSlicerToBeCreated={enforceSlicerCreation || shares[0] != 0}
               />
-
-              <div className="py-8">
-                <p className="pb-8 text-base text-center">
-                  Token emission (after blunt round)
-                </p>
-                <div className="text-black">
-                  <PieChart
-                    addresses={[
-                      "Contributor",
-                      "Others reserved",
-                      "Blunt round"
-                    ]}
-                    shares={[
-                      100 - totalShares,
-                      ...shares.slice(1),
-                      Number(shares[0])
-                    ]}
-                    total={100}
-                  />
-                </div>
-              </div>
-              {/* TODO: Add "Contributed" section */}
 
               <Locks
                 transferTimestamp={transferTimeLock}
                 releaseTimestamp={releaseTimeLock}
+                roundTimestamp={roundTimeLock}
               />
 
-              <div className="pb-6">
-                <ReservedTable
-                  reservedPool={totalShares}
-                  reservedStake={Number(shares[0])}
-                />
-              </div>
+              <EmissionPreview shares={shares} totalShares={totalShares} />
+
+              {/* TODO: Add "Contributed" section */}
             </>
           )}
         </main>

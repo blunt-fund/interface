@@ -195,7 +195,10 @@ const CreateRoundForm = () => {
           createRoundData,
           descriptionHtml,
           totalShares,
-          createRound
+          createRound,
+          transferTimestamp,
+          releaseTimestamp,
+          roundTimestamp
         }
       })
     }

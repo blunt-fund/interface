@@ -9,6 +9,7 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi"
 type Props = {
   round: any
   payment: number
+  isSlicerToBeCreated: boolean
   isPaymentEth: boolean
   setPayment: Dispatch<SetStateAction<number>>
   setIsPaymentEth: Dispatch<SetStateAction<boolean>>
@@ -17,8 +18,9 @@ type Props = {
 const PayButton = ({
   round,
   payment,
-  setPayment,
+  isSlicerToBeCreated,
   isPaymentEth,
+  setPayment,
   setIsPaymentEth
 }: Props) => {
   const [loading, setLoading] = useState(false)
@@ -36,7 +38,7 @@ const PayButton = ({
   const { writeAsync } = useContractWrite(config)
 
   return (
-    <div>
+    <div className="pb-6">
       <Input
         type="number"
         onClickLabel="Pay"
@@ -58,9 +60,10 @@ const PayButton = ({
       <p className="pt-1.5 text-xs xs:text-sm text-left">
         Receive{" "}
         <span className="font-bold text-blue-600">
-          {formatNumber(payment ? payment * 1000 : 1000, 1)} slices{" "}
+          {isSlicerToBeCreated &&
+            `1k slices ${round.tokenIssuance != 0 ? "+ " : ""}`}
           {round.tokenIssuance != 0 &&
-            `+ ${formatNumber(
+            `${formatNumber(
               payment
                 ? Number(Number(payment * round.tokenIssuance).toFixed(0))
                 : round.tokenIssuance,
