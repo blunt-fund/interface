@@ -6,7 +6,7 @@ type Props = {
 }
 const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
   return (
-    <div>
+    <div className="text-center">
       <table>
         <thead>
           <tr className="bg-gray-100">
