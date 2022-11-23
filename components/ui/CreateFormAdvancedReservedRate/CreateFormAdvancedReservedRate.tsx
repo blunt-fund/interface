@@ -7,12 +7,14 @@ type Props = {
   createRoundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   totalShares: number
+  projectOwner: string
 }
 
 const CreateFormAdvancedReservedRate = ({
   createRoundData,
   setRoundData,
-  totalShares
+  totalShares,
+  projectOwner
 }: Props) => {
   const { addresses } = createRoundData
 
@@ -45,6 +47,7 @@ const CreateFormAdvancedReservedRate = ({
               createRoundData={createRoundData}
               setRoundData={setRoundData}
               totalShares={totalShares}
+              projectOwner={projectOwner}
             />
           )
         })}

@@ -198,7 +198,8 @@ const CreateRoundForm = () => {
           createRound,
           transferTimestamp,
           releaseTimestamp,
-          roundTimestamp
+          roundTimestamp,
+          projectOwner
         }
       })
     }
@@ -274,6 +275,7 @@ const CreateRoundForm = () => {
               createRoundData={createRoundData}
               setRoundData={setRoundData}
               totalShares={totalShares}
+              projectOwner={projectOwner}
             />
           }
         />

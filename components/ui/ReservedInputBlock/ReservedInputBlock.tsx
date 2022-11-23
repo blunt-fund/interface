@@ -1,8 +1,6 @@
 import { useEffect, Dispatch, SetStateAction, useState } from "react"
 import { Input, InputAddress } from "@components/ui"
 import Delete from "@components/icons/Delete"
-import { useAppContext } from "@components/ui/context"
-import resolveEns from "@utils/resolveEns"
 import Crown from "@components/icons/Crown"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 
@@ -11,22 +9,22 @@ type Props = {
   createRoundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   totalShares: number
+  projectOwner: string
 }
 
 const ReservedInputBlock = ({
   index,
   createRoundData,
   setRoundData,
-  totalShares
+  totalShares,
+  projectOwner
 }: Props) => {
-  const { account, provider } = useAppContext()
   const { addresses, shares } = createRoundData
 
   const sharesAmount = shares[index] || 0
   const address = addresses[index] || ""
 
   const [resolvedAddress, setResolvedAddress] = useState("")
-  const [resolvedSignerAddress, setResolvedSignerAddress] = useState("")
 
   const handleSetAddress = (value: string) => {
     const data = { ...createRoundData }
@@ -48,13 +46,12 @@ const ReservedInputBlock = ({
   }
 
   useEffect(() => {
-    if (address == "" && account) {
+    if (address == "" && projectOwner) {
       if (index == 1) {
-        handleSetAddress(account)
+        handleSetAddress(projectOwner)
       }
-      resolveEns(provider, account, setResolvedSignerAddress)
     }
-  }, [account])
+  }, [projectOwner])
 
   return (
     <>
@@ -62,7 +59,9 @@ const ReservedInputBlock = ({
         <div className="relative">
           {index != 0 && <Delete onClick={handleRemove} />}
           {address &&
-            (account === address || resolvedSignerAddress === address) && (
+            (projectOwner.toLowerCase() === address.toLowerCase() ||
+              projectOwner?.toLowerCase() ===
+                resolvedAddress?.toLowerCase()) && (
               <div
                 className="hidden sm:block absolute top-[6px] right-[-20px] w-3 h-3"
                 title="Project owner"
