@@ -188,7 +188,7 @@ const CreateFormAdvancedERC20 = ({
         </div>
 
         {descriptionHtml && (
-          <div className="py-6 prose-sm">
+          <div className="py-3 prose-sm">
             <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           </div>
         )}

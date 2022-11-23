@@ -114,6 +114,7 @@ export default function Create() {
               />
 
               <PayButton
+                projectId={Number(id)}
                 round={roundData}
                 payment={payment}
                 setPayment={setPayment}

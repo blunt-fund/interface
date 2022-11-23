@@ -1,8 +1,6 @@
 import { useTheme } from "next-themes"
 import nightwind from "nightwind/helper"
-import Logo from "@components/icons/Logo"
 import Nightwind from "@components/icons/Nightwind"
-import ShoppingBag from "@components/icons/ShoppingBag"
 import { Dispatch, SetStateAction } from "react"
 import { DropdownMenuElement } from ".."
 type Props = {
