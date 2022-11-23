@@ -4,22 +4,22 @@ import Add from "@components/icons/Add"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 
 type Props = {
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   totalShares: number
   projectOwner: string
 }
 
 const CreateFormAdvancedReservedRate = ({
-  createRoundData,
+  roundData,
   setRoundData,
   totalShares,
   projectOwner
 }: Props) => {
-  const { addresses } = createRoundData
+  const { addresses } = roundData
 
   const addAccount = () => {
-    const data = { ...createRoundData }
+    const data = { ...roundData }
     data["addresses"].push("")
     data["shares"].push(0)
     setRoundData(data)
@@ -44,7 +44,7 @@ const CreateFormAdvancedReservedRate = ({
             <ReservedInputBlock
               key={key}
               index={i}
-              createRoundData={createRoundData}
+              roundData={roundData}
               setRoundData={setRoundData}
               totalShares={totalShares}
               projectOwner={projectOwner}

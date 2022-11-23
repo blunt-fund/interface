@@ -10,27 +10,27 @@ import handleSetObject from "@utils/handleSetObject"
 export type ImageType = { url: string; file: File }
 
 type Props = {
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
 }
 
-const CreateFormAdvancedLinks = ({ createRoundData, setRoundData }: Props) => {
-  const { name, image, twitter, website, discord, docs } = createRoundData
+const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
+  const { name, image, twitter, website, discord, docs } = roundData
 
   const handleSetWebsite = (value: string) => {
-    handleSetObject("website", value, createRoundData, setRoundData)
+    handleSetObject("website", value, roundData, setRoundData)
   }
   const handleSetTwitter = (value: string) => {
-    handleSetObject("twitter", value, createRoundData, setRoundData)
+    handleSetObject("twitter", value, roundData, setRoundData)
   }
   const handleSetDiscord = (value: string) => {
-    handleSetObject("discord", value, createRoundData, setRoundData)
+    handleSetObject("discord", value, roundData, setRoundData)
   }
   const handleSetDocs = (value: string) => {
-    handleSetObject("docs", value, createRoundData, setRoundData)
+    handleSetObject("docs", value, roundData, setRoundData)
   }
   const handleSetImage = (value: ImageType) => {
-    handleSetObject("image", value, createRoundData, setRoundData)
+    handleSetObject("image", value, roundData, setRoundData)
   }
 
   const [msg, setMsg] = useState<Message>({

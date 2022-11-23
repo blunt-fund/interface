@@ -58,8 +58,8 @@ export const CREATE_ROUND_VIEW = (params: any) => {
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
-      <div className="pt-8 space-y-6">
-        <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 mx-auto">
+      <div className="space-y-6">
+        <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 pt-12 pb-8 mx-auto">
           <LoadingStep
             initCondition={uploadStep < 2}
             uploadState={uploadState}
@@ -73,7 +73,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
             endState={uploadStep == 3 || uploadStep == 4 ? uploadState : "Done"}
           />
         </div>
-        <div className="pt-10">
+        <div>
           {uploadStep > 3 ? (
             uploadStep > 4 ? (
               <div onClick={() => setModalView({ name: "" })}>
@@ -99,7 +99,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
 export const REVIEW_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
   const {
-    createRoundData,
+    roundData,
     descriptionHtml,
     totalShares,
     createRound,
@@ -108,7 +108,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     roundTimestamp,
     projectOwner
   } = params
-  const { shares } = createRoundData
+  const { shares } = roundData
 
   return (
     <div className="text-center">
@@ -120,7 +120,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
         </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
-          roundData={createRoundData}
+          roundData={roundData}
           descriptionHtml={descriptionHtml}
         />
 

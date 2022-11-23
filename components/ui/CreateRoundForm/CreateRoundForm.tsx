@@ -1,5 +1,4 @@
 import {
-  Input,
   Button,
   CollapsibleItem,
   CreateFormAdvancedERC20,
@@ -19,9 +18,13 @@ import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import { constants } from "@utils/constants"
 import web3Storage from "lib/web3Storage"
 import React, { useEffect, useState } from "react"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import { useSigner } from "wagmi"
 import { useAppContext } from "../context"
 import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
+import bluntDeployer from "abi/BluntDelegateProjectDeployer.json"
+import { ContractReceipt, ethers } from "ethers"
+import formatDeployData from "@utils/formatDeployData"
+import { addresses as addressConstants } from "utils/constants"
 
 export type RoundData = {
   name: string
@@ -46,13 +49,14 @@ export type RoundData = {
   docs: string
   addresses: string[]
   shares: number[]
+  metadata: string
 }
 
 const CreateRoundForm = () => {
   const { account, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
 
-  const [createRoundData, setRoundData] = useState<RoundData>({
+  const [roundData, setRoundData] = useState<RoundData>({
     name: "",
     description: "",
     duration: 0,
@@ -76,8 +80,9 @@ const CreateRoundForm = () => {
     twitter: "",
     discord: "",
     docs: "",
-    addresses: [""],
-    shares: [10]
+    addresses: [ethers.constants.AddressZero],
+    shares: [10],
+    metadata: ""
   })
 
   // Lock
@@ -92,7 +97,7 @@ const CreateRoundForm = () => {
     roundTimeLock,
     shares,
     projectOwner
-  } = createRoundData
+  } = roundData
 
   const totalShares = shares.reduce((a, b) => Number(a) + Number(b))
   const reservedError = totalShares > 100
@@ -122,20 +127,12 @@ const CreateRoundForm = () => {
   const roundTimestamp = roundLockDate.getTime()
 
   const addRecentTransaction = useAddRecentTransaction()
-
-  // const { config } = usePrepareContractWrite({
-  //   addressOrName: "BluntDelegateProjectDeployer",
-  //   contractInterface: "",
-  //   functionName: "launchProjectFor",
-  //   args: []
-  // })
-
-  // const { writeAsync } = useContractWrite(config)
+  const { data: signer } = useSigner()
 
   const createRound = async () => {
     // Lock
     const { name, description, image, website, twitter, discord, docs } =
-      createRoundData
+      roundData
 
     setUploadStep(1)
     let cid: string
@@ -161,13 +158,33 @@ const CreateRoundForm = () => {
         wrapWithDirectory: false,
         name
       })
+
+      const { deployBluntDelegateData, launchProjectData } = formatDeployData(
+        roundData,
+        totalShares
+      )
+      launchProjectData.projectMetadata.content = cid
+
+      const deployer = new ethers.Contract(
+        addressConstants.BluntDelegateProjectDeployer,
+        bluntDeployer.abi,
+        signer
+      )
+
       setUploadStep(2)
-      // const tx = await writeAsync()
-      // addRecentTransaction({
-      //   hash: tx.hash,
-      //   description: "Create Blunt round"
-      // })
-      // await tx.wait()
+      const tx = await deployer.launchProjectFor(
+        deployBluntDelegateData,
+        launchProjectData
+      )
+      addRecentTransaction({
+        hash: tx.hash,
+        description: "Create Blunt round"
+      })
+      const wait: ContractReceipt = await tx.wait()
+      const events = wait.events
+      console.log(events)
+      // TODO: Add roundId
+
       setUploadStep(5)
     } catch (error) {
       // TODO: Handle revert
@@ -176,6 +193,7 @@ const CreateRoundForm = () => {
       // if (cid) cids.push(cid)
       // if (image.file) cids.push(logoCid)
       // const requestIds: string[] = await getRequestIds(cids)
+      // console.log({ requestIds })
       // deletePins(requestIds)
       setUploadStep(4)
     }
@@ -185,14 +203,14 @@ const CreateRoundForm = () => {
     e.preventDefault()
     if (!reservedError && !targetError) {
       const markdownToHtml = (await import("@lib/markdownToHtml")).default
-      const { description } = createRoundData
+      const { description } = roundData
       const descriptionHtml = await markdownToHtml(description)
 
       setModalView({
         name: "REVIEW_ROUND_VIEW",
         cross: true,
         params: {
-          createRoundData,
+          roundData,
           descriptionHtml,
           totalShares,
           createRound,
@@ -219,10 +237,7 @@ const CreateRoundForm = () => {
 
   return (
     <form className="space-y-8 text-left" onSubmit={submit}>
-      <CreateFormGeneral
-        createRoundData={createRoundData}
-        setRoundData={setRoundData}
-      />
+      <CreateFormGeneral roundData={roundData} setRoundData={setRoundData} />
       <p className="pt-4 font-bold">Advanced settings</p>
       <ul className="space-y-6">
         <CollapsibleItem
@@ -230,7 +245,7 @@ const CreateRoundForm = () => {
           error={targetError}
           detail={
             <CreateFormAdvancedFundraise
-              createRoundData={createRoundData}
+              roundData={roundData}
               setRoundData={setRoundData}
               targetError={targetError}
               riskMargin={riskMargin}
@@ -241,7 +256,7 @@ const CreateRoundForm = () => {
           label="ERC20 token issuance"
           detail={
             <CreateFormAdvancedERC20
-              createRoundData={createRoundData}
+              roundData={roundData}
               setRoundData={setRoundData}
             />
           }
@@ -250,7 +265,7 @@ const CreateRoundForm = () => {
           label="Vesting and locks"
           detail={
             <CreateFormAdvancedLock
-              createRoundData={createRoundData}
+              roundData={roundData}
               setRoundData={setRoundData}
               transferLockDate={transferLockDate}
               releaseLockDate={releaseLockDate}
@@ -262,7 +277,7 @@ const CreateRoundForm = () => {
           label="Project logo and links"
           detail={
             <CreateFormAdvancedLinks
-              createRoundData={createRoundData}
+              roundData={roundData}
               setRoundData={setRoundData}
             />
           }
@@ -272,7 +287,7 @@ const CreateRoundForm = () => {
           error={reservedError}
           detail={
             <CreateFormAdvancedReservedRate
-              createRoundData={createRoundData}
+              roundData={roundData}
               setRoundData={setRoundData}
               totalShares={totalShares}
               projectOwner={projectOwner}

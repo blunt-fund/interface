@@ -4,6 +4,9 @@ type Addresses = {
   BluntDelegateDeployer: string
   BluntDelegateProjectDeployer: string
   JBTerminal: string
+  JBDirectory: string
+  JBFundingCycleStore: string
+  SliceCore: string
 }
 
 type Constants = {

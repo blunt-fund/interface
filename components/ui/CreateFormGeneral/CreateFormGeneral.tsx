@@ -4,32 +4,27 @@ import React, { Dispatch, SetStateAction, useState } from "react"
 import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 
 type Props = {
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
 }
 
-const CreateFormGeneral = ({ createRoundData, setRoundData }: Props) => {
-  const { name, description, shares, enforceSlicerCreation } = createRoundData
+const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
+  const { name, description, shares, enforceSlicerCreation } = roundData
 
   const handleSetName = (value: string) => {
-    handleSetObject("name", value, createRoundData, setRoundData)
+    handleSetObject("name", value, roundData, setRoundData)
   }
   const handleSetDescription = (value: string) => {
-    handleSetObject("description", value, createRoundData, setRoundData)
+    handleSetObject("description", value, roundData, setRoundData)
   }
   const handleSetEnforceSlicerCreation = (value: boolean) => {
-    handleSetObject(
-      "enforceSlicerCreation",
-      value,
-      createRoundData,
-      setRoundData
-    )
+    handleSetObject("enforceSlicerCreation", value, roundData, setRoundData)
   }
 
   const handleSetReservedStake = (value: number) => {
     const items = [...shares]
     items[0] = value
-    handleSetObject("shares", items, createRoundData, setRoundData)
+    handleSetObject("shares", items, roundData, setRoundData)
   }
 
   return (

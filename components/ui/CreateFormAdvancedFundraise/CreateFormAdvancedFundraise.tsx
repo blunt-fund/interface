@@ -5,35 +5,35 @@ import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   targetError: boolean
   riskMargin: number
 }
 
 const CreateFormAdvancedFundraise = ({
-  createRoundData,
+  roundData,
   setRoundData,
   targetError,
   riskMargin
 }: Props) => {
   const { duration, target, cap, isTargetEth, isCapEth, projectOwner } =
-    createRoundData
+    roundData
 
   const [address, setAddress] = useState("")
   const [resolvedAddress, setResolvedAddress] = useState("")
 
   const handleSetDuration = (value: number) => {
-    handleSetObject("duration", value, createRoundData, setRoundData)
+    handleSetObject("duration", value, roundData, setRoundData)
   }
   const handleSetTarget = (value: number) => {
-    handleSetObject("target", value, createRoundData, setRoundData)
+    handleSetObject("target", value, roundData, setRoundData)
   }
   const handleSetCap = (value: number) => {
-    handleSetObject("cap", value, createRoundData, setRoundData)
+    handleSetObject("cap", value, roundData, setRoundData)
   }
   const handleSetUsd = (property: string, value: boolean) => {
-    handleSetObject(property, value, createRoundData, setRoundData)
+    handleSetObject(property, value, roundData, setRoundData)
   }
 
   useEffect(() => {
@@ -48,12 +48,7 @@ const CreateFormAdvancedFundraise = ({
       } else {
         newProjectOwner = address
       }
-      handleSetObject(
-        "projectOwner",
-        newProjectOwner,
-        createRoundData,
-        setRoundData
-      )
+      handleSetObject("projectOwner", newProjectOwner, roundData, setRoundData)
     }
   }, [resolvedAddress])
 

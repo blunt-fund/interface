@@ -13,4 +13,4 @@ export default async function getRequestIds(cids: string[]) {
   return await fetcher(endpoint, body)
 }
 
-// TODO: Wait for web3.storage to fix this endpoint
+// TODO: Figure out the issue here

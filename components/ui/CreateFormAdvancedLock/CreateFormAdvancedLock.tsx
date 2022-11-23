@@ -5,7 +5,7 @@ import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   transferLockDate: Date
   releaseLockDate: Date
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const CreateFormAdvancedLock = ({
-  createRoundData,
+  roundData,
   setRoundData,
   transferLockDate,
   releaseLockDate,
@@ -25,16 +25,16 @@ const CreateFormAdvancedLock = ({
     roundTimeLock,
     enforceSlicerCreation,
     shares
-  } = createRoundData
+  } = roundData
 
   const handleSetTransferTimeLock = (value: number) => {
-    handleSetObject("transferTimeLock", value, createRoundData, setRoundData)
+    handleSetObject("transferTimeLock", value, roundData, setRoundData)
   }
   const handleSetReleaseTimeLock = (value: number) => {
-    handleSetObject("releaseTimeLock", value, createRoundData, setRoundData)
+    handleSetObject("releaseTimeLock", value, roundData, setRoundData)
   }
   const handleSetRoundTimeLock = (value: number) => {
-    handleSetObject("roundTimeLock", value, createRoundData, setRoundData)
+    handleSetObject("roundTimeLock", value, roundData, setRoundData)
   }
 
   return (

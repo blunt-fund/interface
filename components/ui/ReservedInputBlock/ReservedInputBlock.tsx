@@ -6,7 +6,7 @@ import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 
 type Props = {
   index: number
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
   totalShares: number
   projectOwner: string
@@ -14,12 +14,12 @@ type Props = {
 
 const ReservedInputBlock = ({
   index,
-  createRoundData,
+  roundData,
   setRoundData,
   totalShares,
   projectOwner
 }: Props) => {
-  const { addresses, shares } = createRoundData
+  const { addresses, shares } = roundData
 
   const sharesAmount = shares[index] || 0
   const address = addresses[index] || ""
@@ -27,19 +27,19 @@ const ReservedInputBlock = ({
   const [resolvedAddress, setResolvedAddress] = useState("")
 
   const handleSetAddress = (value: string) => {
-    const data = { ...createRoundData }
+    const data = { ...roundData }
     data["addresses"][index] = value
     setRoundData(data)
   }
 
   const handleSetShareAmount = (value: number) => {
-    const data = { ...createRoundData }
+    const data = { ...roundData }
     data["shares"][index] = value
     setRoundData(data)
   }
 
   const handleRemove = () => {
-    const data = { ...createRoundData }
+    const data = { ...roundData }
     data["addresses"].splice(index, 1)
     data["shares"].splice(index, 1)
     setRoundData(data)

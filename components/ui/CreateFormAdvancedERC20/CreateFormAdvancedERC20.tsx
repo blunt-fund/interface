@@ -5,28 +5,23 @@ import { RoundData } from "../CreateRoundForm/CreateRoundForm"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  createRoundData: RoundData
+  roundData: RoundData
   setRoundData: Dispatch<SetStateAction<RoundData>>
 }
 
-const CreateFormAdvancedERC20 = ({ createRoundData, setRoundData }: Props) => {
-  const { name, tokenName, tokenSymbol, tokenIssuance } = createRoundData
+const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
+  const { name, tokenName, tokenSymbol, tokenIssuance } = roundData
 
   const handleSetTokenIssuance = (value: number) => {
-    handleSetObject("tokenIssuance", value, createRoundData, setRoundData)
+    handleSetObject("tokenIssuance", value, roundData, setRoundData)
   }
 
   const handleSetTokenName = (value: string) => {
-    handleSetObject("tokenName", value, createRoundData, setRoundData)
+    handleSetObject("tokenName", value, roundData, setRoundData)
   }
 
   const handleSetTokenSymbol = (value: string) => {
-    handleSetObject(
-      "tokenSymbol",
-      value.toUpperCase(),
-      createRoundData,
-      setRoundData
-    )
+    handleSetObject("tokenSymbol", value.toUpperCase(), roundData, setRoundData)
   }
 
   return (
