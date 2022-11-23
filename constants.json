@@ -1,3 +1,17 @@
 {
-  "ipfsGateway": "https://jbx.mypinata.cloud/ipfs/"
+  "values": {
+    "ipfsGateway": "https://jbx.mypinata.cloud/ipfs/"
+  },
+  "addresses": {
+    "1": {
+      "BluntDelegateDeployer": "",
+      "BluntDelegateProjectDeployer": "",
+      "JBTerminal": ""
+    },
+    "5": {
+      "BluntDelegateDeployer": "0xB3f651ccF4342BB2012CE2201134369D759aaA7A",
+      "BluntDelegateProjectDeployer": "0x77e8cAec45A85ca03952ce323354e83fD56dAc04",
+      "JBTerminal": "0x55d4dfb578daA4d60380995ffF7a706471d7c719"
+    }
+  }
 }
