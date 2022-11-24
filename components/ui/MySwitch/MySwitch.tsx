@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { Switch } from "@headlessui/react"
 import Question from "../Question"
 

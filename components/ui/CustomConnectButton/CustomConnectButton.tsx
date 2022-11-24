@@ -46,7 +46,12 @@ const CustomConnectButton = () => {
                 )
               }
 
-              return <ConnectButton />
+              return (
+                <ConnectButton
+                  accountStatus={{ smallScreen: "avatar" }}
+                  chainStatus={{ smallScreen: "none", largeScreen: "full" }}
+                />
+              )
             })()}
           </div>
         )
