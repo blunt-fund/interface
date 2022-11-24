@@ -55,7 +55,12 @@ const AllRounds = () => {
     <div className="space-y-20">
       {rounds.map((round, i) => (
         <div key={i}>
-          <RoundViewMain roundData={round} secondary />
+          <RoundViewMain
+            roundData={round}
+            raised={round.raised}
+            roundId={round.roundId}
+            secondary
+          />
         </div>
       ))}
     </div>

@@ -3,7 +3,7 @@ import Link from "next/link"
 type Props = {
   image: JSX.Element
   label: string
-  onClick: () => void
+  onClick?: () => void
   href?: string
 }
 

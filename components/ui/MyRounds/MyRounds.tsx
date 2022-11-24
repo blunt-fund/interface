@@ -106,7 +106,7 @@ export const rounds: (RoundData & {
     tokenSymbol: "TEST1",
     tokenIssuance: 12345,
     duration: 21,
-    target: 600,
+    target: 0,
     cap: 1000,
     isTargetEth: true,
     isCapEth: true,

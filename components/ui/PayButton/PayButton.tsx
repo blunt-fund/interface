@@ -35,7 +35,7 @@ const PayButton = ({
   const addRecentTransaction = useAddRecentTransaction()
   const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
 
-  const { config } = usePrepareContractWrite({
+  const { config, error } = usePrepareContractWrite({
     address: addresses.JBTerminal,
     abi: JBTerminal.abi,
     functionName: "pay",
@@ -59,12 +59,14 @@ const PayButton = ({
   })
 
   const { writeAsync } = useContractWrite(config)
+  const isError = error && true
 
   return (
     <div className="pb-6">
       <Input
         type="number"
         onClickLabel="Pay"
+        error={isError}
         min={0}
         value={payment || ""}
         onChange={setPayment}
@@ -80,24 +82,32 @@ const PayButton = ({
           )
         }
       />
-      <p className="pt-1.5 text-xs xs:text-sm text-left">
-        Receive{" "}
-        <span className="font-bold text-blue-600">
-          {isSlicerToBeCreated &&
-            `${
-              payment ? formatNumber(Math.floor(paymentEth * 1000)) : "1k"
-            } slices ${round.tokenIssuance != 0 ? "+ " : ""}`}
-          {round.tokenIssuance != 0 &&
-            `${formatNumber(
-              payment
-                ? Number(Number(paymentEth * round.tokenIssuance).toFixed(0))
-                : round.tokenIssuance,
-              3
-            )} 
+      <div className="text-left text-xs xs:text-sm pt-1.5">
+        {!isError ? (
+          <p>
+            Receive{" "}
+            <span className="font-bold text-blue-600">
+              {isSlicerToBeCreated &&
+                `${
+                  payment ? formatNumber(Math.floor(paymentEth * 1000)) : "1k"
+                } slices ${round.tokenIssuance != 0 ? "+ " : ""}`}
+              {round.tokenIssuance != 0 &&
+                `${formatNumber(
+                  payment
+                    ? Number(
+                        Number(paymentEth * round.tokenIssuance).toFixed(0)
+                      )
+                    : round.tokenIssuance,
+                  3
+                )} 
                 ${round.tokenSymbol} `}
-        </span>
-        {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
-      </p>
+            </span>
+            {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
+          </p>
+        ) : (
+          <p className="font-bold text-red-500">Insufficient funds</p>
+        )}
+      </div>
     </div>
   )
 }

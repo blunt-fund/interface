@@ -54,7 +54,7 @@ const CreateFormAdvancedERC20 = ({
   return (
     <ConditionalLink
       href={roundId ? `/round/${roundId}` : undefined}
-      className="sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
+      className="rounded-sm sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
     >
       <div className="text-left">
         <div className="xs:flex">
@@ -165,17 +165,19 @@ const CreateFormAdvancedERC20 = ({
                 </p>
               </div>
               <div className="flex justify-between">
-                {target != 0 && (
-                  <p>
-                    Target:{" "}
-                    <b>
-                      <span className="text-blue-600">
-                        {formatNumber(target, 1)}
-                      </span>{" "}
-                      {currency(isTargetEth)}
-                    </b>
-                  </p>
-                )}
+                <p>
+                  {target != 0 && (
+                    <>
+                      Target:{" "}
+                      <b>
+                        <span className="text-blue-600">
+                          {formatNumber(target, 1)}
+                        </span>{" "}
+                        {currency(isTargetEth)}
+                      </b>
+                    </>
+                  )}
+                </p>
                 {issuance && tokenIssuance != 0 && (
                   <p>
                     Issuance:{" "}

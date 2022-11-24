@@ -4,12 +4,27 @@ import { Container, CustomConnectButton, DropdownMenu } from "@components/ui"
 import saEvent from "@utils/saEvent"
 import Nightwind from "@components/icons/Nightwind"
 import { useAppContext } from "../context"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import UserIcon from "@components/icons/UserIcon"
 
 const Navbar = () => {
   const { isConnected } = useAppContext()
   const [showDropdown, setShowDropdown] = useState(false)
+  const dropdownRef = useRef(null)
+
+  useEffect(() => {
+    function handleClick(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false)
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClick)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClick)
+    }
+  }, [dropdownRef])
 
   return (
     <header className="shadow-sm">
@@ -36,17 +51,13 @@ const Navbar = () => {
             {isConnected && (
               <a
                 onClick={() => setShowDropdown((showDropdown) => !showDropdown)}
+                ref={dropdownRef}
               >
                 <UserIcon />
               </a>
             )}
           </div>
-          {showDropdown && (
-            <DropdownMenu
-              showDropdown={showDropdown}
-              setShowDropdown={setShowDropdown}
-            />
-          )}
+          {showDropdown && <DropdownMenu />}
         </nav>
       </Container>
       <hr className="w-full border-gray-200" />

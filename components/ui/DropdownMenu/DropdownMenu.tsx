@@ -1,14 +1,9 @@
 import { useTheme } from "next-themes"
 import nightwind from "nightwind/helper"
 import Nightwind from "@components/icons/Nightwind"
-import { Dispatch, SetStateAction } from "react"
 import { DropdownMenuElement } from ".."
-type Props = {
-  showDropdown: boolean
-  setShowDropdown: Dispatch<SetStateAction<boolean>>
-}
 
-function DropdownMenu({ showDropdown, setShowDropdown }: Props) {
+function DropdownMenu() {
   const { theme, setTheme } = useTheme()
 
   const toggle = () => {
@@ -30,7 +25,6 @@ function DropdownMenu({ showDropdown, setShowDropdown }: Props) {
           <div className="w-5 h-5 border-2 border-blue-600 rounded-full group-hover:border-white" />
         }
         label="My rounds"
-        onClick={() => setShowDropdown(false)}
       />
       <div className="xs:hidden">
         <DropdownMenuElement
