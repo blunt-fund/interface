@@ -29,8 +29,12 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       fundingCycleStore: addressConstants.JBFundingCycleStore,
       sliceCore: addressConstants.SliceCore,
       projectOwner,
-      hardcap: cap,
-      target,
+      hardcap: isCapEth
+        ? ethers.utils.parseEther(String(cap))
+        : BigNumber.from(10).pow(6).mul(cap),
+      target: isTargetEth
+        ? ethers.utils.parseEther(String(target))
+        : BigNumber.from(10).pow(6).mul(target),
       releaseTimelock: releaseTimeLock,
       transferTimelock: transferTimeLock,
       afterRoundReservedRate: totalShares * 100,
