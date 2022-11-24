@@ -126,7 +126,9 @@ const CreateFormAdvancedERC20 = ({
                 </div>
               )
             ) : (
-              <p className="pt-2 text-sm">Round allocation: {shares[0]}%</p>
+              <p className="pt-2 text-sm">
+                Round allocation: <b>{shares[0]}%</b>
+              </p>
             )}
             <div className="mt-8 text-xs xs:text-sm">
               <ProgressBar
@@ -139,6 +141,7 @@ const CreateFormAdvancedERC20 = ({
                 }
                 target={targetEth}
                 raised={raised}
+                isCapped={cap != 0}
               />
               <div className="flex justify-between pt-5 pb-2">
                 <p>

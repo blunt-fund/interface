@@ -116,7 +116,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
       <div className="pt-8 space-y-8">
         <p>
           Proceeding will create a Juicebox project and a slicer to distribute
-          future token emissions to blunt round participants.
+          future token issued to blunt round participants.
         </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain

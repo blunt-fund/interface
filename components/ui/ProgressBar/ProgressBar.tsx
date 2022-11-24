@@ -5,9 +5,10 @@ type Props = {
   max?: number
   target?: number
   raised?: number
+  isCapped?: boolean
 }
 
-const ProgressBar = ({ min, max, target, raised }: Props) => {
+const ProgressBar = ({ max, target, raised, isCapped }: Props) => {
   const targetPercentage = 100 - (target * 100) / max
   const raisedPercentage = (raised * 100) / max
 
@@ -28,7 +29,9 @@ const ProgressBar = ({ min, max, target, raised }: Props) => {
               style={{ right: `${targetPercentage}%` }}
             />
           )}
-          <div className="absolute w-1.5 py-3 right-0 rounded-sm bg-black"></div>
+          {isCapped && (
+            <div className="absolute w-1.5 py-3 right-0 rounded-sm bg-black" />
+          )}
         </div>
       </div>
     </div>

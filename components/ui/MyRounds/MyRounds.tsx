@@ -37,7 +37,8 @@ export const rounds: (RoundData & {
     releaseTimeLock: 0,
     roundTimeLock: 0,
     addresses: ["Blunt round"],
-    shares: [0]
+    shares: [0],
+    metadata: ""
   },
   {
     name: "Slice round",
@@ -63,7 +64,8 @@ export const rounds: (RoundData & {
     releaseTimeLock: 0,
     roundTimeLock: 0,
     addresses: ["Blunt round"],
-    shares: [10]
+    shares: [10],
+    metadata: ""
   },
   {
     name: "Token & slice round",
@@ -89,7 +91,8 @@ export const rounds: (RoundData & {
     releaseTimeLock: 1679820296053,
     roundTimeLock: 0,
     addresses: ["Blunt round"],
-    shares: [10]
+    shares: [10],
+    metadata: ""
   },
   {
     name: "Token round with slicer",
@@ -115,7 +118,8 @@ export const rounds: (RoundData & {
     releaseTimeLock: 0,
     roundTimeLock: 0,
     addresses: ["Blunt round"],
-    shares: [0, 10, 2]
+    shares: [0, 10, 2],
+    metadata: ""
   }
 ]
 
