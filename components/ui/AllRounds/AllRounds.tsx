@@ -2,7 +2,7 @@ import Spinner from "@components/icons/Spinner"
 import fetcher from "@utils/fetcher"
 import multicall from "@utils/multicall"
 import useQuery from "@utils/subgraphQuery"
-import constants from "constants.json"
+import { addresses } from "utils/constants"
 import { useEffect, useState } from "react"
 import { useAppContext } from "../context"
 import { rounds } from "../MyRounds/MyRounds"
@@ -10,14 +10,29 @@ import RoundViewMain from "../RoundViewMain"
 
 const AllRounds = () => {
   // TODO: Add subgraph fetch
-  // const tokensQuery = /* GraphQL */ `
-  //     projects(deployer: "${constants.bluntDelegateDeployer}") {
-  //       ...
-  //     }
-  //   `
-  // let subgraphData = useQuery(tokensQuery, [account])
+  const tokensQuery = /* GraphQL */ `
+      projects(
+        where: {
+          deployer: "${addresses.BluntDelegateProjectDeployer.toLowerCase()}"
+        },
+        orderBy: "createdAt", 
+        orderDirection: "asc"
+      ) {
+        projectId
+        owner
+        createdAt
+        totalPaid
+        metadataUri
+        configureEvents {
+          duration
+          weight
+        }
+      }
+    `
+  let subgraphData = useQuery(tokensQuery)
+  console.log(subgraphData)
 
-  let subgraphData = [{ bluntDelegateAddress: "", cid: "" }]
+  // let subgraphData = [{ bluntDelegateAddress: "", cid: "" }]
 
   // TODO: Add on-chain fetch
   // const [roundInfo, setRoundInfo] = useState(null)
