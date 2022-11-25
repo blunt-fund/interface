@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { ReservedInputBlock } from "@components/ui"
 import Add from "@components/icons/Add"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 
 type Props = {
   roundData: RoundData

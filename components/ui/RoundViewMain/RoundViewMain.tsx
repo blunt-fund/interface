@@ -7,7 +7,7 @@ import formatNumber from "@utils/formatNumber"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import Image from "next/image"
 import ConditionalLink from "../ConditionalLink"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 import ProgressBar from "../ProgressBar"
 
 type Props = {

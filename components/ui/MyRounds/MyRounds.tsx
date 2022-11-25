@@ -5,7 +5,7 @@ import useQuery from "@utils/subgraphQuery"
 import constants from "constants.json"
 import { useEffect, useState } from "react"
 import { useAppContext } from "../context"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 import RoundViewMain from "../RoundViewMain"
 
 export const nullDate = 777600000

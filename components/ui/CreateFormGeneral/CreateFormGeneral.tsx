@@ -1,7 +1,7 @@
 import { Input, MySwitch, Textarea } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useState } from "react"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 
 type Props = {
   roundData: RoundData

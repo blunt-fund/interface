@@ -2,7 +2,7 @@ import { useEffect, Dispatch, SetStateAction, useState } from "react"
 import { Input, InputAddress } from "@components/ui"
 import Delete from "@components/icons/Delete"
 import Crown from "@components/icons/Crown"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 
 type Props = {
   index: number

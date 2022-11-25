@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction, useState } from "react"
 import Camera from "@components/icons/Camera"
 import { Message } from "@utils/handleMessage"
 import Logo from "@components/icons/Logo"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 import handleSetObject from "@utils/handleSetObject"
 
 export type ImageType = { url: string; file: File }

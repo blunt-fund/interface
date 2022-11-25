@@ -25,32 +25,7 @@ import bluntDeployer from "abi/BluntDelegateProjectDeployer.json"
 import { ContractReceipt, ethers } from "ethers"
 import formatDeployData from "@utils/formatDeployData"
 import { addresses as addressConstants } from "utils/constants"
-
-export type RoundData = {
-  name: string
-  description: string
-  duration: number
-  target: number
-  cap: number
-  isTargetEth: boolean
-  isCapEth: boolean
-  isSlicerToBeCreated: boolean
-  projectOwner: string
-  transferTimeLock: number
-  releaseTimeLock: number
-  roundTimeLock: number
-  tokenName: string
-  tokenSymbol: string
-  tokenIssuance: number
-  image: ImageType
-  website: string
-  twitter: string
-  discord: string
-  docs: string
-  addresses: string[]
-  shares: number[]
-  metadata: string
-}
+import { RoundData } from "@utils/formatRoundInfo"
 
 const CreateRoundForm = () => {
   const { account, setModalView } = useAppContext()

@@ -1,4 +1,35 @@
+import { ImageType } from "@components/ui/CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 import { ethers } from "ethers"
+
+export type RoundData = ReducedRoundData & {
+  projectOwner: string
+  transferTimeLock: number
+  releaseTimeLock: number
+  roundTimeLock: number
+  tokenName: string
+  website: string
+  twitter: string
+  discord: string
+  docs: string
+  metadata: string
+  fundingCycleRound?: number
+}
+
+export type ReducedRoundData = {
+  name: string
+  description: string
+  duration: number
+  target: number
+  cap: number
+  isTargetEth: boolean
+  isCapEth: boolean
+  isSlicerToBeCreated: boolean
+  tokenSymbol: string
+  tokenIssuance: number
+  image: ImageType
+  addresses: string[]
+  shares: number[]
+}
 
 const formatRoundInfo = (data: string) => {
   const abiCoder = new ethers.utils.AbiCoder()

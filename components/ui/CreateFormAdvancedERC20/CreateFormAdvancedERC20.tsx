@@ -1,7 +1,7 @@
 import { Input, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
-import { RoundData } from "../CreateRoundForm/CreateRoundForm"
+import { RoundData } from "utils/formatRoundInfo"
 export type NewImage = { url: string; file: File }
 
 type Props = {
