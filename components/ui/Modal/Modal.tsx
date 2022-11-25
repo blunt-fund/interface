@@ -30,20 +30,22 @@ const Modal = ({ modalView, setModalView }: Props) => {
   }
 
   useEffect(() => {
-    if (cross) {
-      function handleClick(event) {
-        if (modalRef.current && !modalRef.current.contains(event.target)) {
-          setModalView({ name: "" })
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClick)
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClick)
+    function handleClick(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setModalView({ name: "" })
       }
     }
-  }, [modalRef, setModalView])
+
+    if (cross) {
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClick)
+    }
+
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClick)
+    }
+  }, [cross, modalRef, setModalView])
 
   return (
     <div className="fixed top-0 z-50 w-screen h-screen py-12 overflow-y-scroll xs:py-20 background-modal">
