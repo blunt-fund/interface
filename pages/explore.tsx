@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo"
-import { ConnectBlock, Container, AllRounds } from "@components/ui"
+import { Container, AllRounds } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,

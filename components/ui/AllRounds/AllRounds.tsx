@@ -1,11 +1,10 @@
 import Spinner from "@components/icons/Spinner"
 import useQuery from "@utils/subgraphQuery"
-import { addresses } from "utils/constants"
 import RoundViewMain from "../RoundViewMain"
 import useMulticall from "@utils/useMulticall"
 import formatRoundInfo, { ReducedRoundData } from "@utils/formatRoundInfo"
 import { RoundData } from "utils/formatRoundInfo"
-import { constants } from "utils/constants"
+import { addresses, constants } from "utils/constants"
 import { ethers } from "ethers"
 import formatReducedRoundData from "@utils/formatReducedRoundData"
 import useRoundsMetadata from "@utils/useRoundsMetadata"
@@ -37,9 +36,21 @@ const AllRounds = () => {
   const projects = subgraphData?.projects
 
   const testDelegateAddress = "0x0518a92F872e6B094491019dc0c658dB066bf16b"
-  const roundInfo = useMulticall([testDelegateAddress], "getRoundInfo()", "", [
-    subgraphData
-  ])
+  const roundInfo = useMulticall(
+    [
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress
+    ], // TODO: Replace with actual delegate addresses
+    "getRoundInfo()",
+    "",
+    [subgraphData]
+  )
+
   // TODO: Fix IPFS fetch logic
   // TODO: Add metadata backend optimization
   const metadata = useRoundsMetadata(projects)
@@ -68,7 +79,7 @@ const AllRounds = () => {
         const { name, description, logoUri } = metadata[i]
         const roundShares =
           Math.floor((afterRoundReservedRate * afterRoundSplits[0][2]) / 1e9) /
-          100
+          100 // TODO: Check first split address is address(0)
         const timestamp = project.configureEvents[0].timestamp // TODO: Figure out how to calculate this without using timestamp
         const duration = project.configureEvents[0].duration
         const deadline = timestamp + duration - now
@@ -93,7 +104,7 @@ const AllRounds = () => {
             file: undefined
           },
           addresses: [],
-          shares: [roundShares] // take from afterRoundSplits + afterRoundReservedRate
+          shares: [roundShares]
         }
         const round: RoundData = formatReducedRoundData(roundReduced)
 

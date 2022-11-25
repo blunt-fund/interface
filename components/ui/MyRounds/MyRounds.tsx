@@ -2,11 +2,19 @@ import Spinner from "@components/icons/Spinner"
 import fetcher from "@utils/fetcher"
 import multicall from "@utils/multicall"
 import useQuery from "@utils/subgraphQuery"
-import constants from "constants.json"
 import { useEffect, useState } from "react"
+import { addresses, constants } from "utils/constants"
 import { useAppContext } from "../context"
-import { RoundData } from "utils/formatRoundInfo"
+import formatRoundInfo, {
+  ReducedRoundData,
+  RoundData
+} from "utils/formatRoundInfo"
 import RoundViewMain from "../RoundViewMain"
+import useNow from "@utils/useNow"
+import useRoundsMetadata from "@utils/useRoundsMetadata"
+import useMulticall from "@utils/useMulticall"
+import { ethers } from "ethers"
+import formatReducedRoundData from "@utils/formatReducedRoundData"
 
 export const rounds: (RoundData & {
   raised: number
@@ -123,62 +131,120 @@ export const rounds: (RoundData & {
 ]
 
 const MyRounds = () => {
-  // TODO: Add subgraph fetch
-  // const { account } = useAppContext()
+  const { account } = useAppContext()
+  // TODO: Finish subgraph fetch
+  const tokensQuery = /* GraphQL */ `
+    projects(
+      where: {
+        deployer: "${addresses.BluntDelegateProjectDeployer.toLowerCase()}"
+      },
+      orderBy: "createdAt", 
+      orderDirection: "asc"
+    ) {
+      projectId
+      owner
+      createdAt
+      metadataUri
+      configureEvents {
+        timestamp
+        duration
+        weight
+        dataSource
+      }
+    }
+  `
+  let subgraphData = useQuery(tokensQuery)
+  const projects = subgraphData?.projects
 
-  // const tokensQuery = /* GraphQL */ `
-  //     projects(account: "${account?.toLowerCase()}") {
-  //       ...
-  //     }
-  //   `
-  // let subgraphData = useQuery(tokensQuery, [account])
+  const testDelegateAddress = "0x0518a92F872e6B094491019dc0c658dB066bf16b"
+  const roundInfo = useMulticall(
+    [
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress,
+      testDelegateAddress
+    ], // TODO: Replace with actual delegate addresses
+    "getRoundInfo()",
+    "",
+    [subgraphData]
+  )
+  // TODO: Fix IPFS fetch logic
+  // TODO: Add metadata backend optimization
+  const metadata = useRoundsMetadata(projects)
 
-  let subgraphData = [{ bluntDelegateAddress: "", cid: "" }]
+  const now = Math.floor(useNow() / 1000)
 
-  // TODO: Add on-chain fetch
-  // const [roundInfo, setRoundInfo] = useState(null)
-
-  // useEffect(() => {
-  //   const getRoundInfo = async () => {
-  //     const cids = []
-  //     const bluntDelegates = subgraphData.map((project) => {
-  //       cids.push(project.cid)
-  //       return project.bluntDelegateAddress
-  //     })
-
-  //     const metadataPromises = Promise.all(
-  //       cids.map((cid) => fetcher(constants.ipfsGateway + cid))
-  //     )
-
-  //     const [metadata, info] = await Promise.all([
-  //       metadataPromises,
-  //       multicall(bluntDelegates, "getRoundInfo()", "")
-  //     ])
-
-  //     setRoundInfo({ metadata, info })
-  //   }
-
-  //   if (subgraphData) {
-  //     getRoundInfo()
-  //   }
-  // }, [subgraphData])
-
-  return !subgraphData ? (
+  return !subgraphData || !roundInfo || !metadata ? (
     <div className="flex justify-center">
       <Spinner size="h-12 w-12" />
     </div>
   ) : (
     <div className="space-y-20">
-      {rounds.map((round, i) => (
-        <div key={i}>
-          <RoundViewMain
-            roundData={round}
-            raised={round.raised}
-            roundId={round.roundId}
-            secondary
-          />
-        </div>
-      ))}
+      {projects.map((project, i) => {
+        const {
+          totalContributions,
+          target,
+          cap,
+          afterRoundReservedRate,
+          afterRoundSplits,
+          tokenSymbol,
+          projectOwner,
+          isRoundClosed,
+          isTargetEth,
+          isCapEth,
+          isSlicerToBeCreated
+        } = formatRoundInfo(roundInfo[i])
+
+        if (projectOwner == account) {
+          const { name, description, logoUri } = metadata[i]
+          const roundShares =
+            Math.floor(
+              (afterRoundReservedRate * afterRoundSplits[0][2]) / 1e9
+            ) / 100 // TODO: Check first split address is address(0)
+          const timestamp = project.configureEvents[0].timestamp // TODO: Figure out how to calculate this without using timestamp
+          const duration = project.configureEvents[0].duration
+          const deadline = timestamp + duration - now
+          const formatCurrency = (isEth: boolean, value: number) =>
+            isEth ? value / 1e4 : value / 1e2
+
+          const roundReduced: ReducedRoundData = {
+            name,
+            description,
+            duration,
+            target: formatCurrency(isTargetEth, target),
+            cap: formatCurrency(isCapEth, cap),
+            isTargetEth,
+            isCapEth,
+            isSlicerToBeCreated,
+            tokenSymbol,
+            tokenIssuance: Number(
+              ethers.utils.formatEther(project.configureEvents[0].weight)
+            ),
+            image: {
+              url: constants.ipfsGateway + String(logoUri).split("ipfs/")[1],
+              file: undefined
+            },
+            addresses: [],
+            shares: [roundShares]
+          }
+          const round: RoundData = formatReducedRoundData(roundReduced)
+
+          return (
+            <div key={i}>
+              <RoundViewMain
+                roundData={round}
+                raised={totalContributions}
+                roundId={project.projectId}
+                deadline={deadline}
+                secondary
+              />
+            </div>
+          )
+        }
+      })}
     </div>
   )
 }
