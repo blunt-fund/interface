@@ -57,7 +57,11 @@ const Navbar = () => {
               </a>
             )}
           </div>
-          {showDropdown && <DropdownMenu />}
+          {showDropdown && (
+            <div className="absolute top-0 right-0" ref={dropdownRef}>
+              <DropdownMenu setShowDropdown={setShowDropdown} />
+            </div>
+          )}
         </nav>
       </Container>
       <hr className="w-full border-gray-200" />
