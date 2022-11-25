@@ -19,7 +19,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
     tokenName,
     tokenSymbol,
     tokenIssuance,
-    enforceSlicerCreation,
+    isSlicerToBeCreated: enforceSlicerCreation,
     metadata
   } = roundData
 

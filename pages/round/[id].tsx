@@ -36,7 +36,7 @@ export default function Create() {
     roundTimeLock,
     shares,
     raised,
-    enforceSlicerCreation
+    isSlicerToBeCreated
   } = roundData || {}
   const totalShares = shares?.reduce((a, b) => Number(a) + Number(b))
 
@@ -120,7 +120,7 @@ export default function Create() {
                 setPayment={setPayment}
                 isPaymentEth={isPaymentEth}
                 setIsPaymentEth={setIsPaymentEth}
-                isSlicerToBeCreated={enforceSlicerCreation || shares[0] != 0}
+                isSlicerToBeCreated={isSlicerToBeCreated || shares[0] != 0}
               />
 
               <Locks

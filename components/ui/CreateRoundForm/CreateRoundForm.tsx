@@ -34,7 +34,7 @@ export type RoundData = {
   cap: number
   isTargetEth: boolean
   isCapEth: boolean
-  enforceSlicerCreation: boolean
+  isSlicerToBeCreated: boolean
   projectOwner: string
   transferTimeLock: number
   releaseTimeLock: number
@@ -64,7 +64,7 @@ const CreateRoundForm = () => {
     cap: 0,
     isTargetEth: true,
     isCapEth: true,
-    enforceSlicerCreation: true,
+    isSlicerToBeCreated: true,
     projectOwner: account || "",
     transferTimeLock: 0,
     releaseTimeLock: 0,

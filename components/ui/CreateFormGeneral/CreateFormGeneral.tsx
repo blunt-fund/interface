@@ -9,7 +9,7 @@ type Props = {
 }
 
 const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
-  const { name, description, shares, enforceSlicerCreation } = roundData
+  const { name, description, shares, isSlicerToBeCreated } = roundData
 
   const handleSetName = (value: string) => {
     handleSetObject("name", value, roundData, setRoundData)
@@ -17,8 +17,8 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
   const handleSetDescription = (value: string) => {
     handleSetObject("description", value, roundData, setRoundData)
   }
-  const handleSetEnforceSlicerCreation = (value: boolean) => {
-    handleSetObject("enforceSlicerCreation", value, roundData, setRoundData)
+  const handleSetIsSlicerToBeCreated = (value: boolean) => {
+    handleSetObject("isSlicerToBeCreated", value, roundData, setRoundData)
   }
 
   const handleSetReservedStake = (value: number) => {
@@ -69,8 +69,8 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
       </div>
       {shares[0] == 0 && (
         <MySwitch
-          enabled={enforceSlicerCreation}
-          setEnabled={handleSetEnforceSlicerCreation}
+          enabled={isSlicerToBeCreated}
+          setEnabled={handleSetIsSlicerToBeCreated}
           label="Create slicer"
           question={
             <>
