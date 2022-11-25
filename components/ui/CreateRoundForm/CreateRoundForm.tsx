@@ -30,6 +30,7 @@ import { RoundData } from "@utils/formatRoundInfo"
 const CreateRoundForm = () => {
   const { account, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
+  const [roundId, setRoundId] = useState(0)
 
   const [roundData, setRoundData] = useState<RoundData>({
     name: "",
@@ -158,8 +159,7 @@ const CreateRoundForm = () => {
       })
       const wait: ContractReceipt = await tx.wait()
       const events = wait.events
-      console.log(events)
-      // TODO: Add roundId
+      setRoundId(Number(events[1].topics[1]))
 
       setUploadStep(5)
     } catch (error) {
@@ -202,10 +202,13 @@ const CreateRoundForm = () => {
   useEffect(() => {
     if (uploadStep != 0) {
       setModalView({
-        cross: false,
-        name: `CREATE_ROUND_VIEW`,
-        params: {
-          uploadStep
+        ...{
+          cross: false,
+          name: `CREATE_ROUND_VIEW`,
+          params: {
+            uploadStep,
+            roundId
+          }
         }
       })
     }

@@ -33,8 +33,7 @@ export const ROUND_INFO_VIEW = () => {
 
 export const CREATE_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const { uploadStep } = params
-  const roundId = 1
+  const { uploadStep, roundId } = params
 
   let uploadState: string
   switch (uploadStep) {
