@@ -1,6 +1,6 @@
 {
   "values": {
-    "ipfsGateway": "https://jbx.mypinata.cloud/ipfs/"
+    "ipfsGateway": "https://ipfs.io/ipfs/"
   },
   "addresses": {
     "1": {
