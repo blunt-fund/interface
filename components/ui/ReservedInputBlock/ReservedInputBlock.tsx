@@ -3,6 +3,7 @@ import { Input, InputAddress } from "@components/ui"
 import Delete from "@components/icons/Delete"
 import Crown from "@components/icons/Crown"
 import { RoundData } from "utils/formatRoundInfo"
+import { ethers } from "ethers"
 
 type Props = {
   index: number
@@ -73,7 +74,7 @@ const ReservedInputBlock = ({
       </div>
       <div className="col-span-7 xs:col-span-6 md:col-span-8">
         <InputAddress
-          address={address}
+          address={address != ethers.constants.AddressZero ? address : ""}
           onChange={handleSetAddress}
           required={sharesAmount != 0}
           resolvedAddress={resolvedAddress}
