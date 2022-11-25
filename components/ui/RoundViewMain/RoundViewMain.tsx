@@ -54,7 +54,6 @@ const CreateFormAdvancedERC20 = ({
   const capEth = useNormalizeCurrency(cap, isCapEth)
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
   const raisedUsd = raised != 0 ? normalizedRaisedUsd || undefined : 0
-  console.log(useNormalizeCurrency(raised, true, false))
 
   const formattedDeadlineUnits =
     deadline / 86400 > 1
