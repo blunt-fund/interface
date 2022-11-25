@@ -2,7 +2,6 @@ import File from "@components/icons/File"
 import Link from "@components/icons/Link"
 import Logo from "@components/icons/Logo"
 import { Discord, Twitter } from "@components/icons/Social"
-
 import formatNumber from "@utils/formatNumber"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import Image from "next/image"
@@ -15,6 +14,7 @@ type Props = {
   descriptionHtml?: string
   raised?: number
   roundId?: number
+  deadline?: number
   issuance?: boolean
   secondary?: boolean
 }
@@ -24,6 +24,7 @@ const CreateFormAdvancedERC20 = ({
   descriptionHtml,
   raised = 0,
   roundId,
+  deadline,
   issuance = true,
   secondary = false
 }: Props) => {
@@ -47,9 +48,33 @@ const CreateFormAdvancedERC20 = ({
 
   const currency = (isEth: boolean) => (isEth ? "ETH" : "USD")
   const twitterUrl = `https://twitter.com/${twitter}`
+  // const displayedTarget = isTargetEth ? target / 1e4 : target / 1e2
+  // const displayedCap = isCapEth ? cap / 1e4 : cap / 1e2
   const targetEth = useNormalizeCurrency(target, isTargetEth)
   const capEth = useNormalizeCurrency(cap, isCapEth)
-  const raisedUsd = useNormalizeCurrency(raised, true, false) || undefined
+  const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
+  const raisedUsd = raised != 0 ? normalizedRaisedUsd || undefined : 0
+  console.log(useNormalizeCurrency(raised, true, false))
+
+  const formattedDeadlineUnits =
+    deadline / 86400 > 1
+      ? "days"
+      : deadline / 3600 > 1
+      ? "hours"
+      : deadline / 60 > 1
+      ? "minutes"
+      : "seconds"
+  const formattedDeadline =
+    deadline &&
+    Math.floor(
+      formattedDeadlineUnits == "days"
+        ? deadline / 86400
+        : formattedDeadlineUnits == "hours"
+        ? deadline / 3600
+        : formattedDeadlineUnits == "minutes"
+        ? deadline / 60
+        : deadline
+    )
 
   return (
     <ConditionalLink
@@ -157,11 +182,24 @@ const CreateFormAdvancedERC20 = ({
                       {formatNumber(isCapEth ? raised : raisedUsd, 1)}
                     </span>{" "}
                     {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
-                    {currency(isCapEth)}
+                    {currency(isCapEth || !cap)}
                   </b>
                 </p>
                 <p>
-                  Deadline: <b>{duration ? `${duration} days` : "none"}</b>
+                  Deadline:{" "}
+                  <b
+                    className={
+                      deadline > 0 && deadline < 259200 ? "text-yellow-500" : ""
+                    }
+                  >
+                    {duration
+                      ? deadline != undefined
+                        ? deadline > 0
+                          ? `${formattedDeadline} ${formattedDeadlineUnits}`
+                          : "passed"
+                        : `${duration} days`
+                      : "none"}
+                  </b>
                 </p>
               </div>
               <div className="flex justify-between">
@@ -178,7 +216,7 @@ const CreateFormAdvancedERC20 = ({
                     </>
                   )}
                 </p>
-                {issuance && tokenIssuance != 0 && (
+                {issuance && tokenIssuance >= 1 && (
                   <p>
                     Issuance:{" "}
                     <b>

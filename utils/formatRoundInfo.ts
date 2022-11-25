@@ -1,5 +1,5 @@
 import { ImageType } from "@components/ui/CreateFormAdvancedLinks/CreateFormAdvancedLinks"
-import { ethers } from "ethers"
+import { BigNumber, ethers } from "ethers"
 
 export type RoundData = ReducedRoundData & {
   projectOwner: string
@@ -60,9 +60,15 @@ const formatRoundInfo = (data: string) => {
     )[0]
 
     return {
-      totalContributions,
-      target,
-      cap,
+      totalContributions: Number(
+        ethers.utils.formatUnits(totalContributions, 14)
+      ),
+      target: isTargetUsd
+        ? Number(ethers.utils.formatUnits(target, 6))
+        : Number(ethers.utils.formatUnits(target, 14)),
+      cap: isCapUsd
+        ? Number(ethers.utils.formatUnits(cap, 6))
+        : Number(ethers.utils.formatUnits(cap, 14)),
       releaseTimeLock,
       transferTimeLock,
       projectOwner,

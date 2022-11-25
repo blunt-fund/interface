@@ -28,7 +28,7 @@ export default function Explore() {
       />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto">
-          <h1 className="pb-20">Active rounds</h1>
+          <h1 className="pb-20">Blunt rounds</h1>
           <AllRounds />
         </main>
       </Container>

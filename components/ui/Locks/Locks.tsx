@@ -1,5 +1,3 @@
-import { nullDate } from "../MyRounds/MyRounds"
-
 type Props = {
   transferTimestamp: number
   releaseTimestamp: number
@@ -11,9 +9,10 @@ const Locks = ({
   releaseTimestamp,
   roundTimestamp
 }: Props) => {
+  const now = new Date().getTime()
   return (
     <div className="space-y-3 text-right">
-      {transferTimestamp != 0 && transferTimestamp > nullDate && (
+      {transferTimestamp != 0 && transferTimestamp > now && (
         <p className="text-sm">
           Slice transfers locked until:{" "}
           <span className="font-bold">
@@ -21,7 +20,7 @@ const Locks = ({
           </span>
         </p>
       )}
-      {releaseTimestamp != 0 && releaseTimestamp > nullDate && (
+      {releaseTimestamp != 0 && releaseTimestamp > now && (
         <p className="text-sm">
           Token withdraws locked until:{" "}
           <span className="font-bold">
@@ -29,7 +28,7 @@ const Locks = ({
           </span>
         </p>
       )}
-      {roundTimestamp != 0 && roundTimestamp > nullDate && (
+      {roundTimestamp != 0 && roundTimestamp > now && (
         <p className="text-sm">
           Round token allocation locked until:{" "}
           <span className="font-bold">

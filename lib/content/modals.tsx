@@ -114,10 +114,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-8">
-        <p>
-          Proceeding will create a Juicebox project and a slicer to distribute
-          future token issued to blunt round participants.
-        </p>
+        <p>Proceeding will create a Juicebox project and a slicer.</p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
           roundData={roundData}

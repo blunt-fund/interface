@@ -8,7 +8,6 @@ import { useAppContext } from "../context"
 import { RoundData } from "utils/formatRoundInfo"
 import RoundViewMain from "../RoundViewMain"
 
-export const nullDate = 777600000
 export const rounds: (RoundData & {
   raised: number
   roundId: number
