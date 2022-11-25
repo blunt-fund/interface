@@ -203,7 +203,7 @@ const CreateRoundForm = () => {
     if (uploadStep != 0) {
       setModalView({
         ...{
-          cross: false,
+          cross: uploadStep > 3,
           name: `CREATE_ROUND_VIEW`,
           params: {
             uploadStep,
