@@ -5,6 +5,7 @@
   "addresses": {
     "1": {
       "BluntDelegateDeployer": "",
+      "BluntDelegateCloner": "",
       "BluntDelegateProjectDeployer": "",
       "JBTerminal": "0x594Cb208b5BB48db1bcbC9354d1694998864ec63",
       "JBDirectory": "0x65572FB928b46f9aDB7cfe5A4c41226F636161ea",
@@ -12,8 +13,9 @@
       "SliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d"
     },
     "5": {
-      "BluntDelegateDeployer": "0xB3f651ccF4342BB2012CE2201134369D759aaA7A",
-      "BluntDelegateProjectDeployer": "0x77e8cAec45A85ca03952ce323354e83fD56dAc04",
+      "BluntDelegateDeployer": "0xa13c83C7Ad18bda6Ab5a7Bf367128911B450C4a8",
+      "BluntDelegateCloner": "0xcF6a3A48305981D089a441765aBc4263A6A7Ff5c",
+      "BluntDelegateProjectDeployer": "0xd599f45D9F3486eAeA83BE95eC40D62D3F504B85",
       "JBTerminal": "0x55d4dfb578daA4d60380995ffF7a706471d7c719",
       "JBDirectory": "0x8E05bcD2812E1449f0EC3aE24E2C395F533d9A99",
       "JBFundingCycleStore": "0xB9Ee9d8203467f6EC0eAC81163d210bd1a7d3b55",

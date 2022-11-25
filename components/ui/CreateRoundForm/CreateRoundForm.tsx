@@ -174,7 +174,8 @@ const CreateRoundForm = () => {
       setUploadStep(2)
       const tx = await deployer.launchProjectFor(
         deployBluntDelegateData,
-        launchProjectData
+        launchProjectData,
+        false
       )
       addRecentTransaction({
         hash: tx.hash,
