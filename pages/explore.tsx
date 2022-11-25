@@ -27,12 +27,10 @@ export default function Explore() {
         }}
       />
       <Container page={true}>
-        <ConnectBlock>
-          <main className="max-w-screen-sm mx-auto">
-            <h1 className="pb-20">Active rounds</h1>
-            <AllRounds />
-          </main>
-        </ConnectBlock>
+        <main className="max-w-screen-sm mx-auto">
+          <h1 className="pb-20">Active rounds</h1>
+          <AllRounds />
+        </main>
       </Container>
     </>
   )
