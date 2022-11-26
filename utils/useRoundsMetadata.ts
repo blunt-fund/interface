@@ -22,10 +22,10 @@ const useRoundsMetadata = (projects: any[]) => {
       setRoundMetadata(metadata)
     }
 
-    if (projects) {
+    if (projects && projects[0]) {
       getRoundInfo()
     }
-  }, [projects])
+  }, projects)
 
   return roundMetadata
 }

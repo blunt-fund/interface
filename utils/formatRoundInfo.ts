@@ -84,7 +84,7 @@ const formatRoundInfo = (data: string) => {
       isSlicerToBeCreated,
       slicerId
     }
-  }
+  } else return {}
 }
 
 export default formatRoundInfo

@@ -162,7 +162,7 @@ const MyRounds = () => {
       testDelegateAddress,
       testDelegateAddress,
       testDelegateAddress,
-      testDelegateAddress,
+      "0xbBC65902d8be06Ad1E17A011EC01b5185628F676", // data source for test 4
       testDelegateAddress,
       testDelegateAddress,
       testDelegateAddress
@@ -197,6 +197,8 @@ const MyRounds = () => {
           isCapEth,
           isSlicerToBeCreated
         } = formatRoundInfo(roundInfo[i])
+
+        console.log({ projectOwner, account })
 
         if (projectOwner == account) {
           const { name, description, logoUri } = metadata[i]
