@@ -13,11 +13,9 @@ const useRoundsMetadata = (projects: any[]) => {
         return project.bluntDelegateAddress
       })
 
-      const metadataPromises = Promise.all(
+      const metadata = await Promise.all(
         cids.map((cid) => fetcher(constants.ipfsGateway + cid))
       )
-
-      const [metadata] = await Promise.all([metadataPromises])
 
       setRoundMetadata(metadata)
     }

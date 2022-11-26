@@ -32,7 +32,6 @@ const AllRounds = () => {
       }
     }
   `
-
   let subgraphData = useQuery(tokensQuery)
   const projects = subgraphData?.projects
 
