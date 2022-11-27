@@ -1,4 +1,4 @@
-import { RoundData } from "@utils/formatRoundInfo"
+import { RoundData } from "@utils/getRounds"
 
 const rounds: (RoundData & {
   raised: number

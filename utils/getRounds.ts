@@ -1,7 +1,37 @@
+import { ImageType } from "@components/ui/CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 import { ethers } from "ethers"
-import formatRoundInfo, { ReducedRoundData, RoundData } from "./formatRoundInfo"
 import { constants } from "utils/constants"
 import formatReducedRoundData from "./formatReducedRoundData"
+
+export type RoundData = ReducedRoundData & {
+  transferTimeLock: number
+  releaseTimeLock: number
+  roundTimeLock: number
+  tokenName: string
+  website: string
+  twitter: string
+  discord: string
+  docs: string
+  metadata: string
+  fundingCycleRound?: number
+}
+
+export type ReducedRoundData = {
+  name: string
+  description: string
+  projectOwner: string
+  duration: number
+  target: number
+  cap: number
+  isTargetEth: boolean
+  isCapEth: boolean
+  isSlicerToBeCreated: boolean
+  tokenSymbol: string
+  tokenIssuance: number
+  image: ImageType
+  addresses: string[]
+  shares: number[]
+}
 
 export type RoundInfo = {
   round: RoundData
@@ -11,6 +41,8 @@ export type RoundInfo = {
 }
 
 const getRounds = (roundInfo: any, projectData: any, subgraphData: any) => {
+  console.log(roundInfo)
+
   const closedRounds: RoundInfo[] = []
   const activeRounds: RoundInfo[] =
     roundInfo &&
@@ -18,18 +50,27 @@ const getRounds = (roundInfo: any, projectData: any, subgraphData: any) => {
     subgraphData?.flatMap((project, i) => {
       const {
         totalContributions,
-        target,
-        cap,
+        target: unformattedTarget,
+        hardcap: unformattedCap,
         projectOwner,
         afterRoundReservedRate,
         afterRoundSplits,
         tokenSymbol,
         isRoundClosed,
-        isTargetEth,
-        isCapEth,
+        isTargetUsd,
+        isCapUsd,
         isSlicerToBeCreated
-      } = formatRoundInfo(roundInfo[i])
+      } = roundInfo[i]
       const { name, description, logoUri } = projectData[i].metadata
+
+      const isTargetEth = !isTargetUsd
+      const isCapEth = !isCapUsd
+      const target = isTargetUsd
+        ? Number(ethers.utils.formatUnits(unformattedTarget, 6))
+        : Number(ethers.utils.formatUnits(unformattedTarget, 14))
+      const cap = isCapUsd
+        ? Number(ethers.utils.formatUnits(Number(unformattedCap), 6))
+        : Number(ethers.utils.formatUnits(unformattedCap, 14))
 
       const roundShares =
         Math.floor((afterRoundReservedRate * afterRoundSplits[0][2]) / 1e9) /
@@ -67,7 +108,9 @@ const getRounds = (roundInfo: any, projectData: any, subgraphData: any) => {
       const data = {
         round,
         deadline,
-        totalContributions,
+        totalContributions: Number(
+          ethers.utils.formatUnits(totalContributions, 14)
+        ),
         roundId: project.projectId
       }
 

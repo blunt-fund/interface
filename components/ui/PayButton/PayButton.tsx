@@ -7,7 +7,7 @@ import { BigNumber, ethers } from "ethers"
 import { Dispatch, SetStateAction, useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
-import { RoundData } from "utils/formatRoundInfo"
+import { RoundData } from "utils/getRounds"
 import { useAppContext } from "../context"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 

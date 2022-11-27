@@ -25,7 +25,7 @@ import bluntDeployer from "abi/BluntDelegateProjectDeployer.json"
 import { ContractReceipt, ethers } from "ethers"
 import formatDeployData from "@utils/formatDeployData"
 import { addresses as addressConstants } from "utils/constants"
-import { RoundData } from "@utils/formatRoundInfo"
+import { RoundData } from "@utils/getRounds"
 
 const CreateRoundForm = () => {
   const { account, setModalView } = useAppContext()

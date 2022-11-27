@@ -1,4 +1,4 @@
-import { ReducedRoundData, RoundData } from "./formatRoundInfo"
+import { ReducedRoundData, RoundData } from "utils/getRounds"
 
 const formatReducedRoundData = (roundReduced: ReducedRoundData) => {
   roundReduced["transferTimeLock"] = 0

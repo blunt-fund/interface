@@ -6,7 +6,7 @@ import formatNumber from "@utils/formatNumber"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import Image from "next/image"
 import ConditionalLink from "../ConditionalLink"
-import { RoundData } from "utils/formatRoundInfo"
+import { RoundData } from "utils/getRounds"
 import ProgressBar from "../ProgressBar"
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
   secondary?: boolean
 }
 
-const CreateFormAdvancedERC20 = ({
+const RoundViewMain = ({
   roundData,
   descriptionHtml,
   raised = 0,
@@ -239,4 +239,4 @@ const CreateFormAdvancedERC20 = ({
   )
 }
 
-export default CreateFormAdvancedERC20
+export default RoundViewMain
