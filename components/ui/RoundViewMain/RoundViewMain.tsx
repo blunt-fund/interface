@@ -77,7 +77,7 @@ const CreateFormAdvancedERC20 = ({
 
   return (
     <ConditionalLink
-      href={roundId ? `/round/${roundId}` : undefined}
+      href={roundId ? `/rounds/${roundId}` : undefined}
       className="rounded-sm sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
     >
       <div className="text-left">

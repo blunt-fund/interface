@@ -15,7 +15,7 @@ import {
   domain
 } from "@components/common/Head"
 import { useRouter } from "next/router"
-import { rounds } from "@components/ui/MyRounds/MyRounds"
+import rounds from "lib/tempRounds"
 import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
 import multicall from "@utils/multicall"
@@ -28,36 +28,21 @@ import useRoundsMetadata from "@utils/useRoundsMetadata"
 import useNow from "@utils/useNow"
 import formatRoundInfo, { RoundData } from "@utils/formatRoundInfo"
 import { ethers } from "ethers"
+import { tokensQueryProject } from "@lib/gqlQueries"
+import { GetStaticPropsContext } from "next"
+import prisma from "@lib/prisma"
 
-export default function Create() {
+export default function Round({ subgraphData, projectData }) {
   const router = useRouter()
   const { id } = router.query
 
-  const [payment, setPayment] = useState(0)
-  const [isPaymentEth, setIsPaymentEth] = useState(true)
-  const [descriptionHtml, setDescriptionHtml] = useState("")
+  console.log({ subgraphData, projectData })
 
+  const [descriptionHtml, setDescriptionHtml] = useState("")
   const getDescriptionHtml = async () => {
     setDescriptionHtml(await markdownToHtml(description))
   }
 
-  const tokensQuery = /* GraphQL */ `
-    project(
-      id: "2-${id}"
-    ) {
-      owner
-      createdAt
-      metadataUri
-      configureEvents {
-        timestamp
-        duration
-        weight
-        dataSource
-      }
-    }
-  `
-
-  let subgraphData = useQuery(tokensQuery, [id])
   const project = subgraphData?.project
   const testDelegateAddress = "0x0518a92F872e6B094491019dc0c658dB066bf16b"
   const roundInfo = useMulticall(
@@ -170,10 +155,6 @@ export default function Create() {
               <PayButton
                 projectId={Number(id)}
                 round={round}
-                payment={payment}
-                setPayment={setPayment}
-                isPaymentEth={isPaymentEth}
-                setIsPaymentEth={setIsPaymentEth}
                 isSlicerToBeCreated={
                   isSlicerToBeCreated || round?.shares[0] != 0
                 }
@@ -201,4 +182,31 @@ export default function Create() {
       </Container>
     </>
   )
+}
+
+export async function getStaticPaths() {
+  const ids = await prisma.project.findMany({ select: { projectId: true } })
+  const paths = ids.map(({ projectId }) => ({
+    params: {
+      id: String(projectId)
+    }
+  }))
+
+  return { paths, fallback: "blocking" }
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const id = context.params.id
+  const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds/" + id
+  const data = await fetcher(endpoint)
+  const subgraphData = data?.subgraphData
+  const projectData = data?.projectData
+
+  return {
+    props: {
+      subgraphData,
+      projectData
+    },
+    revalidate: 600
+  }
 }

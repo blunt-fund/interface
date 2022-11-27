@@ -36,7 +36,7 @@ const Navbar = () => {
                 <Logo />
               </a>
             </Link>
-            <Link href="/explore">
+            <Link href="/rounds">
               <a className="text-sm">Explore rounds</a>
             </Link>
           </div>

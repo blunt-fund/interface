@@ -25,7 +25,7 @@ function DropdownMenu({
       className={`z-20 absolute text-sm top-0 right-0 w-56 mt-20 border border-gray-200 space-y-1 bg-white rounded-sm shadow-base nightwind-prevent-block`}
     >
       <DropdownMenuElement
-        href="/rounds"
+        href="/myrounds"
         image={
           <div className="w-5 h-5 border-2 border-blue-600 rounded-full group-hover:border-white" />
         }
