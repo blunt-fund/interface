@@ -3,7 +3,6 @@ import useQuery from "@utils/subgraphQuery"
 import { addresses } from "utils/constants"
 import { useAppContext } from "../context"
 import { RoundData } from "utils/formatRoundInfo"
-import useNow from "@utils/useNow"
 import useRoundsMetadata from "@utils/useRoundsMetadata"
 import useMulticall from "@utils/useMulticall"
 import { RoundsList } from "@components/ui"
@@ -52,8 +51,6 @@ const MyRounds = () => {
   // TODO: Fix IPFS fetch logic
   // TODO: Add metadata backend optimization
   const metadata = useRoundsMetadata(projects)
-
-  const now = Math.floor(useNow() / 1000)
 
   return !subgraphData || !roundInfo || !metadata ? (
     <div className="flex justify-center">

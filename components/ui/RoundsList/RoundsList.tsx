@@ -15,14 +15,15 @@ const RoundsList = ({ roundInfo, metadata, projects, account }: Props) => {
     projects
   )
 
-  console.log(activeRounds)
-
   const filteredClosedRounds = account
     ? closedRounds.filter((el) => el.round.projectOwner == account)
     : closedRounds
   const filteredActiveRounds = account
     ? activeRounds.filter((el) => el.round.projectOwner == account)
     : activeRounds
+
+  // TODO: Make deadline countdown without triggering unnecessary rerenders
+  // const now = Math.floor(useNow() / 1000)
 
   return (
     <div className="space-y-20">

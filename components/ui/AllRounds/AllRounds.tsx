@@ -1,9 +1,8 @@
 import Spinner from "@components/icons/Spinner"
 import useQuery from "@utils/subgraphQuery"
 import useMulticall from "@utils/useMulticall"
-import { addresses, constants } from "utils/constants"
+import { addresses } from "utils/constants"
 import useRoundsMetadata from "@utils/useRoundsMetadata"
-import getRounds from "@utils/getRounds"
 import { RoundsList } from "@components/ui"
 
 const AllRounds = () => {
@@ -50,9 +49,6 @@ const AllRounds = () => {
   // TODO: Fix IPFS fetch logic
   // TODO: Add metadata backend optimization
   const metadata = useRoundsMetadata(projects)
-
-  // TODO: Make deadline countdown without triggering unnecessary rerenders
-  // const now = Math.floor(useNow() / 1000)
 
   return !subgraphData || !roundInfo || !metadata ? (
     <div className="flex justify-center">
