@@ -1,13 +1,21 @@
 import { NextSeo } from "next-seo"
-import { ConnectBlock, Container, MyRounds } from "@components/ui"
+import { ConnectBlock, Container, RoundsList } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
   longTitle,
   domain
 } from "@components/common/Head"
+import useSWR from "swr"
+import fetcher from "@utils/fetcher"
+import { useAppContext } from "@components/ui/context"
 
 export default function Rounds() {
+  const { account } = useAppContext()
+  const { data } = useSWR("/api/rounds", fetcher)
+  const subgraphData = data?.subgraphData
+  const projectData = data?.projectData
+
   return (
     <>
       <NextSeo
@@ -30,7 +38,11 @@ export default function Rounds() {
         <ConnectBlock>
           <main className="max-w-screen-sm mx-auto">
             <h1 className="pb-20">My rounds</h1>
-            <MyRounds />
+            <RoundsList
+              subgraphData={subgraphData}
+              projectData={projectData}
+              account={account}
+            />
           </main>
         </ConnectBlock>
       </Container>

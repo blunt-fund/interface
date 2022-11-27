@@ -10,12 +10,12 @@ export type RoundInfo = {
   roundId: number
 }
 
-const getRounds = (roundInfo: any, metadata: any, projects: any) => {
+const getRounds = (roundInfo: any, projectData: any, subgraphData: any) => {
   const closedRounds: RoundInfo[] = []
   const activeRounds: RoundInfo[] =
     roundInfo &&
-    metadata &&
-    projects?.flatMap((project, i) => {
+    projectData &&
+    subgraphData?.flatMap((project, i) => {
       const {
         totalContributions,
         target,
@@ -29,7 +29,8 @@ const getRounds = (roundInfo: any, metadata: any, projects: any) => {
         isCapEth,
         isSlicerToBeCreated
       } = formatRoundInfo(roundInfo[i])
-      const { name, description, logoUri } = metadata[i]
+      const { name, description, logoUri } = projectData[i].metadata
+
       const roundShares =
         Math.floor((afterRoundReservedRate * afterRoundSplits[0][2]) / 1e9) /
         100 // TODO: Check first split address is address(0)

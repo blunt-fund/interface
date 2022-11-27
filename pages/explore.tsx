@@ -1,13 +1,15 @@
 import { NextSeo } from "next-seo"
-import { Container, AllRounds } from "@components/ui"
+import { Container, RoundsList } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
   longTitle,
   domain
 } from "@components/common/Head"
+import { GetStaticPropsContext } from "next"
+import fetcher from "@utils/fetcher"
 
-export default function Explore() {
+export default function Explore({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
@@ -29,9 +31,24 @@ export default function Explore() {
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto">
           <h1 className="pb-20">Blunt rounds</h1>
-          <AllRounds />
+          <RoundsList subgraphData={subgraphData} projectData={projectData} />
         </main>
       </Container>
     </>
   )
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds"
+  const data = await fetcher(endpoint)
+  const subgraphData = data?.subgraphData
+  const projectData = data?.projectData
+
+  return {
+    props: {
+      subgraphData,
+      projectData
+    },
+    revalidate: 600
+  }
 }
