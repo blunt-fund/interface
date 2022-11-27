@@ -50,6 +50,7 @@ const Navbar = () => {
             </div>
             {isConnected && (
               <a
+                // TODO: Fix click on icon when dropdown is open
                 onClick={() => setShowDropdown((showDropdown) => !showDropdown)}
                 ref={dropdownRef}
               >
