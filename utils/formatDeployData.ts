@@ -1,4 +1,4 @@
-import { RoundData } from "@components/ui/CreateRoundForm/CreateRoundForm"
+import { RoundData } from "@utils/getRounds"
 import { BigNumber, ethers } from "ethers"
 import { addresses as addressConstants } from "utils/constants"
 import calculateSplits from "@utils/calculateSplits"

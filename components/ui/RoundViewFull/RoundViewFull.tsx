@@ -6,9 +6,6 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
 import useNow from "@utils/useNow"
-import constants from "@utils/constants"
-import { ethers } from "ethers"
-import { RoundData } from "@utils/getRounds"
 import formatRound from "@utils/formatRound"
 
 type Props = {

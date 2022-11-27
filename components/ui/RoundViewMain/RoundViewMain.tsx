@@ -78,7 +78,7 @@ const RoundViewMain = ({
   return (
     <ConditionalLink
       href={roundId ? `/rounds/${roundId}` : undefined}
-      className="rounded-sm sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
+      className="block rounded-sm hover:text-black sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
     >
       <div className="text-left">
         <div className="xs:flex">
