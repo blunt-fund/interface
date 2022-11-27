@@ -14,23 +14,14 @@ import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 type Props = {
   projectId: number
   round: RoundData
-  payment: number
   isSlicerToBeCreated: boolean
-  isPaymentEth: boolean
-  setPayment: Dispatch<SetStateAction<number>>
-  setIsPaymentEth: Dispatch<SetStateAction<boolean>>
 }
 
-const PayButton = ({
-  projectId,
-  round,
-  payment,
-  isSlicerToBeCreated,
-  isPaymentEth,
-  setPayment,
-  setIsPaymentEth
-}: Props) => {
+const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
   const { account } = useAppContext()
+
+  const [payment, setPayment] = useState(0)
+  const [isPaymentEth, setIsPaymentEth] = useState(true)
   const [loading, setLoading] = useState(false)
   const addRecentTransaction = useAddRecentTransaction()
   const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
