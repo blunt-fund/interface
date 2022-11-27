@@ -4,7 +4,7 @@ import executeTransaction from "@utils/executeTransaction"
 import formatNumber from "@utils/formatNumber"
 import { addresses } from "@utils/constants"
 import { BigNumber, ethers } from "ethers"
-import { Dispatch, SetStateAction, useState } from "react"
+import { useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import { RoundData } from "utils/getRounds"
@@ -37,7 +37,7 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
       account,
       0,
       false,
-      "Paid from BF",
+      "Paid from blunt.finance",
       []
     ],
     overrides: {
