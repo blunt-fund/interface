@@ -20,21 +20,21 @@ const CreateFormAdvancedLock = ({
   roundLockDate
 }: Props) => {
   const {
-    transferTimeLock,
-    releaseTimeLock,
-    roundTimeLock,
+    transferTimelock,
+    releaseTimelock,
+    roundTimelock,
     isSlicerToBeCreated: enforceSlicerCreation,
     shares
   } = roundData
 
-  const handleSetTransferTimeLock = (value: number) => {
-    handleSetObject("transferTimeLock", value, roundData, setRoundData)
+  const handleSetTransferTimelock = (value: number) => {
+    handleSetObject("transferTimelock", value, roundData, setRoundData)
   }
-  const handleSetReleaseTimeLock = (value: number) => {
-    handleSetObject("releaseTimeLock", value, roundData, setRoundData)
+  const handleSetReleaseTimelock = (value: number) => {
+    handleSetObject("releaseTimelock", value, roundData, setRoundData)
   }
-  const handleSetRoundTimeLock = (value: number) => {
-    handleSetObject("roundTimeLock", value, roundData, setRoundData)
+  const handleSetRoundTimelock = (value: number) => {
+    handleSetObject("roundTimelock", value, roundData, setRoundData)
   }
 
   const isSlicerNotToBeCreated = !enforceSlicerCreation && shares[0] == 0
@@ -50,8 +50,8 @@ const CreateFormAdvancedLock = ({
           type="number"
           label="Slice transfer lock (days)"
           min={0}
-          value={transferTimeLock != 0 ? transferTimeLock : ""}
-          onChange={handleSetTransferTimeLock}
+          value={transferTimelock != 0 ? transferTimelock : ""}
+          onChange={handleSetTransferTimelock}
           placeholder="Leave blank to disable"
           disabled={isSlicerNotToBeCreated}
           question={
@@ -69,7 +69,7 @@ const CreateFormAdvancedLock = ({
             </>
           }
         />
-        {transferTimeLock != 0 && (
+        {transferTimelock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
             Unlock date:{" "}
             <span className="font-bold text-blue-600">
@@ -83,8 +83,8 @@ const CreateFormAdvancedLock = ({
           type="number"
           label="Token withdrawals lock (days)"
           min={0}
-          value={releaseTimeLock != 0 ? releaseTimeLock : ""}
-          onChange={handleSetReleaseTimeLock}
+          value={releaseTimelock != 0 ? releaseTimelock : ""}
+          onChange={handleSetReleaseTimelock}
           placeholder="Leave blank to disable"
           disabled={isSlicerNotToBeCreated}
           question={
@@ -98,7 +98,7 @@ const CreateFormAdvancedLock = ({
             </>
           }
         />
-        {releaseTimeLock != 0 && (
+        {releaseTimelock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
             Unlock date:{" "}
             <span className="font-bold text-blue-600">
@@ -115,8 +115,8 @@ const CreateFormAdvancedLock = ({
           type="number"
           label="Round token allocation lock (days)"
           min={0}
-          value={roundTimeLock != 0 ? roundTimeLock : ""}
-          onChange={handleSetRoundTimeLock}
+          value={roundTimelock != 0 ? roundTimelock : ""}
+          onChange={handleSetRoundTimelock}
           placeholder="Leave blank to disable"
           question={
             <>
@@ -131,7 +131,7 @@ const CreateFormAdvancedLock = ({
             </>
           }
         />
-        {roundTimeLock != 0 && (
+        {roundTimelock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
             Unlock date:{" "}
             <span className="font-bold text-blue-600">

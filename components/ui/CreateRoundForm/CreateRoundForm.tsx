@@ -42,9 +42,9 @@ const CreateRoundForm = () => {
     isCapEth: true,
     isSlicerToBeCreated: true,
     projectOwner: account || "",
-    transferTimeLock: 0,
-    releaseTimeLock: 0,
-    roundTimeLock: 0,
+    transferTimelock: 0,
+    releaseTimelock: 0,
+    roundTimelock: 0,
     tokenName: "",
     tokenSymbol: "",
     tokenIssuance: 0,
@@ -68,9 +68,9 @@ const CreateRoundForm = () => {
     isTargetEth,
     isCapEth,
     duration,
-    transferTimeLock,
-    releaseTimeLock,
-    roundTimeLock,
+    transferTimelock,
+    releaseTimelock,
+    roundTimelock,
     shares,
     projectOwner
   } = roundData
@@ -85,18 +85,18 @@ const CreateRoundForm = () => {
 
   // TODO: Fix this timestamp mess
   const now = new Date()
-  let transferLockDate = transferTimeLock != 0 ? new Date() : new Date(0)
-  let releaseLockDate = releaseTimeLock != 0 ? new Date() : new Date(0)
-  let roundLockDate = roundTimeLock != 0 ? new Date() : new Date(0)
+  let transferLockDate = transferTimelock != 0 ? new Date() : new Date(0)
+  let releaseLockDate = releaseTimelock != 0 ? new Date() : new Date(0)
+  let roundLockDate = roundTimelock != 0 ? new Date() : new Date(0)
 
   transferLockDate.setDate(
-    now.getDate() + Number(transferTimeLock) + Number(duration)
+    now.getDate() + Number(transferTimelock) + Number(duration)
   )
   releaseLockDate.setDate(
-    now.getDate() + Number(releaseTimeLock) + Number(duration)
+    now.getDate() + Number(releaseTimelock) + Number(duration)
   )
   roundLockDate.setDate(
-    now.getDate() + Number(roundTimeLock) + Number(duration)
+    now.getDate() + Number(roundTimelock) + Number(duration)
   )
   const transferTimestamp = transferLockDate.getTime()
   const releaseTimestamp = releaseLockDate.getTime()

@@ -10,9 +10,9 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
     isTargetEth,
     isCapEth,
     duration,
-    transferTimeLock,
-    releaseTimeLock,
-    roundTimeLock,
+    transferTimelock,
+    releaseTimelock,
+    roundTimelock,
     addresses,
     shares,
     projectOwner,
@@ -35,14 +35,14 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       target: isTargetEth
         ? ethers.utils.parseEther(String(target))
         : BigNumber.from(10).pow(6).mul(target),
-      releaseTimelock: releaseTimeLock,
-      transferTimelock: transferTimeLock,
+      releaseTimelock: releaseTimelock,
+      transferTimelock: transferTimelock,
       afterRoundReservedRate: totalShares * 100,
       afterRoundSplits: calculateSplits(
         shares,
         addresses,
         totalShares,
-        roundTimeLock
+        roundTimelock
       ),
       tokenName,
       tokenSymbol,
