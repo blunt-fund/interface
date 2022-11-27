@@ -2,7 +2,6 @@ import { ImageType } from "@components/ui/CreateFormAdvancedLinks/CreateFormAdva
 import { BigNumber, ethers } from "ethers"
 
 export type RoundData = ReducedRoundData & {
-  projectOwner: string
   transferTimeLock: number
   releaseTimeLock: number
   roundTimeLock: number
@@ -18,6 +17,7 @@ export type RoundData = ReducedRoundData & {
 export type ReducedRoundData = {
   name: string
   description: string
+  projectOwner: string
   duration: number
   target: number
   cap: number
