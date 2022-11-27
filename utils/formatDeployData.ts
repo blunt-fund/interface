@@ -91,7 +91,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       mustStartAtOrAfter: 0,
       groupedSplits: [],
       fundAccessConstraints: [],
-      terminals: [],
+      terminals: [addressConstants.JBTerminal],
       memo: "Created from blunt.finance"
     }
   }
