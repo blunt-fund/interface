@@ -12,7 +12,7 @@ type Props = {
 
 const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
   // TODO: Replace with actual delegate addresses
-  const testDelegateAddress = "0x0518a92F872e6B094491019dc0c658dB066bf16b"
+  const testDelegateAddress = "0x10F76F93C9BE0BA9fb047ecbB24a459DAF8F4137"
 
   const {
     data: roundInfo,
