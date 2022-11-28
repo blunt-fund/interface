@@ -76,7 +76,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
           {uploadStep > 3 ? (
             uploadStep > 4 ? (
               <div onClick={() => setModalView({ name: "" })}>
-                <Button label={"Go to round"} href={`/round/${roundId}`} />
+                <Button label={"Go to round"} href={`/rounds/${roundId}`} />
               </div>
             ) : (
               <Button

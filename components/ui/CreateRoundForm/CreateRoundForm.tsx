@@ -106,7 +106,6 @@ const CreateRoundForm = () => {
   const { data: signer } = useSigner()
 
   const createRound = async () => {
-    // Lock
     const { name, description, image, website, twitter, discord, docs } =
       roundData
 
@@ -118,18 +117,16 @@ const CreateRoundForm = () => {
         })
       : "bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu"
     try {
-      const metadata = jsonToFile(
-        {
-          name,
-          description,
-          logoUri: constants.ipfsGateway + logoCid,
-          website,
-          twitter,
-          discord,
-          docs
-        },
-        "metadata"
-      )
+      const metadataJson = {
+        name,
+        description,
+        logoUri: constants.ipfsGateway + logoCid,
+        website,
+        twitter,
+        discord,
+        docs
+      }
+      const metadata = jsonToFile(metadataJson, "metadata")
       cid = await web3Storage().put(metadata, {
         wrapWithDirectory: false,
         name
@@ -159,7 +156,19 @@ const CreateRoundForm = () => {
       })
       const wait: ContractReceipt = await tx.wait()
       const events = wait.events
-      setRoundId(Number(events[1].topics[1]))
+      const projectId = Number(events[1].topics[1])
+      setRoundId(projectId)
+
+      // Create Project in db
+      const body = {
+        body: JSON.stringify({
+          metadataUri: cid,
+          projectId,
+          metadata: metadataJson
+        }),
+        method: "POST"
+      }
+      fetch(`/api/rounds/create`, body)
 
       setUploadStep(5)
     } catch (error) {

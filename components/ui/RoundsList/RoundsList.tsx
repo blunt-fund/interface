@@ -65,21 +65,25 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
           )
         }
       )}
-      <h1>Closed rounds</h1>
-      {filteredClosedRounds?.map(
-        ({ round, deadline, totalContributions, roundId }) => {
-          return (
-            <div key={roundId}>
-              <RoundViewMain
-                roundData={round}
-                raised={totalContributions}
-                roundId={roundId}
-                deadline={deadline}
-                secondary
-              />
-            </div>
-          )
-        }
+      {filteredClosedRounds.length != 0 && (
+        <>
+          <h1>Closed rounds</h1>
+          {filteredClosedRounds?.map(
+            ({ round, deadline, totalContributions, roundId }) => {
+              return (
+                <div key={roundId}>
+                  <RoundViewMain
+                    roundData={round}
+                    raised={totalContributions}
+                    roundId={roundId}
+                    deadline={deadline}
+                    secondary
+                  />
+                </div>
+              )
+            }
+          )}
+        </>
       )}
     </div>
   )
