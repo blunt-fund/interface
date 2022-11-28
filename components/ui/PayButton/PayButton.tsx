@@ -50,14 +50,13 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
   })
 
   const { writeAsync } = useContractWrite(config)
-  const isError = error && true
 
   return (
     <div className="pb-6">
       <Input
         type="number"
         onClickLabel="Pay"
-        error={isError}
+        error={error && true}
         min={0}
         value={payment || ""}
         onChange={setPayment}
@@ -65,24 +64,25 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
         prefixAction={() => setIsPaymentEth(!isPaymentEth)}
         loading={loading}
         onClick={async () =>
-          await executeTransaction(
+          payment != 0 &&
+          (await executeTransaction(
             writeAsync,
             setLoading,
             `Pay ${round.name}`,
             addRecentTransaction
-          )
+          ))
         }
       />
       <div className="text-left text-xs xs:text-sm pt-1.5">
-        {!isError ? (
+        {!error ? (
           <p>
             Receive{" "}
             <span className="font-bold text-blue-600">
               {isSlicerToBeCreated &&
                 `${
                   payment ? formatNumber(Math.floor(paymentEth * 1000)) : "1k"
-                } slices ${round.tokenIssuance != 0 ? "+ " : ""}`}
-              {round.tokenIssuance != 0 &&
+                } slices ${round.tokenIssuance >= 1 ? "+ " : ""}`}
+              {round.tokenIssuance >= 1 &&
                 `${formatNumber(
                   payment
                     ? Number(
@@ -96,7 +96,11 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
             {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
           </p>
         ) : (
-          <p className="font-bold text-red-500">Insufficient funds</p>
+          <p className="font-bold text-red-500">
+            {error?.message.includes("insufficient funds")
+              ? "Insufficient funds"
+              : "Round cap exceeded"}
+          </p>
         )}
       </div>
     </div>
