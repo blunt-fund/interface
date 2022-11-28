@@ -75,7 +75,9 @@ const CreateRoundForm = () => {
     projectOwner
   } = roundData
 
-  const totalShares = shares.reduce((a, b) => Number(a) + Number(b))
+  const totalShares = shares.length
+    ? shares.reduce((a, b) => Number(a) + Number(b))
+    : 0
   const reservedError = totalShares > 100
 
   const normalizedTarget = useNormalizeCurrency(target, isTargetEth)
@@ -148,7 +150,7 @@ const CreateRoundForm = () => {
       const tx = await deployer.launchProjectFor(
         deployBluntDelegateData,
         launchProjectData,
-        false
+        true // clone
       )
       addRecentTransaction({
         hash: tx.hash,
@@ -172,6 +174,8 @@ const CreateRoundForm = () => {
 
       setUploadStep(5)
     } catch (error) {
+      console.log(error)
+
       // TODO: Handle revert
       // setUploadStep(3)
       // const cids: string[] = []

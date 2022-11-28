@@ -93,7 +93,7 @@ const ReservedInputBlock = ({
           min="0"
           max={100}
           step={0.1}
-          value={sharesAmount != 0 ? sharesAmount : ""}
+          value={sharesAmount}
           error={sharesAmount > 100}
           required={address && true}
           onChange={handleSetShareAmount}

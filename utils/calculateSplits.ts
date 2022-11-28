@@ -6,25 +6,37 @@ const calculateSplits = (
   totalShares: number,
   roundTimeLock: number
 ) => {
-  const splits = shares
-    .map((share, i) => ({
-      preferClaimed: i == 0 ? true : false,
+  if (totalShares != 0) {
+    const filteredData = shares.flatMap((el, i) =>
+      addresses[i] && Number(el) != 0
+        ? { shares: el, address: addresses[i] }
+        : []
+    )
+
+    const splits = filteredData.map(({ shares, address }, i) => ({
+      preferClaimed:
+        i == 0 && address == ethers.constants.AddressZero ? true : false,
       preferAddToBalance: false,
-      percent: BigNumber.from(share * 1e10).div(totalShares * 10),
+      percent: BigNumber.from(shares * 1e10).div(totalShares * 10),
       projectId: 0,
-      beneficiary: addresses[i],
-      lockedUntil: i == 0 ? roundTimeLock : 0,
+      beneficiary: address,
+      lockedUntil:
+        i == 0 && address == ethers.constants.AddressZero && roundTimeLock
+          ? Math.floor(new Date().getTime() / 1000) + roundTimeLock * 86400
+          : 0,
       allocator: ethers.constants.AddressZero
     }))
-    .filter((el) => Number(el.percent) != 0)
 
-  let remainder = 1e9
-  splits.forEach((el) => (remainder -= Number(el.percent)))
-  if (remainder != 0) {
-    splits[0].percent = splits[0].percent.add(remainder)
+    let remainder = 1e9
+    splits.forEach((el) => (remainder -= Number(el.percent)))
+    if (remainder != 0) {
+      splits[0].percent = splits[0].percent.add(remainder)
+    }
+
+    return splits
+  } else {
+    return []
   }
-
-  return splits
 }
 
 export default calculateSplits

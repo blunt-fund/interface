@@ -41,11 +41,15 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     Math.floor((afterRoundReservedRate * percent) / 1e9) / 100
 
   const roundShares = isFirstSplitSlicer
-    ? calculateShares(afterRoundSplits[0][2])
+    ? calculateShares(afterRoundSplits[0].percent)
     : 0
   const othersReservedShares = calculateShares(
-    othersReserved.reduce((a, b) => a + Number(b[2]), 0)
+    othersReserved.reduce((a, b) => a + Number(b.percent), 0)
   )
+
+  const roundTimelock = isFirstSplitSlicer
+    ? Number(afterRoundSplits[0].lockedUntil)
+    : 0
 
   const timestamp = project.configureEvents[0].timestamp // TODO: Figure out how to calculate this without using timestamp
   const duration = project.configureEvents[0].duration
@@ -72,7 +76,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     docs,
     releaseTimelock,
     transferTimelock,
-    roundTimelock: 0, // TODO:
+    roundTimelock,
     fundingCycleRound,
     tokenIssuance: Number(
       ethers.utils.formatEther(project.configureEvents[0].weight)
