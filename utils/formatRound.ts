@@ -78,7 +78,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     round,
     deadline,
     totalContributions: Number(
-      ethers.utils.formatUnits(totalContributions, 14)
+      ethers.utils.formatUnits(totalContributions, 18)
     ),
     duration,
     isRoundClosed
