@@ -33,6 +33,9 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
     }
   }, [round])
 
+  const formatTimestamp = (days: number) =>
+    days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
+
   return (
     <>
       <RoundViewMain
@@ -49,13 +52,13 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         isSlicerToBeCreated={round.isSlicerToBeCreated || round?.shares[0] != 0}
       />
 
-      <Locks
-        transferTimestamp={round.transferTimelock}
-        releaseTimestamp={round.releaseTimelock}
-        roundTimestamp={round.roundTimelock}
-      />
-
       <EmissionPreview shares={round?.shares} totalShares={round.shares[0]} />
+
+      <Locks
+        transferTimestamp={formatTimestamp(round.transferTimelock)}
+        releaseTimestamp={formatTimestamp(round.releaseTimelock)}
+        roundTimestamp={formatTimestamp(round.roundTimelock)}
+      />
 
       {/* TODO: Add "Contributed" section */}
     </>
