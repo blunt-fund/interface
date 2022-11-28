@@ -32,8 +32,20 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     ? Number(ethers.utils.formatUnits(Number(unformattedCap), 6))
     : Number(ethers.utils.formatUnits(unformattedCap, 14))
 
-  const roundShares =
-    Math.floor((afterRoundReservedRate * afterRoundSplits[0][2]) / 1e9) / 100 // TODO: Check first split address is address(0)
+  const isFirstSplitSlicer =
+    afterRoundSplits[0].beneficiary == ethers.constants.AddressZero
+  const othersReserved = isFirstSplitSlicer
+    ? afterRoundSplits.slice(1)
+    : afterRoundSplits
+  const calculateShares = (percent: number) =>
+    Math.floor((afterRoundReservedRate * percent) / 1e9) / 100
+
+  const roundShares = isFirstSplitSlicer
+    ? calculateShares(afterRoundSplits[0][2])
+    : 0
+  const othersReservedShares = calculateShares(
+    othersReserved.reduce((a, b) => a + Number(b[2]), 0)
+  )
 
   const timestamp = project.configureEvents[0].timestamp // TODO: Figure out how to calculate this without using timestamp
   const duration = project.configureEvents[0].duration
@@ -70,7 +82,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
       file: undefined
     },
     addresses: [],
-    shares: [roundShares],
+    shares: [roundShares, othersReservedShares],
     metadata: ""
   }
 

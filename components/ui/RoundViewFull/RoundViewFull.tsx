@@ -33,6 +33,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
     }
   }, [round])
 
+  const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
 
@@ -52,7 +53,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         isSlicerToBeCreated={round.isSlicerToBeCreated || round?.shares[0] != 0}
       />
 
-      <EmissionPreview shares={round?.shares} totalShares={round.shares[0]} />
+      <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
       <Locks
         transferTimestamp={formatTimestamp(round.transferTimelock)}
