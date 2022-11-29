@@ -126,7 +126,7 @@ const CreateRoundForm = () => {
         name,
         description,
         logoUri: constants.ipfsGateway + logoCid,
-        website,
+        infoUri: website,
         twitter,
         discord,
         docs

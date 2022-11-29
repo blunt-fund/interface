@@ -20,8 +20,15 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     isCapUsd,
     isSlicerToBeCreated
   } = roundInfo
-  const { name, description, logoUri, website, twitter, discord, docs } =
-    metadata
+  const {
+    name,
+    description,
+    logoUri,
+    infoUri: website,
+    twitter,
+    discord,
+    docs
+  } = metadata
 
   const isTargetEth = !isTargetUsd
   const isCapEth = !isCapUsd
