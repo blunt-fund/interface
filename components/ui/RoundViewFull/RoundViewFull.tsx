@@ -5,7 +5,6 @@ import EmissionPreview from "../EmissionPreview"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
-import useNow from "@utils/useNow"
 import formatRound from "@utils/formatRound"
 import { Project } from "@prisma/client"
 
@@ -16,11 +15,13 @@ type Props = {
 }
 
 const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
-  const now = Math.floor(useNow() / 1000)
   const router = useRouter()
   const { id } = router.query
-  const { round, deadline, totalContributions, duration, isRoundClosed } =
-    formatRound(subgraphData, roundInfo, projectData.metadata)
+  const { round, timestamp, totalContributions, isRoundClosed } = formatRound(
+    subgraphData,
+    roundInfo,
+    projectData.metadata
+  )
 
   const [descriptionHtml, setDescriptionHtml] = useState("")
 
@@ -37,7 +38,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
-  const active = (round.duration == 0 || deadline > 0) && !isRoundClosed
 
   return (
     <>
@@ -45,9 +45,9 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         roundData={round}
         descriptionHtml={descriptionHtml}
         raised={totalContributions}
-        deadline={deadline}
+        timestamp={timestamp}
         issuance={false}
-        active={active}
+        isRoundClosed={isRoundClosed}
       />
 
       <PayButton

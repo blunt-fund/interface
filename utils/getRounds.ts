@@ -31,7 +31,7 @@ export type RoundData = {
 
 export type RoundInfo = {
   round: RoundData
-  deadline: number
+  timestamp: number
   totalContributions: number
   roundId: number
 }
@@ -49,17 +49,21 @@ const getRounds = (
       const projectMetadata = projectData.find(
         (el) => el.projectId == project.projectId
       ).metadata
-      const { round, deadline, totalContributions, duration, isRoundClosed } =
+      const { round, timestamp, totalContributions, duration, isRoundClosed } =
         formatRound(project, roundInfo[i], projectMetadata)
 
       const data = {
         round,
-        deadline,
+        timestamp,
         totalContributions,
         roundId: project.projectId
       }
 
-      if ((duration == 0 || deadline > 0) && !isRoundClosed) {
+      if (
+        (duration == 0 ||
+          timestamp + duration - new Date().getTime() / 1000 > 0) &&
+        !isRoundClosed
+      ) {
         return data
       } else {
         closedRounds.push(data)

@@ -37,9 +37,6 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
     ? closedRounds?.filter((el) => el.round.projectOwner == filteredAccount)
     : closedRounds
 
-  // TODO: Make deadline countdown without triggering unnecessary rerenders
-  // const now = Math.floor(useNow() / 1000)
-
   return !roundInfo || !subgraphData ? (
     <div className="space-y-20">
       {[...Array(3)].map((el, key) => (
@@ -49,16 +46,16 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
   ) : (
     <div className="space-y-20">
       {filteredActiveRounds?.map(
-        ({ round, deadline, totalContributions, roundId }) => {
+        ({ round, timestamp, totalContributions, roundId }) => {
           return (
             <div key={roundId}>
               <RoundViewMain
                 roundData={round}
                 raised={totalContributions}
                 roundId={roundId}
-                deadline={deadline}
+                timestamp={timestamp}
                 secondary
-                active
+                isRoundClosed={false}
               />
             </div>
           )
@@ -68,15 +65,16 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
         <>
           <h1>Closed rounds</h1>
           {filteredClosedRounds?.map(
-            ({ round, deadline, totalContributions, roundId }) => {
+            ({ round, timestamp, totalContributions, roundId }) => {
               return (
                 <div key={roundId}>
                   <RoundViewMain
                     roundData={round}
                     raised={totalContributions}
                     roundId={roundId}
-                    deadline={deadline}
+                    timestamp={timestamp}
                     secondary
+                    isRoundClosed={true}
                   />
                 </div>
               )

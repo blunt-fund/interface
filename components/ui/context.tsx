@@ -40,3 +40,27 @@ export function AppWrapper({ children }) {
 export function useAppContext() {
   return useContext(AppContext)
 }
+
+const TimeContext = createContext<any>({
+  now: Math.floor(new Date().getTime() / 1000)
+})
+
+export function TimeWrapper({ children }) {
+  const [time, setTime] = useState(Math.floor(new Date().getTime() / 1000))
+
+  useEffect(() => {
+    setInterval(() => {
+      setTime(Math.floor(new Date().getTime() / 1000))
+    }, 1000)
+  }, [])
+
+  return (
+    <TimeContext.Provider value={{ now: time }}>
+      {children}
+    </TimeContext.Provider>
+  )
+}
+
+export function useTimeContext() {
+  return useContext(TimeContext)
+}

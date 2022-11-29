@@ -61,7 +61,6 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
 
   const timestamp = project.configureEvents[0].timestamp // TODO: Figure out how to calculate this without using timestamp
   const duration = project.configureEvents[0].duration
-  const deadline = timestamp + duration - new Date().getTime() / 1000
 
   const formatCurrency = (isEth: boolean, value: number) =>
     isEth ? value / 1e4 : value / 1e2
@@ -100,11 +99,11 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
 
   return {
     round,
-    deadline,
+    timestamp,
+    duration,
     totalContributions: Number(
       ethers.utils.formatUnits(totalContributions, 18)
     ),
-    duration,
     isRoundClosed
   }
 }
