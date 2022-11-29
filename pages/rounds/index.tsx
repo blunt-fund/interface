@@ -8,6 +8,7 @@ import {
 } from "@components/common/Head"
 import { GetStaticPropsContext } from "next"
 import fetcher from "@utils/fetcher"
+import { Project } from "@prisma/client"
 
 export default function Explore({ subgraphData, projectData }) {
   return (
@@ -42,7 +43,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds"
   const data = await fetcher(endpoint)
   const subgraphData = data?.subgraphData
-  const projectData = data?.projectData
+  const projectData: Project[] = data?.projectData
 
   return {
     props: {

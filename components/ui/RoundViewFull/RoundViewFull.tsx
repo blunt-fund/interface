@@ -7,9 +7,10 @@ import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
 import useNow from "@utils/useNow"
 import formatRound from "@utils/formatRound"
+import { Project } from "@prisma/client"
 
 type Props = {
-  projectData: any
+  projectData: Project
   subgraphData: any
   roundInfo: any
 }

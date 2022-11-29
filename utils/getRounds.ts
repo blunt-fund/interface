@@ -1,4 +1,5 @@
 import { ImageType } from "@components/ui/CreateFormAdvancedLinks/CreateFormAdvancedLinks"
+import { Project } from "@prisma/client"
 import formatRound from "./formatRound"
 
 export type RoundData = {
@@ -35,14 +36,21 @@ export type RoundInfo = {
   roundId: number
 }
 
-const getRounds = (roundInfo: any, projectData: any, subgraphData: any) => {
+const getRounds = (
+  roundInfo: any,
+  projectData: Project[],
+  subgraphData: any
+) => {
   const closedRounds: RoundInfo[] = []
   const activeRounds: RoundInfo[] =
     roundInfo &&
     projectData &&
     subgraphData?.flatMap((project, i) => {
+      const projectMetadata = projectData.find(
+        (el) => el.projectId == project.projectId
+      ).metadata
       const { round, deadline, totalContributions, duration, isRoundClosed } =
-        formatRound(project, roundInfo[i], projectData[i].metadata)
+        formatRound(project, roundInfo[i], projectMetadata)
 
       const data = {
         round,

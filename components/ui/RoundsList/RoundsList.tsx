@@ -3,9 +3,10 @@ import { RoundViewMain } from "@components/ui"
 import getRounds from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
+import { Project } from "@prisma/client"
 
 type Props = {
-  projectData: any
+  projectData: Project[]
   subgraphData: any
   filteredAccount?: string
 }
@@ -28,18 +29,18 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
     suspense: true
   })
 
-  const { closedRounds, activeRounds } = getRounds(
+  const { activeRounds, closedRounds } = getRounds(
     roundInfo,
     projectData,
     subgraphData
   )
 
-  const filteredClosedRounds = filteredAccount
-    ? closedRounds?.filter((el) => el.round.projectOwner == filteredAccount)
-    : closedRounds
   const filteredActiveRounds = filteredAccount
     ? activeRounds?.filter((el) => el.round.projectOwner == filteredAccount)
     : activeRounds
+  const filteredClosedRounds = filteredAccount
+    ? closedRounds?.filter((el) => el.round.projectOwner == filteredAccount)
+    : closedRounds
 
   // TODO: Make deadline countdown without triggering unnecessary rerenders
   // const now = Math.floor(useNow() / 1000)
