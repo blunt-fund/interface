@@ -37,6 +37,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
+  const active = (round.duration == 0 || deadline > 0) && !isRoundClosed
 
   return (
     <>
@@ -46,6 +47,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         raised={totalContributions}
         deadline={deadline}
         issuance={false}
+        active={active}
       />
 
       <PayButton

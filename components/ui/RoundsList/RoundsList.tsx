@@ -61,6 +61,7 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
                 roundId={roundId}
                 deadline={deadline}
                 secondary
+                active
               />
             </div>
           )

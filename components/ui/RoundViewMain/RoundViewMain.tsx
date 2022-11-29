@@ -17,6 +17,7 @@ type Props = {
   deadline?: number
   issuance?: boolean
   secondary?: boolean
+  active?: boolean
 }
 
 const RoundViewMain = ({
@@ -26,7 +27,8 @@ const RoundViewMain = ({
   roundId,
   deadline,
   issuance = true,
-  secondary = false
+  secondary = false,
+  active = false
 }: Props) => {
   const {
     name,
@@ -166,6 +168,7 @@ const RoundViewMain = ({
                 target={targetEth}
                 raised={raised}
                 isCapped={cap != 0}
+                active={active}
               />
               <div className="flex justify-between pt-5 pb-2">
                 <p>
