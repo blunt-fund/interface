@@ -51,7 +51,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
           type="range"
           label={
             <>
-              Round token allocation: <b>{Number(shares[0]).toFixed(1)}%</b>
+              Round allocation: <b>{Number(shares[0]).toFixed(1)}%</b>
             </>
           }
           min={0}

@@ -108,16 +108,17 @@ const CreateFormAdvancedLock = ({
         )}
       </div>
       {isSlicerNotToBeCreated && (
-        <NoteText text='Set a token round allocation or enable "Create slicer" to set transfer / withdraw locks' />
+        <NoteText text='Set a round allocation or enable "Create slicer" to enable transfer / withdraw locks' />
       )}
       <div className="relative">
         <Input
           type="number"
-          label="Round token allocation lock (days)"
+          label="Round allocation lock (days)"
           min={0}
           value={roundTimelock != 0 ? roundTimelock : ""}
           onChange={handleSetRoundTimelock}
           placeholder="Leave blank to disable"
+          disabled={shares[0] == 0}
           question={
             <>
               <p>
@@ -140,6 +141,9 @@ const CreateFormAdvancedLock = ({
           </p>
         )}
       </div>
+      {shares[0] == 0 && (
+        <NoteText text="Set a round allocation to enable the allocation lock" />
+      )}
     </div>
   )
 }

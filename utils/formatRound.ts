@@ -33,6 +33,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     : Number(ethers.utils.formatUnits(unformattedCap, 14))
 
   const isFirstSplitSlicer =
+    afterRoundSplits.length &&
     afterRoundSplits[0].beneficiary == ethers.constants.AddressZero
   const othersReserved = isFirstSplitSlicer
     ? afterRoundSplits.slice(1)

@@ -10,13 +10,14 @@ const Locks = ({
   roundTimestamp
 }: Props) => {
   const now = new Date().getTime()
+
   return (
     <div className="space-y-3 text-right">
       {transferTimestamp != 0 && transferTimestamp > now && (
         <p className="text-sm">
           Slice transfers locked until:{" "}
           <span className="font-bold">
-            {new Date(transferTimestamp).toLocaleDateString()}
+            {new Date(transferTimestamp).toDateString().substring(4)}
           </span>
         </p>
       )}
@@ -24,15 +25,15 @@ const Locks = ({
         <p className="text-sm">
           Token withdraws locked until:{" "}
           <span className="font-bold">
-            {new Date(releaseTimestamp).toLocaleDateString()}
+            {new Date(releaseTimestamp).toDateString().substring(4)}
           </span>
         </p>
       )}
-      {roundTimestamp != 0 && roundTimestamp > now && (
+      {roundTimestamp != 0 && roundTimestamp * 1000 > now && (
         <p className="text-sm">
-          Round token allocation locked until:{" "}
+          Round allocation locked until:{" "}
           <span className="font-bold">
-            {new Date(roundTimestamp).toLocaleDateString()}
+            {new Date(roundTimestamp * 1000).toDateString().substring(4)}
           </span>
         </p>
       )}

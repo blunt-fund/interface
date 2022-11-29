@@ -9,6 +9,7 @@ type Props = {
   anchor?: string
   wrapperClassName?: string
   error?: boolean
+  secondary?: boolean
 }
 
 const CollapsibleItem = ({
@@ -17,7 +18,8 @@ const CollapsibleItem = ({
   id,
   anchor,
   wrapperClassName,
-  error
+  error,
+  secondary
 }: Props) => {
   const [showDetail, setShowDetail] = useState(id && anchor == id)
   return (
@@ -25,7 +27,7 @@ const CollapsibleItem = ({
       <div
         className={`inline-flex items-center cursor-pointer group ${
           wrapperClassName || ""
-        }`}
+        } ${secondary ? "opacity-50" : ""}`}
         onClick={() => setShowDetail((showDetail) => !showDetail)}
         id={id || undefined}
       >
