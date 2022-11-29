@@ -10,14 +10,9 @@ const executeTransaction = async (
   setLoading: Dispatch<SetStateAction<boolean>>,
   txDescription?: string,
   addRecentTransaction?: (transaction: NewTransaction) => void,
-  settlementLogic?: any,
-  setData?: Dispatch<SetStateAction<any>>
+  settlementLogic?: (waitData: any) => Promise<any>
 ) => {
   setLoading(true)
-
-  if (setData) {
-    setData(null)
-  }
 
   try {
     const tx = await promise()
@@ -32,11 +27,7 @@ const executeTransaction = async (
     const waitData = await tx.wait()
 
     if (settlementLogic) {
-      settlementLogic()
-    }
-
-    if (setData) {
-      setData(waitData)
+      return await settlementLogic(waitData)
     }
   } catch (err) {}
   setLoading(false)
