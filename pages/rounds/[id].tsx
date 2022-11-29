@@ -13,9 +13,9 @@ import { useContractRead } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 
 export default function Round({ subgraphData, projectData }) {
-  // const testDelegateAddress = "0x10F76F93C9BE0BA9fb047ecbB24a459DAF8F4137" // 202
+  const testDelegateAddress = "0x10F76F93C9BE0BA9fb047ecbB24a459DAF8F4137" // 202
   // const testDelegateAddress = "0x11671f38c9138F60Fa2E24c911eB6DdD4811b115" // 203
-  const testDelegateAddress = "0xE36df7897740d7473941f4DC4c2191e55a2D75b7" // 205
+  // const testDelegateAddress = "0xE36df7897740d7473941f4DC4c2191e55a2D75b7" // 205
   const {
     data: roundInfo,
     isError,
@@ -24,7 +24,8 @@ export default function Round({ subgraphData, projectData }) {
     address: testDelegateAddress,
     abi: bluntDelegate.abi,
     functionName: "getRoundInfo",
-    suspense: true
+    suspense: true,
+    watch: true // TODO: Switch to manual mutate
   })
 
   return (
