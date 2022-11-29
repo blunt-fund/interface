@@ -1,5 +1,5 @@
 import Spinner from "@components/icons/Spinner"
-import { RoundViewMain } from "@components/ui"
+import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
 import getRounds from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
@@ -46,8 +46,10 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
   // const now = Math.floor(useNow() / 1000)
 
   return !roundInfo ? (
-    <div className="flex justify-center">
-      <Spinner size="h-12 w-12" />
+    <div className="space-y-20">
+      {[...Array(3)].map((el, key) => (
+        <RoundViewMainLoading key={key} />
+      ))}
     </div>
   ) : (
     <div className="space-y-20">
