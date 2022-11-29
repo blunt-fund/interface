@@ -230,7 +230,7 @@ const RoundViewMain = ({
         </div>
 
         {descriptionHtml && (
-          <div className="py-3 prose-sm">
+          <div className="py-3 prose-sm prose">
             <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           </div>
         )}
