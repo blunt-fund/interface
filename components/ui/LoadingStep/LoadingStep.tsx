@@ -21,7 +21,7 @@ const LoadingStep = ({
       <div className="flex items-center justify-center">
         {!nullCondition ? (
           initCondition ? (
-            <Spinner size="h-6 w-6" />
+            <Spinner />
           ) : (
             <Check className="text-green-500" />
           )
