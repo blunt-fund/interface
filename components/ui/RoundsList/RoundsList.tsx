@@ -40,7 +40,7 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
   // TODO: Make deadline countdown without triggering unnecessary rerenders
   // const now = Math.floor(useNow() / 1000)
 
-  return !roundInfo ? (
+  return !roundInfo || !subgraphData ? (
     <div className="space-y-20">
       {[...Array(3)].map((el, key) => (
         <RoundViewMainLoading key={key} />
