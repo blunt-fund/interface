@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo"
-import { Container, RoundViewFull } from "@components/ui"
+import { ActionScreen, Container, RoundViewFull } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
@@ -11,8 +11,16 @@ import { GetStaticPropsContext } from "next"
 import prisma from "@lib/prisma"
 import { useContractRead } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
+import { addresses } from "@utils/constants"
+import { useRouter } from "next/router"
 
 export default function Round({ subgraphData, projectData }) {
+  const router = useRouter()
+  const { id } = router.query
+  const isBluntRound =
+    subgraphData.deployer ==
+    addresses.BluntDelegateProjectDeployer.toLowerCase()
+
   const {
     data: roundInfo,
     isError,
@@ -22,7 +30,8 @@ export default function Round({ subgraphData, projectData }) {
     abi: bluntDelegate.abi,
     functionName: "getRoundInfo",
     suspense: true,
-    watch: true // TODO: Switch to manual mutate
+    watch: true,
+    enabled: isBluntRound
   })
 
   return (
@@ -45,11 +54,21 @@ export default function Round({ subgraphData, projectData }) {
       />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
-          {roundInfo && (
-            <RoundViewFull
-              subgraphData={subgraphData}
-              projectData={projectData}
-              roundInfo={roundInfo}
+          {isBluntRound ? (
+            roundInfo && (
+              <RoundViewFull
+                subgraphData={subgraphData}
+                projectData={projectData}
+                roundInfo={roundInfo}
+              />
+            )
+          ) : (
+            <ActionScreen
+              text="This project is not a Blunt round"
+              buttonLabel="View it on Juicebox"
+              href={`https://${
+                process.env.NEXT_PUBLIC_CHAIN_ID == "5" ? "goerli." : ""
+              }juicebox.money/v2/p/${id}`}
             />
           )}
         </main>

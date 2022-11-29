@@ -7,6 +7,7 @@ project(
   id: "2-${projectId}"
 ) {
   owner
+  deployer
   createdAt
   metadataUri
   configureEvents {
