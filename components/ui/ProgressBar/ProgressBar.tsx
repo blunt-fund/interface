@@ -39,7 +39,7 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
           {target != 0 && (
             <div
               className={`absolute w-1.5 py-3 rounded-sm ${
-                active ? "bg-blue-600" : "bg-green-500"
+                active || raised < target ? "bg-blue-600" : "bg-green-500"
               } nightwind-prevent`}
               style={{ right: `${targetPercentage}%` }}
             />
