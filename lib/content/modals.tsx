@@ -50,6 +50,9 @@ export const CREATE_ROUND_VIEW = (params: any) => {
       uploadState = "Reverted"
       break
     case 5:
+      uploadState = "Finalizing ..."
+      break
+    case 6:
       uploadState = "Success!"
       break
   }
@@ -66,15 +69,15 @@ export const CREATE_ROUND_VIEW = (params: any) => {
           />
           <LoadingStep
             nullCondition={uploadStep < 2}
-            initCondition={uploadStep < 3}
+            initCondition={uploadStep == 2 || uploadStep == 5}
             uploadState={uploadState}
             waitingState="Create round"
-            endState={uploadStep == 3 || uploadStep == 4 ? uploadState : "Done"}
+            endState={uploadStep < 6 ? uploadState : "Done"}
           />
         </div>
         <div>
-          {uploadStep > 3 ? (
-            uploadStep > 4 ? (
+          {uploadStep == 4 || uploadStep == 6 ? (
+            uploadStep == 6 ? (
               <div onClick={() => setModalView({ name: "" })}>
                 <Button label={"Go to round"} href={`/rounds/${roundId}`} />
               </div>

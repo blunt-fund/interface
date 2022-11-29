@@ -26,13 +26,14 @@ import { ContractReceipt, ethers } from "ethers"
 import formatDeployData from "@utils/formatDeployData"
 import { addresses as addressConstants } from "utils/constants"
 import { RoundData } from "@utils/getRounds"
+import timeout from "@utils/timeout"
 
 const CreateRoundForm = () => {
   const { account, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
   const [roundId, setRoundId] = useState(0)
 
-  const [roundData, setRoundData] = useState<RoundData>({
+  const initRoundData = {
     name: "",
     description: "",
     duration: 0,
@@ -59,7 +60,9 @@ const CreateRoundForm = () => {
     addresses: [ethers.constants.AddressZero],
     shares: [10],
     metadata: ""
-  })
+  }
+
+  const [roundData, setRoundData] = useState<RoundData>(initRoundData)
 
   // Lock
   const {
@@ -173,9 +176,14 @@ const CreateRoundForm = () => {
         }),
         method: "POST"
       }
-      fetch(`/api/rounds/create`, body)
 
       setUploadStep(5)
+      fetch(`/api/rounds/create`, body)
+      await timeout(2500)
+      await fetch(`/api/revalidate?paths=rounds&paths=rounds/${projectId}`)
+
+      setUploadStep(6)
+      setRoundData(initRoundData)
     } catch (error) {
       console.log(error)
 
