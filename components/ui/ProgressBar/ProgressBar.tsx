@@ -15,13 +15,16 @@ const ProgressBar = ({ max, target, raised, isCapped }: Props) => {
   const raisedColor = raised < target ? "currentColor" : "#2563EB"
 
   return (
-    <div
-      className="relative flex items-center w-full h-2 text-yellow-500 border border-gray-400 rounded-sm dark:text-yellow-300 "
-      style={{
-        background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentage}%, transparent ${raisedPercentage}%)`
-      }}
-    >
-      <div className="absolute w-full p-3 overflow-hidden">
+    <div className="relative">
+      <div
+        className="flex items-center w-full h-2 text-yellow-500 rounded-sm dark:text-yellow-300 "
+        style={{
+          background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentage}%, transparent ${raisedPercentage}%)`,
+          animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
+        }}
+      />
+      <div className="absolute top-0 w-full h-2 border border-gray-400" />
+      <div className="absolute top-[-8px] w-full px-3 overflow-hidden">
         <div className="relative flex items-center h-6 ">
           {target != 0 && (
             <div
