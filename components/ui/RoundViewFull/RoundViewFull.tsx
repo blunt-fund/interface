@@ -61,7 +61,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
       <Locks
         transferTimestamp={formatTimestamp(round.transferTimelock)}
         releaseTimestamp={formatTimestamp(round.releaseTimelock)}
-        roundTimestamp={round.roundTimelock}
+        roundTimestamp={round.roundTimelock * 1000}
       />
 
       {/* TODO: Add "Contributed" section */}

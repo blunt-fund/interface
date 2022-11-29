@@ -29,11 +29,11 @@ const Locks = ({
           </span>
         </p>
       )}
-      {roundTimestamp != 0 && roundTimestamp * 1000 > now && (
+      {roundTimestamp != 0 && roundTimestamp > now && (
         <p className="text-sm">
           Round allocation locked until:{" "}
           <span className="font-bold">
-            {new Date(roundTimestamp * 1000).toDateString().substring(4)}
+            {new Date(roundTimestamp).toDateString().substring(4)}
           </span>
         </p>
       )}
