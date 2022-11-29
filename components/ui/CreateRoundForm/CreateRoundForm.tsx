@@ -146,19 +146,22 @@ const CreateRoundForm = () => {
         signer
       )
 
+      const clone = true
+
       setUploadStep(2)
       const tx = await deployer.launchProjectFor(
         deployBluntDelegateData,
         launchProjectData,
-        true // clone
+        clone
       )
       addRecentTransaction({
         hash: tx.hash,
         description: "Create Blunt round"
       })
       const wait: ContractReceipt = await tx.wait()
-      const events = wait.events
-      const projectId = Number(events[1].topics[1])
+      const event = clone ? wait.events[2] : wait.events[1]
+
+      const projectId = Number(event.topics[1])
       setRoundId(projectId)
 
       // Create Project in db
@@ -255,6 +258,7 @@ const CreateRoundForm = () => {
         />
         <CollapsibleItem
           label="Vesting and locks"
+          secondary={!roundData.isSlicerToBeCreated && shares[0] == 0}
           detail={
             <CreateFormAdvancedLock
               roundData={roundData}
