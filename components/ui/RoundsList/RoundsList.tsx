@@ -1,4 +1,3 @@
-import Spinner from "@components/icons/Spinner"
 import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
 import getRounds from "@utils/getRounds"
 import { useContractReads } from "wagmi"
@@ -12,17 +11,13 @@ type Props = {
 }
 
 const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
-  // TODO: Replace with actual delegate addresses
-  const testDelegateAddress = "0x10F76F93C9BE0BA9fb047ecbB24a459DAF8F4137"
-
   const {
     data: roundInfo,
     isError,
     isLoading
   } = useContractReads({
     contracts: subgraphData?.map((project) => ({
-      address: testDelegateAddress,
-      // address: project.configureEvents[0].dataSource,
+      address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
     })),
