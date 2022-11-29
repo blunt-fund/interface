@@ -14,7 +14,13 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
   const raisedPercentage = (raised * 100) / max
 
   const raisedColor =
-    raised < target ? (active ? "currentColor" : "#6C6C76") : "#2563EB"
+    raised < target
+      ? active
+        ? "currentColor"
+        : "#6C6C76"
+      : active
+      ? "#2563EB"
+      : "#22C55E"
 
   return (
     <div className="relative">
@@ -32,7 +38,9 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
         <div className="relative flex items-center h-6 ">
           {target != 0 && (
             <div
-              className="absolute w-1.5 py-3 rounded-sm bg-blue-600 nightwind-prevent"
+              className={`absolute w-1.5 py-3 rounded-sm ${
+                active ? "bg-blue-600" : "bg-green-500"
+              } nightwind-prevent`}
               style={{ right: `${targetPercentage}%` }}
             />
           )}
