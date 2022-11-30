@@ -1,6 +1,7 @@
 import {
   EmissionPreview,
   Locks,
+  OwnerBlock,
   PayButton,
   QueueBlock,
   RedeemBlock,
@@ -87,6 +88,14 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           bluntDelegate={subgraphData?.configureEvents[0].dataSource}
         />
       )}
+
+      <OwnerBlock
+        projectId={Number(id)}
+        bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+        totalContributions={totalContributions}
+        isQueued={isQueued}
+        round={round}
+      />
 
       <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
