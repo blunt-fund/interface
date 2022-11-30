@@ -1,7 +1,10 @@
-import RoundViewMain from "../RoundViewMain"
-import PayButton from "../PayButton"
-import Locks from "../Locks"
-import EmissionPreview from "../EmissionPreview"
+import {
+  EmissionPreview,
+  Locks,
+  PayButton,
+  RedeemBlock,
+  RoundViewMain
+} from "../"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
@@ -11,20 +14,25 @@ import { Project } from "@prisma/client"
 type Props = {
   projectData: Project
   subgraphData: any
-  roundInfo: any
+  roundInfo: any[]
 }
 
 const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const router = useRouter()
   const { id } = router.query
+
+  const [roundData, accountContributions] = roundInfo
   const { round, timestamp, totalContributions, isRoundClosed } = formatRound(
     subgraphData,
-    roundInfo,
+    roundData,
     projectData.metadata
   )
 
-  const [descriptionHtml, setDescriptionHtml] = useState("")
+  const totalShares = round.shares.reduce((a, b) => a + b)
+  const formatTimestamp = (days: number) =>
+    days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
 
+  const [descriptionHtml, setDescriptionHtml] = useState("")
   useEffect(() => {
     const getDescriptionHtml = async (description: string) => {
       setDescriptionHtml(await markdownToHtml(description))
@@ -34,10 +42,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
       getDescriptionHtml(round.description)
     }
   }, [round])
-
-  const totalShares = round.shares.reduce((a, b) => a + b)
-  const formatTimestamp = (days: number) =>
-    days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
 
   return (
     <>
@@ -56,6 +60,13 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         isSlicerToBeCreated={round.isSlicerToBeCreated || round?.shares[0] != 0}
       />
 
+      <RedeemBlock
+        projectId={Number(id)}
+        totalContributions={totalContributions}
+        accountContributions={accountContributions}
+        tokenIssuance={round.tokenIssuance}
+      />
+
       <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
       <Locks
@@ -63,8 +74,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         releaseTimestamp={formatTimestamp(round.releaseTimelock)}
         roundTimestamp={round.roundTimelock * 1000}
       />
-
-      {/* TODO: Add "Contributed" section */}
     </>
   )
 }

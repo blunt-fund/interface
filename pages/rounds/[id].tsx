@@ -9,14 +9,17 @@ import {
 import fetcher from "@utils/fetcher"
 import { GetStaticPropsContext } from "next"
 import prisma from "@lib/prisma"
-import { useContractRead } from "wagmi"
+import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { addresses } from "@utils/constants"
 import { useRouter } from "next/router"
+import { useAppContext } from "@components/ui/context"
+import { ethers } from "ethers"
 
 export default function Round({ subgraphData, projectData }) {
   const router = useRouter()
   const { id } = router.query
+  const { account } = useAppContext()
   const isBluntRound =
     subgraphData.deployer ==
     addresses.BluntDelegateProjectDeployer.toLowerCase()
@@ -25,13 +28,23 @@ export default function Round({ subgraphData, projectData }) {
     data: roundInfo,
     isError,
     isLoading
-  } = useContractRead({
-    address: subgraphData.configureEvents[0].dataSource,
-    abi: bluntDelegate.abi,
-    functionName: "getRoundInfo",
+  } = useContractReads({
+    contracts: [
+      {
+        address: subgraphData?.configureEvents[0].dataSource,
+        abi: bluntDelegate.abi,
+        functionName: "getRoundInfo"
+      },
+      {
+        address: subgraphData?.configureEvents[0].dataSource,
+        abi: bluntDelegate.abi,
+        functionName: "contributions",
+        args: [account || ethers.constants.AddressZero]
+      }
+    ],
+    enabled: isBluntRound,
     suspense: true,
-    watch: true,
-    enabled: isBluntRound
+    watch: true
   })
 
   return (
@@ -55,7 +68,7 @@ export default function Round({ subgraphData, projectData }) {
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (
-            roundInfo && (
+            roundInfo.length && (
               <RoundViewFull
                 subgraphData={subgraphData}
                 projectData={projectData}

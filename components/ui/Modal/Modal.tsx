@@ -4,7 +4,8 @@ import {
   View,
   CREATE_ROUND_VIEW,
   REVIEW_ROUND_VIEW,
-  ROUND_INFO_VIEW
+  ROUND_INFO_VIEW,
+  REDEEM_VIEW
 } from "@lib/content/modals"
 
 type Props = {
@@ -26,6 +27,9 @@ const Modal = ({ modalView, setModalView }: Props) => {
       break
     case "CREATE_ROUND_VIEW":
       content = CREATE_ROUND_VIEW(params)
+      break
+    case "REDEEM_VIEW":
+      content = REDEEM_VIEW(params)
       break
   }
 

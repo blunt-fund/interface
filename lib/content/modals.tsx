@@ -2,12 +2,21 @@ import Crown from "@components/icons/Crown"
 import {
   Button,
   EmissionPreview,
+  Input,
   LoadingStep,
   Locks,
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
+import { addresses } from "@utils/constants"
+import executeTransaction from "@utils/executeTransaction"
 import formatAddress from "@utils/formatAddress"
+import formatNumber from "@utils/formatNumber"
+import { useState } from "react"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import JBTerminal from "abi/JBETHPaymentTerminal.json"
+import { ethers } from "ethers"
+import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 
 export type View = {
   name: ViewNames
@@ -19,6 +28,7 @@ type ViewNames =
   | "REVIEW_ROUND_VIEW"
   | "CREATE_ROUND_VIEW"
   | "ROUND_INFO_VIEW"
+  | "REDEEM_VIEW"
 
 export const ROUND_INFO_VIEW = () => {
   return (
@@ -121,6 +131,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
         <RoundViewMain
           roundData={roundData}
           descriptionHtml={descriptionHtml}
+          isRoundClosed={false}
         />
 
         <Locks
@@ -152,6 +163,87 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
             </span>
           </p>
         </div>
+      </div>
+    </div>
+  )
+}
+
+export const REDEEM_VIEW = (params: any) => {
+  const { account, setModalView } = useAppContext()
+  const [redeemAmount, setRedeemAmount] = useState<number>(0)
+  const [loading, setLoading] = useState(false)
+  const {
+    projectId,
+    formattedAccountContributions,
+    totalContributions,
+    tokenIssuance
+  } = params
+  const tokenCount = ethers.BigNumber.from(10)
+    .pow(12)
+    .mul(Math.round(redeemAmount * Number(tokenIssuance) * 1e6))
+
+  const { config, error } = usePrepareContractWrite({
+    address: addresses.JBTerminal,
+    abi: JBTerminal.abi,
+    functionName: "redeemTokensOf",
+    args: [
+      account,
+      projectId,
+      tokenCount,
+      ethers.constants.AddressZero,
+      0,
+      account,
+      "Redeemed from blunt.finance",
+      []
+    ]
+  })
+  const addRecentTransaction = useAddRecentTransaction()
+  const { writeAsync } = useContractWrite(config)
+
+  return (
+    <div className="text-center">
+      <h1 className="text-2xl sm:text-3xl">Redeem contributions</h1>
+      <div className="pt-16 text-left">
+        <p className="pb-2 text-sm">
+          You contributed: <b>{formattedAccountContributions} ETH</b>
+        </p>
+        <Input
+          type="number"
+          onClickLabel="Redeem"
+          error={redeemAmount > formattedAccountContributions}
+          min={0}
+          max={formattedAccountContributions}
+          step={0.001}
+          value={redeemAmount}
+          onChange={setRedeemAmount}
+          prefix="Ξ"
+          loading={loading}
+          onClick={async () =>
+            redeemAmount != 0 &&
+            (await executeTransaction(
+              writeAsync,
+              setLoading,
+              `Redeem ${redeemAmount}Ξ from round ${projectId}`,
+              addRecentTransaction,
+              () => setModalView({ name: "" }),
+              true
+            ))
+          }
+        />
+        <p className="pt-6 text-sm">
+          Remaining slices:{" "}
+          <b>
+            {formatNumber(
+              Math.round((formattedAccountContributions - redeemAmount) * 1000)
+            )}
+          </b>{" "}
+          (
+          {Math.floor(
+            ((formattedAccountContributions - redeemAmount) /
+              (totalContributions - redeemAmount) || 1) * 1e4
+          ) / 100}
+          % of round allocation)
+        </p>
       </div>
     </div>
   )
