@@ -33,7 +33,9 @@ const Button: FC<ButtonProps> = (props) => {
       ? "px-5 overflow-hidden text-sm font-bold tracking-wide rounded-sm"
       : "overflow-hidden font-bold tracking-wide rounded-sm"
   const color = !disabled
-    ? customColor || secondary
+    ? customColor
+      ? customColor
+      : secondary
       ? "dark:!text-white text-blue-600 border-blue-600 border-2 hover:bg-blue-700 focus:bg-blue-700 hover:text-white"
       : "text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700"
     : "bg-gray-400 dark:!bg-gray-500 cursor-not-allowed"
@@ -49,7 +51,7 @@ const Button: FC<ButtonProps> = (props) => {
       className={rootClassName}
       type={type}
       disabled={disabled}
-      onClick={() => !disabled && !loading && onClick}
+      onClick={!disabled && !loading ? onClick : null}
     >
       <div className="flex items-center justify-center w-full">
         {loading ? <Spinner /> : <p>{label}</p>}
