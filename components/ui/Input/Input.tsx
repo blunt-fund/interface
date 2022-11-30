@@ -41,11 +41,19 @@ const Input: React.FC<Props> = ({
   onChange,
   ...rest
 }) => {
-  const rootClassName = `peer bg-white rounded-sm py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-400 disabled:text-gray-400 disabled:border-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:text-gray-500 ${
+  const rounded =
+    !prefix && !onClick
+      ? "rounded-sm"
+      : prefix && onClick
+      ? ""
+      : prefix
+      ? "rounded-r-sm"
+      : "rounded-l-sm"
+  const rootClassName = `peer bg-white py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-200 disabled:text-gray-200 disabled:border-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:text-gray-500 ${
     error
       ? "border-red-500 text-red-500 focus:border-red-500"
-      : "border-gray-400 text-black focus:border-blue-600"
-  } ${className}`
+      : "border-gray-200 text-black focus:border-blue-600"
+  } ${rounded} ${className}`
 
   const handleOnChange = (e: any) => {
     if (onChange) {
@@ -117,7 +125,7 @@ const Input: React.FC<Props> = ({
         />
         {prefix && (
           <div
-            className={`flex items-center justify-center px-5 text-gray-600 bg-gray-200 border-b-[3px] dark:border-gray-700 ${
+            className={`flex items-center rounded-l-sm justify-center px-5 text-gray-600 bg-gray-200 border-b-[3px] dark:border-gray-700 ${
               error
                 ? "border-red-400 peer-focus:border-red-400 dark:peer-focus:border-red-500 shadow-error"
                 : !disabled && !loading
