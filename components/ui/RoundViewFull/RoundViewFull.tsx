@@ -14,6 +14,7 @@ import formatRound from "@utils/formatRound"
 import { Project } from "@prisma/client"
 import Crown from "@components/icons/Crown"
 import formatAddress from "@utils/formatAddress"
+import { useAppContext } from "../context"
 
 type Props = {
   projectData: Project
@@ -22,6 +23,7 @@ type Props = {
 }
 
 const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
+  const { account } = useAppContext()
   const router = useRouter()
   const { id } = router.query
 
@@ -63,39 +65,46 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           projectId={Number(id)}
           round={round}
           totalContributions={totalContributions}
-          isSlicerToBeCreated={
-            round.isSlicerToBeCreated || round?.shares[0] != 0
-          }
+          isSlicerToBeCreated={round.isSlicerToBeCreated}
         />
-      ) : totalContributions > round.target ? (
-        // TODO: Add claims
-        <p>reached</p>
-      ) : (
+      ) : totalContributions < round.target ? (
         // TODO: Add Full redeem
         <p>Not reached</p>
+      ) : (
+        round.isSlicerToBeCreated && (
+          // TODO: Add claims
+          <p>CLAIM</p>
+        )
       )}
 
-      <RedeemBlock
-        projectId={Number(id)}
-        totalContributions={totalContributions}
-        accountContributions={accountContributions}
-        tokenIssuance={round.tokenIssuance}
-      />
-
-      {!isQueued && !isRoundClosed && (
-        <QueueBlock
+      {isRoundClosed && totalContributions < round.target ? null : (
+        <RedeemBlock
           projectId={Number(id)}
-          bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+          totalContributions={totalContributions}
+          accountContributions={accountContributions}
+          tokenIssuance={round.tokenIssuance}
         />
       )}
 
-      <OwnerBlock
-        projectId={Number(id)}
-        bluntDelegate={subgraphData?.configureEvents[0].dataSource}
-        totalContributions={totalContributions}
-        isQueued={isQueued}
-        round={round}
-      />
+      {!isRoundClosed && (
+        <>
+          {!isQueued && (
+            <QueueBlock
+              projectId={Number(id)}
+              bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+            />
+          )}
+          {account == round.projectOwner && (
+            <OwnerBlock
+              projectId={Number(id)}
+              bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+              totalContributions={totalContributions}
+              isQueued={isQueued}
+              round={round}
+            />
+          )}
+        </>
+      )}
 
       <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
