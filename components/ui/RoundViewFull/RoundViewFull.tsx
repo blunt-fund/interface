@@ -37,11 +37,16 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
-  const accountHasContributed =
-    Number(ethers.utils.formatEther(accountContributions)) != 0
+  const bluntDelegate = subgraphData?.configureEvents[0].dataSource
+
+  const [accountHasContributed, setAccountHasContributed] = useState(false)
+  useEffect(() => {
+    setAccountHasContributed(
+      Number(ethers.utils.formatEther(accountContributions)) != 0
+    )
+  }, [accountContributions])
 
   const [descriptionHtml, setDescriptionHtml] = useState("")
-  const [showOwnerBlock, setShowOwnerBlock] = useState(false)
   useEffect(() => {
     const getDescriptionHtml = async (description: string) => {
       setDescriptionHtml(await markdownToHtml(description))
@@ -51,6 +56,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
     }
   }, [round])
 
+  const [showOwnerBlock, setShowOwnerBlock] = useState(false)
   useEffect(() => {
     setShowOwnerBlock(account == round.projectOwner)
   }, [account, round])
@@ -87,7 +93,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           round.isSlicerToBeCreated && (
             <ClaimSlicesButton
               projectId={Number(id)}
-              bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+              bluntDelegate={bluntDelegate}
             />
           )
         ))
@@ -106,15 +112,12 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
       {!isRoundClosed && (
         <>
           {!isQueued && (
-            <QueueBlock
-              projectId={Number(id)}
-              bluntDelegate={subgraphData?.configureEvents[0].dataSource}
-            />
+            <QueueBlock projectId={Number(id)} bluntDelegate={bluntDelegate} />
           )}
           {showOwnerBlock && (
             <OwnerBlock
               projectId={Number(id)}
-              bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+              bluntDelegate={bluntDelegate}
               totalContributions={totalContributions}
               isQueued={isQueued}
               round={round}
