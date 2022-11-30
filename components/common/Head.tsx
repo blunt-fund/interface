@@ -9,7 +9,7 @@ export const longTitle =
 export const defaultDescription =
   "Manage terms sheets, fundraising, cashflow, and capital allocation, bluntly in the open with your community."
 export const domain = process.env.NEXT_PUBLIC_APP_URL
-export const twitterAccount = "bluntfinance_"
+export const twitterAccount = "blunt_finance"
 
 const Head: FC = () => {
   return (

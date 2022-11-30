@@ -25,7 +25,7 @@ export const accounts = {
   twitter: `https://twitter.com/${twitterAccount}`,
   // discord: "https://discord.gg/CdyHUzdZks",
   // notion: "https://slicedao.notion.site",
-  github: "https://github.com/jjranalli/blunt-finance",
+  github: "https://github.com/jbx-protocol/blunt-finance",
   // blog: "/blog",
   slice: "https://slice.so",
   juicebox: "https://juicebox.money/#/p/slice"
