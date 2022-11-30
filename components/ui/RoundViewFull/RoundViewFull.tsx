@@ -17,6 +17,7 @@ import { Project } from "@prisma/client"
 import Crown from "@components/icons/Crown"
 import formatAddress from "@utils/formatAddress"
 import { useAppContext } from "../context"
+import { ethers } from "ethers"
 
 type Props = {
   projectData: Project
@@ -36,6 +37,8 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
+  const accountHasContributed =
+    Number(ethers.utils.formatEther(accountContributions)) != 0
 
   const [descriptionHtml, setDescriptionHtml] = useState("")
   const [showOwnerBlock, setShowOwnerBlock] = useState(false)
@@ -73,21 +76,25 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           totalContributions={totalContributions}
           isSlicerToBeCreated={round.isSlicerToBeCreated}
         />
-      ) : totalContributions <= round.target ? (
-        <FullRedeemButton
-          projectId={Number(id)}
-          accountContributions={accountContributions}
-        />
       ) : (
-        round.isSlicerToBeCreated && (
-          <ClaimSlicesButton
+        accountHasContributed &&
+        (totalContributions <= round.target ? (
+          <FullRedeemButton
             projectId={Number(id)}
-            bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+            accountContributions={accountContributions}
           />
-        )
+        ) : (
+          round.isSlicerToBeCreated && (
+            <ClaimSlicesButton
+              projectId={Number(id)}
+              bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+            />
+          )
+        ))
       )}
 
-      {isRoundClosed && totalContributions < round.target ? null : (
+      {(isRoundClosed && totalContributions <= round.target) ||
+      !accountHasContributed ? null : (
         <RedeemBlock
           projectId={Number(id)}
           totalContributions={totalContributions}

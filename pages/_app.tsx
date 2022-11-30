@@ -17,9 +17,7 @@ import { chain, createClient, configureChains, WagmiConfig } from "wagmi"
 import "@rainbow-me/rainbowkit/styles.css"
 
 const defaultChains =
-  process.env.NEXT_PUBLIC_CHAIN_ID === "1"
-    ? [chain.mainnet, chain.goerli]
-    : [chain.goerli, chain.mainnet]
+  process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? [chain.goerli] : [chain.mainnet]
 
 const { chains, provider } = configureChains(defaultChains, [
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),

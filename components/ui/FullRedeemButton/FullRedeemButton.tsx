@@ -17,7 +17,9 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
   const { account } = useAppContext()
   const [loading, setLoading] = useState(false)
 
-  const allTokens = Number(ethers.utils.formatUnits(accountContributions, 3))
+  const allTokens = ethers.BigNumber.from(accountContributions).div(
+    ethers.BigNumber.from(10).pow(3)
+  )
 
   const { config, error } = usePrepareContractWrite({
     address: addresses.JBTerminal,
