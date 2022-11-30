@@ -213,8 +213,9 @@ export const REDEEM_VIEW = (params: any) => {
           error={redeemAmount > formattedAccountContributions}
           min={0}
           max={formattedAccountContributions}
+          placeholder={`Redeem up to ${formattedAccountContributions} ETH`}
           step={0.001}
-          value={redeemAmount}
+          value={redeemAmount || ""}
           onChange={setRedeemAmount}
           prefix="Ξ"
           loading={loading}

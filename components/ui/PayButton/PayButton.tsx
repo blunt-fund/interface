@@ -26,6 +26,12 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
   const addRecentTransaction = useAddRecentTransaction()
   const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
 
+  const defaultPaymentUsd =
+    Math.floor(useNormalizeCurrency(1000, isPaymentEth) * 100) / 100
+  const defaultIssuanceUsd =
+    Math.floor(useNormalizeCurrency(round.tokenIssuance, isPaymentEth) * 100) /
+    100
+
   const { config, error } = usePrepareContractWrite({
     address: addresses.JBTerminal,
     abi: JBTerminal.abi,
@@ -61,6 +67,7 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
         step={0.001}
         value={payment || ""}
         onChange={setPayment}
+        placeholder={round.cap && `Pay up to ${round.cap} ETH`}
         prefix={isPaymentEth ? "Ξ" : "$"}
         prefixAction={() => setIsPaymentEth(!isPaymentEth)}
         loading={loading}
@@ -69,7 +76,7 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
           (await executeTransaction(
             writeAsync,
             setLoading,
-            `Pay ${round.name}`,
+            `Contribute to round ${projectId}`,
             addRecentTransaction,
             null,
             true
@@ -83,7 +90,9 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
             <span className="font-bold">
               {isSlicerToBeCreated &&
                 `${
-                  payment ? formatNumber(Math.floor(paymentEth * 1000)) : "1k"
+                  payment
+                    ? formatNumber(Math.floor(paymentEth * 1000))
+                    : formatNumber(defaultPaymentUsd)
                 } slices ${round.tokenIssuance >= 1 ? "+ " : ""}`}
               {round.tokenIssuance >= 1 &&
                 `${formatNumber(
@@ -91,12 +100,12 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
                     ? Number(
                         Number(paymentEth * round.tokenIssuance).toFixed(0)
                       )
-                    : round.tokenIssuance,
+                    : defaultIssuanceUsd,
                   3
                 )} 
-                ${round.tokenSymbol} `}
+                ${round.tokenSymbol || "tokens"} `}
             </span>
-            {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
+            {!payment && isPaymentEth ? "/ ETH" : "/ USD"}
           </p>
         ) : (
           <p className="font-bold text-red-500">
