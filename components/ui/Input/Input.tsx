@@ -49,7 +49,7 @@ const Input: React.FC<Props> = ({
       : prefix
       ? "rounded-r-sm"
       : "rounded-l-sm"
-  const rootClassName = `peer bg-white py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-200 disabled:text-gray-200 disabled:border-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:text-gray-500 ${
+  const rootClassName = `peer bg-white py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-400 disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500 ${
     error
       ? "border-red-500 text-red-500 focus:border-red-500"
       : "border-gray-200 text-black focus:border-blue-600"
