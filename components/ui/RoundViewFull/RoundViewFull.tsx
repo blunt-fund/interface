@@ -10,6 +10,8 @@ import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
 import formatRound from "@utils/formatRound"
 import { Project } from "@prisma/client"
+import Crown from "@components/icons/Crown"
+import formatAddress from "@utils/formatAddress"
 
 type Props = {
   projectData: Project
@@ -69,6 +71,12 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
       <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
+      <div className="flex items-center justify-center gap-3 pb-4 text-sm">
+        <div className="w-4 h-4">
+          <Crown />
+        </div>
+        <p>Project owner: {formatAddress(round.projectOwner)}</p>
+      </div>
       <Locks
         transferTimestamp={formatTimestamp(round.transferTimelock)}
         releaseTimestamp={formatTimestamp(round.releaseTimelock)}
