@@ -14,10 +14,16 @@ import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 type Props = {
   projectId: number
   round: RoundData
+  totalContributions: number
   isSlicerToBeCreated: boolean
 }
 
-const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
+const PayButton = ({
+  projectId,
+  round,
+  isSlicerToBeCreated,
+  totalContributions
+}: Props) => {
   const { account } = useAppContext()
 
   const [payment, setPayment] = useState(0)
@@ -28,6 +34,14 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
 
   const defaultPaymentUsd =
     Math.floor(useNormalizeCurrency(1000, isPaymentEth) * 100) / 100
+  const defaultMaxPaymentUsd =
+    Math.floor(
+      useNormalizeCurrency(
+        round.cap - totalContributions,
+        !isPaymentEth,
+        false
+      ) * 100
+    ) / 100
   const defaultIssuanceUsd =
     Math.floor(useNormalizeCurrency(round.tokenIssuance, isPaymentEth) * 100) /
     100
@@ -67,7 +81,15 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
         step={0.001}
         value={payment || ""}
         onChange={setPayment}
-        placeholder={round.cap && `Pay up to ${round.cap} ETH`}
+        placeholder={
+          round.cap != 0
+            ? `Pay up to ${
+                isPaymentEth
+                  ? defaultMaxPaymentUsd
+                  : Math.round(defaultMaxPaymentUsd)
+              } ${isPaymentEth ? "ETH" : "USD"}`
+            : ""
+        }
         prefix={isPaymentEth ? "Ξ" : "$"}
         prefixAction={() => setIsPaymentEth(!isPaymentEth)}
         loading={loading}

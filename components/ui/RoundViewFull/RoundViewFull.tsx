@@ -56,11 +56,25 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         isRoundClosed={isRoundClosed}
       />
 
-      <PayButton
-        projectId={Number(id)}
-        round={round}
-        isSlicerToBeCreated={round.isSlicerToBeCreated || round?.shares[0] != 0}
-      />
+      {!isRoundClosed ? (
+        // TODO: Consider also if deadline has passed?
+        // If passed + successful prompt "wait for project owner to close"
+        // If passed + unsuccessful prompt Full redemptions
+        <PayButton
+          projectId={Number(id)}
+          round={round}
+          totalContributions={totalContributions}
+          isSlicerToBeCreated={
+            round.isSlicerToBeCreated || round?.shares[0] != 0
+          }
+        />
+      ) : totalContributions > round.target ? (
+        // TODO: Add claims
+        <p>reached</p>
+      ) : (
+        // TODO: Add Full redeem
+        <p>Not reached</p>
+      )}
 
       <RedeemBlock
         projectId={Number(id)}
@@ -77,6 +91,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         </div>
         <p>Project owner: {formatAddress(round.projectOwner)}</p>
       </div>
+
       <Locks
         transferTimestamp={formatTimestamp(round.transferTimelock)}
         releaseTimestamp={formatTimestamp(round.releaseTimelock)}

@@ -77,3 +77,9 @@ th {
 th[scope="row"] {
   @apply font-bold;
 }
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
