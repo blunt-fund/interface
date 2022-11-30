@@ -35,8 +35,6 @@ const RoundMainSection = ({
     )
   }, [accountContributions])
 
-  console.log(isRoundClosed)
-
   return (
     <>
       {!isRoundClosed && !isDeadlinepassed ? (
