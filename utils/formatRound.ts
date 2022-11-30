@@ -18,7 +18,8 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     fundingCycleRound,
     isTargetUsd,
     isCapUsd,
-    isSlicerToBeCreated
+    isSlicerToBeCreated,
+    isQueued
   } = roundInfo
   const {
     name,
@@ -104,6 +105,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     totalContributions: Number(
       ethers.utils.formatUnits(totalContributions, 18)
     ),
+    isQueued,
     isRoundClosed
   }
 }

@@ -2,6 +2,7 @@ import {
   EmissionPreview,
   Locks,
   PayButton,
+  QueueBlock,
   RedeemBlock,
   RoundViewMain
 } from "../"
@@ -24,11 +25,8 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const { id } = router.query
 
   const [roundData, accountContributions] = roundInfo
-  const { round, timestamp, totalContributions, isRoundClosed } = formatRound(
-    subgraphData,
-    roundData,
-    projectData.metadata
-  )
+  const { round, timestamp, totalContributions, isRoundClosed, isQueued } =
+    formatRound(subgraphData, roundData, projectData.metadata)
 
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
@@ -82,6 +80,13 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         accountContributions={accountContributions}
         tokenIssuance={round.tokenIssuance}
       />
+
+      {!isQueued && !isRoundClosed && (
+        <QueueBlock
+          projectId={Number(id)}
+          bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+        />
+      )}
 
       <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
