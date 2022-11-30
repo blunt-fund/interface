@@ -1,5 +1,6 @@
 import {
   EmissionPreview,
+  FullRedeemButton,
   Locks,
   OwnerBlock,
   PayButton,
@@ -72,8 +73,10 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           isSlicerToBeCreated={round.isSlicerToBeCreated}
         />
       ) : totalContributions < round.target ? (
-        // TODO: Add Full redeem
-        <p>Not reached</p>
+        <FullRedeemButton
+          projectId={Number(id)}
+          accountContributions={accountContributions}
+        />
       ) : (
         round.isSlicerToBeCreated && (
           // TODO: Add claims
