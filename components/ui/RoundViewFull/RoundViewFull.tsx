@@ -36,15 +36,19 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
 
   const [descriptionHtml, setDescriptionHtml] = useState("")
+  const [showOwnerBlock, setShowOwnerBlock] = useState(false)
   useEffect(() => {
     const getDescriptionHtml = async (description: string) => {
       setDescriptionHtml(await markdownToHtml(description))
     }
-
     if (round?.description) {
       getDescriptionHtml(round.description)
     }
   }, [round])
+
+  useEffect(() => {
+    setShowOwnerBlock(account == round.projectOwner)
+  }, [account, round])
 
   return (
     <>
@@ -94,7 +98,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
               bluntDelegate={subgraphData?.configureEvents[0].dataSource}
             />
           )}
-          {account == round.projectOwner && (
+          {showOwnerBlock && (
             <OwnerBlock
               projectId={Number(id)}
               bluntDelegate={subgraphData?.configureEvents[0].dataSource}
