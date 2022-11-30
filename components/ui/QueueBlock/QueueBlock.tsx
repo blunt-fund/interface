@@ -43,7 +43,7 @@ const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
           await executeTransaction(
             writeAsync,
             setLoading,
-            `Queue round ${projectId}`,
+            `Queue stage | Round ${projectId}`,
             addRecentTransaction,
             null,
             true

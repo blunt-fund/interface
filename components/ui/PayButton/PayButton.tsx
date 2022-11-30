@@ -98,7 +98,7 @@ const PayButton = ({
           (await executeTransaction(
             writeAsync,
             setLoading,
-            `Contribute to round ${projectId}`,
+            `Pay | Round ${projectId}`,
             addRecentTransaction,
             null,
             true

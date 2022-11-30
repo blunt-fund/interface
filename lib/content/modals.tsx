@@ -231,7 +231,7 @@ export const REDEEM_VIEW = (params: any) => {
             (await executeTransaction(
               writeAsync,
               setLoading,
-              `Redeem ${redeemAmount}Ξ from round ${projectId}`,
+              `Redeem ${redeemAmount}Ξ | Round ${projectId}`,
               addRecentTransaction,
               () => setModalView({ name: "" }),
               true
