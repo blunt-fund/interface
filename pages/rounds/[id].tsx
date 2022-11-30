@@ -50,7 +50,7 @@ export default function Round({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
-        title={`${projectData.metadata.name} | Blunt round | Blunt Finance`}
+        title={`${projectData.metadata.name} | Round | Blunt Finance`}
         openGraph={{
           title: longTitle,
           description: defaultDescription,
