@@ -58,6 +58,7 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
         onClickLabel="Pay"
         error={error && true}
         min={0}
+        step={0.001}
         value={payment || ""}
         onChange={setPayment}
         prefix={isPaymentEth ? "Ξ" : "$"}
@@ -69,7 +70,9 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
             writeAsync,
             setLoading,
             `Pay ${round.name}`,
-            addRecentTransaction
+            addRecentTransaction,
+            null,
+            true
           ))
         }
       />
@@ -77,7 +80,7 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
         {!error ? (
           <p>
             Receive{" "}
-            <span className="font-bold text-blue-600">
+            <span className="font-bold">
               {isSlicerToBeCreated &&
                 `${
                   payment ? formatNumber(Math.floor(paymentEth * 1000)) : "1k"
@@ -97,7 +100,7 @@ const PayButton = ({ projectId, round, isSlicerToBeCreated }: Props) => {
           </p>
         ) : (
           <p className="font-bold text-red-500">
-            {error?.message.includes("insufficient funds")
+            {error?.message?.includes("insufficient funds")
               ? "Insufficient funds"
               : "Round cap exceeded"}
           </p>
