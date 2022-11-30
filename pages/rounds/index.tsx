@@ -32,7 +32,7 @@ export default function Explore({ subgraphData, projectData }) {
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto">
           <h1 className="pb-20">Blunt rounds</h1>
-          <RoundsList subgraphData={subgraphData} projectData={projectData} />
+          {/* <RoundsList subgraphData={subgraphData} projectData={projectData} /> */}
         </main>
       </Container>
     </>
@@ -40,10 +40,12 @@ export default function Explore({ subgraphData, projectData }) {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds"
-  const data = await fetcher(endpoint)
-  const subgraphData = data?.subgraphData
-  const projectData: Project[] = data?.projectData
+  // const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds"
+  // const data = await fetcher(endpoint)
+  // const subgraphData = data?.subgraphData
+  // const projectData: Project[] = data?.projectData
+  const subgraphData = {}
+  const projectData = {}
 
   return {
     props: {
