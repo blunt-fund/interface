@@ -10,7 +10,7 @@ const Spinner = ({ size, color }: Props) => {
     <div
       className={`${size ? size : "h-5 w-5"} ${color ? color : ""}`}
       style={{
-        animation: "spin 0.8s steps(4, jump-end) infinite"
+        animation: "0.8s infinite steps(4, jump-end) spin "
       }}
     >
       <Logo />
