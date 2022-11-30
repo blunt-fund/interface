@@ -42,7 +42,6 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
       <div className="flex items-center text-sm xs:text-base">
         <p className="">Redeem your contributions</p>
         <Question
-          position="bottom-0 left-[-24px]"
           text={
             <>
               <p>

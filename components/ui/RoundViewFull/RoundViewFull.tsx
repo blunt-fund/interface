@@ -1,4 +1,5 @@
 import {
+  ClaimSlicesButton,
   EmissionPreview,
   FullRedeemButton,
   Locks,
@@ -72,15 +73,17 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           totalContributions={totalContributions}
           isSlicerToBeCreated={round.isSlicerToBeCreated}
         />
-      ) : totalContributions < round.target ? (
+      ) : totalContributions <= round.target ? (
         <FullRedeemButton
           projectId={Number(id)}
           accountContributions={accountContributions}
         />
       ) : (
         round.isSlicerToBeCreated && (
-          // TODO: Add claims
-          <p>CLAIM</p>
+          <ClaimSlicesButton
+            projectId={Number(id)}
+            bluntDelegate={subgraphData?.configureEvents[0].dataSource}
+          />
         )
       )}
 

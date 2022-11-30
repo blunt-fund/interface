@@ -1,6 +1,7 @@
 export { default as ActionScreen } from "./ActionScreen"
 export { default as Background } from "./Background"
 export { default as Button } from "./Button"
+export { default as ClaimSlicesButton } from "./ClaimSlicesButton"
 export { default as CollapsibleItem } from "./CollapsibleItem"
 export { default as ConditionalLink } from "./ConditionalLink"
 export { default as ConnectBlock } from "./ConnectBlock"
