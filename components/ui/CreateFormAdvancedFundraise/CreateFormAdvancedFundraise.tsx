@@ -69,6 +69,9 @@ const CreateFormAdvancedFundraise = ({
           question={<p>Leave blank to set unlimited duration.</p>}
         />
       </div>
+      {duration != 0 && (
+        <NoteText text="A deadline requires the round to be prepared with an additional transaction. Anyone can do it on the round page after its creation" />
+      )}
       <div>
         <Input
           type="number"

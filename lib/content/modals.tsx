@@ -43,7 +43,7 @@ export const ROUND_INFO_VIEW = () => {
 
 export const CREATE_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const { uploadStep, roundId } = params
+  const { uploadStep, roundId, toQueue } = params
 
   let uploadState: string
   switch (uploadStep) {
@@ -88,8 +88,15 @@ export const CREATE_ROUND_VIEW = (params: any) => {
         <div>
           {uploadStep == 4 || uploadStep == 6 ? (
             uploadStep == 6 ? (
-              <div onClick={() => setModalView({ name: "" })}>
-                <Button label={"Go to round"} href={`/rounds/${roundId}`} />
+              <div>
+                {toQueue && (
+                  <p className="pb-6 mx-auto text-sm font-bold text-yellow-600">
+                    Prepare the round before the deadline on its page
+                  </p>
+                )}
+                <div onClick={() => setModalView({ name: "" })}>
+                  <Button label={"Go to round"} href={`/rounds/${roundId}`} />
+                </div>
               </div>
             ) : (
               <Button
