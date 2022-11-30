@@ -53,15 +53,13 @@ const RedeemBlock = ({
           </b>
         </p>
         <p>
-          Slices to receive:{" "}
+          Blunt allocation:{" "}
           <b>
-            {formatNumber(Math.round(formattedAccountContributions * 1000))}
-          </b>{" "}
-          (
-          {Math.floor(
-            (formattedAccountContributions / totalContributions) * 1e4
-          ) / 100}
-          % of round allocation)
+            {Math.floor(
+              (formattedAccountContributions / totalContributions) * 1e4
+            ) / 100}
+            %
+          </b>
         </p>
       </div>
     )
