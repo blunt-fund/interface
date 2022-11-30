@@ -4,6 +4,7 @@ import {
   View,
   CREATE_ROUND_VIEW,
   REVIEW_ROUND_VIEW,
+  NETWORK_VIEW,
   ROUND_INFO_VIEW,
   REDEEM_VIEW
 } from "@lib/content/modals"
@@ -19,6 +20,9 @@ const Modal = ({ modalView, setModalView }: Props) => {
   const modalRef = useRef(null)
 
   switch (name) {
+    case "NETWORK_VIEW":
+      content = NETWORK_VIEW()
+      break
     case "ROUND_INFO_VIEW":
       content = ROUND_INFO_VIEW()
       break

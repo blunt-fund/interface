@@ -16,7 +16,8 @@ import { useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import { ethers } from "ethers"
-import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import { ConnectButton, useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import saEvent from "@utils/saEvent"
 
 export type View = {
   name: ViewNames
@@ -25,10 +26,43 @@ export type View = {
 }
 type ViewNames =
   | ""
+  | "NETWORK_VIEW"
   | "REVIEW_ROUND_VIEW"
   | "CREATE_ROUND_VIEW"
   | "ROUND_INFO_VIEW"
   | "REDEEM_VIEW"
+
+export const NETWORK_VIEW = () => {
+  const chainId = process.env.NEXT_PUBLIC_CHAIN_ID
+
+  return (
+    <>
+      <div className="text-center">
+        <h1 className="text-2xl sm:text-3xl">Pick the right chain</h1>
+        <div className="py-8">
+          <p>
+            Connect to the{" "}
+            <b>{chainId === "5" ? "Goerli Testnet" : "Ethereum Mainnet"}</b>{" "}
+            Network
+          </p>
+        </div>
+        <div
+          className="flex justify-center pt-6"
+          onClick={() => saEvent("connect_wallet_attempt")}
+        >
+          <ConnectButton
+            accountStatus={{
+              smallScreen: "address",
+              largeScreen: "full"
+            }}
+            chainStatus="full"
+            showBalance={false}
+          />
+        </div>
+      </div>
+    </>
+  )
+}
 
 export const ROUND_INFO_VIEW = () => {
   return (
