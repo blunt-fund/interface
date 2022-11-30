@@ -1,4 +1,3 @@
-import Arrow from "@components/icons/Arrow"
 import Spinner from "@components/icons/Spinner"
 import React, { InputHTMLAttributes } from "react"
 import Question from "../Question"
