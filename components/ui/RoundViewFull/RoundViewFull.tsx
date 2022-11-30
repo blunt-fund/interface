@@ -1,12 +1,9 @@
 import {
-  ClaimSlicesButton,
   EmissionPreview,
-  FullRedeemButton,
   Locks,
   OwnerBlock,
-  PayButton,
   QueueBlock,
-  RedeemBlock,
+  RoundMainSection,
   RoundViewMain
 } from "../"
 import { useRouter } from "next/router"
@@ -17,7 +14,7 @@ import { Project } from "@prisma/client"
 import Crown from "@components/icons/Crown"
 import formatAddress from "@utils/formatAddress"
 import { useAppContext } from "../context"
-import { ethers } from "ethers"
+import { TimeWrapper } from "../context"
 
 type Props = {
   projectData: Project
@@ -38,13 +35,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
   const bluntDelegate = subgraphData?.configureEvents[0].dataSource
-
-  const [accountHasContributed, setAccountHasContributed] = useState(false)
-  useEffect(() => {
-    setAccountHasContributed(
-      Number(ethers.utils.formatEther(accountContributions)) != 0
-    )
-  }, [accountContributions])
 
   const [descriptionHtml, setDescriptionHtml] = useState("")
   useEffect(() => {
@@ -72,42 +62,16 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         isRoundClosed={isRoundClosed}
       />
 
-      {!isRoundClosed ? (
-        // TODO: Consider also if deadline has passed?
-        // If passed + successful prompt "wait for project owner to close"
-        // If passed + unsuccessful prompt Full redemptions
-        <PayButton
-          projectId={Number(id)}
+      <TimeWrapper>
+        <RoundMainSection
           round={round}
           totalContributions={totalContributions}
-          isSlicerToBeCreated={round.isSlicerToBeCreated}
-        />
-      ) : (
-        accountHasContributed &&
-        (totalContributions <= round.target ? (
-          <FullRedeemButton
-            projectId={Number(id)}
-            accountContributions={accountContributions}
-          />
-        ) : (
-          round.isSlicerToBeCreated && (
-            <ClaimSlicesButton
-              projectId={Number(id)}
-              bluntDelegate={bluntDelegate}
-            />
-          )
-        ))
-      )}
-
-      {(isRoundClosed && totalContributions <= round.target) ||
-      !accountHasContributed ? null : (
-        <RedeemBlock
-          projectId={Number(id)}
-          totalContributions={totalContributions}
+          isRoundClosed={isRoundClosed}
+          timestamp={timestamp}
           accountContributions={accountContributions}
-          tokenIssuance={round.tokenIssuance}
+          bluntDelegate={bluntDelegate}
         />
-      )}
+      </TimeWrapper>
 
       {!isRoundClosed && (
         <>
