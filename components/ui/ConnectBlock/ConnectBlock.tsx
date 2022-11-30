@@ -11,7 +11,7 @@ const ConnectBlock = ({ children }) => {
       <div className="flex flex-col items-center py-6 mx-auto max-w-screen-xs">
         <h1>Connect your wallet</h1>
         <p className="py-10 sm:text-lg">
-          You need to connect your wallet to view this page.
+          Connect your wallet to view this page
         </p>
         <div onClick={() => saEvent("connect_wallet_attempt")}>
           <CustomConnectButton />
