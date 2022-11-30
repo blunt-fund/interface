@@ -10,7 +10,8 @@ const executeTransaction = async (
   setLoading: Dispatch<SetStateAction<boolean>>,
   txDescription?: string,
   addRecentTransaction?: (transaction: NewTransaction) => void,
-  settlementLogic?: (waitData: any) => Promise<any>
+  settlementLogic?: (waitData: any) => Promise<any>,
+  confetti?: boolean
 ) => {
   setLoading(true)
 
@@ -25,6 +26,11 @@ const executeTransaction = async (
     }
 
     const waitData = await tx.wait()
+
+    if (confetti) {
+      const launchConfetti = (await import("./launchConfetti")).default
+      launchConfetti()
+    }
 
     if (settlementLogic) {
       return await settlementLogic(waitData)
