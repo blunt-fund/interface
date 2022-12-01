@@ -12,10 +12,11 @@ type Props = {
   descriptionHtml?: string
   isRoundClosed: boolean
   raised?: number
-  roundId?: number
+  roundId?: number | string
   timestamp?: number
   issuance?: boolean
-  secondary?: boolean
+  smallTitle?: boolean
+  showLinks?: boolean
 }
 
 const RoundViewMain = ({
@@ -26,7 +27,8 @@ const RoundViewMain = ({
   roundId,
   timestamp,
   issuance = true,
-  secondary = false
+  smallTitle = false,
+  showLinks = false
 }: Props) => {
   const { name, image, website, twitter, discord, docs, shares } = roundData
 
@@ -34,7 +36,7 @@ const RoundViewMain = ({
 
   return (
     <ConditionalLink
-      href={roundId ? `/rounds/${roundId}` : undefined}
+      href={roundId && !showLinks ? `/rounds/${roundId}` : undefined}
       className="block rounded-sm hover:text-black sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
     >
       <div className="text-left">
@@ -58,12 +60,12 @@ const RoundViewMain = ({
           <div className="flex-grow pt-6 xs:pt-0">
             <h1
               className={
-                secondary ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"
+                smallTitle ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"
               }
             >
               {name}
             </h1>
-            {!roundId ? (
+            {showLinks ? (
               <div className="flex items-center gap-6 mt-4 ml-1">
                 {website && (
                   <a

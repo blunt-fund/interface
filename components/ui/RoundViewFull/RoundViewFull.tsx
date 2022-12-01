@@ -61,6 +61,8 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         timestamp={timestamp}
         issuance={false}
         isRoundClosed={isRoundClosed}
+        showLinks
+        roundId={Number(id)}
       />
 
       <TimeWrapper>
