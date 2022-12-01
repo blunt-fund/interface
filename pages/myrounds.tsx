@@ -41,7 +41,7 @@ export default function Rounds() {
             <RoundsList
               subgraphData={subgraphData}
               projectData={projectData}
-              filteredAccount={account}
+              accountFilter={account}
             />
           </main>
         </ConnectBlock>

@@ -79,7 +79,7 @@ const RoundDetails = ({
           <b>
             <span
               className={
-                raised < targetEth
+                raised <= targetEth
                   ? "text-yellow-500 dark:text-yellow-300"
                   : "text-blue-600 nightwind prevent"
               }

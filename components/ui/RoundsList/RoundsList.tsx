@@ -1,16 +1,25 @@
-import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
-import getRounds from "@utils/getRounds"
+import { MySwitch, RoundViewMain, RoundViewMainLoading } from "@components/ui"
+import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { Project } from "@prisma/client"
+import { useState } from "react"
+import useSWR from "swr"
+import fetcher from "@utils/fetcher"
 
 type Props = {
   projectData: Project[]
   subgraphData: any
-  filteredAccount?: string
+  accountFilter?: string
 }
 
-const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
+const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
+  const [onlySuccess, setOnlySuccess] = useState(true)
+
+  const { data: ethUsd } = useSWR(
+    "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
+    fetcher
+  )
   const {
     data: roundInfo,
     isError,
@@ -30,12 +39,22 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
     subgraphData
   )
 
-  const filteredActiveRounds = filteredAccount
-    ? activeRounds?.filter((el) => el.round.projectOwner == filteredAccount)
-    : activeRounds
-  const filteredClosedRounds = filteredAccount
-    ? closedRounds?.filter((el) => el.round.projectOwner == filteredAccount)
-    : closedRounds
+  const getAccountRounds = (rounds: RoundInfo[]) =>
+    accountFilter
+      ? rounds?.filter((el) => el.round.projectOwner == accountFilter)
+      : rounds
+
+  let filteredActiveRounds = getAccountRounds(activeRounds)
+  let filteredClosedRounds = getAccountRounds(closedRounds)
+
+  if (onlySuccess) {
+    filteredClosedRounds = filteredClosedRounds.filter((el) => {
+      const targetEth = el.round.isTargetEth
+        ? el.round.target
+        : el.round.target / ethUsd?.price
+      return el.totalContributions > targetEth
+    })
+  }
 
   return !roundInfo || !subgraphData ? (
     <div className="space-y-20">
@@ -44,45 +63,57 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
       ))}
     </div>
   ) : (
-    <div className="space-y-20">
-      {filteredActiveRounds?.map(
-        ({ round, timestamp, totalContributions, roundId }) => {
-          return (
-            <div key={roundId}>
-              <RoundViewMain
-                roundData={round}
-                raised={totalContributions}
-                roundId={roundId}
-                timestamp={timestamp}
-                smallTitle
-                isRoundClosed={false}
-              />
-            </div>
-          )
-        }
-      )}
+    <>
+      <div className="space-y-20">
+        {filteredActiveRounds?.map(
+          ({ round, timestamp, totalContributions, roundId }) => {
+            return (
+              <div key={roundId}>
+                <RoundViewMain
+                  roundData={round}
+                  raised={totalContributions}
+                  roundId={roundId}
+                  timestamp={timestamp}
+                  smallTitle
+                  isRoundClosed={false}
+                />
+              </div>
+            )
+          }
+        )}
+      </div>
       {filteredClosedRounds.length != 0 && (
         <>
-          <h1>Closed rounds</h1>
-          {filteredClosedRounds?.map(
-            ({ round, timestamp, totalContributions, roundId }) => {
-              return (
-                <div key={roundId}>
-                  <RoundViewMain
-                    roundData={round}
-                    raised={totalContributions}
-                    roundId={roundId}
-                    timestamp={timestamp}
-                    smallTitle
-                    isRoundClosed={true}
-                  />
-                </div>
-              )
-            }
-          )}
+          <div className="pt-20 pb-12">
+            <h1 className="pb-12">Closed rounds</h1>
+            <MySwitch
+              label="Show only successful rounds"
+              enabled={onlySuccess}
+              setEnabled={setOnlySuccess}
+              alignRight
+            />
+          </div>
+          <div className="space-y-20">
+            {filteredClosedRounds?.map(
+              ({ round, timestamp, totalContributions, roundId }) => {
+                return (
+                  <div key={roundId}>
+                    <RoundViewMain
+                      roundData={round}
+                      raised={totalContributions}
+                      roundId={roundId}
+                      timestamp={timestamp}
+                      smallTitle
+                      isRoundClosed={true}
+                    />
+                  </div>
+                )
+              }
+            )}
+          </div>
         </>
       )}
-    </div>
+    </>
   )
 }
 
