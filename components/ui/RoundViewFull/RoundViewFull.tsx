@@ -2,6 +2,7 @@ import {
   EmissionPreview,
   Locks,
   OwnerBlock,
+  OwnerDisplay,
   QueueBlock,
   RoundMainSection,
   RoundViewMain
@@ -92,11 +93,8 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
       <EmissionPreview shares={round?.shares} totalShares={totalShares} />
 
-      <div className="flex items-center justify-center gap-3 pb-4 text-sm">
-        <div className="w-4 h-4">
-          <Crown />
-        </div>
-        <p>Project owner: {formatAddress(round.projectOwner)}</p>
+      <div className="flex justify-center w-full pb-4 text-sm">
+        <OwnerDisplay projectOwner={round.projectOwner} />
       </div>
 
       <Locks

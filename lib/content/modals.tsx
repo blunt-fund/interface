@@ -5,6 +5,7 @@ import {
   Input,
   LoadingStep,
   Locks,
+  OwnerDisplay,
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
@@ -183,11 +184,8 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
 
         <EmissionPreview shares={shares} totalShares={totalShares} />
 
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-4 h-4">
-            <Crown />
-          </div>
-          <p>Project owner: {formatAddress(projectOwner)}</p>
+        <div className="flex justify-center w-full">
+          <OwnerDisplay projectOwner={projectOwner} />
         </div>
 
         <div className="pt-6 text-center">
