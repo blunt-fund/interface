@@ -127,7 +127,7 @@ const PayButton = ({
                 )} 
                 ${round.tokenSymbol || "tokens"} `}
             </span>
-            {!payment && isPaymentEth ? "/ ETH" : "/ USD"}
+            {isPaymentEth ? "/ ETH" : "/ USD"}
           </p>
         ) : (
           <p className="font-bold text-red-500">
