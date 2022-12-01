@@ -112,7 +112,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       subgraphData,
-      projectData
+      projectData,
+      key: id
     },
     revalidate: 600
   }
