@@ -54,7 +54,7 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
                 raised={totalContributions}
                 roundId={roundId}
                 timestamp={timestamp}
-                secondary
+                smallTitle
                 isRoundClosed={false}
               />
             </div>
@@ -73,7 +73,7 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
                     raised={totalContributions}
                     roundId={roundId}
                     timestamp={timestamp}
-                    secondary
+                    smallTitle
                     isRoundClosed={true}
                   />
                 </div>
