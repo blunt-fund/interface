@@ -38,6 +38,8 @@ const OwnerBlock = ({
   const addRecentTransaction = useAddRecentTransaction()
   const { writeAsync } = useContractWrite(config)
 
+  // TODO: Hardcode gas limit, or figure out how to correctly estimate it when round is successful
+
   return (
     <div className="pt-6">
       <div className="w-full px-4 py-6 bg-gray-100 rounded-sm shadow-md sm:px-6">
