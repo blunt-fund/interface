@@ -26,7 +26,8 @@ const RoundMainSection = ({
   const router = useRouter()
   const { id } = router.query
 
-  const isDeadlinepassed = timestamp + round.duration - now < 0
+  const isDeadlinepassed =
+    round.duration != 0 && timestamp + round.duration - now < 0
 
   const [accountHasContributed, setAccountHasContributed] = useState(false)
   useEffect(() => {
