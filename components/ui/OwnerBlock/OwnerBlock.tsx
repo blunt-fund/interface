@@ -6,6 +6,7 @@ import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import { ethers } from "ethers"
 
 type Props = {
   projectId: number
@@ -33,12 +34,14 @@ const OwnerBlock = ({
     address: bluntDelegate,
     abi: BluntDelegate.abi,
     functionName: "closeRound",
-    args: []
+    args: [],
+    overrides: {
+      // TODO: Figure out how to automatically correctly estimate it when round is successful
+      gasLimit: ethers.BigNumber.from(isTargetReached ? 3500000 : 32000)
+    }
   })
   const addRecentTransaction = useAddRecentTransaction()
   const { writeAsync } = useContractWrite(config)
-
-  // TODO: Hardcode gas limit, or figure out how to correctly estimate it when round is successful
 
   return (
     <div className="pt-6">
