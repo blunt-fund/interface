@@ -16,10 +16,8 @@ type Props = {
 const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
   const [onlySuccess, setOnlySuccess] = useState(true)
 
-  const { data: ethUsd } = useSWR(
-    "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
-    fetcher
-  )
+  const { data: ethUsd } = useSWR("/api/getEthUsd", fetcher)
+
   const {
     data: roundInfo,
     isError,
@@ -51,7 +49,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
     filteredClosedRounds = filteredClosedRounds.filter((el) => {
       const targetEth = el.round.isTargetEth
         ? el.round.target
-        : el.round.target / ethUsd?.price
+        : el.round.target / Number(ethUsd)
       return el.totalContributions > targetEth
     })
   }
