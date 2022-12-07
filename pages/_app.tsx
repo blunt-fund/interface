@@ -21,8 +21,8 @@ const defaultChains =
   process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? [chain.goerli] : [chain.mainnet]
 
 const { chains, provider } = configureChains(defaultChains, [
-  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
   infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
+  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
   publicProvider()
 ])
 
