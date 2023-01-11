@@ -12,7 +12,6 @@ type Props = {
   projectId: number
   bluntDelegate: string
   totalContributions: number
-  isQueued: boolean
   round: RoundData
 }
 
@@ -20,7 +19,6 @@ const OwnerBlock = ({
   totalContributions,
   projectId,
   bluntDelegate,
-  isQueued,
   round
 }: Props) => {
   const [loading, setLoading] = useState(false)
@@ -50,11 +48,11 @@ const OwnerBlock = ({
           Project owner section
         </p>
 
-        <OwnerBlockToken
+        {/* <OwnerBlockToken
           projectId={projectId}
           bluntDelegate={bluntDelegate}
           round={round}
-        />
+        /> */}
 
         <div className="relative flex items-center gap-3 pt-8 pb-6 text-left">
           <div className="flex items-center text-sm xs:text-base">
@@ -89,7 +87,7 @@ const OwnerBlock = ({
                 : null
             }
             loading={loading}
-            disabled={isTargetReached && (isTokenRequiredAndUnset || !isQueued)}
+            disabled={isTargetReached && isTokenRequiredAndUnset}
             onClick={async () =>
               await executeTransaction(
                 writeAsync,
@@ -104,16 +102,18 @@ const OwnerBlock = ({
         </div>
 
         <div className="text-left">
-          {!isTargetReached ? (
-            <NoteText
-              error
-              text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
-            />
-          ) : isTokenRequiredAndUnset ? (
-            <NoteText text="Set token name and symbol to finalize round" />
-          ) : (
-            !isQueued && <NoteText text="Queue stage to finalize round" />
-          )}
+          {
+            !isTargetReached ? (
+              <NoteText
+                error
+                text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
+              />
+            ) : null // (
+            //   isTokenRequiredAndUnset && (
+            //     <NoteText text="Set token name and symbol to finalize round" />
+            //   )
+            // )
+          }
         </div>
       </div>
     </div>

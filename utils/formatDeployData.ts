@@ -10,24 +10,17 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
     isTargetEth,
     isCapEth,
     duration,
-    transferTimelock,
-    releaseTimelock,
-    roundTimelock,
     addresses,
     shares,
     projectOwner,
-    tokenName,
-    tokenSymbol,
     tokenIssuance,
-    isSlicerToBeCreated: enforceSlicerCreation,
     metadata
   } = roundData
 
   return {
     deployBluntDelegateData: {
       directory: addressConstants.JBDirectory,
-      fundingCycleStore: addressConstants.JBFundingCycleStore,
-      sliceCore: addressConstants.SliceCore,
+      // sliceCore: addressConstants.SliceCore,
       projectOwner,
       hardcap: isCapEth
         ? ethers.utils.parseEther(String(cap))
@@ -35,18 +28,13 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       target: isTargetEth
         ? ethers.utils.parseEther(String(target))
         : BigNumber.from(10).pow(6).mul(target),
-      releaseTimelock: releaseTimelock,
-      transferTimelock: transferTimelock,
+      // releaseTimelock: releaseTimelock,
+      // transferTimelock: transferTimelock,
       afterRoundReservedRate: totalShares * 100,
-      afterRoundSplits: calculateSplits(
-        shares,
-        addresses,
-        totalShares,
-        roundTimelock
-      ),
-      tokenName,
-      tokenSymbol,
-      enforceSlicerCreation,
+      afterRoundSplits: calculateSplits(shares, addresses, totalShares),
+      // tokenName,
+      // tokenSymbol,
+      // enforceSlicerCreation,
       isTargetUsd: !isTargetEth,
       isHardcapUsd: !isCapEth
     },

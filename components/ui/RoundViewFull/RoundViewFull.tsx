@@ -29,8 +29,11 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const { id } = router.query
 
   const [roundData, accountContributions] = roundInfo
-  const { round, timestamp, totalContributions, isRoundClosed, isQueued } =
-    formatRound(subgraphData, roundData, projectData.metadata)
+  const { round, timestamp, totalContributions, isRoundClosed } = formatRound(
+    subgraphData,
+    roundData,
+    projectData.metadata
+  )
 
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
@@ -78,15 +81,11 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
       {!isRoundClosed && (
         <>
-          {!isQueued && (
-            <QueueBlock projectId={Number(id)} bluntDelegate={bluntDelegate} />
-          )}
           {showOwnerBlock && (
             <OwnerBlock
               projectId={Number(id)}
               bluntDelegate={bluntDelegate}
               totalContributions={totalContributions}
-              isQueued={isQueued}
               round={round}
             />
           )}

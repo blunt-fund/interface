@@ -5,7 +5,6 @@ type Addresses = {
   BluntDelegateProjectDeployer: string
   JBTerminal: string
   JBDirectory: string
-  JBFundingCycleStore: string
   SliceCore: string
 }
 

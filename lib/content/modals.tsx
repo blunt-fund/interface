@@ -176,11 +176,11 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
           isRoundClosed={false}
         />
 
-        <Locks
+        {/* <Locks
           transferTimestamp={transferTimestamp}
           releaseTimestamp={releaseTimestamp}
           roundTimestamp={roundTimestamp}
-        />
+        /> */}
 
         <EmissionPreview shares={shares} totalShares={totalShares} />
 

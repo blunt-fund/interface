@@ -102,33 +102,36 @@ const PayButton = ({
             addRecentTransaction,
             null,
             true
-          ))
+          ),
+          setPayment(null))
         }
       />
       <div className="text-left text-xs xs:text-sm pt-1.5">
         {!error ? (
-          <p>
-            Receive{" "}
-            <span className="font-bold">
-              {isSlicerToBeCreated &&
+          round.tokenIssuance >= 1 /* || isSlicerToBeCreated */ && (
+            <p>
+              Receive{" "}
+              <span className="font-bold">
+                {/* {isSlicerToBeCreated &&
                 `${
                   payment
                     ? formatNumber(Math.floor(paymentEth * 1000))
                     : formatNumber(defaultPaymentUsd)
-                } slices ${round.tokenIssuance >= 1 ? "+ " : ""}`}
-              {round.tokenIssuance >= 1 &&
-                `${formatNumber(
-                  payment
-                    ? Number(
-                        Number(paymentEth * round.tokenIssuance).toFixed(0)
-                      )
-                    : defaultIssuanceUsd,
-                  3
-                )} 
+                } slices ${round.tokenIssuance >= 1 ? "+ " : ""}`} */}
+                {round.tokenIssuance >= 1 &&
+                  `${formatNumber(
+                    payment
+                      ? Number(
+                          Number(paymentEth * round.tokenIssuance).toFixed(0)
+                        )
+                      : defaultIssuanceUsd,
+                    3
+                  )} 
                 ${round.tokenSymbol || "tokens"} `}
-            </span>
-            {isPaymentEth ? "/ ETH" : "/ USD"}
-          </p>
+              </span>
+              {isPaymentEth ? "/ ETH" : "/ USD"}
+            </p>
+          )
         ) : (
           <p className="font-bold text-red-500">
             {error?.message?.includes("insufficient funds")

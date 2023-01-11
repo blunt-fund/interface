@@ -48,7 +48,7 @@ const CreateRoundForm = () => {
     roundTimelock: 0,
     tokenName: "",
     tokenSymbol: "",
-    tokenIssuance: 0,
+    tokenIssuance: 1000000,
     image: {
       url: "",
       file: undefined
@@ -162,6 +162,7 @@ const CreateRoundForm = () => {
         description: "Create Blunt round"
       })
       const wait: ContractReceipt = await tx.wait()
+
       const event = clone ? wait.events[2] : wait.events[1]
 
       const projectId = Number(event.topics[1])
@@ -265,6 +266,7 @@ const CreateRoundForm = () => {
             />
           }
         />
+        {/* 
         <CollapsibleItem
           label="Vesting and locks"
           secondary={!roundData.isSlicerToBeCreated && shares[0] == 0}
@@ -277,7 +279,7 @@ const CreateRoundForm = () => {
               roundLockDate={roundLockDate}
             />
           }
-        />
+        /> */}
         <CollapsibleItem
           label="Project logo and links"
           detail={

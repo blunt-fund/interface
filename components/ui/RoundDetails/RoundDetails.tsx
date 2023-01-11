@@ -81,7 +81,7 @@ const RoundDetails = ({
               className={
                 raised <= targetEth
                   ? "text-yellow-500 dark:text-yellow-300"
-                  : "text-blue-600 nightwind prevent"
+                  : "text-green-600 nightwind prevent"
               }
             >
               {formatNumber(isCapEth ? raised : raisedUsd, 1)}

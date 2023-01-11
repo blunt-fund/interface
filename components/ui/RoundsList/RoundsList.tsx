@@ -24,7 +24,8 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
     isLoading
   } = useContractReads({
     contracts: subgraphData?.map((project) => ({
-      address: project.configureEvents[0].dataSource,
+      address:
+        project.configureEvents[project.configureEvents.length - 1].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
     })),
