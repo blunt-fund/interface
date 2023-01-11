@@ -5,6 +5,7 @@ import {
   Input,
   LoadingStep,
   Locks,
+  OwnerDisplay,
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
@@ -104,7 +105,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 pt-12 pb-8 mx-auto">
           <LoadingStep
             initCondition={uploadStep < 2}
@@ -156,9 +157,9 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     descriptionHtml,
     totalShares,
     createRound,
-    transferTimestamp,
-    releaseTimestamp,
-    roundTimestamp,
+    // transferTimestamp,
+    // releaseTimestamp,
+    // roundTimestamp,
     projectOwner
   } = params
   const { shares } = roundData
@@ -167,7 +168,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-8">
-        <p>Proceeding will create a Juicebox project and a slicer.</p>
+        <p>Proceeding will create a round with the settings below.</p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
           roundData={roundData}
@@ -175,19 +176,16 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
           isRoundClosed={false}
         />
 
-        <Locks
+        {/* <Locks
           transferTimestamp={transferTimestamp}
           releaseTimestamp={releaseTimestamp}
           roundTimestamp={roundTimestamp}
-        />
+        /> */}
 
-        <EmissionPreview shares={shares} totalShares={totalShares} />
+        {/* <EmissionPreview shares={shares} totalShares={totalShares} /> */}
 
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-4 h-4">
-            <Crown />
-          </div>
-          <p>Project owner: {formatAddress(projectOwner)}</p>
+        <div className="flex justify-center w-full">
+          <OwnerDisplay projectOwner={projectOwner} />
         </div>
 
         <div className="pt-6 text-center">
@@ -272,7 +270,7 @@ export const REDEEM_VIEW = (params: any) => {
             ))
           }
         />
-        <p className="pt-6 text-sm">
+        {/* <p className="pt-6 text-sm">
           Remaining slices:{" "}
           <b>
             {formatNumber(
@@ -285,7 +283,7 @@ export const REDEEM_VIEW = (params: any) => {
               (totalContributions - redeemAmount) || 1) * 1e4
           ) / 100}
           % of round allocation)
-        </p>
+        </p> */}
       </div>
     </div>
   )

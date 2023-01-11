@@ -25,11 +25,8 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
   }
 
   return (
-    <div className="py-3 space-y-6">
-      <p>
-        Configure the project&apos;s ERC20 token and the amount to be issued to
-        blunt round participants.
-      </p>
+    <div className="py-3 space-y-8">
+      <p>Configure the amount of tokens issued to round participants.</p>
       <div>
         <Input
           type="number"
@@ -46,15 +43,18 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
                 blunt round.
               </p>
               <p>
-                If left blank, note that a small amount of tokens is still
-                issued (0.001 tokens per ETH) in order to handle redemptions.
+                If left blank or set to 0, a small amount of tokens will still
+                be issued in order to handle refunds (0.001 tokens/ETH).
               </p>
-              <p>Once the blunt round ends, token emission will be 1M / ETH.</p>
+              <p>
+                Once the round ends, token emission of the project&apos;s
+                treasury is set to 1M tokens/ETH.
+              </p>
             </>
           }
         />
       </div>
-      <div>
+      {/* <div>
         <Input
           type="string"
           label="Token name"
@@ -85,8 +85,8 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
             </>
           }
         />
-      </div>
-      <NoteText text="Token name and symbol can also be set later, while the round is in progress" />
+      </div> 
+      <NoteText text="Token name and symbol can also be set later, while the round is in progress" /> */}
     </div>
   )
 }

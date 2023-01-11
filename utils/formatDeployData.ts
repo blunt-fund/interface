@@ -7,48 +7,36 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
   const {
     target,
     cap,
-    isTargetEth,
-    isCapEth,
-    duration,
-    transferTimelock,
-    releaseTimelock,
-    roundTimelock,
+    isTargetUsd,
+    isHardcapUsd,
+    deadline,
     addresses,
     shares,
     projectOwner,
-    tokenName,
-    tokenSymbol,
     tokenIssuance,
-    isSlicerToBeCreated: enforceSlicerCreation,
     metadata
   } = roundData
 
   return {
     deployBluntDelegateData: {
       directory: addressConstants.JBDirectory,
-      fundingCycleStore: addressConstants.JBFundingCycleStore,
-      sliceCore: addressConstants.SliceCore,
+      // sliceCore: addressConstants.SliceCore,
       projectOwner,
-      hardcap: isCapEth
+      hardcap: !isHardcapUsd
         ? ethers.utils.parseEther(String(cap))
         : BigNumber.from(10).pow(6).mul(cap),
-      target: isTargetEth
+      target: !isTargetUsd
         ? ethers.utils.parseEther(String(target))
         : BigNumber.from(10).pow(6).mul(target),
-      releaseTimelock: releaseTimelock,
-      transferTimelock: transferTimelock,
+      // releaseTimelock: releaseTimelock,
+      // transferTimelock: transferTimelock,
       afterRoundReservedRate: totalShares * 100,
-      afterRoundSplits: calculateSplits(
-        shares,
-        addresses,
-        totalShares,
-        roundTimelock
-      ),
-      tokenName,
-      tokenSymbol,
-      enforceSlicerCreation,
-      isTargetUsd: !isTargetEth,
-      isHardcapUsd: !isCapEth
+      afterRoundSplits: calculateSplits(shares, addresses, totalShares),
+      // tokenName,
+      // tokenSymbol,
+      // enforceSlicerCreation,
+      isTargetUsd,
+      isHardcapUsd
     },
     launchProjectData: {
       projectMetadata: {
@@ -56,7 +44,10 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
         domain: 1
       },
       data: {
-        duration: duration != 0 ? BigNumber.from(duration).mul(86400) : 0,
+        duration:
+          deadline && Number(deadline) != 0
+            ? BigNumber.from(deadline).mul(86400)
+            : 0,
         weight:
           tokenIssuance != 0
             ? BigNumber.from(10).pow(18).mul(tokenIssuance)

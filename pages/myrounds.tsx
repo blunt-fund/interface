@@ -26,7 +26,7 @@ export default function Rounds() {
           url: domain,
           images: [
             {
-              url: `${domain}/og_image.jpg`,
+              url: `${domain}/og_image.png`,
               width: 1000,
               height: 1000,
               alt: `${defaultTitle} cover image`
@@ -41,7 +41,7 @@ export default function Rounds() {
             <RoundsList
               subgraphData={subgraphData}
               projectData={projectData}
-              filteredAccount={account}
+              accountFilter={account}
             />
           </main>
         </ConnectBlock>

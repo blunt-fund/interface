@@ -6,14 +6,11 @@ const useNormalizeCurrency = (
   isValueEth = true,
   convertToEth = true
 ) => {
-  const { data: ethUsd } = useSWR(
-    "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
-    fetcher
-  )
+  const { data: ethUsd } = useSWR("/api/getEthUsd", fetcher)
   if (convertToEth) {
-    return isValueEth ? value : value / ethUsd?.price
+    return isValueEth ? value : value / Number(ethUsd)
   } else {
-    return isValueEth ? value * ethUsd?.price : value
+    return isValueEth ? value * Number(ethUsd) : value
   }
 }
 

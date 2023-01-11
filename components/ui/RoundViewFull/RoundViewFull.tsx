@@ -2,6 +2,7 @@ import {
   EmissionPreview,
   Locks,
   OwnerBlock,
+  OwnerDisplay,
   QueueBlock,
   RoundMainSection,
   RoundViewMain
@@ -28,8 +29,11 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const { id } = router.query
 
   const [roundData, accountContributions] = roundInfo
-  const { round, timestamp, totalContributions, isRoundClosed, isQueued } =
-    formatRound(subgraphData, roundData, projectData.metadata)
+  const { round, totalContributions, isRoundClosed } = formatRound(
+    subgraphData,
+    roundData,
+    projectData.metadata
+  )
 
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
@@ -57,9 +61,10 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         roundData={round}
         descriptionHtml={descriptionHtml}
         raised={totalContributions}
-        timestamp={timestamp}
         issuance={false}
         isRoundClosed={isRoundClosed}
+        showLinks
+        roundId={Number(id)}
       />
 
       <TimeWrapper>
@@ -67,7 +72,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           round={round}
           totalContributions={totalContributions}
           isRoundClosed={isRoundClosed}
-          timestamp={timestamp}
           accountContributions={accountContributions}
           bluntDelegate={bluntDelegate}
         />
@@ -75,35 +79,28 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
       {!isRoundClosed && (
         <>
-          {!isQueued && (
-            <QueueBlock projectId={Number(id)} bluntDelegate={bluntDelegate} />
-          )}
           {showOwnerBlock && (
             <OwnerBlock
               projectId={Number(id)}
               bluntDelegate={bluntDelegate}
               totalContributions={totalContributions}
-              isQueued={isQueued}
               round={round}
             />
           )}
         </>
       )}
 
-      <EmissionPreview shares={round?.shares} totalShares={totalShares} />
+      {/* <EmissionPreview shares={round?.shares} totalShares={totalShares} /> */}
 
-      <div className="flex items-center justify-center gap-3 pb-4 text-sm">
-        <div className="w-4 h-4">
-          <Crown />
-        </div>
-        <p>Project owner: {formatAddress(round.projectOwner)}</p>
+      <div className="flex justify-center w-full pb-4">
+        <OwnerDisplay projectOwner={round.projectOwner} />
       </div>
 
-      <Locks
+      {/* <Locks
         transferTimestamp={formatTimestamp(round.transferTimelock)}
         releaseTimestamp={formatTimestamp(round.releaseTimelock)}
         roundTimestamp={round.roundTimelock * 1000}
-      />
+      /> */}
     </>
   )
 }

@@ -20,7 +20,7 @@ const RedeemBlock = ({
   )
 
   return (
-    <div className="space-y-2 text-sm text-left">
+    <div className="space-y-2 text-sm text-right">
       <p>
         You contributed:{" "}
         <b>
@@ -44,7 +44,7 @@ const RedeemBlock = ({
           </span>
         </b>
       </p>
-      <p>
+      {/* <p>
         Blunt allocation:{" "}
         <b>
           {Math.floor(
@@ -52,7 +52,7 @@ const RedeemBlock = ({
           ) / 100}
           %
         </b>
-      </p>
+      </p> */}
     </div>
   )
 }

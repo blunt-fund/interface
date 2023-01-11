@@ -31,12 +31,16 @@ export default function Round({ subgraphData, projectData }) {
   } = useContractReads({
     contracts: [
       {
-        address: subgraphData?.configureEvents[0].dataSource,
+        address:
+          subgraphData?.configureEvents[subgraphData.configureEvents.length - 1]
+            .dataSource,
         abi: bluntDelegate.abi,
         functionName: "getRoundInfo"
       },
       {
-        address: subgraphData?.configureEvents[0].dataSource,
+        address:
+          subgraphData?.configureEvents[subgraphData.configureEvents.length - 1]
+            .dataSource,
         abi: bluntDelegate.abi,
         functionName: "contributions",
         args: [account || ethers.constants.AddressZero]
@@ -57,7 +61,7 @@ export default function Round({ subgraphData, projectData }) {
           url: domain,
           images: [
             {
-              url: `${domain}/og_image.jpg`,
+              url: `${domain}/og_image.png`,
               width: 1000,
               height: 1000,
               alt: `${defaultTitle} cover image`
@@ -112,7 +116,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       subgraphData,
-      projectData
+      projectData,
+      key: id
     },
     revalidate: 600
   }

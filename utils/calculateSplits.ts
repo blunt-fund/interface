@@ -3,8 +3,7 @@ import { BigNumber, ethers } from "ethers"
 const calculateSplits = (
   shares: number[],
   addresses: string[],
-  totalShares: number,
-  roundTimeLock: number
+  totalShares: number
 ) => {
   if (totalShares != 0) {
     const filteredData = shares.flatMap((el, i) =>
@@ -20,10 +19,7 @@ const calculateSplits = (
       percent: BigNumber.from(shares * 1e10).div(totalShares * 10),
       projectId: 0,
       beneficiary: address,
-      lockedUntil:
-        i == 0 && address == ethers.constants.AddressZero && roundTimeLock
-          ? Math.floor(new Date().getTime() / 1000) + roundTimeLock * 86400
-          : 0,
+      lockedUntil: 0,
       allocator: ethers.constants.AddressZero
     }))
 

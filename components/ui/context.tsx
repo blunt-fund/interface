@@ -49,9 +49,10 @@ export function TimeWrapper({ children }) {
   const [time, setTime] = useState(Math.floor(new Date().getTime() / 1000))
 
   useEffect(() => {
-    setInterval(() => {
-      setTime(Math.floor(new Date().getTime() / 1000))
+    const intervalId = setInterval(() => {
+      setTime((time) => time + 1)
     }, 1000)
+    return () => clearInterval(intervalId)
   }, [])
 
   return (

@@ -40,7 +40,7 @@ const CreateFormAdvancedLock = ({
   const isSlicerNotToBeCreated = !enforceSlicerCreation && shares[0] == 0
 
   return (
-    <div className="py-3 space-y-6">
+    <div className="py-3 space-y-8">
       <p>
         Lock slice transfers, token withdrawals and modifications to the blunt
         round allocation.

@@ -6,12 +6,12 @@ import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import { ethers } from "ethers"
 
 type Props = {
   projectId: number
   bluntDelegate: string
   totalContributions: number
-  isQueued: boolean
   round: RoundData
 }
 
@@ -19,21 +19,24 @@ const OwnerBlock = ({
   totalContributions,
   projectId,
   bluntDelegate,
-  isQueued,
   round
 }: Props) => {
   const [loading, setLoading] = useState(false)
 
-  const targetEth = useNormalizeCurrency(round.target, round.isTargetEth)
+  const targetEth = useNormalizeCurrency(round.target, !round.isTargetUsd)
   const isTargetReached = totalContributions > targetEth
-  const isTokenRequiredAndUnset =
-    round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
+  // const isTokenRequiredAndUnset =
+  //   round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
 
   const { config, error } = usePrepareContractWrite({
     address: bluntDelegate,
     abi: BluntDelegate.abi,
     functionName: "closeRound",
-    args: []
+    args: [],
+    overrides: {
+      // TODO: Figure out how to automatically correctly estimate it when round is successful
+      gasLimit: ethers.BigNumber.from(isTargetReached ? 3500000 : 32000)
+    }
   })
   const addRecentTransaction = useAddRecentTransaction()
   const { writeAsync } = useContractWrite(config)
@@ -41,15 +44,15 @@ const OwnerBlock = ({
   return (
     <div className="pt-6">
       <div className="w-full px-4 py-6 bg-gray-100 rounded-sm shadow-md sm:px-6">
-        <p className="w-full pb-6 text-sm font-bold text-center text-gray-600">
+        <p className="w-full pb-2 text-sm font-bold text-center text-gray-600">
           Project owner section
         </p>
 
-        <OwnerBlockToken
+        {/* <OwnerBlockToken
           projectId={projectId}
           bluntDelegate={bluntDelegate}
           round={round}
-        />
+        /> */}
 
         <div className="relative flex items-center gap-3 pt-8 pb-6 text-left">
           <div className="flex items-center text-sm xs:text-base">
@@ -67,10 +70,10 @@ const OwnerBlock = ({
                     <li>
                       Ownership transfer of the JB project to your address
                     </li>
-                    <li>
+                    {/* <li>
                       Round participants being able to claim ownership of the
                       slicer related to the blunt round
-                    </li>
+                    </li> */}
                   </ul>
                 </>
               }
@@ -84,7 +87,7 @@ const OwnerBlock = ({
                 : null
             }
             loading={loading}
-            disabled={isTargetReached && (isTokenRequiredAndUnset || !isQueued)}
+            disabled={isTargetReached /* && isTokenRequiredAndUnset */}
             onClick={async () =>
               await executeTransaction(
                 writeAsync,
@@ -99,16 +102,18 @@ const OwnerBlock = ({
         </div>
 
         <div className="text-left">
-          {!isTargetReached ? (
-            <NoteText
-              error
-              text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
-            />
-          ) : isTokenRequiredAndUnset ? (
-            <NoteText text="Set token name and symbol to finalize round" />
-          ) : (
-            !isQueued && <NoteText text="Queue stage to finalize round" />
-          )}
+          {
+            !isTargetReached ? (
+              <NoteText
+                error
+                text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
+              />
+            ) : null // (
+            //   isTokenRequiredAndUnset && (
+            //     <NoteText text="Set token name and symbol to finalize round" />
+            //   )
+            // )
+          }
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
   lightTheme
 } from "@rainbow-me/rainbowkit"
 import { alchemyProvider } from "wagmi/providers/alchemy"
+import { infuraProvider } from "wagmi/providers/infura"
 import { publicProvider } from "wagmi/providers/public"
 import { chain, createClient, configureChains, WagmiConfig } from "wagmi"
 import "@rainbow-me/rainbowkit/styles.css"
@@ -20,6 +21,7 @@ const defaultChains =
   process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? [chain.goerli] : [chain.mainnet]
 
 const { chains, provider } = configureChains(defaultChains, [
+  infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
   publicProvider()
 ])
