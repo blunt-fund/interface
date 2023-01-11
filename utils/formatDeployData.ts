@@ -7,9 +7,9 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
   const {
     target,
     cap,
-    isTargetEth,
-    isCapEth,
-    duration,
+    isTargetUsd,
+    isCapUsd,
+    deadline,
     addresses,
     shares,
     projectOwner,
@@ -22,10 +22,10 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       directory: addressConstants.JBDirectory,
       // sliceCore: addressConstants.SliceCore,
       projectOwner,
-      hardcap: isCapEth
+      hardcap: !isCapUsd
         ? ethers.utils.parseEther(String(cap))
         : BigNumber.from(10).pow(6).mul(cap),
-      target: isTargetEth
+      target: !isTargetUsd
         ? ethers.utils.parseEther(String(target))
         : BigNumber.from(10).pow(6).mul(target),
       // releaseTimelock: releaseTimelock,
@@ -35,8 +35,8 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       // tokenName,
       // tokenSymbol,
       // enforceSlicerCreation,
-      isTargetUsd: !isTargetEth,
-      isHardcapUsd: !isCapEth
+      isTargetUsd,
+      isHardcapUsd: isCapUsd
     },
     launchProjectData: {
       projectMetadata: {
@@ -44,7 +44,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
         domain: 1
       },
       data: {
-        duration: duration != 0 ? BigNumber.from(duration).mul(86400) : 0,
+        duration: deadline != 0 ? BigNumber.from(deadline).mul(86400) : 0,
         weight:
           tokenIssuance != 0
             ? BigNumber.from(10).pow(18).mul(tokenIssuance)

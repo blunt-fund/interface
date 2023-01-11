@@ -7,7 +7,7 @@ type Props = {
 
 const OwnerDisplay = ({ projectOwner }: Props) => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 text-sm">
       <div className="w-4 h-4">
         <Crown />
       </div>

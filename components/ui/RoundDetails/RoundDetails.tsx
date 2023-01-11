@@ -24,39 +24,39 @@ const RoundDetails = ({
   const {
     tokenSymbol,
     tokenIssuance,
-    duration,
+    deadline,
     target,
     cap,
-    isTargetEth,
-    isCapEth
+    isTargetUsd,
+    isCapUsd
   } = roundData
 
-  const currency = (isEth: boolean) => (isEth ? "ETH" : "USD")
-  const targetEth = useNormalizeCurrency(target, isTargetEth)
-  const capEth = useNormalizeCurrency(cap, isCapEth)
+  const currency = (isUsd: boolean) => (isUsd ? "USD" : "ETH")
+  const targetEth = useNormalizeCurrency(target, !isTargetUsd)
+  const capEth = useNormalizeCurrency(cap, !isCapUsd)
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
   const raisedUsd = raised != 0 ? normalizedRaisedUsd || undefined : 0
-  const deadline = timestamp + duration - now
-  const formattedDeadlineUnits =
-    deadline / 86400 > 1
+  const timeLeft = typeof deadline == "number" ? deadline - now : undefined
+  const formattedTimeLeftUnits =
+    timeLeft && timeLeft / 86400 > 1
       ? "days"
-      : deadline / 3600 > 1
+      : timeLeft / 3600 > 1
       ? "hours"
-      : deadline / 60 > 1
+      : timeLeft / 60 > 1
       ? "minutes"
       : "seconds"
-  const formattedDeadline =
-    deadline &&
+  const formattedTimeLeft =
+    timeLeft &&
     Math.floor(
-      formattedDeadlineUnits == "days"
-        ? deadline / 86400
-        : formattedDeadlineUnits == "hours"
-        ? deadline / 3600
-        : formattedDeadlineUnits == "minutes"
-        ? deadline / 60
-        : deadline
+      formattedTimeLeftUnits == "days"
+        ? timeLeft / 86400
+        : formattedTimeLeftUnits == "hours"
+        ? timeLeft / 3600
+        : formattedTimeLeftUnits == "minutes"
+        ? timeLeft / 60
+        : timeLeft
     )
-  const active = (duration == 0 || deadline > 0) && !isRoundClosed
+  const active = (deadline == 0 || timeLeft > 0) && !isRoundClosed
 
   return (
     <div className="mt-8 text-xs xs:text-sm">
@@ -84,25 +84,25 @@ const RoundDetails = ({
                   : "text-green-600 nightwind prevent"
               }
             >
-              {formatNumber(isCapEth ? raised : raisedUsd, 1)}
+              {formatNumber(!isCapUsd ? raised : raisedUsd, 1)}
             </span>{" "}
             {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
-            {currency(isCapEth || !cap)}
+            {currency(isCapUsd || !cap)}
           </b>
         </p>
         <p>
           Deadline:{" "}
           <b
             className={
-              deadline > 0 && deadline < 259200 ? "text-yellow-500" : ""
+              timeLeft > 0 && timeLeft < 259200 ? "text-yellow-500" : ""
             }
           >
-            {duration
-              ? deadline != undefined
-                ? deadline > 0
-                  ? `${formattedDeadline} ${formattedDeadlineUnits}`
+            {deadline && deadline != 0
+              ? timeLeft
+                ? timeLeft > 0
+                  ? `${formattedTimeLeft} ${formattedTimeLeftUnits}`
                   : "passed"
-                : `${duration} days`
+                : `${deadline} days`
               : "none"}
           </b>
         </p>
@@ -114,7 +114,7 @@ const RoundDetails = ({
               Target:{" "}
               <b>
                 <span className="text-blue-600">{formatNumber(target, 1)}</span>{" "}
-                {currency(isTargetEth)}
+                {currency(isTargetUsd)}
               </b>
             </>
           )}

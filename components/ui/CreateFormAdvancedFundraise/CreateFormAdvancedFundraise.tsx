@@ -17,14 +17,14 @@ const CreateFormAdvancedFundraise = ({
   targetError,
   riskMargin
 }: Props) => {
-  const { duration, target, cap, isTargetEth, isCapEth, projectOwner } =
+  const { deadline, target, cap, isTargetUsd, isCapUsd, projectOwner } =
     roundData
 
   const [address, setAddress] = useState("")
   const [resolvedAddress, setResolvedAddress] = useState("")
 
-  const handleSetDuration = (value: number) => {
-    handleSetObject("duration", value, roundData, setRoundData)
+  const handleSetDeadline = (value: number) => {
+    handleSetObject("deadline", value, roundData, setRoundData)
   }
   const handleSetTarget = (value: number) => {
     handleSetObject("target", value, roundData, setRoundData)
@@ -53,42 +53,51 @@ const CreateFormAdvancedFundraise = ({
   }, [resolvedAddress])
 
   return (
-    <div className="py-3 space-y-6">
-      <p>
+    <div className="py-3 space-y-8">
+      {/* <p>
         Blunt rounds are unlimited in duration, uncapped and without target by
         default.
-      </p>
+      </p> */}
       <div>
         <Input
           type="number"
-          label="Fundraise duration (days)"
+          label="Round duration (days)"
           min={0}
-          value={duration || ""}
-          onChange={handleSetDuration}
+          value={deadline || ""}
+          onChange={handleSetDeadline}
           placeholder="Leave blank for unlimited"
-          question={<p>Leave blank to set unlimited duration.</p>}
+          question={
+            <>
+              <p>The period of time in which contributions are accepted.</p>
+              <p>Leave blank to set unlimited duration.</p>
+            </>
+          }
         />
       </div>
       <div>
         <Input
           type="number"
-          label="Target"
+          label="Fundraise target"
           error={targetError}
-          prefix={isTargetEth ? "Ξ" : "$"}
-          prefixAction={() => handleSetUsd("isTargetEth", !isTargetEth)}
+          prefix={isTargetUsd ? "$" : "Ξ"}
+          prefixAction={() => handleSetUsd("isTargetUsd", !isTargetUsd)}
           min={0}
-          step={isTargetEth ? 0.1 : 1}
+          step={isTargetUsd ? 1 : 0.1}
           value={target || ""}
           onChange={handleSetTarget}
           placeholder="Leave blank to disable"
-          helptext={`Minimum ${isTargetEth ? "ETH" : "USD"} to raise`}
+          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise`}
           question={
             <>
               <p>
-                If the target is not reached in time, the round will close and
-                all contributions can be fully refunded.
+                If the target is not reached before the deadline, the round will
+                close and all contributions can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
+              <p className="text-yellow-600">
+                Hint: Toggle between ETH and USD by clicking on the currency
+                icon
+              </p>
             </>
           }
         />
@@ -98,22 +107,26 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Hard cap"
           error={targetError}
-          prefix={isCapEth ? "Ξ" : "$"}
-          prefixAction={() => handleSetUsd("isCapEth", !isCapEth)}
+          prefix={isCapUsd ? "$" : "Ξ"}
+          prefixAction={() => handleSetUsd("isCapUsd", !isCapUsd)}
           min={0}
-          step={isCapEth ? 0.1 : 1}
+          step={isCapUsd ? 1 : 0.1}
           value={cap || ""}
           onChange={handleSetCap}
           placeholder="Leave blank to disable"
-          helptext={`Maximum ${isCapEth ? "ETH" : "USD"} to raise`}
+          helptext={`Maximum ${isCapUsd ? "USD" : "ETH"} to raise`}
           question={
             <>
               <p>Contributions will be rejected once the cap is reached.</p>
-              <p>
+              {/* <p>
                 If a slicer is to be created, it limits ownership dilution among
                 round participants.
-              </p>
+              </p> */}
               <p>Leave blank to disable.</p>
+              <p className="text-yellow-600">
+                Hint: Toggle between ETH and USD by clicking on the currency
+                icon
+              </p>
             </>
           }
         />
@@ -121,10 +134,9 @@ const CreateFormAdvancedFundraise = ({
       {targetError && (
         <NoteText error text="Target cannot be higher than cap" />
       )}
-      <NoteText text="Hint: Click on the currency icon to toggle between ETH and USD" />
       {cap != 0 &&
         !targetError &&
-        isTargetEth != isCapEth &&
+        isTargetUsd != isCapUsd &&
         riskMargin > 0.5 && (
           <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
         )}

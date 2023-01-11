@@ -3,9 +3,9 @@ import {
   CollapsibleItem,
   CreateFormAdvancedERC20,
   CreateFormAdvancedFundraise,
-  CreateFormAdvancedLock,
+  // CreateFormAdvancedLock,
   CreateFormAdvancedLinks,
-  CreateFormAdvancedReservedRate,
+  // CreateFormAdvancedReservedRate,
   CreateFormGeneral,
   ReservedTable
 } from "@components/ui"
@@ -20,7 +20,6 @@ import web3Storage from "lib/web3Storage"
 import React, { useEffect, useState } from "react"
 import { useSigner } from "wagmi"
 import { useAppContext } from "../context"
-import { ImageType } from "../CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 import bluntDeployer from "abi/BluntDelegateProjectDeployer.json"
 import { ContractReceipt, ethers } from "ethers"
 import formatDeployData from "@utils/formatDeployData"
@@ -36,18 +35,18 @@ const CreateRoundForm = () => {
   const initRoundData = {
     name: "",
     description: "",
-    duration: 0,
+    deadline: 0,
     target: 0,
     cap: 0,
-    isTargetEth: true,
-    isCapEth: true,
-    isSlicerToBeCreated: true,
+    isTargetUsd: true,
+    isCapUsd: true,
+    isSlicerToBeCreated: true, // Unused
     projectOwner: account || "",
-    transferTimelock: 0,
-    releaseTimelock: 0,
-    roundTimelock: 0,
-    tokenName: "",
-    tokenSymbol: "",
+    transferTimelock: 0, // Unused
+    releaseTimelock: 0, // Unused
+    roundTimelock: 0, // Unused
+    tokenName: "", // Unused
+    tokenSymbol: "", // Unused
     tokenIssuance: 1000000,
     image: {
       url: "",
@@ -57,8 +56,8 @@ const CreateRoundForm = () => {
     twitter: "",
     discord: "",
     docs: "",
-    addresses: [ethers.constants.AddressZero],
-    shares: [10],
+    addresses: [], // [ethers.constants.AddressZero],
+    shares: [], // [10],
     metadata: ""
   }
 
@@ -68,12 +67,12 @@ const CreateRoundForm = () => {
   const {
     target,
     cap,
-    isTargetEth,
-    isCapEth,
-    duration,
-    transferTimelock,
-    releaseTimelock,
-    roundTimelock,
+    isTargetUsd,
+    isCapUsd,
+    // deadline,
+    // transferTimelock,
+    // releaseTimelock,
+    // roundTimelock,
     shares,
     projectOwner
   } = roundData
@@ -83,29 +82,28 @@ const CreateRoundForm = () => {
     : 0
   const reservedError = totalShares > 100
 
-  const normalizedTarget = useNormalizeCurrency(target, isTargetEth)
-  const normalizedCap = useNormalizeCurrency(cap, isCapEth)
+  const normalizedTarget = useNormalizeCurrency(target, !isTargetUsd)
+  const normalizedCap = useNormalizeCurrency(cap, !isCapUsd)
   const riskMargin = normalizedTarget / normalizedCap
   const targetError = cap != 0 && normalizedTarget >= normalizedCap
 
-  // TODO: Fix this timestamp mess
-  const now = new Date()
-  let transferLockDate = transferTimelock != 0 ? new Date() : new Date(0)
-  let releaseLockDate = releaseTimelock != 0 ? new Date() : new Date(0)
-  let roundLockDate = roundTimelock != 0 ? new Date() : new Date(0)
+  // const now = new Date()
+  // let transferLockDate = transferTimelock != 0 ? new Date() : new Date(0)
+  // let releaseLockDate = releaseTimelock != 0 ? new Date() : new Date(0)
+  // let roundLockDate = roundTimelock != 0 ? new Date() : new Date(0)
 
-  transferLockDate.setDate(
-    now.getDate() + Number(transferTimelock) + Number(duration)
-  )
-  releaseLockDate.setDate(
-    now.getDate() + Number(releaseTimelock) + Number(duration)
-  )
-  roundLockDate.setDate(
-    now.getDate() + Number(roundTimelock) + Number(duration)
-  )
-  const transferTimestamp = transferLockDate.getTime()
-  const releaseTimestamp = releaseLockDate.getTime()
-  const roundTimestamp = roundLockDate.getTime()
+  // transferLockDate.setDate(
+  //   now.getDate() + Number(transferTimelock) + Number(deadline)
+  // )
+  // releaseLockDate.setDate(
+  //   now.getDate() + Number(releaseTimelock) + Number(deadline)
+  // )
+  // roundLockDate.setDate(
+  //   now.getDate() + Number(roundTimelock) + Number(deadline)
+  // )
+  // const transferTimestamp = transferLockDate.getTime()
+  // const releaseTimestamp = releaseLockDate.getTime()
+  // const roundTimestamp = roundLockDate.getTime()
 
   const addRecentTransaction = useAddRecentTransaction()
   const { data: signer } = useSigner()
@@ -215,9 +213,9 @@ const CreateRoundForm = () => {
           descriptionHtml,
           totalShares,
           createRound,
-          transferTimestamp,
-          releaseTimestamp,
-          roundTimestamp,
+          // transferTimestamp,
+          // releaseTimestamp,
+          // roundTimestamp,
           projectOwner
         }
       })
@@ -233,7 +231,7 @@ const CreateRoundForm = () => {
           params: {
             uploadStep,
             roundId,
-            toQueue: Number(roundData.duration) != 0
+            toQueue: Number(roundData.deadline) != 0
           }
         }
       })
@@ -243,22 +241,25 @@ const CreateRoundForm = () => {
   return (
     <form className="space-y-8 text-left" onSubmit={submit}>
       <CreateFormGeneral roundData={roundData} setRoundData={setRoundData} />
+      <CreateFormAdvancedFundraise
+        roundData={roundData}
+        setRoundData={setRoundData}
+        targetError={targetError}
+        riskMargin={riskMargin}
+      />
       <p className="pt-4 font-bold">Advanced settings</p>
-      <ul className="space-y-6">
+      <ul className="space-y-8">
         <CollapsibleItem
-          label="Fundraise parameters"
-          error={targetError}
+          label="Project logo and links"
           detail={
-            <CreateFormAdvancedFundraise
+            <CreateFormAdvancedLinks
               roundData={roundData}
               setRoundData={setRoundData}
-              targetError={targetError}
-              riskMargin={riskMargin}
             />
           }
         />
         <CollapsibleItem
-          label="ERC20 token issuance"
+          label="Token issuance"
           detail={
             <CreateFormAdvancedERC20
               roundData={roundData}
@@ -266,6 +267,18 @@ const CreateRoundForm = () => {
             />
           }
         />
+        {/* <CollapsibleItem
+          label="Reserved rate"
+          error={reservedError}
+          detail={
+            <CreateFormAdvancedReservedRate
+              roundData={roundData}
+              setRoundData={setRoundData}
+              totalShares={totalShares}
+              projectOwner={projectOwner}
+            />
+          }
+        /> */}
         {/* 
         <CollapsibleItem
           label="Vesting and locks"
@@ -280,37 +293,16 @@ const CreateRoundForm = () => {
             />
           }
         /> */}
-        <CollapsibleItem
-          label="Project logo and links"
-          detail={
-            <CreateFormAdvancedLinks
-              roundData={roundData}
-              setRoundData={setRoundData}
-            />
-          }
-        />
-        <CollapsibleItem
-          label="Reserved rate"
-          error={reservedError}
-          detail={
-            <CreateFormAdvancedReservedRate
-              roundData={roundData}
-              setRoundData={setRoundData}
-              totalShares={totalShares}
-              projectOwner={projectOwner}
-            />
-          }
-        />
       </ul>
 
-      <div className="py-8">
+      {/* <div className="py-8">
         <p className="pb-6 text-base font-bold text-left">
           Token emission after round (preview)
         </p>
         <div className="pb-6">
           <ReservedTable reservedPool={totalShares} reservedStake={shares[0]} />
         </div>
-      </div>
+      </div> */}
 
       <div className="text-center">
         <Button label="Review" type="submit" />

@@ -6,11 +6,11 @@ export type RoundData = {
   name: string
   description: string
   projectOwner: string
-  duration: number
+  deadline: number
   target: number
   cap: number
-  isTargetEth: boolean
-  isCapEth: boolean
+  isTargetUsd: boolean
+  isCapUsd: boolean
   isSlicerToBeCreated: boolean
   tokenSymbol: string
   tokenIssuance: number

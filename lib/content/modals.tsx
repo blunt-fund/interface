@@ -105,7 +105,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 pt-12 pb-8 mx-auto">
           <LoadingStep
             initCondition={uploadStep < 2}
@@ -157,9 +157,9 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     descriptionHtml,
     totalShares,
     createRound,
-    transferTimestamp,
-    releaseTimestamp,
-    roundTimestamp,
+    // transferTimestamp,
+    // releaseTimestamp,
+    // roundTimestamp,
     projectOwner
   } = params
   const { shares } = roundData
@@ -168,7 +168,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-8">
-        <p>Proceeding will create a Juicebox project and a slicer.</p>
+        <p>Proceeding will create a round with the settings below.</p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
           roundData={roundData}
@@ -182,7 +182,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
           roundTimestamp={roundTimestamp}
         /> */}
 
-        <EmissionPreview shares={shares} totalShares={totalShares} />
+        {/* <EmissionPreview shares={shares} totalShares={totalShares} /> */}
 
         <div className="flex justify-center w-full">
           <OwnerDisplay projectOwner={projectOwner} />

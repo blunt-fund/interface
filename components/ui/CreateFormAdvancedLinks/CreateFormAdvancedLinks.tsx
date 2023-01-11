@@ -60,7 +60,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
   }
 
   return (
-    <div className="py-3 space-y-6">
+    <div className="py-3 space-y-8">
       <p>Add a logo, website and social links to your project</p>
 
       <div>

@@ -46,7 +46,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
           required
         />
       </div>
-      <div className="pb-6">
+      {/* <div className="pb-6">
         <Input
           type="range"
           label={
@@ -86,7 +86,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
           }
           alignRight
         />
-      )}
+      )} */}
     </>
   )
 }
