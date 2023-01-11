@@ -75,20 +75,20 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           accountContributions={accountContributions}
           bluntDelegate={bluntDelegate}
         />
-      </TimeWrapper>
 
-      {!isRoundClosed && (
-        <>
-          {showOwnerBlock && (
-            <OwnerBlock
-              projectId={Number(id)}
-              bluntDelegate={bluntDelegate}
-              totalContributions={totalContributions}
-              round={round}
-            />
-          )}
-        </>
-      )}
+        {!isRoundClosed && (
+          <>
+            {showOwnerBlock && (
+              <OwnerBlock
+                projectId={Number(id)}
+                bluntDelegate={bluntDelegate}
+                totalContributions={totalContributions}
+                round={round}
+              />
+            )}
+          </>
+        )}
+      </TimeWrapper>
 
       {/* <EmissionPreview shares={round?.shares} totalShares={totalShares} /> */}
 

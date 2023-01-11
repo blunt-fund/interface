@@ -7,6 +7,7 @@ import { useState } from "react"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import { ethers } from "ethers"
+import { useTimeContext } from "../context"
 
 type Props = {
   projectId: number
@@ -21,10 +22,13 @@ const OwnerBlock = ({
   bluntDelegate,
   round
 }: Props) => {
+  const { now } = useTimeContext()
   const [loading, setLoading] = useState(false)
 
   const targetEth = useNormalizeCurrency(round.target, !round.isTargetUsd)
   const isTargetReached = totalContributions > targetEth
+  const isDeadlinepassed =
+    Number(round.deadline) != 0 && Number(round.deadline) - now < 0
   // const isTokenRequiredAndUnset =
   //   round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
 
@@ -87,7 +91,10 @@ const OwnerBlock = ({
                 : null
             }
             loading={loading}
-            disabled={isTargetReached /* && isTokenRequiredAndUnset */}
+            disabled={
+              isTargetReached &&
+              !isDeadlinepassed /* && isTokenRequiredAndUnset */
+            }
             onClick={async () =>
               await executeTransaction(
                 writeAsync,
