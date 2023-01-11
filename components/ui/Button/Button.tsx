@@ -29,9 +29,10 @@ const Button: FC<ButtonProps> = (props) => {
   } = props
 
   const className =
-    customClassName || secondary
+    customClassName ||
+    (secondary
       ? "px-5 overflow-hidden text-sm font-bold tracking-wide rounded-sm"
-      : "overflow-hidden font-bold tracking-wide rounded-sm"
+      : "overflow-hidden font-bold tracking-wide rounded-sm")
   const color = !disabled
     ? customColor
       ? customColor

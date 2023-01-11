@@ -58,33 +58,10 @@ const OwnerBlock = ({
           round={round}
         /> */}
 
-        <div className="relative flex items-center gap-3 pt-8 pb-6 text-left">
-          <div className="flex items-center text-sm xs:text-base">
-            <p className="">Wind up round</p>
-            <Question
-              position="bottom-0 left-[-24px]"
-              text={
-                <>
-                  <p>Closing a round successfully will result in:</p>
-                  <ul>
-                    <li>
-                      Consolidation of the amount raised, preventing further
-                      payments or redemptions
-                    </li>
-                    <li>
-                      Ownership transfer of the JB project to your address
-                    </li>
-                    {/* <li>
-                      Round participants being able to claim ownership of the
-                      slicer related to the blunt round
-                    </li> */}
-                  </ul>
-                </>
-              }
-            />
-          </div>
+        <div className="relative flex items-center justify-center gap-3 pt-8 pb-6 text-left">
           <Button
-            label={isTargetReached ? "Finalize" : "Close"}
+            label={isTargetReached ? "Finalize round" : "Close round"}
+            customClassName="overflow-hidden font-bold tracking-wide rounded-sm min-w-[260px]"
             customColor={
               !isTargetReached
                 ? "text-white bg-red-500 hover:bg-red-600 focus:bg-red-600"
@@ -108,14 +85,27 @@ const OwnerBlock = ({
           />
         </div>
 
-        <div className="text-left">
+        <div className="prose-sm prose text-left">
+          <p>Closing a round successfully will result in:</p>
+          <ul>
+            <li>
+              Consolidation of the amount raised, preventing further payments or
+              redemptions
+            </li>
+            <li>Ownership transfer of the JB project to your address</li>
+            {/* <li>
+              Round participants being able to claim ownership of the
+              slicer related to the blunt round
+            </li> */}
+          </ul>
           {
             !isTargetReached ? (
               <NoteText
                 error
                 text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
               />
-            ) : null // (
+            ) : null
+            // (
             //   isTokenRequiredAndUnset && (
             //     <NoteText text="Set token name and symbol to finalize round" />
             //   )

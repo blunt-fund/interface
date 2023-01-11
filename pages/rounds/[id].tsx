@@ -32,15 +32,17 @@ export default function Round({ subgraphData, projectData }) {
     contracts: [
       {
         address:
-          subgraphData?.configureEvents[subgraphData.configureEvents.length - 1]
-            .dataSource,
+          subgraphData?.configureEvents[
+            subgraphData?.configureEvents.length - 1
+          ].dataSource,
         abi: bluntDelegate.abi,
         functionName: "getRoundInfo"
       },
       {
         address:
-          subgraphData?.configureEvents[subgraphData.configureEvents.length - 1]
-            .dataSource,
+          subgraphData?.configureEvents[
+            subgraphData?.configureEvents.length - 1
+          ].dataSource,
         abi: bluntDelegate.abi,
         functionName: "contributions",
         args: [account || ethers.constants.AddressZero]
