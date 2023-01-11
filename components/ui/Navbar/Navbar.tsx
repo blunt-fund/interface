@@ -31,13 +31,11 @@ const Navbar = () => {
       <Container>
         <nav className="relative px-3 sm:px-6 h-[4.25rem] items-center mx-auto flex justify-between">
           <div className="flex items-center space-x-5 sm:space-x-10">
-            <Link href="/">
-              <a className="w-7 h-7" aria-label="Blunt Finance logo">
-                <Logo />
-              </a>
+            <Link href="/" className="w-7 h-7" aria-label="Blunt Finance logo">
+              <Logo />
             </Link>
-            <Link href="/rounds">
-              <a className="text-sm">Explore</a>
+            <Link href="/rounds" className="text-sm">
+              Explore
             </Link>
           </div>
 

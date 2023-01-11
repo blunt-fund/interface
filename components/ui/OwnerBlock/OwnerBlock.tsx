@@ -7,6 +7,7 @@ import { useState } from "react"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import { ethers } from "ethers"
+import { useTimeContext } from "../context"
 
 type Props = {
   projectId: number
@@ -21,10 +22,13 @@ const OwnerBlock = ({
   bluntDelegate,
   round
 }: Props) => {
+  const { now } = useTimeContext()
   const [loading, setLoading] = useState(false)
 
   const targetEth = useNormalizeCurrency(round.target, !round.isTargetUsd)
   const isTargetReached = totalContributions > targetEth
+  const isDeadlinepassed =
+    Number(round.deadline) != 0 && Number(round.deadline) - now < 0
   // const isTokenRequiredAndUnset =
   //   round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
 
@@ -54,40 +58,20 @@ const OwnerBlock = ({
           round={round}
         /> */}
 
-        <div className="relative flex items-center gap-3 pt-8 pb-6 text-left">
-          <div className="flex items-center text-sm xs:text-base">
-            <p className="">Wind up round</p>
-            <Question
-              position="bottom-0 left-[-24px]"
-              text={
-                <>
-                  <p>Closing a round successfully will result in:</p>
-                  <ul>
-                    <li>
-                      Consolidation of the amount raised, preventing further
-                      payments or redemptions
-                    </li>
-                    <li>
-                      Ownership transfer of the JB project to your address
-                    </li>
-                    {/* <li>
-                      Round participants being able to claim ownership of the
-                      slicer related to the blunt round
-                    </li> */}
-                  </ul>
-                </>
-              }
-            />
-          </div>
+        <div className="relative flex items-center justify-center gap-3 pt-8 pb-6 text-left">
           <Button
-            label={isTargetReached ? "Finalize" : "Close"}
+            label={isTargetReached ? "Finalize round" : "Close round"}
+            customClassName="overflow-hidden font-bold tracking-wide rounded-sm min-w-[260px]"
             customColor={
               !isTargetReached
                 ? "text-white bg-red-500 hover:bg-red-600 focus:bg-red-600"
                 : null
             }
             loading={loading}
-            disabled={isTargetReached /* && isTokenRequiredAndUnset */}
+            disabled={
+              isTargetReached &&
+              !isDeadlinepassed /* && isTokenRequiredAndUnset */
+            }
             onClick={async () =>
               await executeTransaction(
                 writeAsync,
@@ -101,14 +85,27 @@ const OwnerBlock = ({
           />
         </div>
 
-        <div className="text-left">
+        <div className="prose-sm prose text-left">
+          <p>Closing a round successfully will result in:</p>
+          <ul>
+            <li>
+              Consolidation of the amount raised, preventing further payments or
+              redemptions
+            </li>
+            <li>Ownership transfer of the JB project to your address</li>
+            {/* <li>
+              Round participants being able to claim ownership of the
+              slicer related to the blunt round
+            </li> */}
+          </ul>
           {
             !isTargetReached ? (
               <NoteText
                 error
                 text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
               />
-            ) : null // (
+            ) : null
+            // (
             //   isTokenRequiredAndUnset && (
             //     <NoteText text="Set token name and symbol to finalize round" />
             //   )

@@ -248,7 +248,7 @@ const CreateRoundForm = () => {
         riskMargin={riskMargin}
       />
       <p className="pt-4 font-bold">Advanced settings</p>
-      <ul className="space-y-8">
+      <ul className="pb-6 space-y-8">
         <CollapsibleItem
           label="Project logo and links"
           detail={
