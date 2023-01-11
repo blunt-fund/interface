@@ -32,12 +32,13 @@ const PayButton = ({
   const addRecentTransaction = useAddRecentTransaction()
   const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
 
+  const normalizedCap = useNormalizeCurrency(round.cap, !round.isHardcapUsd)
   const defaultPaymentUsd =
     Math.floor(useNormalizeCurrency(1000, isPaymentEth) * 100) / 100
   const defaultMaxPaymentUsd =
     Math.floor(
       useNormalizeCurrency(
-        round.cap - totalContributions,
+        normalizedCap - totalContributions,
         !isPaymentEth,
         false
       ) * 100
@@ -83,7 +84,7 @@ const PayButton = ({
         onChange={setPayment}
         placeholder={
           round.cap != 0
-            ? `Pay up to ${
+            ? `Up to ${
                 isPaymentEth
                   ? defaultMaxPaymentUsd
                   : Math.round(defaultMaxPaymentUsd)
@@ -129,7 +130,7 @@ const PayButton = ({
                   )} 
                 ${round.tokenSymbol || "tokens"} `}
               </span>
-              {isPaymentEth ? "/ ETH" : "/ USD"}
+              {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
             </p>
           )
         ) : (

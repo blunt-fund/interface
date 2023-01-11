@@ -17,7 +17,7 @@ const CreateFormAdvancedFundraise = ({
   targetError,
   riskMargin
 }: Props) => {
-  const { deadline, target, cap, isTargetUsd, isCapUsd, projectOwner } =
+  const { deadline, target, cap, isTargetUsd, isHardcapUsd, projectOwner } =
     roundData
 
   const [address, setAddress] = useState("")
@@ -63,7 +63,7 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Round duration (days)"
           min={0}
-          value={deadline || ""}
+          value={Number(deadline) || ""}
           onChange={handleSetDeadline}
           placeholder="Leave blank for unlimited"
           question={
@@ -107,14 +107,14 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Hard cap"
           error={targetError}
-          prefix={isCapUsd ? "$" : "Ξ"}
-          prefixAction={() => handleSetUsd("isCapUsd", !isCapUsd)}
+          prefix={isHardcapUsd ? "$" : "Ξ"}
+          prefixAction={() => handleSetUsd("isHardcapUsd", !isHardcapUsd)}
           min={0}
-          step={isCapUsd ? 1 : 0.1}
+          step={isHardcapUsd ? 1 : 0.1}
           value={cap || ""}
           onChange={handleSetCap}
           placeholder="Leave blank to disable"
-          helptext={`Maximum ${isCapUsd ? "USD" : "ETH"} to raise`}
+          helptext={`Maximum ${isHardcapUsd ? "USD" : "ETH"} to raise`}
           question={
             <>
               <p>Contributions will be rejected once the cap is reached.</p>
@@ -136,7 +136,7 @@ const CreateFormAdvancedFundraise = ({
       )}
       {cap != 0 &&
         !targetError &&
-        isTargetUsd != isCapUsd &&
+        isTargetUsd != isHardcapUsd &&
         riskMargin > 0.5 && (
           <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
         )}

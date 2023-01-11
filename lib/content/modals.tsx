@@ -270,7 +270,7 @@ export const REDEEM_VIEW = (params: any) => {
             ))
           }
         />
-        <p className="pt-6 text-sm">
+        {/* <p className="pt-6 text-sm">
           Remaining slices:{" "}
           <b>
             {formatNumber(
@@ -283,7 +283,7 @@ export const REDEEM_VIEW = (params: any) => {
               (totalContributions - redeemAmount) || 1) * 1e4
           ) / 100}
           % of round allocation)
-        </p>
+        </p> */}
       </div>
     </div>
   )

@@ -9,7 +9,6 @@ type Props = {
   round: RoundData
   totalContributions: number
   isRoundClosed: boolean
-  timestamp?: number
   accountContributions: BigNumber
   bluntDelegate: string
 }
@@ -18,7 +17,6 @@ const RoundMainSection = ({
   round,
   totalContributions,
   isRoundClosed,
-  timestamp,
   accountContributions,
   bluntDelegate
 }: Props) => {
@@ -27,7 +25,7 @@ const RoundMainSection = ({
   const { id } = router.query
 
   const isDeadlinepassed =
-    round.duration != 0 && timestamp + round.duration - now < 0
+    Number(round.deadline) != 0 && Number(round.deadline) - now < 0
 
   const [accountHasContributed, setAccountHasContributed] = useState(false)
   useEffect(() => {
@@ -52,16 +50,17 @@ const RoundMainSection = ({
             projectId={Number(id)}
             accountContributions={accountContributions}
           />
-        ) : round.isSlicerToBeCreated && !isRoundClosed ? (
-          <p className="text-sm font-bold text-yellow-600">
-            Wait for the project owner to close the round to claim your slices
-          </p>
-        ) : (
-          <ClaimSlicesButton
-            projectId={Number(id)}
-            bluntDelegate={bluntDelegate}
-          />
-        ))
+        ) : null)
+        //  round.isSlicerToBeCreated && !isRoundClosed ? (
+        //   <p className="text-sm font-bold text-yellow-600">
+        //     Wait for the project owner to close the round to claim your slices
+        //   </p>
+        // ) : (
+        //   <ClaimSlicesButton
+        //     projectId={Number(id)}
+        //     bluntDelegate={bluntDelegate}
+        //   />
+        // )
       )}
 
       {isDeadlinepassed ||

@@ -48,7 +48,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
 
   if (onlySuccess) {
     filteredClosedRounds = filteredClosedRounds.filter((el) => {
-      const targetEth = el.round.isTargetEth
+      const targetEth = !el.round.isTargetUsd
         ? el.round.target
         : el.round.target / Number(ethUsd)
       return el.totalContributions > targetEth
@@ -64,22 +64,19 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
   ) : (
     <>
       <div className="space-y-20">
-        {filteredActiveRounds?.map(
-          ({ round, timestamp, totalContributions, roundId }) => {
-            return (
-              <div key={roundId}>
-                <RoundViewMain
-                  roundData={round}
-                  raised={totalContributions}
-                  roundId={roundId}
-                  timestamp={timestamp}
-                  smallTitle
-                  isRoundClosed={false}
-                />
-              </div>
-            )
-          }
-        )}
+        {filteredActiveRounds?.map(({ round, totalContributions, roundId }) => {
+          return (
+            <div key={roundId}>
+              <RoundViewMain
+                roundData={round}
+                raised={totalContributions}
+                roundId={roundId}
+                smallTitle
+                isRoundClosed={false}
+              />
+            </div>
+          )
+        })}
       </div>
       {filteredClosedRounds.length != 0 && (
         <>
@@ -94,14 +91,13 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
           </div>
           <div className="space-y-20">
             {filteredClosedRounds?.map(
-              ({ round, timestamp, totalContributions, roundId }) => {
+              ({ round, totalContributions, roundId }) => {
                 return (
                   <div key={roundId}>
                     <RoundViewMain
                       roundData={round}
                       raised={totalContributions}
                       roundId={roundId}
-                      timestamp={timestamp}
                       smallTitle
                       isRoundClosed={true}
                     />

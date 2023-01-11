@@ -13,7 +13,6 @@ type Props = {
   isRoundClosed: boolean
   raised?: number
   roundId?: number | string
-  timestamp?: number
   issuance?: boolean
   smallTitle?: boolean
   showLinks?: boolean
@@ -25,7 +24,6 @@ const RoundViewMain = ({
   isRoundClosed,
   raised = 0,
   roundId,
-  timestamp,
   issuance = true,
   smallTitle = false,
   showLinks = false
@@ -129,7 +127,6 @@ const RoundViewMain = ({
               <RoundDetails
                 roundData={roundData}
                 raised={raised}
-                timestamp={timestamp}
                 issuance={issuance}
                 isRoundClosed={isRoundClosed}
               />

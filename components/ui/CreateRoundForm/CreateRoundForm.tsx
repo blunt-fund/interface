@@ -35,11 +35,11 @@ const CreateRoundForm = () => {
   const initRoundData = {
     name: "",
     description: "",
-    deadline: 0,
+    deadline: undefined,
     target: 0,
     cap: 0,
     isTargetUsd: true,
-    isCapUsd: true,
+    isHardcapUsd: true,
     isSlicerToBeCreated: true, // Unused
     projectOwner: account || "",
     transferTimelock: 0, // Unused
@@ -68,7 +68,7 @@ const CreateRoundForm = () => {
     target,
     cap,
     isTargetUsd,
-    isCapUsd,
+    isHardcapUsd,
     // deadline,
     // transferTimelock,
     // releaseTimelock,
@@ -83,7 +83,7 @@ const CreateRoundForm = () => {
   const reservedError = totalShares > 100
 
   const normalizedTarget = useNormalizeCurrency(target, !isTargetUsd)
-  const normalizedCap = useNormalizeCurrency(cap, !isCapUsd)
+  const normalizedCap = useNormalizeCurrency(cap, !isHardcapUsd)
   const riskMargin = normalizedTarget / normalizedCap
   const targetError = cap != 0 && normalizedTarget >= normalizedCap
 

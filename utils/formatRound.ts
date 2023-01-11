@@ -17,7 +17,8 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     transferTimelock,
     fundingCycleRound,
     isTargetUsd,
-    isCapUsd,
+    deadline,
+    isHardcapUsd,
     isSlicerToBeCreated,
     isQueued
   } = roundInfo
@@ -31,12 +32,10 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     docs
   } = metadata
 
-  const isTargetEth = !isTargetUsd
-  const isCapEth = !isCapUsd
   const target = isTargetUsd
     ? Number(ethers.utils.formatUnits(unformattedTarget, 6))
     : Number(ethers.utils.formatUnits(unformattedTarget, 14))
-  const cap = isCapUsd
+  const cap = isHardcapUsd
     ? Number(ethers.utils.formatUnits(Number(unformattedCap), 6))
     : Number(ethers.utils.formatUnits(unformattedCap, 14))
 
@@ -60,9 +59,6 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     ? Number(afterRoundSplits[0].lockedUntil)
     : 0
 
-  const timestamp = project.configureEvents[0].timestamp // TODO: Figure out how to calculate this without using timestamp
-  const duration = project.configureEvents[0].duration
-
   const formatCurrency = (isEth: boolean, value: number) =>
     isEth ? value / 1e4 : value / 1e2
 
@@ -70,11 +66,11 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     name,
     description,
     projectOwner,
-    duration,
-    target: formatCurrency(isTargetEth, target),
-    cap: formatCurrency(isCapEth, cap),
-    isTargetEth,
-    isCapEth,
+    deadline,
+    target: formatCurrency(!isTargetUsd, target),
+    cap: formatCurrency(!isHardcapUsd, cap),
+    isTargetUsd,
+    isHardcapUsd,
     isSlicerToBeCreated,
     tokenName,
     tokenSymbol,
@@ -100,8 +96,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
 
   return {
     round,
-    timestamp,
-    duration,
+    deadline,
     totalContributions: Number(
       ethers.utils.formatUnits(totalContributions, 18)
     ),

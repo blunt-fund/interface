@@ -29,7 +29,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const { id } = router.query
 
   const [roundData, accountContributions] = roundInfo
-  const { round, timestamp, totalContributions, isRoundClosed } = formatRound(
+  const { round, totalContributions, isRoundClosed } = formatRound(
     subgraphData,
     roundData,
     projectData.metadata
@@ -61,7 +61,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         roundData={round}
         descriptionHtml={descriptionHtml}
         raised={totalContributions}
-        timestamp={timestamp}
         issuance={false}
         isRoundClosed={isRoundClosed}
         showLinks
@@ -73,7 +72,6 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           round={round}
           totalContributions={totalContributions}
           isRoundClosed={isRoundClosed}
-          timestamp={timestamp}
           accountContributions={accountContributions}
           bluntDelegate={bluntDelegate}
         />
@@ -92,17 +90,17 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         </>
       )}
 
-      <EmissionPreview shares={round?.shares} totalShares={totalShares} />
+      {/* <EmissionPreview shares={round?.shares} totalShares={totalShares} /> */}
 
-      <div className="flex justify-center w-full pb-4 text-sm">
+      <div className="flex justify-center w-full pb-4">
         <OwnerDisplay projectOwner={round.projectOwner} />
       </div>
 
-      <Locks
+      {/* <Locks
         transferTimestamp={formatTimestamp(round.transferTimelock)}
         releaseTimestamp={formatTimestamp(round.releaseTimelock)}
         roundTimestamp={round.roundTimelock * 1000}
-      />
+      /> */}
     </>
   )
 }

@@ -23,10 +23,10 @@ const OwnerBlock = ({
 }: Props) => {
   const [loading, setLoading] = useState(false)
 
-  const targetEth = useNormalizeCurrency(round.target, round.isTargetEth)
+  const targetEth = useNormalizeCurrency(round.target, !round.isTargetUsd)
   const isTargetReached = totalContributions > targetEth
-  const isTokenRequiredAndUnset =
-    round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
+  // const isTokenRequiredAndUnset =
+  //   round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
 
   const { config, error } = usePrepareContractWrite({
     address: bluntDelegate,
@@ -44,7 +44,7 @@ const OwnerBlock = ({
   return (
     <div className="pt-6">
       <div className="w-full px-4 py-6 bg-gray-100 rounded-sm shadow-md sm:px-6">
-        <p className="w-full pb-6 text-sm font-bold text-center text-gray-600">
+        <p className="w-full pb-2 text-sm font-bold text-center text-gray-600">
           Project owner section
         </p>
 
@@ -70,10 +70,10 @@ const OwnerBlock = ({
                     <li>
                       Ownership transfer of the JB project to your address
                     </li>
-                    <li>
+                    {/* <li>
                       Round participants being able to claim ownership of the
                       slicer related to the blunt round
-                    </li>
+                    </li> */}
                   </ul>
                 </>
               }
@@ -87,7 +87,7 @@ const OwnerBlock = ({
                 : null
             }
             loading={loading}
-            disabled={isTargetReached && isTokenRequiredAndUnset}
+            disabled={isTargetReached /* && isTokenRequiredAndUnset */}
             onClick={async () =>
               await executeTransaction(
                 writeAsync,

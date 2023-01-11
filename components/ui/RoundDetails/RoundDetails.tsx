@@ -8,7 +8,6 @@ import ProgressBar from "../ProgressBar"
 type Props = {
   roundData: RoundData
   raised: number
-  timestamp: number
   issuance: boolean
   isRoundClosed: boolean
 }
@@ -16,7 +15,6 @@ type Props = {
 const RoundDetails = ({
   roundData,
   raised,
-  timestamp,
   issuance,
   isRoundClosed
 }: Props) => {
@@ -28,15 +26,17 @@ const RoundDetails = ({
     target,
     cap,
     isTargetUsd,
-    isCapUsd
+    isHardcapUsd
   } = roundData
 
   const currency = (isUsd: boolean) => (isUsd ? "USD" : "ETH")
   const targetEth = useNormalizeCurrency(target, !isTargetUsd)
-  const capEth = useNormalizeCurrency(cap, !isCapUsd)
+  const capEth = useNormalizeCurrency(cap, !isHardcapUsd)
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
-  const raisedUsd = raised != 0 ? normalizedRaisedUsd || undefined : 0
-  const timeLeft = typeof deadline == "number" ? deadline - now : undefined
+  const raisedUsd =
+    raised != 0 ? Math.floor(normalizedRaisedUsd) || undefined : 0
+  const timeLeft =
+    typeof deadline == "string" ? Number(deadline) : Number(deadline) - now
   const formattedTimeLeftUnits =
     timeLeft && timeLeft / 86400 > 1
       ? "days"
@@ -56,7 +56,7 @@ const RoundDetails = ({
         ? timeLeft / 60
         : timeLeft
     )
-  const active = (deadline == 0 || timeLeft > 0) && !isRoundClosed
+  const active = (Number(deadline) == 0 || timeLeft > 0) && !isRoundClosed
 
   return (
     <div className="mt-8 text-xs xs:text-sm">
@@ -84,10 +84,10 @@ const RoundDetails = ({
                   : "text-green-600 nightwind prevent"
               }
             >
-              {formatNumber(!isCapUsd ? raised : raisedUsd, 1)}
+              {formatNumber(!isHardcapUsd ? raised : raisedUsd, 1)}
             </span>{" "}
             {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
-            {currency(isCapUsd || !cap)}
+            {currency(isHardcapUsd || !cap)}
           </b>
         </p>
         <p>
@@ -97,8 +97,8 @@ const RoundDetails = ({
               timeLeft > 0 && timeLeft < 259200 ? "text-yellow-500" : ""
             }
           >
-            {deadline && deadline != 0
-              ? timeLeft
+            {deadline && Number(deadline) != 0
+              ? typeof deadline != "string"
                 ? timeLeft > 0
                   ? `${formattedTimeLeft} ${formattedTimeLeftUnits}`
                   : "passed"
