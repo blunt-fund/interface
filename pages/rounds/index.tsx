@@ -44,8 +44,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const data = await fetcher(endpoint)
   const subgraphData = data?.subgraphData
   const projectData: Project[] = data?.projectData
-  // const subgraphData = {}
-  // const projectData = {}
+  // const subgraphData = []
+  // const projectData = []
 
   return {
     props: {
