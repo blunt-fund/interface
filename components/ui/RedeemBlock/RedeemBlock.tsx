@@ -17,9 +17,10 @@ const RedeemBlock = ({
   isRedeemDisabled
 }: Props) => {
   const { setModalView } = useAppContext()
-  const formattedAccountContributions = Number(
-    ethers.utils.formatUnits(accountContributions, 18)
-  )
+  const formattedAccountContributions =
+    Math.round(
+      Number(ethers.utils.formatUnits(accountContributions, 18)) * 1000
+    ) / 1000
 
   return (
     <div className="space-y-2 text-sm text-right">

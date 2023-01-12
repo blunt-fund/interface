@@ -14,11 +14,17 @@ import executeTransaction from "@utils/executeTransaction"
 import formatAddress from "@utils/formatAddress"
 import formatNumber from "@utils/formatNumber"
 import { useState } from "react"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite
+} from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
-import { ethers } from "ethers"
+import JBTokenStore from "abi/JBTokenStore.json"
+import { BigNumber, ethers } from "ethers"
 import { ConnectButton, useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import saEvent from "@utils/saEvent"
+import { formatEther } from "ethers/lib/utils.js"
 
 export type View = {
   name: ViewNames
@@ -210,9 +216,22 @@ export const REDEEM_VIEW = (params: any) => {
     totalContributions,
     tokenIssuance
   } = params
-  const tokenCount = ethers.BigNumber.from(10)
-    .pow(12)
-    .mul(Math.round(redeemAmount * Number(tokenIssuance) * 1e6))
+
+  // TODO: Make this independent from total tokens owned, and calculate based on accountsContributions and tokenIssuance
+  const { data: tokenCountAll } = useContractRead({
+    address: addresses.JBTokenStore,
+    abi: JBTokenStore.abi,
+    functionName: "balanceOf",
+    args: [account, projectId]
+  }) as { data: BigNumber }
+
+  const tokenCount =
+    tokenCountAll &&
+    ethers.BigNumber.from(
+      Math.round((redeemAmount * 1e9) / formattedAccountContributions)
+    )
+      .mul(tokenCountAll)
+      .div(1e9)
 
   const { config, error } = usePrepareContractWrite({
     address: addresses.JBTerminal,
@@ -221,7 +240,7 @@ export const REDEEM_VIEW = (params: any) => {
     args: [
       account,
       projectId,
-      tokenCount,
+      tokenCount || 0,
       ethers.constants.AddressZero,
       0,
       account,
@@ -263,6 +282,25 @@ export const REDEEM_VIEW = (params: any) => {
             ))
           }
         />
+        <div className="text-left text-xs xs:text-sm pt-1.5">
+          {tokenCountAll && redeemAmount ? (
+            <p>
+              Return{" "}
+              <span className="font-bold">
+                {formatNumber(Math.round(Number(formatEther(tokenCount))))}{" "}
+                tokens
+              </span>
+            </p>
+          ) : (
+            <p>
+              Owned:{" "}
+              <span className="font-bold">
+                {formatNumber(Math.round(Number(formatEther(tokenCountAll))))}{" "}
+                tokens
+              </span>
+            </p>
+          )}
+        </div>
         {/* <p className="pt-6 text-sm">
           Remaining slices:{" "}
           <b>
