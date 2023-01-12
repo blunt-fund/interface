@@ -230,8 +230,7 @@ const CreateRoundForm = () => {
           name: `CREATE_ROUND_VIEW`,
           params: {
             uploadStep,
-            roundId,
-            toQueue: Number(roundData.deadline) != 0
+            roundId
           }
         }
       })

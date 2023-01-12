@@ -60,7 +60,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     : 0
 
   const formatCurrency = (isEth: boolean, value: number) =>
-    isEth ? value / 1e4 : value / 1e2
+    isEth ? value / 1e4 : value
 
   const round: RoundData = {
     name,

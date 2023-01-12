@@ -71,6 +71,7 @@ const RoundMainSection = ({
           totalContributions={totalContributions}
           accountContributions={accountContributions}
           tokenIssuance={round.tokenIssuance}
+          isRedeemDisabled={isRoundClosed && totalContributions > round.target}
         />
       )}
     </>
