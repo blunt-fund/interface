@@ -6,6 +6,7 @@ import { Project } from "@prisma/client"
 import { useState } from "react"
 import useSWR from "swr"
 import fetcher from "@utils/fetcher"
+import { useEthUsd } from "@utils/useEthUsd"
 
 type Props = {
   projectData: Project[]
@@ -16,7 +17,7 @@ type Props = {
 const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
   const [onlySuccess, setOnlySuccess] = useState(true)
 
-  const { data: ethUsd } = useSWR("/api/getEthUsd", fetcher)
+  const ethUsd = useEthUsd()
 
   const {
     data: roundInfo,

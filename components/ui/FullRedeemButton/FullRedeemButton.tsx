@@ -27,11 +27,7 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
   )
 
   // TODO: Make this independent from total tokens owned, and calculate based on accountsContributions and tokenIssuance
-  const {
-    data: tokenCountAll,
-    isError,
-    isLoading
-  } = useContractRead({
+  const { data: tokenCountAll } = useContractRead({
     address: addresses.JBTokenStore,
     abi: JBTokenStore.abi,
     functionName: "balanceOf",

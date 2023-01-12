@@ -3,6 +3,9 @@ import envConstants from "constants.json"
 type Addresses = {
   BluntDelegateDeployer: string
   BluntDelegateProjectDeployer: string
+  PriceFeed: string
+  ethAddress: string
+  usdcAddress: string
   JBTerminal: string
   JBDirectory: string
   JBTokenStore: string
