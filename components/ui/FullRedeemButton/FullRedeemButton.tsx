@@ -46,7 +46,7 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
     isSuccess && (
       <div className="relative flex items-center gap-3 text-left">
         <div className="flex items-center text-sm xs:text-base">
-          <p className="">Redeem contributions</p>
+          <p>Get contributions refunded</p>
           <Question
             text={
               <>
@@ -59,13 +59,13 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
           />
         </div>
         <Button
-          label={`Redeem ${formattedAccountContributions} ETH`}
+          label={`Get ${formattedAccountContributions} ETH`}
           loading={loading}
           onClick={async () =>
             await executeTransaction(
               writeAsync,
               setLoading,
-              `Full redeem | Round ${projectId}`,
+              `Full refund | Round ${projectId}`,
               addRecentTransaction,
               null,
               true

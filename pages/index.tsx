@@ -32,7 +32,9 @@ export default function Home() {
           <p className="sm:text-lg">
             Fundraise bluntly in the open with your community
           </p>
-          <Button label="Create round" href="/create" />
+          <div>
+            <Button label="Create round" href="/create" />
+          </div>
         </main>
       </Container>
     </>

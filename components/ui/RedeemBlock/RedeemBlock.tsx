@@ -29,7 +29,7 @@ const RedeemBlock = ({
           {formattedAccountContributions} ETH
           {!isRedeemDisabled && (
             <span
-              className="ml-2 text-blue-600 cursor-pointer"
+              className="ml-3 text-blue-600 cursor-pointer"
               onClick={() =>
                 setModalView({
                   name: "REDEEM_VIEW",
@@ -43,7 +43,7 @@ const RedeemBlock = ({
                 })
               }
             >
-              Refund
+              Get refund
             </span>
           )}
         </b>
