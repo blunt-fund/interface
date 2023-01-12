@@ -47,18 +47,51 @@ const OwnerBlock = ({
 
   return (
     <div className="pt-6">
-      <div className="w-full px-4 py-6 bg-gray-100 rounded-sm shadow-md sm:px-6">
-        <p className="w-full pb-2 text-sm font-bold text-center text-gray-600">
-          Project owner section
+      <div className="w-full px-4 pt-6 pb-10 bg-gray-100 rounded-sm shadow-md sm:px-6">
+        <p className="pb-6 text-sm font-bold text-center text-gray-500">
+          Project owner
         </p>
-
         {/* <OwnerBlockToken
           projectId={projectId}
           bluntDelegate={bluntDelegate}
           round={round}
         /> */}
 
-        <div className="relative flex items-center justify-center gap-3 pt-8 pb-6 text-left">
+        <div className="prose-sm prose text-left">
+          <p>Finalize a round after reaching the fundraise target to:</p>
+          <ul className="pb-1">
+            <li>
+              Consolidate the amount raised, preventing further payments or
+              redemptions.
+            </li>
+            <li>
+              Claim ownership of the project, and manage funds on Juicebox
+            </li>
+            {/* <li>
+              Round participants being able to claim ownership of the
+              slicer related to the blunt round
+            </li> */}
+          </ul>
+          {
+            !isTargetReached ? (
+              <NoteText
+                error
+                text="Closing the round before reaching the target will permanently disable contributions, only allowing refunds"
+              />
+            ) : (
+              !isDeadlinepassed && (
+                <NoteText text="You need to wait for the deadline to pass before finalizing the round" />
+              )
+            )
+            // (
+            //   isTokenRequiredAndUnset && (
+            //     <NoteText text="Set token name and symbol to finalize round" />
+            //   )
+            // )
+          }
+        </div>
+
+        <div className="relative flex items-center justify-center gap-3 pt-6 text-left">
           <Button
             label={isTargetReached ? "Finalize round" : "Close round"}
             customClassName="overflow-hidden font-bold tracking-wide rounded-sm min-w-[260px]"
@@ -83,34 +116,6 @@ const OwnerBlock = ({
               )
             }
           />
-        </div>
-
-        <div className="prose-sm prose text-left">
-          <p>Closing a round successfully will result in:</p>
-          <ul>
-            <li>
-              Consolidation of the amount raised, preventing further payments or
-              redemptions
-            </li>
-            <li>Ownership transfer of the JB project to your address</li>
-            {/* <li>
-              Round participants being able to claim ownership of the
-              slicer related to the blunt round
-            </li> */}
-          </ul>
-          {
-            !isTargetReached ? (
-              <NoteText
-                error
-                text="Closing the round before reaching the target will disable payments, while keeping redemptions enabled"
-              />
-            ) : null
-            // (
-            //   isTokenRequiredAndUnset && (
-            //     <NoteText text="Set token name and symbol to finalize round" />
-            //   )
-            // )
-          }
         </div>
       </div>
     </div>
