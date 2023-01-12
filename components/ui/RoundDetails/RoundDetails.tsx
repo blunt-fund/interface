@@ -84,7 +84,7 @@ const RoundDetails = ({
                   : "text-green-600 nightwind prevent"
               }
             >
-              {formatNumber(!isHardcapUsd ? raised : raisedUsd, 1)}
+              {formatNumber(isHardcapUsd || !cap ? raisedUsd : raised, 1)}
             </span>{" "}
             {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
             {currency(isHardcapUsd || !cap)}

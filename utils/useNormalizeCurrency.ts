@@ -1,16 +1,15 @@
-import useSWR from "swr"
-import fetcher from "./fetcher"
+import { useEthUsd } from "./useEthUsd"
 
 const useNormalizeCurrency = (
   value: number,
   isValueEth = true,
   convertToEth = true
 ) => {
-  const { data: ethUsd } = useSWR("/api/getEthUsd", fetcher)
+  const ethUsd = useEthUsd()
   if (convertToEth) {
-    return isValueEth ? value : value / Number(ethUsd)
+    return isValueEth ? value : value / ethUsd
   } else {
-    return isValueEth ? value * Number(ethUsd) : value
+    return isValueEth ? value * ethUsd : value
   }
 }
 

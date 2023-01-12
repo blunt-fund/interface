@@ -7,16 +7,24 @@
       "BluntDelegateDeployer": "",
       "BluntDelegateCloner": "",
       "BluntDelegateProjectDeployer": "",
+      "PriceFeed": "0xf2E8176c0b67232b20205f4dfbCeC3e74bca471F",
+      "ethAddress": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "usdcAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "JBTerminal": "0x594Cb208b5BB48db1bcbC9354d1694998864ec63",
       "JBDirectory": "0x65572FB928b46f9aDB7cfe5A4c41226F636161ea",
+      "JBTokenStore": "0x6FA996581D7edaABE62C15eaE19fEeD4F1DdDfE7",
       "SliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d"
     },
     "5": {
       "BluntDelegateDeployer": "0x4C9Dd09eB0aFB5f1eB0A10F96748838a467Bb54d",
       "BluntDelegateCloner": "0x38299F0eb21b619C5b70d982a9E7a8943a4bB35d",
       "BluntDelegateProjectDeployer": "0xB16E3390760620AB6c1cBB815dc772F193a46394",
+      "PriceFeed": "0xf2E8176c0b67232b20205f4dfbCeC3e74bca471F",
+      "ethAddress": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+      "usdcAddress": "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
       "JBTerminal": "0x55d4dfb578daA4d60380995ffF7a706471d7c719",
       "JBDirectory": "0x8E05bcD2812E1449f0EC3aE24E2C395F533d9A99",
+      "JBTokenStore": "0x1246a50e3aDaF684Ac566f0c40816fF738F309B3",
       "SliceCore": "0xAE38a794E839D045460839ABe288a8e5C28B0fc6"
     }
   }

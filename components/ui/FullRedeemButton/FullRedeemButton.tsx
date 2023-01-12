@@ -3,8 +3,13 @@ import executeTransaction from "@utils/executeTransaction"
 import { addresses } from "@utils/constants"
 import { BigNumber, ethers } from "ethers"
 import { useState } from "react"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite
+} from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
+import JBTokenStore from "abi/JBTokenStore.json"
 import { Button, Question } from "../"
 import { useAppContext } from "../context"
 
@@ -17,12 +22,17 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
   const { account } = useAppContext()
   const [loading, setLoading] = useState(false)
 
-  const allTokens = ethers.BigNumber.from(accountContributions).div(
-    ethers.BigNumber.from(10).pow(3)
-  )
   const formattedAccountContributions = Number(
     ethers.utils.formatEther(accountContributions)
   )
+
+  // TODO: Make this independent from total tokens owned, and calculate based on accountsContributions and tokenIssuance
+  const { data: tokenCountAll } = useContractRead({
+    address: addresses.JBTokenStore,
+    abi: JBTokenStore.abi,
+    functionName: "balanceOf",
+    args: [account, projectId]
+  })
 
   const { config, isSuccess } = usePrepareContractWrite({
     address: addresses.JBTerminal,
@@ -31,7 +41,7 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
     args: [
       account,
       projectId,
-      allTokens,
+      tokenCountAll || 0,
       ethers.constants.AddressZero,
       0,
       account,
