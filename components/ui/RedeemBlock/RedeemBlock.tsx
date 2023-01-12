@@ -6,13 +6,15 @@ type Props = {
   totalContributions: number
   accountContributions: BigNumber
   tokenIssuance: number
+  isRedeemDisabled: boolean
 }
 
 const RedeemBlock = ({
   projectId,
   totalContributions,
   accountContributions,
-  tokenIssuance
+  tokenIssuance,
+  isRedeemDisabled
 }: Props) => {
   const { setModalView } = useAppContext()
   const formattedAccountContributions = Number(
@@ -24,24 +26,26 @@ const RedeemBlock = ({
       <p>
         You contributed:{" "}
         <b>
-          {formattedAccountContributions} ETH{" "}
-          <span
-            className="ml-2 text-blue-600 cursor-pointer"
-            onClick={() =>
-              setModalView({
-                name: "REDEEM_VIEW",
-                cross: true,
-                params: {
-                  projectId,
-                  formattedAccountContributions,
-                  totalContributions,
-                  tokenIssuance
-                }
-              })
-            }
-          >
-            Redeem
-          </span>
+          {formattedAccountContributions} ETH
+          {!isRedeemDisabled && (
+            <span
+              className="ml-3 text-blue-600 cursor-pointer"
+              onClick={() =>
+                setModalView({
+                  name: "REDEEM_VIEW",
+                  cross: true,
+                  params: {
+                    projectId,
+                    formattedAccountContributions,
+                    totalContributions,
+                    tokenIssuance
+                  }
+                })
+              }
+            >
+              Get refund
+            </span>
+          )}
         </b>
       </p>
       {/* <p>

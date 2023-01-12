@@ -78,7 +78,7 @@ export const ROUND_INFO_VIEW = () => {
 
 export const CREATE_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const { uploadStep, roundId, toQueue } = params
+  const { uploadStep, roundId } = params
 
   let uploadState: string
   switch (uploadStep) {
@@ -123,15 +123,8 @@ export const CREATE_ROUND_VIEW = (params: any) => {
         <div>
           {uploadStep == 4 || uploadStep == 6 ? (
             uploadStep == 6 ? (
-              <div>
-                {toQueue && (
-                  <p className="pb-6 mx-auto text-sm font-bold text-yellow-600">
-                    Prepare the round before the deadline on its page
-                  </p>
-                )}
-                <div onClick={() => setModalView({ name: "" })}>
-                  <Button label={"Go to round"} href={`/rounds/${roundId}`} />
-                </div>
+              <div onClick={() => setModalView({ name: "" })}>
+                <Button label={"Go to round"} href={`/rounds/${roundId}`} />
               </div>
             ) : (
               <Button
@@ -241,18 +234,18 @@ export const REDEEM_VIEW = (params: any) => {
 
   return (
     <div className="text-center">
-      <h1 className="text-2xl sm:text-3xl">Redeem contributions</h1>
+      <h1 className="text-2xl sm:text-3xl">Refund contributions</h1>
       <div className="pt-16 text-left">
         <p className="pb-2 text-sm">
           You contributed: <b>{formattedAccountContributions} ETH</b>
         </p>
         <Input
           type="number"
-          onClickLabel="Redeem"
+          onClickLabel="Refund"
           error={redeemAmount > formattedAccountContributions}
           min={0}
           max={formattedAccountContributions}
-          placeholder={`Redeem up to ${formattedAccountContributions} ETH`}
+          placeholder={`Refund up to ${formattedAccountContributions} ETH`}
           step={0.001}
           value={redeemAmount || ""}
           onChange={setRedeemAmount}

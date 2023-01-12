@@ -28,7 +28,7 @@ const OwnerBlock = ({
   const targetEth = useNormalizeCurrency(round.target, !round.isTargetUsd)
   const isTargetReached = totalContributions > targetEth
   const isDeadlinepassed =
-    Number(round.deadline) != 0 && Number(round.deadline) - now < 0
+    Number(round.deadline) == 0 || Number(round.deadline) - now < 0
   // const isTokenRequiredAndUnset =
   //   round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
 
@@ -39,7 +39,7 @@ const OwnerBlock = ({
     args: [],
     overrides: {
       // TODO: Figure out how to automatically correctly estimate it when round is successful
-      gasLimit: ethers.BigNumber.from(isTargetReached ? 3500000 : 32000)
+      gasLimit: ethers.BigNumber.from(isTargetReached ? 750000 : 90000)
     }
   })
   const addRecentTransaction = useAddRecentTransaction()

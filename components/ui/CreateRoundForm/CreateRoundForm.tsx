@@ -226,12 +226,11 @@ const CreateRoundForm = () => {
     if (uploadStep != 0) {
       setModalView({
         ...{
-          cross: uploadStep > 3,
+          cross: uploadStep == 4 || uploadStep == 6,
           name: `CREATE_ROUND_VIEW`,
           params: {
             uploadStep,
-            roundId,
-            toQueue: Number(roundData.deadline) != 0
+            roundId
           }
         }
       })

@@ -39,7 +39,7 @@ const RoundViewMain = ({
     >
       <div className="text-left">
         <div className="xs:flex">
-          <div className="bg-white border border-gray-200 rounded-sm shadow-md w-44 h-44 xs:mr-4 bg-opacity-20">
+          <div className="flex-shrink-0 bg-white border border-gray-200 rounded-sm shadow-md w-44 h-44 xs:mr-4 bg-opacity-20">
             {image.url &&
             image.url !=
               "https://ipfs.io/ipfs/bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu" ? (

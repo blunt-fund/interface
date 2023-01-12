@@ -34,6 +34,11 @@ const RoundMainSection = ({
     )
   }, [accountContributions])
 
+  // TODO: Best way to not hide FullRedeemButton after full redeem? Example: http://localhost:3000/rounds/332
+  // - update account contributions onchain also if round is closed
+  // - get value from JB?
+  // - ???
+
   return (
     <>
       {!isRoundClosed && !isDeadlinepassed ? (
@@ -71,6 +76,7 @@ const RoundMainSection = ({
           totalContributions={totalContributions}
           accountContributions={accountContributions}
           tokenIssuance={round.tokenIssuance}
+          isRedeemDisabled={isRoundClosed && totalContributions > round.target}
         />
       )}
     </>
