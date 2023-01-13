@@ -90,8 +90,8 @@ const CreateFormAdvancedFundraise = ({
           question={
             <>
               <p>
-                If the target is not reached before the deadline, the round will
-                close and all contributions can be fully refunded.
+                If the target is not reached before the deadline, all
+                contributions can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
               <p className="text-yellow-600">

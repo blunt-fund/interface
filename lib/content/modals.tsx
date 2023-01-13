@@ -167,7 +167,9 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-8">
-        <p>Proceeding will create a round with the settings below.</p>
+        <p className="text-gray-600">
+          Proceeding will create a round with the settings below.
+        </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
           roundData={roundData}

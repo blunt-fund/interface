@@ -65,7 +65,7 @@ const Textarea: React.FC<Props> = ({
                     >
                       markdown syntax
                     </a>{" "}
-                    to add elements such as headings, links or lists.{" "}
+                    to add headings, links, lists and more.{" "}
                   </p>
                 </>
               }
