@@ -70,6 +70,10 @@ const CreateFormAdvancedFundraise = ({
             <>
               <p>The period of time in which contributions are accepted.</p>
               <p>Leave blank to set unlimited duration.</p>
+              <p className="text-yellow-600">
+                Note: If not set, you will be able to set it while the round is
+                in progress.
+              </p>
             </>
           }
         />
