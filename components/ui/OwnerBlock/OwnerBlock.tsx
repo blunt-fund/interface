@@ -1,6 +1,6 @@
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
-import { Button, NoteText, OwnerBlockToken, Question } from "../"
+import { Button, NoteText, OwnerBlockSetDeadline, OwnerBlockToken } from "../"
 import BluntDelegate from "abi/BluntDelegate.json"
 import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
@@ -32,6 +32,7 @@ const OwnerBlock = ({
   // const isTokenRequiredAndUnset =
   //   round.isSlicerToBeCreated && (!round.tokenName || !round.tokenSymbol)
 
+  const addRecentTransaction = useAddRecentTransaction()
   const { config, error } = usePrepareContractWrite({
     address: bluntDelegate,
     abi: BluntDelegate.abi,
@@ -42,7 +43,6 @@ const OwnerBlock = ({
       gasLimit: ethers.BigNumber.from(isTargetReached ? 750000 : 90000)
     }
   })
-  const addRecentTransaction = useAddRecentTransaction()
   const { writeAsync } = useContractWrite(config)
 
   return (
@@ -56,6 +56,13 @@ const OwnerBlock = ({
           bluntDelegate={bluntDelegate}
           round={round}
         /> */}
+
+        {Number(round.deadline) == 0 && (
+          <OwnerBlockSetDeadline
+            projectId={projectId}
+            bluntDelegate={bluntDelegate}
+          />
+        )}
 
         <div className="prose-sm prose text-left">
           <p>Finalize a round after reaching the fundraise target to:</p>

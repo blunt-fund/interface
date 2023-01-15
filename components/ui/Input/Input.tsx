@@ -89,7 +89,9 @@ const Input: React.FC<Props> = ({
             onClick={!disabled && !loading ? onClick : null}
           >
             {onClickLabel && (
-              <span className={`mr-1 ${loading ? "-z-10" : ""}`}>
+              <span
+                className={`mr-1 whitespace-nowrap ${loading ? "-z-10" : ""}`}
+              >
                 {onClickLabel}
               </span>
             )}
