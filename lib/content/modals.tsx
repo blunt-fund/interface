@@ -285,23 +285,24 @@ export const REDEEM_VIEW = (params: any) => {
           }
         />
         <div className="text-left text-xs xs:text-sm pt-1.5">
-          {tokenCountAll && redeemAmount ? (
-            <p>
-              Return{" "}
-              <span className="font-bold">
-                {formatNumber(Math.round(Number(formatEther(tokenCount))))}{" "}
-                tokens
-              </span>
-            </p>
-          ) : (
-            <p>
-              Owned:{" "}
-              <span className="font-bold">
-                {formatNumber(Math.round(Number(formatEther(tokenCountAll))))}{" "}
-                tokens
-              </span>
-            </p>
-          )}
+          {tokenCountAll &&
+            (redeemAmount ? (
+              <p>
+                Return{" "}
+                <span className="font-bold">
+                  {formatNumber(Math.round(Number(formatEther(tokenCount))))}{" "}
+                  tokens
+                </span>
+              </p>
+            ) : (
+              <p>
+                Owned:{" "}
+                <span className="font-bold">
+                  {formatNumber(Math.round(Number(formatEther(tokenCountAll))))}{" "}
+                  tokens
+                </span>
+              </p>
+            ))}
         </div>
         {/* <p className="pt-6 text-sm">
           Remaining slices:{" "}
