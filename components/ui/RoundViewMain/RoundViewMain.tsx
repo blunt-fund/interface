@@ -48,6 +48,7 @@ const RoundViewMain = ({
                 alt={`${name} logo`}
                 width={196}
                 height={196}
+                className="object-cover h-full"
               />
             ) : (
               <div className="w-full h-full p-10">
