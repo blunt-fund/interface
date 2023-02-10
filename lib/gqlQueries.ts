@@ -16,6 +16,9 @@ project(
     weight
     dataSource
   }
+  participants (orderBy: totalPaid, orderDirection: desc) {
+    wallet
+  }
 }
 `
 
