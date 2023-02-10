@@ -37,7 +37,7 @@ const RoundMainSection = ({
   // TODO: Best way to not hide FullRedeemButton after full redeem? Example: http://localhost:3000/rounds/332
   // - update account contributions onchain also if round is closed
   // - get value from JB?
-  // - ???
+  // - ????
 
   return (
     <>
