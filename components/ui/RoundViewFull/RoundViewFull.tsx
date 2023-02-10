@@ -1,4 +1,5 @@
 import {
+  ContributionsTable,
   EmissionPreview,
   Locks,
   OwnerBlock,
@@ -8,7 +9,7 @@ import {
   RoundViewMain
 } from "../"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
 import formatRound from "@utils/formatRound"
 import { Project } from "@prisma/client"
@@ -91,6 +92,12 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
       </TimeWrapper>
 
       {/* <EmissionPreview shares={round?.shares} totalShares={totalShares} /> */}
+
+      <Suspense>
+        {subgraphData.participants.length ? (
+          <ContributionsTable subgraphData={subgraphData} />
+        ) : null}
+      </Suspense>
 
       <div className="flex justify-center w-full pb-4">
         <OwnerDisplay projectOwner={round.projectOwner} />

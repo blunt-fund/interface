@@ -11,7 +11,7 @@ type Props = {
 
 const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
   const targetPercentage = 100 - (target * 100) / max
-  const raisedPercentage = (raised * 100) / max
+  const raisedPercentage = Math.round((raised * 1e7) / max) / 1e5
 
   const raisedColor =
     raised < target ? (active ? "currentColor" : "#6C6C76") : "#22C55E"

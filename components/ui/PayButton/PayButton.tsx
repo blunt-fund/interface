@@ -10,6 +10,7 @@ import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import { RoundData } from "utils/getRounds"
 import { useAppContext } from "../context"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import { useEthUsd } from "@utils/useEthUsd"
 
 type Props = {
   projectId: number
@@ -25,6 +26,7 @@ const PayButton = ({
   totalContributions
 }: Props) => {
   const { account } = useAppContext()
+  const ethUsd = useEthUsd()
 
   const [payment, setPayment] = useState(0)
   const [isPaymentEth, setIsPaymentEth] = useState(true)
@@ -70,6 +72,15 @@ const PayButton = ({
     }
   })
 
+  const handlTogglePaymentCurrency = () => {
+    setIsPaymentEth(!isPaymentEth)
+    setPayment(
+      isPaymentEth
+        ? Math.round(payment * ethUsd)
+        : Math.round((payment * 1000) / ethUsd) / 1000
+    )
+  }
+
   const { writeAsync } = useContractWrite(config)
 
   return (
@@ -79,20 +90,23 @@ const PayButton = ({
         onClickLabel="Pay"
         error={error && true}
         min={0}
-        step={0.001}
+        max={
+          isPaymentEth ? defaultMaxPaymentUsd : Math.round(defaultMaxPaymentUsd)
+        }
+        step={isPaymentEth ? 0.001 : 1}
         value={payment || ""}
         onChange={setPayment}
-        placeholder={
-          round.cap != 0
-            ? `Up to ${
-                isPaymentEth
-                  ? defaultMaxPaymentUsd
-                  : Math.round(defaultMaxPaymentUsd)
-              } ${isPaymentEth ? "ETH" : "USD"}`
-            : ""
-        }
+        // placeholder={
+        //   round.cap != 0
+        //     ? `Up to ${
+        //         isPaymentEth
+        //           ? defaultMaxPaymentUsd
+        //           : Math.round(defaultMaxPaymentUsd)
+        //       } ${isPaymentEth ? "ETH" : "USD"}`
+        //     : ""
+        // }
         prefix={isPaymentEth ? "Ξ" : "$"}
-        prefixAction={() => setIsPaymentEth(!isPaymentEth)}
+        prefixAction={() => handlTogglePaymentCurrency()}
         loading={loading}
         onClick={async () =>
           payment != 0 &&
