@@ -11,6 +11,7 @@ type Props = {
   roundData: RoundData
   descriptionHtml?: string
   isRoundClosed: boolean
+  hasEndedUnsuccessfully: boolean
   raised?: number
   roundId?: number | string
   issuance?: boolean
@@ -22,6 +23,7 @@ const RoundViewMain = ({
   roundData,
   descriptionHtml,
   isRoundClosed,
+  hasEndedUnsuccessfully,
   raised = 0,
   roundId,
   issuance = true,
@@ -130,6 +132,7 @@ const RoundViewMain = ({
                 raised={raised}
                 issuance={issuance}
                 isRoundClosed={isRoundClosed}
+                hasEndedUnsuccessfully={hasEndedUnsuccessfully}
               />
             </TimeWrapper>
           </div>

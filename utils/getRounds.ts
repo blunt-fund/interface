@@ -34,6 +34,7 @@ export type RoundInfo = {
   round: RoundData
   totalContributions: number
   roundId: number
+  hasEndedUnsuccessfully: boolean
 }
 
 const getRounds = (
@@ -52,10 +53,18 @@ const getRounds = (
       const { round, totalContributions, deadline, isRoundClosed } =
         formatRound(project, roundInfo[i], projectMetadata)
 
+      const bluntDelegate = subgraphData[i]?.configureEvents[0].dataSource
+      const currentDelegate =
+        subgraphData[i]?.configureEvents[
+          subgraphData[i]?.configureEvents.length - 1
+        ].dataSource
+
       const data = {
         round,
         totalContributions,
-        roundId: project.projectId
+        roundId: project.projectId,
+        hasEndedUnsuccessfully:
+          isRoundClosed && currentDelegate == bluntDelegate
       }
 
       if (
