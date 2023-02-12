@@ -23,12 +23,12 @@ type Props = {
 
 export const accounts = {
   twitter: `https://twitter.com/${twitterAccount}`,
-  // discord: "https://discord.gg/CdyHUzdZks",
+  discord: "https://discord.gg/Jd8XQjwYZY",
   // notion: "https://slicedao.notion.site",
-  github: "https://github.com/jbx-protocol/blunt-finance",
+  github: "https://github.com/blunt-finance",
   // blog: "/blog",
   slice: "https://slice.so",
-  juicebox: "https://juicebox.money/#/p/slice"
+  juicebox: "https://juicebox.money/v2/p/433"
 }
 
 const Social: FC<Props> = ({ wrapperClassName, accounts }, props) => {
