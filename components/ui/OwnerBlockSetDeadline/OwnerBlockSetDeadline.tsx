@@ -47,9 +47,7 @@ const OwnerBlockSetDeadline = ({ projectId, bluntDelegate }: Props) => {
             writeAsyncSetDeadline,
             setLoadingSetDeadline,
             `Set deadline | Round ${projectId}`,
-            addRecentTransaction,
-            null,
-            true
+            addRecentTransaction
           )
         }
         onClickLabel="Set deadline"

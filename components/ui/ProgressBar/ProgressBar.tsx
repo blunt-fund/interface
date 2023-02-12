@@ -11,7 +11,11 @@ type Props = {
 
 const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
   const targetPercentage = 100 - (target * 100) / max
-  const raisedPercentage = Math.round((raised * 1e7) / max) / 1e5
+  const raisedPercentage = raised
+    ? Math.round((raised * 1e8) / max) / 1e6 + 1.5
+    : 0
+  const raisedPercentageFormatted =
+    raisedPercentage > 100 ? 100 : raisedPercentage
 
   const raisedColor =
     raised < target ? (active ? "currentColor" : "#6C6C76") : "#22C55E"
@@ -21,7 +25,7 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
       <div
         className="flex items-center w-full h-2 text-yellow-500 rounded-sm dark:text-yellow-300 "
         style={{
-          background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentage}%, transparent ${raisedPercentage}%)`,
+          background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentageFormatted}%, transparent ${raisedPercentage}%)`,
           animation: active
             ? "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
             : ""
