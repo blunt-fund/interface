@@ -11,7 +11,7 @@ type Props = {
   roundData: RoundData
   descriptionHtml?: string
   isRoundClosed: boolean
-  hasEndedUnsuccessfully: boolean
+  hasEndedUnsuccessfully?: boolean
   raised?: number
   roundId?: number | string
   issuance?: boolean
