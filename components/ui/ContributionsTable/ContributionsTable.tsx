@@ -27,9 +27,12 @@ const ContributionsTable = ({ subgraphData }: Props) => {
       wallet: participants[index].wallet,
       contribution
     }))
+    .filter(({ contribution }) =>
+      Number(BigNumber.from(contribution).div(1e15))
+    )
     .sort((a, b) => Number(b.contribution) - Number(a.contribution))
 
-  return (
+  return orderedParticipants.length ? (
     <div className="my-4 text-center">
       <h3 className="mb-4 text-lg font-bold text-gray-600 ">
         Top contributors
@@ -76,7 +79,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
         </p>
       )}
     </div>
-  )
+  ) : null
 }
 
 export default ContributionsTable

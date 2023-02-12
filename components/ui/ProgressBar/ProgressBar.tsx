@@ -7,9 +7,17 @@ type Props = {
   raised?: number
   isCapped?: boolean
   active?: boolean
+  hasEndedUnsuccessfully?: boolean
 }
 
-const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
+const ProgressBar = ({
+  max,
+  target,
+  raised,
+  isCapped,
+  active,
+  hasEndedUnsuccessfully
+}: Props) => {
   const targetPercentage = 100 - (target * 100) / max
   const raisedPercentage = raised
     ? Math.round((raised * 1e8) / max) / 1e6 + 1.5
@@ -18,7 +26,11 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
     raisedPercentage > 100 ? 100 : raisedPercentage
 
   const raisedColor =
-    raised < target ? (active ? "currentColor" : "#6C6C76") : "#22C55E"
+    raised < target || hasEndedUnsuccessfully
+      ? active
+        ? "currentColor"
+        : "#6C6C76"
+      : "#22C55E"
 
   return (
     <div className="relative">
@@ -37,7 +49,9 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
           {target != 0 && (
             <div
               className={`absolute w-1.5 py-3 rounded-sm ${
-                raised < target ? "bg-blue-600" : "bg-green-500"
+                raised < target || hasEndedUnsuccessfully
+                  ? "bg-blue-600"
+                  : "bg-green-500"
               } nightwind-prevent`}
               style={{ right: `${targetPercentage}%` }}
             />

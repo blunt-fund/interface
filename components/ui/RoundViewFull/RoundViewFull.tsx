@@ -40,6 +40,9 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
   const bluntDelegate = subgraphData?.configureEvents[0].dataSource
+  const currentDelegate =
+    subgraphData?.configureEvents[subgraphData?.configureEvents.length - 1]
+      .dataSource
 
   const [descriptionHtml, setDescriptionHtml] = useState("")
   useEffect(() => {
@@ -64,6 +67,9 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         raised={totalContributions}
         issuance={false}
         isRoundClosed={isRoundClosed}
+        hasEndedUnsuccessfully={
+          isRoundClosed && currentDelegate == bluntDelegate
+        }
         showLinks
         roundId={Number(id)}
       />

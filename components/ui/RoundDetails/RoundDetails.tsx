@@ -10,13 +10,15 @@ type Props = {
   raised: number
   issuance: boolean
   isRoundClosed: boolean
+  hasEndedUnsuccessfully: boolean
 }
 
 const RoundDetails = ({
   roundData,
   raised,
   issuance,
-  isRoundClosed
+  isRoundClosed,
+  hasEndedUnsuccessfully
 }: Props) => {
   const { now } = useTimeContext()
   const {
@@ -72,6 +74,7 @@ const RoundDetails = ({
         raised={raised}
         isCapped={cap != 0}
         active={active}
+        hasEndedUnsuccessfully={hasEndedUnsuccessfully}
       />
       <div className="flex justify-between pt-5 pb-2">
         <p>
@@ -79,7 +82,7 @@ const RoundDetails = ({
           <b>
             <span
               className={
-                raised <= targetEth
+                raised <= targetEth || hasEndedUnsuccessfully
                   ? "text-yellow-500 dark:text-yellow-300"
                   : "text-green-600 nightwind prevent"
               }

@@ -51,7 +51,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
       const targetEth = !el.round.isTargetUsd
         ? el.round.target
         : el.round.target / Number(ethUsd)
-      return el.totalContributions > targetEth
+      return el.totalContributions > targetEth && !el.hasEndedUnsuccessfully
     })
   }
 
@@ -73,6 +73,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
                 roundId={roundId}
                 smallTitle
                 isRoundClosed={false}
+                hasEndedUnsuccessfully={false}
               />
             </div>
           )
@@ -91,7 +92,12 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
           </div>
           <div className="space-y-20">
             {filteredClosedRounds?.map(
-              ({ round, totalContributions, roundId }) => {
+              ({
+                round,
+                totalContributions,
+                roundId,
+                hasEndedUnsuccessfully
+              }) => {
                 return (
                   <div key={roundId}>
                     <RoundViewMain
@@ -100,6 +106,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
                       roundId={roundId}
                       smallTitle
                       isRoundClosed={true}
+                      hasEndedUnsuccessfully={hasEndedUnsuccessfully}
                     />
                   </div>
                 )
