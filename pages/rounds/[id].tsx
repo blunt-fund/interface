@@ -91,8 +91,8 @@ export default function Round({ subgraphData, projectData }) {
 }
 
 export async function getStaticPaths() {
-  // const ids = await prisma.project.findMany({ select: { projectId: true } })
-  const ids = []
+  const ids = await prisma.project.findMany({ select: { projectId: true } })
+  // const ids = []
   const paths = ids.map(({ projectId }) => ({
     params: {
       id: String(projectId)
