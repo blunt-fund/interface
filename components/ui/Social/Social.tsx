@@ -27,7 +27,7 @@ export const accounts = {
   // notion: "https://slicedao.notion.site",
   github: "https://github.com/blunt-finance",
   // blog: "/blog",
-  slice: "https://slice.so",
+  // slice: "https://slice.so",
   juicebox: "https://juicebox.money/v2/p/433"
 }
 
