@@ -1,4 +1,4 @@
-import { MySwitch, RoundViewMain, RoundViewMainLoading } from "@components/ui"
+import { MySwitch, RoundViewMain } from "@components/ui"
 import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
@@ -28,8 +28,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
       address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
-    })),
-    suspense: true
+    }))
   })
 
   const { activeRounds, closedRounds } = getRounds(
@@ -55,13 +54,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
     })
   }
 
-  return !roundInfo || !subgraphData ? (
-    <div className="space-y-20">
-      {[...Array(3)].map((el, key) => (
-        <RoundViewMainLoading key={key} />
-      ))}
-    </div>
-  ) : (
+  return (
     <>
       <div className="space-y-20">
         {filteredActiveRounds?.map(({ round, totalContributions, roundId }) => {
