@@ -40,7 +40,7 @@ const OwnerBlock = ({
     args: [],
     overrides: {
       // TODO: Figure out how to automatically correctly estimate it when round is successful
-      gasLimit: ethers.BigNumber.from(isTargetReached ? 750000 : 90000)
+      gasLimit: isTargetReached ? ethers.BigNumber.from(550000) : undefined
     }
   })
   const { writeAsync } = useContractWrite(config)

@@ -10,7 +10,7 @@ project(
   deployer
   createdAt
   metadataUri
-  configureEvents {
+  configureEvents (orderBy: timestamp, orderDirection: asc) {
     timestamp
     duration
     weight
@@ -34,7 +34,7 @@ projects(
   owner
   createdAt
   metadataUri
-  configureEvents {
+  configureEvents (orderBy: timestamp, orderDirection: asc)  {
     timestamp
     duration
     weight
