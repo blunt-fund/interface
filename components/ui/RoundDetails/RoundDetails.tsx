@@ -37,8 +37,7 @@ const RoundDetails = ({
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
   const raisedUsd =
     raised != 0 ? Math.floor(normalizedRaisedUsd) || undefined : 0
-  const timeLeft =
-    typeof deadline == "string" ? Number(deadline) : Number(deadline) - now
+  const timeLeft = Number(deadline) - now
   const formattedTimeLeftUnits =
     timeLeft && timeLeft / 86400 > 1
       ? "days"
@@ -101,11 +100,9 @@ const RoundDetails = ({
             }
           >
             {deadline && Number(deadline) != 0
-              ? typeof deadline != "string"
-                ? timeLeft > 0
-                  ? `${formattedTimeLeft} ${formattedTimeLeftUnits}`
-                  : "passed"
-                : `${deadline} days`
+              ? timeLeft > 0
+                ? `${formattedTimeLeft} ${formattedTimeLeftUnits}`
+                : "passed"
               : "none"}
           </b>
         </p>

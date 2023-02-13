@@ -44,10 +44,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
         domain: 1
       },
       data: {
-        duration:
-          deadline && Number(deadline) != 0
-            ? BigNumber.from(deadline).mul(86400)
-            : 0,
+        duration: deadline && Number(deadline) != 0 ? Number(deadline) : 0,
         weight:
           tokenIssuance != 0
             ? BigNumber.from(10).pow(18).mul(tokenIssuance)

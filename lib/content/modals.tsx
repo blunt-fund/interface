@@ -162,6 +162,8 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     projectOwner
   } = params
   const { shares } = roundData
+  const now = Math.floor(new Date().getTime() / 1000)
+  const tempRoundData = { ...roundData, deadline: roundData["deadline"] + now }
 
   return (
     <div className="text-center">
@@ -172,7 +174,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
         </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
-          roundData={roundData}
+          roundData={tempRoundData}
           descriptionHtml={descriptionHtml}
           isRoundClosed={false}
         />

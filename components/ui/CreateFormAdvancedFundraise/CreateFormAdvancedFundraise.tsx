@@ -1,3 +1,4 @@
+import Chevron from "@components/icons/Chevron"
 import { Input, InputAddress, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
@@ -11,6 +12,11 @@ type Props = {
   riskMargin: number
 }
 
+export const timeFrames = {
+  days: 86400,
+  minutes: 60
+}
+
 const CreateFormAdvancedFundraise = ({
   roundData,
   setRoundData,
@@ -22,9 +28,11 @@ const CreateFormAdvancedFundraise = ({
 
   const [address, setAddress] = useState("")
   const [resolvedAddress, setResolvedAddress] = useState("")
+  const [deadlineUnits, setDeadlineUnits] = useState("days")
 
   const handleSetDeadline = (value: number) => {
-    handleSetObject("deadline", value, roundData, setRoundData)
+    const formattedValue = value * timeFrames[deadlineUnits]
+    handleSetObject("deadline", formattedValue, roundData, setRoundData)
   }
   const handleSetTarget = (value: number) => {
     handleSetObject("target", value, roundData, setRoundData)
@@ -58,25 +66,47 @@ const CreateFormAdvancedFundraise = ({
         Blunt rounds are unlimited in duration, uncapped and without target by
         default.
       </p> */}
-      <div>
-        <Input
-          type="number"
-          label="Round duration (days)"
-          min={0}
-          value={Number(deadline) || ""}
-          onChange={handleSetDeadline}
-          placeholder="Leave blank for unlimited"
-          question={
-            <>
-              <p>The period of time in which contributions are accepted.</p>
-              <p>Leave blank to set unlimited duration.</p>
-              <p className="text-yellow-600">
-                Note: If not set, you will be able to set it while the round is
-                in progress.
-              </p>
-            </>
-          }
-        />
+      <div className="relative flex items-end gap-4">
+        <div className="flex-grow">
+          <Input
+            type="number"
+            label="Round duration"
+            min={0}
+            value={
+              Number(deadline)
+                ? Math.round(
+                    (Number(deadline) / timeFrames[deadlineUnits]) * 100
+                  ) / 100
+                : ""
+            }
+            step={deadlineUnits == "days" ? 0.01 : 0.1}
+            onChange={handleSetDeadline}
+            placeholder="Leave blank for unlimited"
+            question={
+              <>
+                <p>The period of time in which contributions are accepted.</p>
+                <p>Leave blank to set unlimited duration.</p>
+                <p className="text-yellow-600">
+                  Note: If not set, you will be able to set it while the round
+                  is in progress.
+                </p>
+              </>
+            }
+          />
+        </div>
+        <div className="relative flex items-center w-36">
+          <select
+            className="w-full py-2 pl-6 pr-4 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-sm appearance-none focus:border-yellow-600 focus:outline-none peer disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500"
+            value={deadlineUnits}
+            onChange={(e) => setDeadlineUnits(e.target.value)}
+          >
+            <option value="days">Days</option>
+            <option value="minutes">Minutes</option>
+          </select>
+          <div className="absolute right-[16px] mb-0.5 rotate-90 text-gray-600 w-3 h-3">
+            <Chevron />
+          </div>
+        </div>
       </div>
       <div>
         <Input
