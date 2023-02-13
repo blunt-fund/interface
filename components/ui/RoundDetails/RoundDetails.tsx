@@ -61,7 +61,7 @@ const RoundDetails = ({
   const active = (Number(deadline) == 0 || timeLeft > 0) && !isRoundClosed
 
   return (
-    <div className="mt-8 text-sm tracking-tight sm:tracking-normal">
+    <div className="mt-6 text-sm tracking-tight sm:tracking-normal">
       <ProgressBar
         max={
           cap != 0

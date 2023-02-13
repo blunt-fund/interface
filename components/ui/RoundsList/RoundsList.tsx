@@ -4,8 +4,6 @@ import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { Project } from "@prisma/client"
 import { useState } from "react"
-import useSWR from "swr"
-import fetcher from "@utils/fetcher"
 import { useEthUsd } from "@utils/useEthUsd"
 
 type Props = {
@@ -28,7 +26,8 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
       address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
-    }))
+    })),
+    suspense: true
   })
 
   const { activeRounds, closedRounds } = getRounds(
@@ -56,7 +55,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
 
   return (
     <>
-      <div className="space-y-20">
+      <div className="space-y-20 sm:space-y-8">
         {filteredActiveRounds?.map(({ round, totalContributions, roundId }) => {
           return (
             <div key={roundId}>

@@ -136,7 +136,7 @@ const CreateFormAdvancedFundraise = ({
         />
       </div>
       {targetError && (
-        <NoteText error text="Target cannot be higher than cap" />
+        <NoteText error text="Cap needs to be higher than target" />
       )}
       {cap != 0 &&
         !targetError &&

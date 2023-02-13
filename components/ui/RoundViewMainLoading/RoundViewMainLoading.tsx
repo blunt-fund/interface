@@ -6,7 +6,7 @@ const RoundViewMainLoading = () => {
     <div className="block rounded-sm sm:border sm:border-transparent sm:px-4 sm:py-6">
       <div className="w-full text-left">
         <div className="xs:flex">
-          <div className="bg-white border border-gray-200 rounded-sm shadow-md w-44 h-44 xs:mr-4 bg-opacity-20">
+          <div className="w-40 h-40 bg-white border border-gray-200 rounded-sm shadow-md xs:mr-4 bg-opacity-20">
             <div
               className="p-10"
               style={{
@@ -20,7 +20,7 @@ const RoundViewMainLoading = () => {
             <div className={"h-8 w-44 animate-pulse bg-gray-300 rounded-sm"} />
 
             <p className="pt-2 text-sm">Round allocation: ...</p>
-            <div className="mt-8 text-xs xs:text-sm">
+            <div className="mt-6 text-xs xs:text-sm">
               <ProgressBar
                 max={100}
                 target={30}

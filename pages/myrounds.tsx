@@ -14,7 +14,6 @@ import {
 import useSWR from "swr"
 import fetcher from "@utils/fetcher"
 import { useAppContext } from "@components/ui/context"
-import { Suspense } from "react"
 
 export default function Rounds() {
   const { account } = useAppContext()
@@ -44,21 +43,19 @@ export default function Rounds() {
         <ConnectBlock>
           <main className="max-w-screen-sm mx-auto">
             <h1 className="pb-20">My rounds</h1>
-            <Suspense
-              fallback={
-                <div className="space-y-20">
-                  {[...Array(3)].map((el, key) => (
-                    <RoundViewMainLoading key={key} />
-                  ))}
-                </div>
-              }
-            >
+            {!data ? (
+              <div className="space-y-20">
+                {[...Array(3)].map((el, key) => (
+                  <RoundViewMainLoading key={key} />
+                ))}
+              </div>
+            ) : (
               <RoundsList
                 subgraphData={subgraphData}
                 projectData={projectData}
                 accountFilter={account}
               />
-            </Suspense>
+            )}
           </main>
         </ConnectBlock>
       </Container>
