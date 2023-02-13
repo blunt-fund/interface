@@ -52,7 +52,7 @@ module.exports = {
           css: {
             color: theme("colors.black"),
             a: {
-              textDecorationColor: theme("colors.blue.600"),
+              textDecorationColor: theme("colors.yellow.600"),
               textDecorationThickness: "1.5px",
               textUnderlineOffset: "1px"
             },
@@ -69,7 +69,7 @@ module.exports = {
               fontSize: "1.12em"
             },
             blockquote: {
-              borderLeftColor: theme("colors.blue.600")
+              borderLeftColor: theme("colors.yellow.600")
             },
             "blockquote p:first-of-type::before": false,
             "blockquote p:last-of-type::after": false,
@@ -85,7 +85,7 @@ module.exports = {
     }
   },
   variants: {
-    // nightwind: ["group-hover"],
+    nightwind: ["focus", "group-hover"]
   },
 
   plugins: [require("@tailwindcss/typography"), require("nightwind")]

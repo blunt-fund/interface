@@ -71,7 +71,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
       {iterator < participants.length && (
         <p className="mt-6">
           <a
-            className="text-sm font-bold text-gray-600 underline cursor-pointer hover:text-blue-600"
+            className="text-sm font-bold text-gray-600 underline cursor-pointer hover:text-yellow-600"
             onClick={() => setIterator(iterator + increment)}
           >
             Load more

@@ -90,7 +90,12 @@ const CreateFormAdvancedFundraise = ({
           value={target || ""}
           onChange={handleSetTarget}
           placeholder="Leave blank to disable"
-          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise`}
+          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise. 
+          ${
+            process.env.NEXT_PUBLIC_CHAIN_ID == "5"
+              ? "Note that USD / ETH on Goerli is different than on mainnet"
+              : ""
+          }`}
           question={
             <>
               <p>
@@ -118,7 +123,12 @@ const CreateFormAdvancedFundraise = ({
           value={cap || ""}
           onChange={handleSetCap}
           placeholder="Leave blank to disable"
-          helptext={`Maximum ${isHardcapUsd ? "USD" : "ETH"} to raise`}
+          helptext={`Maximum ${isHardcapUsd ? "USD" : "ETH"} to raise. 
+          ${
+            process.env.NEXT_PUBLIC_CHAIN_ID == "5"
+              ? "Note that USD / ETH on Goerli is different than on mainnet"
+              : ""
+          }`}
           question={
             <>
               <p>Contributions will be rejected once the cap is reached.</p>
