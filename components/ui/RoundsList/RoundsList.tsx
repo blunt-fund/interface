@@ -57,8 +57,11 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
     <>
       {filteredActiveRounds.length != 0 && (
         <div className="pb-20 space-y-20 sm:space-y-8">
-          {filteredActiveRounds?.map(
-            ({ round, totalContributions, roundId }) => {
+          {filteredActiveRounds
+            ?.sort((a, b) => {
+              return b.totalContributions - a.totalContributions
+            })
+            .map(({ round, totalContributions, roundId }) => {
               return (
                 <div key={roundId}>
                   <RoundViewMain
@@ -71,8 +74,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
                   />
                 </div>
               )
-            }
-          )}
+            })}
         </div>
       )}
       {filteredClosedRounds.length != 0 && (
