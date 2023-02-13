@@ -35,8 +35,6 @@ const PayButton = ({
   const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
 
   const normalizedCap = useNormalizeCurrency(round.cap, !round.isHardcapUsd)
-  const defaultPaymentUsd =
-    Math.floor(useNormalizeCurrency(1000, isPaymentEth) * 100) / 100
   const defaultMaxPaymentUsd =
     Math.floor(
       useNormalizeCurrency(
@@ -83,15 +81,21 @@ const PayButton = ({
 
   const { writeAsync } = useContractWrite(config)
 
+  console.log(defaultMaxPaymentUsd)
+
   return (
     <div className="pb-6">
       <Input
         type="number"
         onClickLabel="Pay"
         error={error && true}
-        min={0}
+        min={isPaymentEth ? 0.001 : 1}
         max={
-          isPaymentEth ? defaultMaxPaymentUsd : Math.round(defaultMaxPaymentUsd)
+          round.cap
+            ? isPaymentEth
+              ? defaultMaxPaymentUsd
+              : Math.round(defaultMaxPaymentUsd)
+            : undefined
         }
         step={isPaymentEth ? 0.001 : 1}
         value={payment || ""}
