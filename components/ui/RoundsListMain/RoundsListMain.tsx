@@ -37,28 +37,22 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
         Top active rounds
       </h2>
       <div className="space-y-20 sm:space-y-8">
-        {!sortedActiveRounds ? (
-          <div className="space-y-20 sm:space-y-8">
-            {[...Array(3)].map((el, key) => (
-              <RoundViewMainLoading key={key} />
-            ))}
-          </div>
-        ) : (
-          sortedActiveRounds.map(({ round, totalContributions, roundId }) => {
-            return (
-              <div key={roundId}>
-                <RoundViewMain
-                  roundData={round}
-                  raised={totalContributions}
-                  roundId={roundId}
-                  smallTitle
-                  isRoundClosed={false}
-                  hasEndedUnsuccessfully={false}
-                />
-              </div>
-            )
-          })
-        )}
+        {!sortedActiveRounds
+          ? [...Array(3)].map((el, key) => <RoundViewMainLoading key={key} />)
+          : sortedActiveRounds.map(({ round, totalContributions, roundId }) => {
+              return (
+                <div key={roundId}>
+                  <RoundViewMain
+                    roundData={round}
+                    raised={totalContributions}
+                    roundId={roundId}
+                    smallTitle
+                    isRoundClosed={false}
+                    hasEndedUnsuccessfully={false}
+                  />
+                </div>
+              )
+            })}
       </div>
     </div>
   )
