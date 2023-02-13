@@ -30,15 +30,15 @@ export default function Home({ subgraphData, projectData }) {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto space-y-12">
-          <div>
+        <main className="max-w-screen-sm mx-auto">
+          <div className="py-24">
             <h1 className="pb-10 sm:text-5xl">Blunt Finance</h1>
             <p className="text-lg sm:text-xl">
               Fundraise bluntly in the open with your community
             </p>
-          </div>
-          <div>
-            <Button label="Create round" href="/create" />
+            <div className="pt-12">
+              <Button label="Create round" href="/create" />
+            </div>
           </div>
           <RoundsListMain
             subgraphData={subgraphData}

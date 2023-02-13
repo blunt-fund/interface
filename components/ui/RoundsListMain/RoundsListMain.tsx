@@ -33,11 +33,11 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
     .slice(0, 3)
 
   return (
-    <div>
-      <h2 className="pt-6 pb-12 text-xl text-yellow-500 sm:pb-6">
+    <div className="py-10 shadow-md bg-gray-50">
+      <h2 className="pb-12 text-xl text-yellow-500 sm:pb-6">
         Top active rounds
       </h2>
-      <div className="space-y-20 sm:space-y-8">
+      <div className="mx-2 space-y-20 xs:mx-4 sm:space-y-8">
         {!sortedActiveRounds
           ? [...Array(3)].map((el, key) => <RoundViewMainLoading key={key} />)
           : sortedActiveRounds.map(({ round, totalContributions, roundId }) => {
