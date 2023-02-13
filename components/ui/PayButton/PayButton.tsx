@@ -81,8 +81,6 @@ const PayButton = ({
 
   const { writeAsync } = useContractWrite(config)
 
-  console.log(defaultMaxPaymentUsd)
-
   return (
     <div className="pb-6">
       <Input
