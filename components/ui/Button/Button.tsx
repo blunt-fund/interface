@@ -37,11 +37,11 @@ const Button: FC<ButtonProps> = (props) => {
     ? customColor
       ? customColor
       : secondary
-      ? "dark:!text-white text-blue-600 border-blue-600 border-2 hover:bg-blue-700 focus:bg-blue-700 hover:text-white"
-      : "text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700"
+      ? "text-yellow-600 border-yellow-600 border-2 hover:bg-yellow-600 hover:text-white"
+      : "text-white bg-black hover:bg-yellow-600 focus:bg-yellow-600"
     : "bg-gray-400 dark:!bg-gray-500 cursor-not-allowed"
 
-  const rootClassName = `nightwind-prevent px-7 h-[40px] min-w-[150px] focus:outline-none ${color} ${className}`
+  const rootClassName = `px-7 h-[40px] min-w-[150px] focus:outline-none ${color} ${className}`
 
   return href ? (
     <Link href={href}>

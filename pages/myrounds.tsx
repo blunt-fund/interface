@@ -42,7 +42,7 @@ export default function Rounds() {
       <Container page={true}>
         <ConnectBlock>
           <main className="max-w-screen-sm mx-auto">
-            <h1 className="pb-20">My rounds</h1>
+            <h2 className="pb-20">My rounds</h2>
             {!data ? (
               <div className="space-y-20">
                 {[...Array(3)].map((el, key) => (

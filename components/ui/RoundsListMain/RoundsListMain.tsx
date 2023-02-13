@@ -3,6 +3,7 @@ import getRounds from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { Project } from "@prisma/client"
+import Link from "next/link"
 
 type Props = {
   projectData: Project[]
@@ -33,7 +34,7 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
 
   return (
     <div>
-      <h2 className="pt-6 pb-10 text-lg text-yellow-500 sm:pb-4">
+      <h2 className="pt-6 pb-12 text-xl text-yellow-500 sm:pb-6">
         Top active rounds
       </h2>
       <div className="space-y-20 sm:space-y-8">
@@ -54,6 +55,14 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
               )
             })}
       </div>
+      <p className="pt-10 sm:pt-6">
+        <Link
+          href="/rounds"
+          className="text-sm font-bold text-gray-600 underline hover:text-yellow-600"
+        >
+          View all rounds
+        </Link>
+      </p>
     </div>
   )
 }
