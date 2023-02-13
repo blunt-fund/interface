@@ -118,7 +118,7 @@ const CreateRoundForm = () => {
       ? await web3Storage().put([image.file], {
           wrapWithDirectory: false
         })
-      : "bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu"
+      : "bafkreibdtsmod77wdg2lf6n4j5kubyy7idrlc2y2td4p4x77e2t5ppbche"
     try {
       const metadataJson = {
         name,
