@@ -12,7 +12,7 @@ h3 {
 }
 
 a {
-  @apply text-black cursor-pointer hover:text-blue-600 dark:hover:text-blue-300;
+  @apply text-black cursor-pointer hover:text-yellow-600 dark:hover:text-yellow-300;
   text-decoration: none;
 }
 
@@ -23,7 +23,7 @@ a {
 .highlight {
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-color: theme("colors.blue.600");
+  text-decoration-color: theme("colors.yellow.600");
   text-decoration-thickness: 1.5px;
   text-underline-offset: 1px;
   &.highlight-red {
@@ -33,7 +33,7 @@ a {
 }
 
 .dark .highlight {
-  text-decoration-color: theme("colors.blue.300");
+  text-decoration-color: theme("colors.yellow.300");
   &.highlight-red {
     text-decoration-color: theme("colors.red.500");
   }

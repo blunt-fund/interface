@@ -31,7 +31,7 @@ export default function Explore({ subgraphData, projectData }) {
       />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto">
-          <h1 className="pb-20">Blunt rounds</h1>
+          <h2 className="pb-20">Blunt rounds</h2>
           <RoundsList subgraphData={subgraphData} projectData={projectData} />
         </main>
       </Container>

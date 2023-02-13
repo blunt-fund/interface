@@ -37,11 +37,15 @@ const RoundViewMain = ({
   return (
     <ConditionalLink
       href={roundId && !showLinks ? `/rounds/${roundId}` : undefined}
-      className="block rounded-sm hover:text-black sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-200 sm:hover:shadow-inner"
+      className="block rounded-sm hover:text-black sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-300 sm:hover:shadow-inner"
     >
       <div className="text-left">
         <div className="xs:flex">
-          <div className="flex items-center flex-shrink-0 bg-white border border-gray-200 rounded-sm shadow-md w-44 h-44 xs:mr-4 bg-opacity-20">
+          <div
+            className={`flex items-center flex-shrink-0 bg-white border border-gray-200 rounded-sm shadow-md xs:mr-4 bg-opacity-20 ${
+              showLinks ? "w-44 h-44" : "w-40 h-40"
+            }`}
+          >
             {image.url &&
             image.url !=
               "https://ipfs.io/ipfs/bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu" ? (

@@ -51,7 +51,7 @@ const Input: React.FC<Props> = ({
   const rootClassName = `peer bg-white py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-400 disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500 ${
     error
       ? "border-red-500 text-red-500 focus:border-red-500"
-      : "border-gray-200 text-black focus:border-blue-600"
+      : "border-gray-200 text-black focus:border-yellow-600"
   } ${rounded} ${className}`
 
   const handleOnChange = (e: any) => {
@@ -80,9 +80,9 @@ const Input: React.FC<Props> = ({
             className={`relative text-sm font-bold group flex items-center justify-center px-8 text-white nightwind-prevent ${
               error
                 ? "cursor-pointer bg-red-500"
-                : `bg-blue-600 ${
+                : `bg-yellow-600 dark:bg-yellow-300 ${
                     !disabled && !loading
-                      ? "cursor-pointer hover:bg-blue-700"
+                      ? "cursor-pointer hover:bg-yellow-700"
                       : ""
                   }`
             }`}
@@ -130,7 +130,7 @@ const Input: React.FC<Props> = ({
               error
                 ? "border-red-400 peer-focus:border-red-400 dark:peer-focus:border-red-500 shadow-error"
                 : !disabled && !loading
-                ? "text-black focus:border-blue-600 peer-focus:border-blue-600 dark:peer-focus:border-blue-600"
+                ? "text-black focus:border-yellow-600 peer-focus:border-yellow-600 dark:peer-focus:border-yellow-300"
                 : ""
             } ${
               prefixAction && !disabled && !loading
@@ -138,7 +138,7 @@ const Input: React.FC<Props> = ({
                 : ""
             } ${
               disabled || loading
-                ? "text-gray-400 border-blue-100 bg-gray-100 "
+                ? "text-gray-400 border-yellow-100 bg-gray-100 "
                 : ""
             }`}
             onClick={

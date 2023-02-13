@@ -6,6 +6,7 @@ import { Message } from "@utils/handleMessage"
 import Logo from "@components/icons/Logo"
 import { RoundData } from "utils/getRounds"
 import handleSetObject from "@utils/handleSetObject"
+import { accounts } from "../Social/Social"
 
 export type ImageType = { url: string; file: File }
 
@@ -84,7 +85,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
             )}
           </div>
           <Camera
-            className={`absolute top-[8px] right-[8px] w-4 h-4 text-black group-hover:text-blue-300 dark:group-hover:text-blue-600`}
+            className={`absolute top-[8px] right-[8px] w-4 h-4 text-black group-hover:text-yellow-600 dark:group-hover:text-yellow-300`}
           />
         </label>
         {image.url && (
@@ -131,7 +132,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Discord"
           value={discord}
           onChange={handleSetDiscord}
-          placeholder="https://discord.gg/bluntfinance"
+          placeholder={accounts.discord}
         />
       </div>
       <div>
@@ -140,7 +141,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Docs"
           value={docs}
           onChange={handleSetDocs}
-          placeholder="https://blunt.notion.site"
+          placeholder="https://bluntfinance.notion.site"
         />
       </div>
     </div>

@@ -52,7 +52,7 @@ const CreateFormAdvancedReservedRate = ({
           )
         })}
 
-        <div className="flex col-span-5 pl-1 text-blue-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
+        <div className="flex col-span-5 pl-1 text-yellow-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
           <Add onClick={() => addAccount()} />
           <p
             className="inline-block pl-4 font-semibold"

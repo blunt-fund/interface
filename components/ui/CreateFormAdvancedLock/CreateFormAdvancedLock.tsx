@@ -72,7 +72,7 @@ const CreateFormAdvancedLock = ({
         {transferTimelock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
             Unlock date:{" "}
-            <span className="font-bold text-blue-600">
+            <span className="font-bold text-yellow-600">
               {transferLockDate.toLocaleDateString()}
             </span>
           </p>
@@ -101,7 +101,7 @@ const CreateFormAdvancedLock = ({
         {releaseTimelock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
             Unlock date:{" "}
-            <span className="font-bold text-blue-600">
+            <span className="font-bold text-yellow-600">
               {releaseLockDate.toLocaleDateString()}
             </span>
           </p>
@@ -135,7 +135,7 @@ const CreateFormAdvancedLock = ({
         {roundTimelock != 0 && (
           <p className="absolute text-xs left-0 bottom-[-20px]">
             Unlock date:{" "}
-            <span className="font-bold text-blue-600">
+            <span className="font-bold text-yellow-600">
               {roundLockDate.toLocaleDateString()}
             </span>
           </p>

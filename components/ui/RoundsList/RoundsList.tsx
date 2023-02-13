@@ -4,8 +4,6 @@ import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { Project } from "@prisma/client"
 import { useState } from "react"
-import useSWR from "swr"
-import fetcher from "@utils/fetcher"
 import { useEthUsd } from "@utils/useEthUsd"
 
 type Props = {
@@ -28,7 +26,8 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
       address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
-    }))
+    })),
+    suspense: true
   })
 
   const { activeRounds, closedRounds } = getRounds(
@@ -56,26 +55,30 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
 
   return (
     <>
-      <div className="space-y-20">
-        {filteredActiveRounds?.map(({ round, totalContributions, roundId }) => {
-          return (
-            <div key={roundId}>
-              <RoundViewMain
-                roundData={round}
-                raised={totalContributions}
-                roundId={roundId}
-                smallTitle
-                isRoundClosed={false}
-                hasEndedUnsuccessfully={false}
-              />
-            </div>
-          )
-        })}
-      </div>
+      {filteredActiveRounds.length != 0 && (
+        <div className="pb-20 space-y-20 sm:space-y-8">
+          {filteredActiveRounds?.map(
+            ({ round, totalContributions, roundId }) => {
+              return (
+                <div key={roundId}>
+                  <RoundViewMain
+                    roundData={round}
+                    raised={totalContributions}
+                    roundId={roundId}
+                    smallTitle
+                    isRoundClosed={false}
+                    hasEndedUnsuccessfully={false}
+                  />
+                </div>
+              )
+            }
+          )}
+        </div>
+      )}
       {filteredClosedRounds.length != 0 && (
         <>
-          <div className="pt-20 pb-12">
-            <h1 className="pb-12">Closed rounds</h1>
+          <div className="pb-12">
+            <h2 className="pb-10 text-xl text-yellow-500">Closed rounds</h2>
             <MySwitch
               label="Show only successful rounds"
               enabled={onlySuccess}

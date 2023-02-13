@@ -1,13 +1,16 @@
 import { NextSeo } from "next-seo"
-import { Button, Container } from "@components/ui"
+import { Button, Container, RoundsListMain } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
   longTitle,
   domain
 } from "@components/common/Head"
+import { GetStaticPropsContext } from "next"
+import fetcher from "@utils/fetcher"
+import { Project } from "@prisma/client"
 
-export default function Home() {
+export default function Home({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
@@ -27,18 +30,39 @@ export default function Home() {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto space-y-12">
-          <div>
-            <h1 className="pb-8 sm:text-5xl">Blunt Finance</h1>
+        <main className="max-w-screen-sm mx-auto">
+          <div className="py-24">
+            <h1 className="pb-10 sm:text-5xl">Blunt Finance</h1>
             <p className="text-lg sm:text-xl">
               Fundraise bluntly in the open with your community
             </p>
+            <div className="pt-12">
+              <Button label="Create round" href="/create" />
+            </div>
           </div>
-          <div>
-            <Button label="Create round" href="/create" />
-          </div>
+          <RoundsListMain
+            subgraphData={subgraphData}
+            projectData={projectData}
+          />
         </main>
       </Container>
     </>
   )
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds"
+  const data = await fetcher(endpoint)
+  const subgraphData = data?.subgraphData
+  const projectData: Project[] = data?.projectData
+  // const subgraphData = []
+  // const projectData = []
+
+  return {
+    props: {
+      subgraphData,
+      projectData
+    },
+    revalidate: 600
+  }
 }

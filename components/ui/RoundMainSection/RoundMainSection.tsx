@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { BigNumber, ethers } from "ethers"
 import { RoundData } from "@utils/getRounds"
 import { useTimeContext } from "../context"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 
 type Props = {
   round: RoundData
@@ -26,6 +27,11 @@ const RoundMainSection = ({
 
   const isDeadlinepassed =
     Number(round.deadline) != 0 && Number(round.deadline) - now < 0
+
+  const normalizedTarget = useNormalizeCurrency(
+    round.target,
+    !round.isTargetUsd
+  )
 
   const [accountHasContributed, setAccountHasContributed] = useState(false)
   useEffect(() => {
@@ -50,7 +56,7 @@ const RoundMainSection = ({
         />
       ) : (
         accountHasContributed &&
-        (totalContributions <= round.target ? (
+        (totalContributions <= normalizedTarget ? (
           <FullRedeemButton
             projectId={Number(id)}
             accountContributions={accountContributions}
