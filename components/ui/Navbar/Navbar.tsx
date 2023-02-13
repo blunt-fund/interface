@@ -34,7 +34,7 @@ const Navbar = () => {
             <Link href="/" className="w-7 h-7" aria-label="Blunt Finance logo">
               <Logo />
             </Link>
-            <Link href="/rounds" className="text-sm">
+            <Link href="/rounds" className="text-sm font-bold">
               Explore
             </Link>
           </div>
