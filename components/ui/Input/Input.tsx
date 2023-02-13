@@ -15,6 +15,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   submit?: boolean
   question?: JSX.Element
   questionPosition?: string
+  onClickArrow?: boolean
   onClickLabel?: string
   prefixAction?: (...args: any[]) => any
   onClick?: (...args: any[]) => any
@@ -38,6 +39,7 @@ const Input: React.FC<Props> = ({
   prefixAction,
   onClick,
   onClickLabel,
+  onClickArrow = true,
   onChange,
   ...rest
 }) => {
@@ -93,14 +95,16 @@ const Input: React.FC<Props> = ({
               >
                 {onClickLabel}
               </span>
-            )}{" "}
-            <div
-              className={`w-[1.2rem] h-[1.2rem] text-white transition-transform duration-100 group-hover:translate-x-1 ${
-                loading ? "-z-10" : ""
-              }`}
-            >
-              <Arrow />
-            </div>
+            )}
+            {onClickArrow && (
+              <div
+                className={`w-[1.2rem] h-[1.2rem] text-white transition-transform duration-100 group-hover:translate-x-1 ${
+                  loading ? "-z-10" : ""
+                }`}
+              >
+                <Arrow />
+              </div>
+            )}
             {loading && (
               <div className="absolute flex items-center justify-center w-full h-full">
                 <Spinner color="text-white" />

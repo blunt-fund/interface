@@ -1,8 +1,13 @@
-import Chevron from "@components/icons/Chevron"
-import { Input, InputAddress, NoteText } from "@components/ui"
+import {
+  Input,
+  InputAddress,
+  InputDeadlineUnits,
+  NoteText
+} from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RoundData } from "utils/getRounds"
+import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -10,11 +15,6 @@ type Props = {
   setRoundData: Dispatch<SetStateAction<RoundData>>
   targetError: boolean
   riskMargin: number
-}
-
-export const timeFrames = {
-  days: 86400,
-  minutes: 60
 }
 
 const CreateFormAdvancedFundraise = ({
@@ -94,19 +94,10 @@ const CreateFormAdvancedFundraise = ({
             }
           />
         </div>
-        <div className="relative flex items-center w-36">
-          <select
-            className="w-full py-2 pl-6 pr-4 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-sm appearance-none focus:border-yellow-600 focus:outline-none peer disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500"
-            value={deadlineUnits}
-            onChange={(e) => setDeadlineUnits(e.target.value)}
-          >
-            <option value="days">Days</option>
-            <option value="minutes">Minutes</option>
-          </select>
-          <div className="absolute right-[16px] mb-0.5 rotate-90 text-gray-600 w-3 h-3">
-            <Chevron />
-          </div>
-        </div>
+        <InputDeadlineUnits
+          deadlineUnits={deadlineUnits}
+          setDeadlineUnits={setDeadlineUnits}
+        />
       </div>
       <div>
         <Input
