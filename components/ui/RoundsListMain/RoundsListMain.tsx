@@ -32,7 +32,7 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
     })
     .slice(0, 3)
 
-  return (
+  return activeRounds?.length ? (
     <div className="py-10 shadow-md bg-gray-50">
       <h2 className="pb-12 text-xl text-yellow-500 sm:pb-6">
         Top active rounds
@@ -64,7 +64,7 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
         </Link>
       </p>
     </div>
-  )
+  ) : null
 }
 
 export default RoundsListMain

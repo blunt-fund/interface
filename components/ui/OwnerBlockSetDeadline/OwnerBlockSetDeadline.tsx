@@ -1,10 +1,11 @@
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
-import { Input, NoteText } from ".."
+import { Button, Input, InputDeadlineUnits, NoteText } from ".."
 import BluntDelegate from "abi/BluntDelegate.json"
 import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
 import { useTimeContext } from "../context"
+import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
 
 type Props = {
   projectId: number
@@ -14,8 +15,11 @@ type Props = {
 const OwnerBlockSetDeadline = ({ projectId, bluntDelegate }: Props) => {
   const { now } = useTimeContext()
   const [newDeadline, setNewDeadline] = useState(0)
+  const [deadlineUnits, setDeadlineUnits] = useState("days")
   const [loadingSetDeadline, setLoadingSetDeadline] = useState(false)
-  const formattedNewDeadline = newDeadline ? now + newDeadline * 86400 : 0
+  const formattedNewDeadline = newDeadline
+    ? now + newDeadline * timeFrames[deadlineUnits]
+    : 0
 
   const addRecentTransaction = useAddRecentTransaction()
   const { config: configSetDeadline } = usePrepareContractWrite({
@@ -29,29 +33,43 @@ const OwnerBlockSetDeadline = ({ projectId, bluntDelegate }: Props) => {
 
   return (
     <>
-      <Input
-        type="number"
-        label="Round duration (days)"
-        min={0}
-        value={newDeadline || ""}
-        onChange={setNewDeadline}
-        question={
-          <>
-            <p>The period of time in which contributions are accepted.</p>
-            <NoteText text="You cannot change this later." />
-          </>
-        }
-        loading={loadingSetDeadline}
-        onClick={async () =>
-          await executeTransaction(
-            writeAsyncSetDeadline,
-            setLoadingSetDeadline,
-            `Set deadline | Round ${projectId}`,
-            addRecentTransaction
-          )
-        }
-        onClickLabel="Set deadline"
-      />
+      <div className="relative flex items-end gap-4">
+        <div className="flex-grow">
+          <Input
+            type="number"
+            label="Round duration"
+            min={0}
+            value={newDeadline || ""}
+            onChange={setNewDeadline}
+            loading={loadingSetDeadline}
+            question={
+              <>
+                <p>The period of time in which contributions are accepted.</p>
+                <NoteText text="You cannot change this later." />
+              </>
+            }
+          />
+        </div>
+        <InputDeadlineUnits
+          deadlineUnits={deadlineUnits}
+          setDeadlineUnits={setDeadlineUnits}
+        />
+      </div>
+      <div className="pt-8">
+        <Button
+          onClick={async () =>
+            await executeTransaction(
+              writeAsyncSetDeadline,
+              setLoadingSetDeadline,
+              `Set deadline | Round ${projectId}`,
+              addRecentTransaction
+            )
+          }
+          label="Set deadline"
+          disabled={!Number(newDeadline)}
+          loading={loadingSetDeadline}
+        />
+      </div>
       <hr className="w-20 !my-12 mx-auto border-gray-300" />
     </>
   )

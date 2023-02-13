@@ -78,7 +78,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
       {filteredClosedRounds.length != 0 && (
         <>
           <div className="pb-12">
-            <h2 className="pb-10 text-xl text-yellow-500">Closed rounds</h2>
+            <h2 className="pb-10 text-xl text-gray-500">Closed rounds</h2>
             <MySwitch
               label="Show only successful rounds"
               enabled={onlySuccess}

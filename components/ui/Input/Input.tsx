@@ -1,3 +1,4 @@
+import Arrow from "@components/icons/Arrow"
 import Spinner from "@components/icons/Spinner"
 import React, { InputHTMLAttributes } from "react"
 import Question from "../Question"
@@ -14,6 +15,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   submit?: boolean
   question?: JSX.Element
   questionPosition?: string
+  onClickArrow?: boolean
   onClickLabel?: string
   prefixAction?: (...args: any[]) => any
   onClick?: (...args: any[]) => any
@@ -37,6 +39,7 @@ const Input: React.FC<Props> = ({
   prefixAction,
   onClick,
   onClickLabel,
+  onClickArrow = true,
   onChange,
   ...rest
 }) => {
@@ -77,35 +80,34 @@ const Input: React.FC<Props> = ({
       >
         {onClick && (
           <div
-            className={`relative text-sm font-bold group flex items-center justify-center px-8 text-white nightwind-prevent ${
+            className={`relative text-sm font-bold group flex items-center justify-center px-8 text-white ${
               error
                 ? "cursor-pointer bg-red-500"
-                : `bg-yellow-600 dark:bg-yellow-300 ${
-                    !disabled && !loading
-                      ? "cursor-pointer hover:bg-yellow-700"
-                      : ""
+                : `bg-yellow-600 ${
+                    !disabled && !loading ? "cursor-pointer" : ""
                   }`
             }`}
             onClick={!disabled && !loading ? onClick : null}
           >
             {onClickLabel && (
               <span
-                className={`mr-1 whitespace-nowrap ${loading ? "-z-10" : ""}`}
+                className={`mr-2 whitespace-nowrap ${loading ? "-z-10" : ""}`}
               >
                 {onClickLabel}
               </span>
             )}
-            {/* {" "}
-            <div
-              className={`w-[1.2rem] h-[1.2rem] text-white nightwind-prevent transition-transform duration-150 group-hover:translate-x-1 ${
-                loading ? "-z-10" : ""
-              }`}
-            >
-              <Arrow />
-            </div> */}
+            {onClickArrow && (
+              <div
+                className={`w-[1.2rem] h-[1.2rem] text-white transition-transform duration-100 group-hover:translate-x-1 ${
+                  loading ? "-z-10" : ""
+                }`}
+              >
+                <Arrow />
+              </div>
+            )}
             {loading && (
               <div className="absolute flex items-center justify-center w-full h-full">
-                <Spinner color="text-white nightwind-prevent" />
+                <Spinner color="text-white" />
               </div>
             )}
           </div>
