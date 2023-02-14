@@ -1,5 +1,10 @@
 import { NextSeo } from "next-seo"
-import { Button, Container, RoundsListMain } from "@components/ui"
+import {
+  Button,
+  Container,
+  HomeHowItWorks,
+  RoundsListMain
+} from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
@@ -30,8 +35,8 @@ export default function Home({ subgraphData, projectData }) {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto">
-          <div className="py-24">
+        <main className="max-w-screen-sm pt-24 pb-8 mx-auto space-y-32">
+          <div>
             <h1 className="pb-10 sm:text-5xl">Blunt Finance</h1>
             <p className="text-xl font-bold text-gray-500">
               Fundraise bluntly in the open with your community
@@ -44,68 +49,7 @@ export default function Home({ subgraphData, projectData }) {
             subgraphData={subgraphData}
             projectData={projectData}
           />
-          <div className="pt-24">
-            <h2 className="pb-12 text-xl text-gray-500 sm:pb-6">
-              How it works
-            </h2>
-            <div className="prose text-left">
-              <p>
-                Blunt rounds are trustless, refundable funding rounds that
-                behave according to a set of pre-defined rules.
-              </p>
-              <p>
-                These guarantee contributors that the fundraise doesn't behave
-                unexpectedly, and provides fundraisers a streamlined solution to
-                kickstart their project.
-              </p>
-              <ul className="text-gray-700">
-                <li>
-                  Round contributions can be made anytime while a round is
-                  active.
-                </li>
-                <li>
-                  Full refunds can be processed anytime while the round is
-                  active, or after a round has concluded unsuccessfully.
-                </li>
-                <li>
-                  A round is considered successful when the fundraise target is
-                  reached. If the target is not reached in time, contributors
-                  can get full refunds for their contributions.
-                </li>
-                <li>
-                  A deadline can be set to limit the period of time the round
-                  stays active.
-                </li>
-                <li>
-                  A hard cap can be set to limit the maximum amount to be
-                  raised.
-                </li>
-                <li>
-                  When a round closes successfully, Blunt takes a small cut in
-                  exchange for BF governance tokens. The more you raise, the
-                  less you pay. Fee ranges between 1,5% and 3,5% (excluding 2,5%
-                  Juicebox base fee).
-                </li>
-                <li>
-                  Once a round is completed, ownership of the related Juicebox
-                  project is transferred to the rightful owner who can manage
-                  the funds raised.
-                </li>
-              </ul>
-            </div>
-            <p className="pt-4 text-sm font-bold text-gray-500">
-              Blunt Finance is built on{" "}
-              <a
-                href="https://juicebox.money"
-                className="highlight"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Juicebox
-              </a>
-              , leveraging solidity of its foundations
-            </p>
-          </div>
+          <HomeHowItWorks />
         </main>
       </Container>
     </>
