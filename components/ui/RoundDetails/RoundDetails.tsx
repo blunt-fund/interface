@@ -82,8 +82,8 @@ const RoundDetails = ({
             <span
               className={
                 raised <= targetEth || hasEndedUnsuccessfully
-                  ? "text-yellow-500 dark:text-yellow-300"
-                  : "text-green-600 nightwind prevent"
+                  ? "text-yellow-600"
+                  : "text-green-600"
               }
             >
               {formatNumber(isHardcapUsd || !cap ? raisedUsd : raised, 1)}
@@ -96,7 +96,7 @@ const RoundDetails = ({
           Deadline:{" "}
           <b
             className={
-              timeLeft > 0 && timeLeft < 259200 ? "text-yellow-500" : ""
+              timeLeft > 0 && timeLeft < 259200 ? "text-yellow-600" : ""
             }
           >
             {deadline && Number(deadline) != 0

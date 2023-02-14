@@ -83,46 +83,55 @@ const PayButton = ({
 
   return (
     <div className="pb-6">
-      <Input
-        type="number"
-        onClickLabel="Pay"
-        error={error && true}
-        min={isPaymentEth ? 0.001 : 1}
-        max={
-          round.cap
-            ? isPaymentEth
-              ? defaultMaxPaymentUsd
-              : Math.round(defaultMaxPaymentUsd)
-            : undefined
-        }
-        step={isPaymentEth ? 0.001 : 1}
-        value={payment || ""}
-        onChange={setPayment}
-        // placeholder={
-        //   round.cap != 0
-        //     ? `Up to ${
-        //         isPaymentEth
-        //           ? defaultMaxPaymentUsd
-        //           : Math.round(defaultMaxPaymentUsd)
-        //       } ${isPaymentEth ? "ETH" : "USD"}`
-        //     : ""
-        // }
-        prefix={isPaymentEth ? "Ξ" : "$"}
-        prefixAction={() => handlTogglePaymentCurrency()}
-        loading={loading}
-        onClick={async () =>
-          payment != 0 &&
-          (await executeTransaction(
-            writeAsync,
-            setLoading,
-            `Pay | Round ${projectId}`,
-            addRecentTransaction,
-            null,
-            true
-          ),
-          setPayment(null))
-        }
-      />
+      <div className="relative">
+        <Input
+          type="number"
+          onClickLabel="Pay"
+          error={error && true}
+          min={isPaymentEth ? 0.001 : 1}
+          max={
+            round.cap
+              ? isPaymentEth
+                ? defaultMaxPaymentUsd
+                : Math.round(defaultMaxPaymentUsd)
+              : undefined
+          }
+          step={isPaymentEth ? 0.001 : 1}
+          value={payment || ""}
+          onChange={setPayment}
+          // placeholder={
+          //   round.cap != 0
+          //     ? `Up to ${
+          //         isPaymentEth
+          //           ? defaultMaxPaymentUsd
+          //           : Math.round(defaultMaxPaymentUsd)
+          //       } ${isPaymentEth ? "ETH" : "USD"}`
+          //     : ""
+          // }
+          prefix={isPaymentEth ? "Ξ" : "$"}
+          prefixAction={() => handlTogglePaymentCurrency()}
+          loading={loading}
+          onClick={async () =>
+            payment != 0 &&
+            (await executeTransaction(
+              writeAsync,
+              setLoading,
+              `Pay | Round ${projectId}`,
+              addRecentTransaction,
+              null,
+              true
+            ),
+            setPayment(null))
+          }
+        />
+        {payment ? (
+          <p className="absolute top-0 right-[140px] text-sm text-gray-600 flex items-center h-full">
+            {isPaymentEth
+              ? `$${Math.round(payment * ethUsd)}`
+              : `Ξ${Math.round((payment * 1000) / ethUsd) / 1000}`}
+          </p>
+        ) : null}
+      </div>
       <div className="text-left text-xs xs:text-sm pt-1.5">
         {!error ? (
           round.tokenIssuance >= 1 /* || isSlicerToBeCreated */ && (

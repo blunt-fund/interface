@@ -7,7 +7,7 @@ export const defaultTitle = "Blunt Finance"
 export const longTitle =
   "Blunt Finance – Fundraise bluntly in the open with your community"
 export const defaultDescription =
-  "Manage terms sheets, fundraising, cashflow, and capital allocation, bluntly in the open with your community."
+  "Trustless, refundable funding rounds based on a set of pre-defined rules."
 export const domain = process.env.NEXT_PUBLIC_APP_URL
 export const twitterAccount = "blunt_finance"
 

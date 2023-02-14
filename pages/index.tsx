@@ -1,5 +1,10 @@
 import { NextSeo } from "next-seo"
-import { Button, Container, RoundsListMain } from "@components/ui"
+import {
+  Button,
+  Container,
+  HomeHowItWorks,
+  RoundsListMain
+} from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
@@ -14,7 +19,7 @@ export default function Home({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
-        title="Blunt Finance | Manage terms sheets, fundraising, cashflow, and capital allocation, bluntly in the open with your community."
+        title="Blunt Finance | Fundraise bluntly in the open with your community."
         openGraph={{
           title: longTitle,
           description: defaultDescription,
@@ -30,10 +35,10 @@ export default function Home({ subgraphData, projectData }) {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto">
-          <div className="py-24">
+        <main className="max-w-screen-sm pt-24 pb-8 mx-auto space-y-32">
+          <div>
             <h1 className="pb-10 sm:text-5xl">Blunt Finance</h1>
-            <p className="text-lg sm:text-xl">
+            <p className="text-xl font-bold text-gray-500">
               Fundraise bluntly in the open with your community
             </p>
             <div className="pt-12">
@@ -44,6 +49,7 @@ export default function Home({ subgraphData, projectData }) {
             subgraphData={subgraphData}
             projectData={projectData}
           />
+          <HomeHowItWorks />
         </main>
       </Container>
     </>

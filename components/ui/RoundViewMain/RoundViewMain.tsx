@@ -48,7 +48,9 @@ const RoundViewMain = ({
           >
             {image.url &&
             image.url !=
-              "https://ipfs.io/ipfs/bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu" ? (
+              "https://ipfs.io/ipfs/bafkreienba5ag3lv7uwfkqjonxqfm2sqfzddmekjhgulnslaksfxz3y4eu" &&
+            image.url !=
+              "https://ipfs.io/ipfs/bafkreibdtsmod77wdg2lf6n4j5kubyy7idrlc2y2td4p4x77e2t5ppbche" ? (
               <Image
                 src={image.url}
                 alt={`${name} logo`}

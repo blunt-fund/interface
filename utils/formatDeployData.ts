@@ -41,7 +41,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
     launchProjectData: {
       projectMetadata: {
         content: metadata,
-        domain: 1
+        domain: 0
       },
       data: {
         duration: deadline && Number(deadline) != 0 ? Number(deadline) : 0,
