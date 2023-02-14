@@ -31,7 +31,7 @@ export default function Create() {
           <main className="max-w-screen-sm mx-auto space-y-10 ">
             <h1>Create blunt round</h1>
             <p className="mx-auto text-gray-600">
-              Customize your round with a target, cap and deadline
+              Customize your round and add a target, cap and deadline
             </p>
             <hr className="w-20 !my-12 mx-auto border-gray-300" />
             <CreateRoundForm />
