@@ -34,7 +34,7 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
 
   return activeRounds?.length ? (
     <div className="py-10 shadow-md bg-gray-50">
-      <h2 className="pb-12 text-xl text-yellow-500 sm:pb-6">
+      <h2 className="pb-12 text-xl text-yellow-600 sm:pb-6">
         Top active rounds
       </h2>
       <div className="mx-2 space-y-20 xs:mx-4 sm:space-y-8">
