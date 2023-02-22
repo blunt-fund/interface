@@ -11,6 +11,7 @@ import { RoundData } from "utils/getRounds"
 import { useAppContext } from "../context"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import { useEthUsd } from "@utils/useEthUsd"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 type Props = {
   projectId: number
@@ -26,6 +27,7 @@ const PayButton = ({
   totalContributions
 }: Props) => {
   const { account } = useAppContext()
+  const { openConnectModal } = useConnectModal()
   const ethUsd = useEthUsd()
 
   const [payment, setPayment] = useState(0)
@@ -86,7 +88,7 @@ const PayButton = ({
       <div className="relative">
         <Input
           type="number"
-          onClickLabel="Pay"
+          onClickLabel={account ? "Pay" : "Connect"}
           error={error && true}
           min={isPaymentEth ? 0.001 : 1}
           max={
@@ -112,16 +114,18 @@ const PayButton = ({
           prefixAction={() => handlTogglePaymentCurrency()}
           loading={loading}
           onClick={async () =>
-            payment != 0 &&
-            (await executeTransaction(
-              writeAsync,
-              setLoading,
-              `Pay | Round ${projectId}`,
-              addRecentTransaction,
-              null,
-              true
-            ),
-            setPayment(null))
+            !account
+              ? openConnectModal()
+              : payment != 0 &&
+                (await executeTransaction(
+                  writeAsync,
+                  setLoading,
+                  `Pay | Round ${projectId}`,
+                  addRecentTransaction,
+                  null,
+                  true
+                ),
+                setPayment(null))
           }
         />
         {payment ? (
