@@ -61,18 +61,20 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
   return (
     <>
-      <RoundViewMain
-        roundData={round}
-        descriptionHtml={descriptionHtml}
-        raised={totalContributions}
-        issuance={false}
-        isRoundClosed={isRoundClosed}
-        hasEndedUnsuccessfully={
-          isRoundClosed && currentDelegate == bluntDelegate
-        }
-        showLinks
-        roundId={Number(id)}
-      />
+      <Suspense>
+        <RoundViewMain
+          roundData={round}
+          descriptionHtml={descriptionHtml}
+          raised={totalContributions}
+          issuance={false}
+          isRoundClosed={isRoundClosed}
+          hasEndedUnsuccessfully={
+            isRoundClosed && currentDelegate == bluntDelegate
+          }
+          showLinks
+          roundId={Number(id)}
+        />
+      </Suspense>
 
       <TimeWrapper>
         <RoundMainSection
