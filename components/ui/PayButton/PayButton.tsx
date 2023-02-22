@@ -26,7 +26,7 @@ const PayButton = ({
   isSlicerToBeCreated,
   totalContributions
 }: Props) => {
-  const { account } = useAppContext()
+  const { account, isConnected } = useAppContext()
   const { openConnectModal } = useConnectModal()
   const ethUsd = useEthUsd()
 
@@ -88,7 +88,7 @@ const PayButton = ({
       <div className="relative">
         <Input
           type="number"
-          onClickLabel={account ? "Pay" : "Connect"}
+          onClickLabel={isConnected ? "Pay" : "Connect"}
           error={error && true}
           min={isPaymentEth ? 0.001 : 1}
           max={
@@ -114,7 +114,7 @@ const PayButton = ({
           prefixAction={() => handlTogglePaymentCurrency()}
           loading={loading}
           onClick={async () =>
-            !account
+            !isConnected
               ? openConnectModal()
               : payment != 0 &&
                 (await executeTransaction(
@@ -131,7 +131,7 @@ const PayButton = ({
         {payment ? (
           <p
             className={`absolute top-0 ${
-              account ? "right-[140px]" : "right-[176px]"
+              isConnected ? "right-[140px]" : "right-[176px]"
             } text-sm text-gray-600 flex items-center h-full`}
           >
             {isPaymentEth
