@@ -10,8 +10,7 @@ export const useEthUsd = () => {
     abi: PriceFeed.abi,
     functionName: "getQuote",
     args: [parseEther("1"), addresses.ethAddress, addresses.usdcAddress, 1800],
-    watch: true,
-    suspense: true
+    watch: true
   })
 
   return ethUsd && Number(BigNumber.from(ethUsd).div(1e4)) / 100

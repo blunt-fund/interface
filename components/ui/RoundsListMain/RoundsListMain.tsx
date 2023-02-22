@@ -1,9 +1,10 @@
 import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
-import getRounds from "@utils/getRounds"
+import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { Project } from "@prisma/client"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 type Props = {
   projectData: Project[]
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const RoundsListMain = ({ projectData, subgraphData }: Props) => {
+  const [rounds, setRounds] = useState<RoundInfo[]>()
   const {
     data: roundInfo,
     isError,
@@ -20,19 +22,23 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
       address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
-    })),
-    suspense: true
+    }))
   })
 
-  const { activeRounds } = getRounds(roundInfo, projectData, subgraphData)
-
-  const sortedActiveRounds = activeRounds
+  const sortedActiveRounds = rounds
     ?.sort((a, b) => {
       return b.totalContributions - a.totalContributions
     })
     .slice(0, 3)
 
-  return activeRounds?.length ? (
+  useEffect(() => {
+    if (roundInfo && projectData && subgraphData) {
+      const { activeRounds } = getRounds(roundInfo, projectData, subgraphData)
+      setRounds(activeRounds)
+    }
+  }, [roundInfo, projectData, subgraphData])
+
+  return !sortedActiveRounds || sortedActiveRounds.length != 0 ? (
     <div className="py-10 shadow-md bg-gray-50">
       <h2 className="pb-12 text-xl text-yellow-600 sm:pb-6">
         Top active rounds

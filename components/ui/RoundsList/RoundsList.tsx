@@ -1,9 +1,9 @@
-import { MySwitch, RoundViewMain } from "@components/ui"
+import { MySwitch, RoundViewMain, RoundViewMainLoading } from "@components/ui"
 import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegate.json"
 import { Project } from "@prisma/client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useEthUsd } from "@utils/useEthUsd"
 
 type Props = {
@@ -13,6 +13,10 @@ type Props = {
 }
 
 const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
+  const [rounds, setRounds] = useState<{
+    filteredActiveRounds: RoundInfo[]
+    filteredClosedRounds: RoundInfo[]
+  }>()
   const [onlySuccess, setOnlySuccess] = useState(true)
 
   const ethUsd = useEthUsd()
@@ -26,58 +30,65 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
       address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
-    })),
-    suspense: true
+    }))
   })
-
-  const { activeRounds, closedRounds } = getRounds(
-    roundInfo,
-    projectData,
-    subgraphData
-  )
 
   const getAccountRounds = (rounds: RoundInfo[]) =>
     accountFilter
       ? rounds?.filter((el) => el.round.projectOwner == accountFilter)
       : rounds
 
-  let filteredActiveRounds = getAccountRounds(activeRounds)
-  let filteredClosedRounds = getAccountRounds(closedRounds)
+  const displayedClosedRounds = onlySuccess
+    ? rounds?.filteredClosedRounds.filter((el) => {
+        const targetEth = !el.round.isTargetUsd
+          ? el.round.target
+          : el.round.target / Number(ethUsd)
+        return el.totalContributions > targetEth && !el.hasEndedUnsuccessfully
+      })
+    : rounds?.filteredClosedRounds
 
-  if (onlySuccess) {
-    filteredClosedRounds = filteredClosedRounds.filter((el) => {
-      const targetEth = !el.round.isTargetUsd
-        ? el.round.target
-        : el.round.target / Number(ethUsd)
-      return el.totalContributions > targetEth && !el.hasEndedUnsuccessfully
-    })
-  }
+  useEffect(() => {
+    if (roundInfo && projectData && subgraphData) {
+      const { activeRounds, closedRounds } = getRounds(
+        roundInfo,
+        projectData,
+        subgraphData
+      )
+
+      const filteredActiveRounds = getAccountRounds(activeRounds)
+      const filteredClosedRounds = getAccountRounds(closedRounds)
+
+      setRounds({ filteredActiveRounds, filteredClosedRounds })
+    }
+  }, [roundInfo, projectData, subgraphData])
 
   return (
     <>
-      {filteredActiveRounds.length != 0 && (
+      {(!rounds || rounds.filteredActiveRounds.length != 0) && (
         <div className="pb-20 space-y-20 sm:space-y-8">
-          {filteredActiveRounds
-            ?.sort((a, b) => {
-              return b.totalContributions - a.totalContributions
-            })
-            .map(({ round, totalContributions, roundId }) => {
-              return (
-                <div key={roundId}>
-                  <RoundViewMain
-                    roundData={round}
-                    raised={totalContributions}
-                    roundId={roundId}
-                    smallTitle
-                    isRoundClosed={false}
-                    hasEndedUnsuccessfully={false}
-                  />
-                </div>
-              )
-            })}
+          {!rounds
+            ? [...Array(3)].map((el, key) => <RoundViewMainLoading key={key} />)
+            : rounds.filteredActiveRounds
+                ?.sort((a, b) => {
+                  return b.totalContributions - a.totalContributions
+                })
+                .map(({ round, totalContributions, roundId }) => {
+                  return (
+                    <div key={roundId}>
+                      <RoundViewMain
+                        roundData={round}
+                        raised={totalContributions}
+                        roundId={roundId}
+                        smallTitle
+                        isRoundClosed={false}
+                        hasEndedUnsuccessfully={false}
+                      />
+                    </div>
+                  )
+                })}
         </div>
       )}
-      {filteredClosedRounds.length != 0 && (
+      {displayedClosedRounds && displayedClosedRounds.length != 0 && (
         <>
           <div className="pb-12">
             <h2 className="pb-10 text-xl text-gray-500">Closed rounds</h2>
@@ -89,7 +100,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
             />
           </div>
           <div className="space-y-20">
-            {filteredClosedRounds?.map(
+            {displayedClosedRounds?.map(
               ({
                 round,
                 totalContributions,

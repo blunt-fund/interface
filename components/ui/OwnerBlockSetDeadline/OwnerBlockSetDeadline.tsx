@@ -9,7 +9,7 @@ import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
 
 type Props = {
   projectId: number
-  bluntDelegate: string
+  bluntDelegate: `0x${string}`
 }
 
 const OwnerBlockSetDeadline = ({ projectId, bluntDelegate }: Props) => {

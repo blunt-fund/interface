@@ -1,7 +1,7 @@
 import formatNumber from "@utils/formatNumber"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useTimeContext } from "../context"
 import ProgressBar from "../ProgressBar"
 
@@ -20,6 +20,8 @@ const RoundDetails = ({
   isRoundClosed,
   hasEndedUnsuccessfully
 }: Props) => {
+  const [raisedUsd, setRaisedUsd] = useState<number>()
+  const [targetEth, setTargetEth] = useState<number>()
   const { now } = useTimeContext()
   const {
     tokenSymbol,
@@ -32,11 +34,10 @@ const RoundDetails = ({
   } = roundData
 
   const currency = (isUsd: boolean) => (isUsd ? "USD" : "ETH")
-  const targetEth = useNormalizeCurrency(target, !isTargetUsd)
+  const normalizedTargetEth = useNormalizeCurrency(target, !isTargetUsd)
   const capEth = useNormalizeCurrency(cap, !isHardcapUsd)
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
-  const raisedUsd =
-    raised != 0 ? Math.floor(normalizedRaisedUsd) || undefined : 0
+
   const timeLeft = Number(deadline) - now
   const formattedTimeLeftUnits =
     timeLeft && timeLeft / 86400 > 1
@@ -58,6 +59,18 @@ const RoundDetails = ({
         : timeLeft
     )
   const active = (Number(deadline) == 0 || timeLeft > 0) && !isRoundClosed
+
+  useEffect(() => {
+    setRaisedUsd(
+      normalizedRaisedUsd != 0
+        ? Math.floor(normalizedRaisedUsd) || undefined
+        : 0
+    )
+  }, [normalizedRaisedUsd])
+
+  useEffect(() => {
+    setTargetEth(normalizedTargetEth)
+  }, [normalizedTargetEth])
 
   return (
     <div className="mt-6 text-sm tracking-tight sm:tracking-normal">
