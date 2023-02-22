@@ -7,7 +7,7 @@ import BluntDelegate from "abi/BluntDelegate.json"
 
 type Props = {
   projectId: number
-  bluntDelegate: string
+  bluntDelegate: `0x${string}`
 }
 
 const ClaimSlicesButton = ({ projectId, bluntDelegate }: Props) => {
