@@ -1,7 +1,7 @@
 import formatNumber from "@utils/formatNumber"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
-import React, { Suspense, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTimeContext } from "../context"
 import ProgressBar from "../ProgressBar"
 
