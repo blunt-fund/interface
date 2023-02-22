@@ -129,7 +129,11 @@ const PayButton = ({
           }
         />
         {payment ? (
-          <p className="absolute top-0 right-[140px] text-sm text-gray-600 flex items-center h-full">
+          <p
+            className={`absolute top-0 ${
+              account ? "right-[140px]" : "right-[176px]"
+            } text-sm text-gray-600 flex items-center h-full`}
+          >
             {isPaymentEth
               ? `$${Math.round(payment * ethUsd)}`
               : `Ξ${Math.round((payment * 1000) / ethUsd) / 1000}`}
