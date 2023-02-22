@@ -9,7 +9,11 @@ import { RoundData } from "@utils/getRounds"
 import Input from "../Input"
 import handleSetObject from "@utils/handleSetObject"
 
-type Props = { projectId: number; bluntDelegate: string; round: RoundData }
+type Props = {
+  projectId: number
+  bluntDelegate: `0x${string}`
+  round: RoundData
+}
 
 const OwnerBlockToken = ({ projectId, bluntDelegate, round }: Props) => {
   const { tokenName, tokenSymbol } = round

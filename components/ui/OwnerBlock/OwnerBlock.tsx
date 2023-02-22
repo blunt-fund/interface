@@ -11,7 +11,7 @@ import { useTimeContext } from "../context"
 
 type Props = {
   projectId: number
-  bluntDelegate: string
+  bluntDelegate: `0x${string}`
   totalContributions: number
   round: RoundData
 }

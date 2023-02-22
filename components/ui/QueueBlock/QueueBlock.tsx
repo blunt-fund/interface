@@ -6,7 +6,7 @@ import BluntDelegate from "abi/BluntDelegate.json"
 import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
 
-type Props = { projectId: number; bluntDelegate: string }
+type Props = { projectId: number; bluntDelegate: `0x${string}` }
 
 const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
   const [loading, setLoading] = useState(false)
