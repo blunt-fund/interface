@@ -16,13 +16,13 @@
       "SliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d"
     },
     "5": {
-      "BluntDelegateDeployer": "0x717B175271584e3434ab7be572d70eb8d90F0451",
-      "BluntDelegateCloner": "0x68869a6045CdD21a3d6f97e5BE4B9dbF0BB2bE6a",
-      "BluntDelegateProjectDeployer": "0xAFF17F6D0890a2694c0a1E02E20841acE1533189",
+      "BluntDelegateDeployer": "0x4404750317a495b7780235a109b8a1b6344ef12b",
+      "BluntDelegateCloner": "0x55ff5daa42508b52f0e2e646f0ea868e382329d3",
+      "BluntDelegateProjectDeployer": "0xea0d616955c2728beeda5481de7dbfa921de6447",
       "PriceFeed": "0xf2E8176c0b67232b20205f4dfbCeC3e74bca471F",
       "ethAddress": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
       "usdcAddress": "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
-      "JBTerminal": "0x55d4dfb578daA4d60380995ffF7a706471d7c719",
+      "JBTerminal": "0x0baCb87Cf7DbDdde2299D92673A938E067a9eb29",
       "JBDirectory": "0x8E05bcD2812E1449f0EC3aE24E2C395F533d9A99",
       "JBTokenStore": "0x1246a50e3aDaF684Ac566f0c40816fF738F309B3",
       "SliceCore": "0xAE38a794E839D045460839ABe288a8e5C28B0fc6"
