@@ -50,7 +50,7 @@ const HomeHowItWorks = () => {
         </ul>
       </div>
       <p className="pt-4 text-sm font-bold text-gray-400">
-        Blunt Finance is built on the{" "}
+        Blunt Finance is based on the{" "}
         <a
           href="https://juicebox.money"
           className="text-gray-400 highlight"
@@ -59,7 +59,7 @@ const HomeHowItWorks = () => {
         >
           Juicebox
         </a>{" "}
-        fundraising protocol.
+        protocol.
       </p>
       <div className="pt-12">
         <Button label="Create round" href="/create" />

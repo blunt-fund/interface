@@ -17,7 +17,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
     filteredActiveRounds: RoundInfo[]
     filteredClosedRounds: RoundInfo[]
   }>()
-  const [onlySuccess, setOnlySuccess] = useState(true)
+  const [onlySuccess, setOnlySuccess] = useState(false)
 
   const ethUsd = useEthUsd()
 
@@ -88,42 +88,40 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
                 })}
         </div>
       )}
-      {displayedClosedRounds && displayedClosedRounds.length != 0 && (
-        <>
-          <div className="pb-12">
-            <h2 className="pb-10 text-xl text-gray-500">Closed rounds</h2>
-            <MySwitch
-              label="Show only successful rounds"
-              enabled={onlySuccess}
-              setEnabled={setOnlySuccess}
-              alignRight
-            />
-          </div>
-          <div className="space-y-20">
-            {displayedClosedRounds?.map(
-              ({
-                round,
-                totalContributions,
-                roundId,
-                hasEndedUnsuccessfully
-              }) => {
-                return (
-                  <div key={roundId}>
-                    <RoundViewMain
-                      roundData={round}
-                      raised={totalContributions}
-                      roundId={roundId}
-                      smallTitle
-                      isRoundClosed={true}
-                      hasEndedUnsuccessfully={hasEndedUnsuccessfully}
-                    />
-                  </div>
-                )
-              }
-            )}
-          </div>
-        </>
-      )}
+      <>
+        <div className="pb-12">
+          <h2 className="pb-10 text-xl text-gray-500">Closed rounds</h2>
+          <MySwitch
+            label="Show only successful rounds"
+            enabled={onlySuccess}
+            setEnabled={setOnlySuccess}
+            alignRight
+          />
+        </div>
+        <div className="space-y-20">
+          {displayedClosedRounds?.map(
+            ({
+              round,
+              totalContributions,
+              roundId,
+              hasEndedUnsuccessfully
+            }) => {
+              return (
+                <div key={roundId}>
+                  <RoundViewMain
+                    roundData={round}
+                    raised={totalContributions}
+                    roundId={roundId}
+                    smallTitle
+                    isRoundClosed={true}
+                    hasEndedUnsuccessfully={hasEndedUnsuccessfully}
+                  />
+                </div>
+              )
+            }
+          )}
+        </div>
+      </>
     </>
   )
 }
