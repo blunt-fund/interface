@@ -17,7 +17,9 @@ project(
     dataSource
   }
   participants (orderBy: totalPaid, orderDirection: desc) {
-    wallet
+    wallet {
+      id
+    }
   }
 }
 `
