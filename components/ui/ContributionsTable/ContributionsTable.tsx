@@ -16,7 +16,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
       address: subgraphData.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "contributions",
-      args: [wallet]
+      args: [wallet.id]
     })),
     suspense: true,
     watch: true
@@ -24,7 +24,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
 
   const orderedParticipants = contributions
     .map((contribution, index) => ({
-      wallet: participants[index].wallet,
+      wallet: participants[index].wallet.id,
       contribution
     }))
     .filter(({ contribution }) =>
