@@ -31,7 +31,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       // releaseTimelock: releaseTimelock,
       // transferTimelock: transferTimelock,
       afterRoundReservedRate: totalShares * 100,
-      afterRoundSplits: calculateSplits(shares, addresses, totalShares),
+      // afterRoundSplits: calculateSplits(shares, addresses, totalShares),
       // tokenName,
       // tokenSymbol,
       // enforceSlicerCreation,
