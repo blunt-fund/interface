@@ -1,7 +1,6 @@
 import envConstants from "constants.json"
 
 type Addresses = {
-  BluntDelegateDeployer: `0x${string}`
   BluntDelegateProjectDeployer: `0x${string}`
   PriceFeed: `0x${string}`
   ethAddress: `0x${string}`

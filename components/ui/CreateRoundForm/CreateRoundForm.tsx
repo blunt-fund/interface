@@ -147,13 +147,10 @@ const CreateRoundForm = () => {
         signer
       )
 
-      const clone = true
-
       setUploadStep(2)
       const tx = await deployer.launchProjectFor(
         deployBluntDelegateData,
-        launchProjectData,
-        clone
+        launchProjectData
       )
       addRecentTransaction({
         hash: tx.hash,
@@ -161,7 +158,7 @@ const CreateRoundForm = () => {
       })
       const wait: ContractReceipt = await tx.wait()
 
-      const event = clone ? wait.events[2] : wait.events[1]
+      const event = wait.events[2]
 
       const projectId = Number(event.topics[1])
       setRoundId(projectId)

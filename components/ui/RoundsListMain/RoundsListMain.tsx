@@ -1,7 +1,7 @@
 import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
 import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegate.json"
+import bluntDelegate from "abi/BluntDelegateClone.json"
 import { Project } from "@prisma/client"
 import Link from "next/link"
 import { useEffect, useState } from "react"

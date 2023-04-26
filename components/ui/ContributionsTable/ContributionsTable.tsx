@@ -1,7 +1,7 @@
 import { BigNumber } from "ethers"
 import { useState } from "react"
 import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegate.json"
+import bluntDelegate from "abi/BluntDelegateClone.json"
 
 type Props = {
   subgraphData: any
