@@ -26,9 +26,11 @@ import formatDeployData from "@utils/formatDeployData"
 import { addresses as addressConstants } from "utils/constants"
 import { RoundData } from "@utils/getRounds"
 import timeout from "@utils/timeout"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 const CreateRoundForm = () => {
-  const { account, setModalView } = useAppContext()
+  const { openConnectModal } = useConnectModal()
+  const { account, isConnected, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
   const [roundId, setRoundId] = useState(0)
 
@@ -301,7 +303,11 @@ const CreateRoundForm = () => {
       </div> */}
 
       <div className="text-center">
-        <Button label="Review" type="submit" />
+        <Button
+          label={!isConnected ? "Connect wallet" : "Review"}
+          type={!isConnected ? "button" : "submit"}
+          onClick={() => !isConnected && openConnectModal()}
+        />
       </div>
     </form>
   )
