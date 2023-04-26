@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo"
-import { ConnectBlock, Container, CreateRoundForm } from "@components/ui"
+import { Container, CreateRoundForm } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
@@ -27,16 +27,14 @@ export default function Create() {
         }}
       />
       <Container page={true}>
-        <ConnectBlock>
-          <main className="max-w-screen-sm mx-auto space-y-10 ">
-            <h1>Create blunt round</h1>
-            <p className="mx-auto text-gray-600">
-              Customize your round and add a target, cap and deadline
-            </p>
-            <hr className="w-20 !my-12 mx-auto border-gray-300" />
-            <CreateRoundForm />
-          </main>
-        </ConnectBlock>
+        <main className="max-w-screen-sm mx-auto space-y-10 ">
+          <h1>Create blunt round</h1>
+          <p className="mx-auto text-gray-600">
+            Customize your round and add a target, cap and deadline
+          </p>
+          <hr className="w-20 !my-12 mx-auto border-gray-300" />
+          <CreateRoundForm />
+        </main>
       </Container>
     </>
   )

@@ -40,10 +40,10 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     : Number(ethers.utils.formatUnits(unformattedCap, 14))
 
   const isFirstSplitSlicer =
-    afterRoundSplits.length &&
+    afterRoundSplits?.length &&
     afterRoundSplits[0].beneficiary == ethers.constants.AddressZero
   const othersReserved = isFirstSplitSlicer
-    ? afterRoundSplits.slice(1)
+    ? afterRoundSplits?.slice(1)
     : afterRoundSplits
   const calculateShares = (percent: number) =>
     Math.floor((afterRoundReservedRate * percent) / 1e9) / 100
@@ -52,7 +52,7 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     ? calculateShares(afterRoundSplits[0].percent)
     : 0
   const othersReservedShares = calculateShares(
-    othersReserved.reduce((a, b) => a + Number(b.percent), 0)
+    othersReserved?.reduce((a, b) => a + Number(b.percent), 0)
   )
 
   const roundTimelock = isFirstSplitSlicer

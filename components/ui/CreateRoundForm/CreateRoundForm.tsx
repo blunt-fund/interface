@@ -26,9 +26,11 @@ import formatDeployData from "@utils/formatDeployData"
 import { addresses as addressConstants } from "utils/constants"
 import { RoundData } from "@utils/getRounds"
 import timeout from "@utils/timeout"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 const CreateRoundForm = () => {
-  const { account, setModalView } = useAppContext()
+  const { openConnectModal } = useConnectModal()
+  const { account, isConnected, setModalView } = useAppContext()
   const [uploadStep, setUploadStep] = useState(0)
   const [roundId, setRoundId] = useState(0)
 
@@ -147,13 +149,10 @@ const CreateRoundForm = () => {
         signer
       )
 
-      const clone = true
-
       setUploadStep(2)
       const tx = await deployer.launchProjectFor(
         deployBluntDelegateData,
-        launchProjectData,
-        clone
+        launchProjectData
       )
       addRecentTransaction({
         hash: tx.hash,
@@ -161,7 +160,7 @@ const CreateRoundForm = () => {
       })
       const wait: ContractReceipt = await tx.wait()
 
-      const event = clone ? wait.events[2] : wait.events[1]
+      const event = wait.events[2]
 
       const projectId = Number(event.topics[1])
       setRoundId(projectId)
@@ -304,7 +303,11 @@ const CreateRoundForm = () => {
       </div> */}
 
       <div className="text-center">
-        <Button label="Review" type="submit" />
+        <Button
+          label={!isConnected ? "Connect wallet" : "Review"}
+          type={!isConnected ? "button" : "submit"}
+          onClick={() => !isConnected && openConnectModal()}
+        />
       </div>
     </form>
   )

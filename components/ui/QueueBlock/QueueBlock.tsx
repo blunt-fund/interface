@@ -2,7 +2,7 @@ import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import Button from "../Button"
 import Question from "../Question"
-import BluntDelegate from "abi/BluntDelegate.json"
+import BluntDelegate from "abi/BluntDelegateClone.json"
 import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
 
