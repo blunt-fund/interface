@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Input } from "@components/ui"
+import { Input, Textarea } from "@components/ui"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import Camera from "@components/icons/Camera"
 import { Message } from "@utils/handleMessage"
@@ -16,8 +16,12 @@ type Props = {
 }
 
 const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
-  const { name, image, twitter, website, discord, docs } = roundData
+  const { name, description, image, twitter, website, discord, docs } =
+    roundData
 
+  const handleSetDescription = (value: string) => {
+    handleSetObject("description", value, roundData, setRoundData)
+  }
   const handleSetWebsite = (value: string) => {
     handleSetObject("website", value, roundData, setRoundData)
   }
@@ -62,7 +66,15 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
 
   return (
     <div className="py-3 space-y-8">
-      <p>Add a logo, website and social links to your project</p>
+      <div>
+        <Textarea
+          label="Project description"
+          value={description}
+          onChange={handleSetDescription}
+          rows={5}
+        />
+      </div>
+      <p>Add a logo, website and social links</p>
 
       <div>
         <p className="pb-2 text-sm">Logo</p>
