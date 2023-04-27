@@ -126,7 +126,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Website"
           value={website}
           onChange={handleSetWebsite}
-          placeholder="https://blunt.finance"
+          placeholder="https://blunt.fund"
         />
       </div>
       <div>
@@ -153,7 +153,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Docs"
           value={docs}
           onChange={handleSetDocs}
-          placeholder="https://bluntfinance.notion.site"
+          placeholder="https://bluntfund.notion.site"
         />
       </div>
     </div>

@@ -11,7 +11,7 @@ export default function Create() {
   return (
     <>
       <NextSeo
-        title="Create round | Blunt Finance"
+        title="Create round | Blunt"
         openGraph={{
           title: longTitle,
           description: defaultDescription,

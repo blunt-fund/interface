@@ -14,7 +14,7 @@ export default function Explore({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
-        title="Explore rounds | Blunt Finance"
+        title="Explore rounds | Blunt"
         openGraph={{
           title: longTitle,
           description: defaultDescription,

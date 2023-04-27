@@ -56,7 +56,7 @@ const OwnerBlockToken = ({ projectId, bluntDelegate, round }: Props) => {
             type="string"
             value={tokenData.tokenName}
             onChange={handleSetTokenName}
-            placeholder={tokenName || "Blunt finance"}
+            placeholder={tokenName || "Blunt"}
           />
         </div>
         <div className="xs:w-36">
