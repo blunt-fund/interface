@@ -248,7 +248,7 @@ const CreateRoundForm = () => {
       <p className="pt-4 font-bold">Advanced settings</p>
       <ul className="pb-6 space-y-8">
         <CollapsibleItem
-          label="Project logo and links"
+          label="Project details"
           detail={
             <CreateFormAdvancedLinks
               roundData={roundData}

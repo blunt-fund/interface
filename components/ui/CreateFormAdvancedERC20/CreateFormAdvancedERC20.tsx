@@ -47,8 +47,8 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
                 be issued in order to handle refunds (0.001 tokens/ETH).
               </p>
               <p>
-                Once the round ends, token emission of the project&apos;s
-                treasury is set to 1M tokens/ETH.
+                Once the round ends, token emission can be modified by the
+                project owner.
               </p>
             </>
           }
