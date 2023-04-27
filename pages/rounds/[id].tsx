@@ -105,7 +105,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const id = context.params.id
   const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds/" + id
-  const data = await fetcher(endpoint)
+  const data = null // await fetcher(endpoint)
   const subgraphData = data?.subgraphData
   const projectData = data?.projectData
 
