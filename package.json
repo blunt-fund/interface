@@ -17,6 +17,7 @@
     "@rainbow-me/rainbowkit": "^0.10.0",
     "@types/node": "^17.0.41",
     "@types/react": "^18.0.12",
+    "@vercel/analytics": "^1.0.0",
     "apollo-server": "^3.11.1",
     "autoprefixer": "^10.4.7",
     "canvas-confetti": "^1.6.0",

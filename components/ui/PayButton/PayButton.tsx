@@ -60,7 +60,7 @@ const PayButton = ({
       account,
       0,
       false,
-      "Paid from blunt.finance",
+      "Paid from blunt",
       []
     ],
     overrides: {

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Logo from "@components/icons/Logo"
 import { Container, CustomConnectButton, DropdownMenu } from "@components/ui"
-import saEvent from "@utils/saEvent"
+import va from "@vercel/analytics"
 import Nightwind from "@components/icons/Nightwind"
 import { useAppContext } from "../context"
 import { useEffect, useRef, useState } from "react"
@@ -31,7 +31,7 @@ const Navbar = () => {
       <Container>
         <nav className="relative px-3 sm:px-6 h-[4.25rem] items-center mx-auto flex justify-between">
           <div className="flex items-center space-x-5 sm:space-x-10">
-            <Link href="/" className="w-7 h-7" aria-label="Blunt Finance logo">
+            <Link href="/" className="w-7 h-7" aria-label="Blunt logo">
               <Logo />
             </Link>
             <Link href="/rounds" className="text-sm font-bold">
@@ -43,7 +43,7 @@ const Navbar = () => {
             <div className="hidden xs:block xs:mr-2">
               <Nightwind size="h-[24px]" />
             </div>
-            <div onClick={() => saEvent("connect_wallet_attempt")}>
+            <div onClick={() => va.track("connect_wallet_attempt")}>
               <CustomConnectButton />
             </div>
             {isConnected && (

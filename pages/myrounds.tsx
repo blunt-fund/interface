@@ -24,7 +24,7 @@ export default function Rounds() {
   return (
     <>
       <NextSeo
-        title="My rounds | Blunt Finance"
+        title="My rounds | Blunt"
         openGraph={{
           title: longTitle,
           description: defaultDescription,

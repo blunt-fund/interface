@@ -80,7 +80,7 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       groupedSplits: [],
       fundAccessConstraints: [],
       terminals: [addressConstants.JBTerminal],
-      memo: "Created from blunt.finance"
+      memo: "Created from blunt"
     }
   }
 }

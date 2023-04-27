@@ -60,7 +60,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
           label="Token name"
           value={tokenName}
           onChange={handleSetTokenName}
-          placeholder={name ? name : "Blunt Finance"}
+          placeholder={name ? name : "Blunt"}
           question={<>Name of the ERC20 token to be issued for the project.</>}
         />
       </div>
