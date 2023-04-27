@@ -5,6 +5,7 @@ import { Background, Layout } from "@components/ui"
 import "../styles/global/styles.scss"
 import { AppWrapper } from "@components/ui/context"
 import { AppProps } from "next/dist/shared/lib/router/router"
+import { Analytics } from "@vercel/analytics/react"
 
 import {
   getDefaultWallets,
@@ -82,6 +83,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </RainbowKitProvider>
         </WagmiConfig>
       </ThemeProvider>
+      <Analytics />
     </>
   )
 }

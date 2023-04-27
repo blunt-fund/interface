@@ -23,7 +23,7 @@ import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import JBTokenStore from "abi/JBTokenStore.json"
 import { BigNumber, ethers } from "ethers"
 import { ConnectButton, useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import saEvent from "@utils/saEvent"
+import va from "@vercel/analytics"
 import { formatEther } from "ethers/lib/utils.js"
 
 export type View = {
@@ -55,7 +55,7 @@ export const NETWORK_VIEW = () => {
         </div>
         <div
           className="flex justify-center pt-6"
-          onClick={() => saEvent("connect_wallet_attempt")}
+          onClick={() => va.track("connect_wallet_attempt")}
         >
           <ConnectButton
             accountStatus={{

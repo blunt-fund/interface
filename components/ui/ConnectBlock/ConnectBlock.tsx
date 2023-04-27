@@ -1,6 +1,6 @@
 import { CustomConnectButton } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
-import saEvent from "@utils/saEvent"
+import va from "@vercel/analytics"
 
 const ConnectBlock = ({ children }) => {
   const { isConnected } = useAppContext()
@@ -13,7 +13,7 @@ const ConnectBlock = ({ children }) => {
         <p className="py-10 text-gray-600 sm:text-lg">
           Connect your wallet to view this page
         </p>
-        <div onClick={() => saEvent("connect_wallet_attempt")}>
+        <div onClick={() => va.track("connect_wallet_attempt")}>
           <CustomConnectButton />
         </div>
       </div>

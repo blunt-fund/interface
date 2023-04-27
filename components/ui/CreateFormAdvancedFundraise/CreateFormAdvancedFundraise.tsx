@@ -176,6 +176,7 @@ const CreateFormAdvancedFundraise = ({
           <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
         )}
       <div className="pb-2">
+        {/* TODO: Fix */}
         <InputAddress
           label="Project owner"
           address={address}
