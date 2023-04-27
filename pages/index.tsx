@@ -59,10 +59,10 @@ export default function Home({ subgraphData, projectData }) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const endpoint = process.env.NEXT_PUBLIC_APP_URL + "/api/rounds"
   const data = await fetcher(endpoint)
-  const subgraphData = data?.subgraphData
-  const projectData: Project[] = data?.projectData
-  // const subgraphData = []
-  // const projectData = []
+  // const subgraphData = data?.subgraphData
+  // const projectData: Project[] = data?.projectData
+  const subgraphData = []
+  const projectData = []
 
   return {
     props: {
