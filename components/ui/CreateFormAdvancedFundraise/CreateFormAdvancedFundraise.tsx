@@ -8,6 +8,7 @@ import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RoundData } from "utils/getRounds"
 import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
+import { useAppContext } from "../context"
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -23,6 +24,7 @@ const CreateFormAdvancedFundraise = ({
   targetError,
   riskMargin
 }: Props) => {
+  const { account } = useAppContext()
   const { deadline, target, cap, isTargetUsd, isHardcapUsd, projectOwner } =
     roundData
 
@@ -43,22 +45,20 @@ const CreateFormAdvancedFundraise = ({
   const handleSetUsd = (property: string, value: boolean) => {
     handleSetObject(property, value, roundData, setRoundData)
   }
-
-  useEffect(() => {
-    if (projectOwner) setAddress(projectOwner)
-  }, [])
-
-  useEffect(() => {
-    if (resolvedAddress && resolvedAddress != "Invalid ENS name") {
-      let newProjectOwner: string
-      if (resolvedAddress.substring(resolvedAddress.length - 4) !== ".eth") {
-        newProjectOwner = resolvedAddress
-      } else {
-        newProjectOwner = address
-      }
-      handleSetObject("projectOwner", newProjectOwner, roundData, setRoundData)
+  const handleSetOwner = (value: string) => {
+    setAddress(value)
+    if (resolvedAddress === "Invalid ENS name") {
+      handleSetObject("projectOwner", null, roundData, setRoundData)
+    } else {
+      handleSetObject("projectOwner", value, roundData, setRoundData)
     }
-  }, [resolvedAddress])
+  }
+
+  useEffect(() => {
+    if (!address) {
+      setAddress(account)
+    }
+  }, [account])
 
   return (
     <div className="py-3 space-y-8">
@@ -176,19 +176,18 @@ const CreateFormAdvancedFundraise = ({
           <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
         )}
       <div className="pb-2">
-        {/* TODO: Fix */}
         <InputAddress
           label="Project owner"
           address={address}
-          onChange={setAddress}
+          onChange={handleSetOwner}
           question={
             <>
               <p>
                 The project owner is responsible for closing the blunt round.
               </p>
               <p>
-                If the funding target has been reached when the round is closed,
-                ownership of the JB project will be transferred to this account.
+                If the funding target is reached when the round is closed,
+                ownership of the funds will be transferred to this account.
               </p>
             </>
           }
