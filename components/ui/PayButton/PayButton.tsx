@@ -34,7 +34,7 @@ const PayButton = ({
   const [isPaymentEth, setIsPaymentEth] = useState(true)
   const [loading, setLoading] = useState(false)
   const addRecentTransaction = useAddRecentTransaction()
-  const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
+  const paymentEth = useNormalizeCurrency(Number(payment), isPaymentEth)
 
   const normalizedCap = useNormalizeCurrency(round.cap, !round.isHardcapUsd)
   const defaultMaxPaymentUsd =
@@ -60,15 +60,13 @@ const PayButton = ({
       account,
       0,
       false,
-      "Paid from blunt",
+      "Paid from blunt.fund",
       []
     ],
     overrides: {
       value:
         payment != 0 &&
-        BigNumber.from(10)
-          .pow(15)
-          .mul(Math.floor(paymentEth * 1000)) // TODO: Write better?
+        ethers.utils.parseEther((Math.floor(paymentEth * 1e5) / 1e5).toString())
     }
   })
 
@@ -113,20 +111,20 @@ const PayButton = ({
           prefix={isPaymentEth ? "Ξ" : "$"}
           prefixAction={() => handlTogglePaymentCurrency()}
           loading={loading}
-          onClick={async () =>
-            !isConnected
-              ? openConnectModal()
-              : payment != 0 &&
-                (await executeTransaction(
-                  writeAsync,
-                  setLoading,
-                  `Pay | Round ${projectId}`,
-                  addRecentTransaction,
-                  null,
-                  true
-                ),
-                setPayment(null))
-          }
+          onClick={async () => {
+            if (!isConnected) {
+              openConnectModal()
+            } else if (payment != 0) {
+              await executeTransaction(
+                writeAsync,
+                setLoading,
+                `Pay ${round.name} | #${projectId}`,
+                addRecentTransaction,
+                async () => setPayment(null),
+                true
+              )
+            }
+          }}
         />
         {payment ? (
           <p

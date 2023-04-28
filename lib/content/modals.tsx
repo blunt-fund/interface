@@ -248,7 +248,7 @@ export const REDEEM_VIEW = (params: any) => {
       ethers.constants.AddressZero,
       0,
       account,
-      "Redeemed from blunt",
+      "Redeemed from blunt.fund",
       []
     ]
   })

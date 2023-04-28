@@ -45,7 +45,7 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
       ethers.constants.AddressZero,
       0,
       account,
-      "Redeemed from blunt",
+      "Redeemed from blunt.fund",
       []
     ]
   })
