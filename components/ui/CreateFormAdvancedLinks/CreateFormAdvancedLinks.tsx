@@ -1,11 +1,12 @@
 import Image from "next/image"
-import { Input } from "@components/ui"
+import { Input, Textarea } from "@components/ui"
 import React, { Dispatch, SetStateAction, useState } from "react"
 import Camera from "@components/icons/Camera"
 import { Message } from "@utils/handleMessage"
 import Logo from "@components/icons/Logo"
 import { RoundData } from "utils/getRounds"
 import handleSetObject from "@utils/handleSetObject"
+import { accounts } from "../Social/Social"
 
 export type ImageType = { url: string; file: File }
 
@@ -15,8 +16,12 @@ type Props = {
 }
 
 const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
-  const { name, image, twitter, website, discord, docs } = roundData
+  const { name, description, image, twitter, website, discord, docs } =
+    roundData
 
+  const handleSetDescription = (value: string) => {
+    handleSetObject("description", value, roundData, setRoundData)
+  }
   const handleSetWebsite = (value: string) => {
     handleSetObject("website", value, roundData, setRoundData)
   }
@@ -60,8 +65,16 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
   }
 
   return (
-    <div className="py-3 space-y-6">
-      <p>Add a logo, website and social links to your project</p>
+    <div className="py-3 space-y-8">
+      <div>
+        <Textarea
+          label="Project description"
+          value={description}
+          onChange={handleSetDescription}
+          rows={5}
+        />
+      </div>
+      <p>Add a logo, website and social links</p>
 
       <div>
         <p className="pb-2 text-sm">Logo</p>
@@ -84,7 +97,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
             )}
           </div>
           <Camera
-            className={`absolute top-[8px] right-[8px] w-4 h-4 text-black group-hover:text-blue-300 dark:group-hover:text-blue-600`}
+            className={`absolute top-[8px] right-[8px] w-4 h-4 text-black group-hover:text-yellow-600 dark:group-hover:text-yellow-300`}
           />
         </label>
         {image.url && (
@@ -113,7 +126,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Website"
           value={website}
           onChange={handleSetWebsite}
-          placeholder="https://blunt.finance"
+          placeholder="https://blunt.fund"
         />
       </div>
       <div>
@@ -131,7 +144,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Discord"
           value={discord}
           onChange={handleSetDiscord}
-          placeholder="https://discord.gg/bluntfinance"
+          placeholder={accounts.discord}
         />
       </div>
       <div>
@@ -140,7 +153,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           label="Docs"
           value={docs}
           onChange={handleSetDocs}
-          placeholder="https://blunt.notion.site"
+          placeholder="https://bluntfund.notion.site"
         />
       </div>
     </div>

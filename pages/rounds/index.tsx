@@ -14,14 +14,14 @@ export default function Explore({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
-        title="Explore rounds | Blunt Finance"
+        title="Explore rounds | Blunt"
         openGraph={{
           title: longTitle,
           description: defaultDescription,
           url: domain,
           images: [
             {
-              url: `${domain}/og_image.jpg`,
+              url: `${domain}/og_image.png`,
               width: 1000,
               height: 1000,
               alt: `${defaultTitle} cover image`
@@ -31,7 +31,7 @@ export default function Explore({ subgraphData, projectData }) {
       />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto">
-          <h1 className="pb-20">Blunt rounds</h1>
+          <h2 className="pb-20">Blunt rounds</h2>
           <RoundsList subgraphData={subgraphData} projectData={projectData} />
         </main>
       </Container>
@@ -44,6 +44,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const data = await fetcher(endpoint)
   const subgraphData = data?.subgraphData
   const projectData: Project[] = data?.projectData
+  // const subgraphData = []
+  // const projectData = []
 
   return {
     props: {

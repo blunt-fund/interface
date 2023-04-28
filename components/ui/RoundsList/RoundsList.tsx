@@ -1,16 +1,26 @@
-import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
-import getRounds from "@utils/getRounds"
+import { MySwitch, RoundViewMain, RoundViewMainLoading } from "@components/ui"
+import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegate.json"
+import bluntDelegate from "abi/BluntDelegateClone.json"
 import { Project } from "@prisma/client"
+import { useEffect, useState } from "react"
+import { useEthUsd } from "@utils/useEthUsd"
 
 type Props = {
   projectData: Project[]
   subgraphData: any
-  filteredAccount?: string
+  accountFilter?: string
 }
 
-const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
+const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
+  const [rounds, setRounds] = useState<{
+    filteredActiveRounds: RoundInfo[]
+    filteredClosedRounds: RoundInfo[]
+  }>()
+  const [onlySuccess, setOnlySuccess] = useState(false)
+
+  const ethUsd = useEthUsd()
+
   const {
     data: roundInfo,
     isError,
@@ -20,69 +30,99 @@ const RoundsList = ({ projectData, subgraphData, filteredAccount }: Props) => {
       address: project.configureEvents[0].dataSource,
       abi: bluntDelegate.abi,
       functionName: "getRoundInfo"
-    })),
-    suspense: true
+    }))
   })
 
-  const { activeRounds, closedRounds } = getRounds(
-    roundInfo,
-    projectData,
-    subgraphData
-  )
+  const getAccountRounds = (rounds: RoundInfo[]) =>
+    accountFilter
+      ? rounds?.filter((el) => el.round.projectOwner == accountFilter)
+      : rounds
 
-  const filteredActiveRounds = filteredAccount
-    ? activeRounds?.filter((el) => el.round.projectOwner == filteredAccount)
-    : activeRounds
-  const filteredClosedRounds = filteredAccount
-    ? closedRounds?.filter((el) => el.round.projectOwner == filteredAccount)
-    : closedRounds
+  const displayedClosedRounds = onlySuccess
+    ? rounds?.filteredClosedRounds.filter((el) => {
+        const targetEth = !el.round.isTargetUsd
+          ? el.round.target
+          : el.round.target / Number(ethUsd)
+        return el.totalContributions > targetEth && !el.hasEndedUnsuccessfully
+      })
+    : rounds?.filteredClosedRounds
 
-  return !roundInfo || !subgraphData ? (
-    <div className="space-y-20">
-      {[...Array(3)].map((el, key) => (
-        <RoundViewMainLoading key={key} />
-      ))}
-    </div>
-  ) : (
-    <div className="space-y-20">
-      {filteredActiveRounds?.map(
-        ({ round, timestamp, totalContributions, roundId }) => {
-          return (
-            <div key={roundId}>
-              <RoundViewMain
-                roundData={round}
-                raised={totalContributions}
-                roundId={roundId}
-                timestamp={timestamp}
-                secondary
-                isRoundClosed={false}
-              />
-            </div>
-          )
-        }
+  useEffect(() => {
+    if (roundInfo && projectData && subgraphData) {
+      const { activeRounds, closedRounds } = getRounds(
+        roundInfo,
+        projectData,
+        subgraphData
+      )
+
+      const filteredActiveRounds = getAccountRounds(activeRounds)
+      const filteredClosedRounds = getAccountRounds(closedRounds)
+
+      setRounds({ filteredActiveRounds, filteredClosedRounds })
+    }
+  }, [roundInfo, projectData, subgraphData])
+
+  return (
+    <>
+      {(!rounds || rounds.filteredActiveRounds.length != 0) && (
+        <div className="pb-20 space-y-20 sm:space-y-8">
+          {!rounds
+            ? [...Array(3)].map((el, key) => <RoundViewMainLoading key={key} />)
+            : rounds.filteredActiveRounds
+                ?.sort((a, b) => {
+                  return b.totalContributions - a.totalContributions
+                })
+                .map(({ round, totalContributions, roundId }) => {
+                  return (
+                    <div key={roundId}>
+                      <RoundViewMain
+                        roundData={round}
+                        raised={totalContributions}
+                        roundId={roundId}
+                        smallTitle
+                        isRoundClosed={false}
+                        hasEndedUnsuccessfully={false}
+                      />
+                    </div>
+                  )
+                })}
+        </div>
       )}
-      {filteredClosedRounds.length != 0 && (
-        <>
-          <h1>Closed rounds</h1>
-          {filteredClosedRounds?.map(
-            ({ round, timestamp, totalContributions, roundId }) => {
+      <>
+        <div className="pb-12">
+          <h2 className="pb-10 text-xl text-gray-500">Closed rounds</h2>
+          <MySwitch
+            label="Show only successful rounds"
+            enabled={onlySuccess}
+            setEnabled={setOnlySuccess}
+            alignRight
+          />
+        </div>
+        <div className="space-y-20">
+          {displayedClosedRounds?.map(
+            ({
+              round,
+              totalContributions,
+              roundId,
+              hasEndedUnsuccessfully
+            }) => {
               return (
                 <div key={roundId}>
                   <RoundViewMain
                     roundData={round}
                     raised={totalContributions}
                     roundId={roundId}
-                    timestamp={timestamp}
-                    secondary
+                    smallTitle
                     isRoundClosed={true}
+                    hasEndedUnsuccessfully={hasEndedUnsuccessfully}
                   />
                 </div>
               )
             }
           )}
-        </>
-      )}
-    </div>
+        </div>
+      </>
+    </>
   )
 }
 

@@ -28,7 +28,6 @@ export default function Layout({ children }) {
         setModalView({ name: "" })
       }
     }
-    // }
   }, [account, chain])
 
   return (

@@ -1,6 +1,6 @@
-import { Input, MySwitch, Textarea } from "@components/ui"
+import { Input } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
-import React, { Dispatch, SetStateAction, useState } from "react"
+import React, { Dispatch, SetStateAction } from "react"
 import { RoundData } from "utils/getRounds"
 
 type Props = {
@@ -9,13 +9,10 @@ type Props = {
 }
 
 const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
-  const { name, description, shares, isSlicerToBeCreated } = roundData
+  const { name, shares, isSlicerToBeCreated } = roundData
 
   const handleSetName = (value: string) => {
     handleSetObject("name", value, roundData, setRoundData)
-  }
-  const handleSetDescription = (value: string) => {
-    handleSetObject("description", value, roundData, setRoundData)
   }
   const handleSetIsSlicerToBeCreated = (value: boolean) => {
     handleSetObject("isSlicerToBeCreated", value, roundData, setRoundData)
@@ -37,16 +34,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
           required
         />
       </div>
-      <div>
-        <Textarea
-          label="Project description"
-          value={description}
-          onChange={handleSetDescription}
-          rows={5}
-          required
-        />
-      </div>
-      <div className="pb-6">
+      {/* <div className="pb-6">
         <Input
           type="range"
           label={
@@ -86,7 +74,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
           }
           alignRight
         />
-      )}
+      )} */}
     </>
   )
 }

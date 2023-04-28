@@ -10,6 +10,8 @@ import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import { RoundData } from "utils/getRounds"
 import { useAppContext } from "../context"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import { useEthUsd } from "@utils/useEthUsd"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 type Props = {
   projectId: number
@@ -24,20 +26,21 @@ const PayButton = ({
   isSlicerToBeCreated,
   totalContributions
 }: Props) => {
-  const { account } = useAppContext()
+  const { account, isConnected } = useAppContext()
+  const { openConnectModal } = useConnectModal()
+  const ethUsd = useEthUsd()
 
   const [payment, setPayment] = useState(0)
   const [isPaymentEth, setIsPaymentEth] = useState(true)
   const [loading, setLoading] = useState(false)
   const addRecentTransaction = useAddRecentTransaction()
-  const paymentEth = useNormalizeCurrency(payment, isPaymentEth)
+  const paymentEth = useNormalizeCurrency(Number(payment), isPaymentEth)
 
-  const defaultPaymentUsd =
-    Math.floor(useNormalizeCurrency(1000, isPaymentEth) * 100) / 100
+  const normalizedCap = useNormalizeCurrency(round.cap, !round.isHardcapUsd)
   const defaultMaxPaymentUsd =
     Math.floor(
       useNormalizeCurrency(
-        round.cap - totalContributions,
+        normalizedCap - totalContributions,
         !isPaymentEth,
         false
       ) * 100
@@ -57,78 +60,110 @@ const PayButton = ({
       account,
       0,
       false,
-      "Paid from blunt.finance",
+      "Paid from blunt.fund",
       []
     ],
     overrides: {
       value:
         payment != 0 &&
-        BigNumber.from(10)
-          .pow(15)
-          .mul(Math.floor(paymentEth * 1000)) // TODO: Write better?
+        ethers.utils.parseEther((Math.floor(paymentEth * 1e5) / 1e5).toString())
     }
   })
+
+  const handlTogglePaymentCurrency = () => {
+    setIsPaymentEth(!isPaymentEth)
+    setPayment(
+      isPaymentEth
+        ? Math.round(payment * ethUsd)
+        : Math.round((payment * 1000) / ethUsd) / 1000
+    )
+  }
 
   const { writeAsync } = useContractWrite(config)
 
   return (
     <div className="pb-6">
-      <Input
-        type="number"
-        onClickLabel="Pay"
-        error={error && true}
-        min={0}
-        step={0.001}
-        value={payment || ""}
-        onChange={setPayment}
-        placeholder={
-          round.cap != 0
-            ? `Pay up to ${
-                isPaymentEth
-                  ? defaultMaxPaymentUsd
-                  : Math.round(defaultMaxPaymentUsd)
-              } ${isPaymentEth ? "ETH" : "USD"}`
-            : ""
-        }
-        prefix={isPaymentEth ? "Ξ" : "$"}
-        prefixAction={() => setIsPaymentEth(!isPaymentEth)}
-        loading={loading}
-        onClick={async () =>
-          payment != 0 &&
-          (await executeTransaction(
-            writeAsync,
-            setLoading,
-            `Pay | Round ${projectId}`,
-            addRecentTransaction,
-            null,
-            true
-          ))
-        }
-      />
+      <div className="relative">
+        <Input
+          type="number"
+          onClickLabel={isConnected ? "Pay" : "Connect"}
+          error={error && true}
+          min={isPaymentEth ? 0.001 : 1}
+          max={
+            round.cap
+              ? isPaymentEth
+                ? defaultMaxPaymentUsd
+                : Math.round(defaultMaxPaymentUsd)
+              : undefined
+          }
+          step={isPaymentEth ? 0.001 : 1}
+          value={payment || ""}
+          onChange={setPayment}
+          // placeholder={
+          //   round.cap != 0
+          //     ? `Up to ${
+          //         isPaymentEth
+          //           ? defaultMaxPaymentUsd
+          //           : Math.round(defaultMaxPaymentUsd)
+          //       } ${isPaymentEth ? "ETH" : "USD"}`
+          //     : ""
+          // }
+          prefix={isPaymentEth ? "Ξ" : "$"}
+          prefixAction={() => handlTogglePaymentCurrency()}
+          loading={loading}
+          onClick={async () => {
+            if (!isConnected) {
+              openConnectModal()
+            } else if (payment != 0) {
+              await executeTransaction(
+                writeAsync,
+                setLoading,
+                `Pay ${round.name} | #${projectId}`,
+                addRecentTransaction,
+                async () => setPayment(null),
+                true
+              )
+            }
+          }}
+        />
+        {payment ? (
+          <p
+            className={`absolute top-0 ${
+              isConnected ? "right-[140px]" : "right-[176px]"
+            } text-sm text-gray-600 flex items-center h-full`}
+          >
+            {isPaymentEth
+              ? `$${Math.round(payment * ethUsd)}`
+              : `Ξ${Math.round((payment * 1000) / ethUsd) / 1000}`}
+          </p>
+        ) : null}
+      </div>
       <div className="text-left text-xs xs:text-sm pt-1.5">
         {!error ? (
-          <p>
-            Receive{" "}
-            <span className="font-bold">
-              {isSlicerToBeCreated &&
+          round.tokenIssuance >= 1 /* || isSlicerToBeCreated */ && (
+            <p>
+              Receive{" "}
+              <span className="font-bold">
+                {/* {isSlicerToBeCreated &&
                 `${
                   payment
                     ? formatNumber(Math.floor(paymentEth * 1000))
                     : formatNumber(defaultPaymentUsd)
-                } slices ${round.tokenIssuance >= 1 ? "+ " : ""}`}
-              {round.tokenIssuance >= 1 &&
-                `${formatNumber(
-                  payment
-                    ? Number(
-                        Number(paymentEth * round.tokenIssuance).toFixed(0)
-                      )
-                    : defaultIssuanceUsd,
-                  3
-                )} 
+                } slices ${round.tokenIssuance >= 1 ? "+ " : ""}`} */}
+                {round.tokenIssuance >= 1 &&
+                  `${formatNumber(
+                    payment
+                      ? Number(
+                          Number(paymentEth * round.tokenIssuance).toFixed(0)
+                        )
+                      : defaultIssuanceUsd,
+                    3
+                  )} 
                 ${round.tokenSymbol || "tokens"} `}
-            </span>
-            {!payment && isPaymentEth ? "/ ETH" : "/ USD"}
-          </p>
+              </span>
+              {!payment && (isPaymentEth ? "/ ETH" : "/ USD")}
+            </p>
+          )
         ) : (
           <p className="font-bold text-red-500">
             {error?.message?.includes("insufficient funds")

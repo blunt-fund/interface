@@ -10,7 +10,7 @@ import fetcher from "@utils/fetcher"
 import { GetStaticPropsContext } from "next"
 import prisma from "@lib/prisma"
 import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegate.json"
+import bluntDelegate from "abi/BluntDelegateClone.json"
 import { addresses } from "@utils/constants"
 import { useRouter } from "next/router"
 import { useAppContext } from "@components/ui/context"
@@ -50,14 +50,14 @@ export default function Round({ subgraphData, projectData }) {
   return (
     <>
       <NextSeo
-        title={`${projectData.metadata.name} | Round | Blunt Finance`}
+        title={`${projectData.metadata.name} | Round | Blunt`}
         openGraph={{
           title: longTitle,
           description: defaultDescription,
           url: domain,
           images: [
             {
-              url: `${domain}/og_image.jpg`,
+              url: `${domain}/og_image.png`,
               width: 1000,
               height: 1000,
               alt: `${defaultTitle} cover image`
@@ -68,7 +68,7 @@ export default function Round({ subgraphData, projectData }) {
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (
-            roundInfo.length && (
+            roundInfo?.length && (
               <RoundViewFull
                 subgraphData={subgraphData}
                 projectData={projectData}
@@ -92,6 +92,7 @@ export default function Round({ subgraphData, projectData }) {
 
 export async function getStaticPaths() {
   const ids = await prisma.project.findMany({ select: { projectId: true } })
+  // const ids = []
   const paths = ids.map(({ projectId }) => ({
     params: {
       id: String(projectId)
@@ -111,7 +112,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return {
     props: {
       subgraphData,
-      projectData
+      projectData,
+      key: id
     },
     revalidate: 600
   }

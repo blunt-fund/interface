@@ -5,6 +5,7 @@ import {
   Input,
   LoadingStep,
   Locks,
+  OwnerDisplay,
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
@@ -13,11 +14,17 @@ import executeTransaction from "@utils/executeTransaction"
 import formatAddress from "@utils/formatAddress"
 import formatNumber from "@utils/formatNumber"
 import { useState } from "react"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import {
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite
+} from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
-import { ethers } from "ethers"
+import JBTokenStore from "abi/JBTokenStore.json"
+import { BigNumber, ethers } from "ethers"
 import { ConnectButton, useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import saEvent from "@utils/saEvent"
+import va from "@vercel/analytics"
+import { formatEther } from "ethers/lib/utils.js"
 
 export type View = {
   name: ViewNames
@@ -48,7 +55,7 @@ export const NETWORK_VIEW = () => {
         </div>
         <div
           className="flex justify-center pt-6"
-          onClick={() => saEvent("connect_wallet_attempt")}
+          onClick={() => va.track("connect_wallet_attempt")}
         >
           <ConnectButton
             accountStatus={{
@@ -77,7 +84,7 @@ export const ROUND_INFO_VIEW = () => {
 
 export const CREATE_ROUND_VIEW = (params: any) => {
   const { setModalView } = useAppContext()
-  const { uploadStep, roundId, toQueue } = params
+  const { uploadStep, roundId } = params
 
   let uploadState: string
   switch (uploadStep) {
@@ -104,7 +111,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 pt-12 pb-8 mx-auto">
           <LoadingStep
             initCondition={uploadStep < 2}
@@ -122,15 +129,8 @@ export const CREATE_ROUND_VIEW = (params: any) => {
         <div>
           {uploadStep == 4 || uploadStep == 6 ? (
             uploadStep == 6 ? (
-              <div>
-                {toQueue && (
-                  <p className="pb-6 mx-auto text-sm font-bold text-yellow-600">
-                    Prepare the round before the deadline on its page
-                  </p>
-                )}
-                <div onClick={() => setModalView({ name: "" })}>
-                  <Button label={"Go to round"} href={`/rounds/${roundId}`} />
-                </div>
+              <div onClick={() => setModalView({ name: "" })}>
+                <Button label={"Go to round"} href={`/rounds/${roundId}`} />
               </div>
             ) : (
               <Button
@@ -156,38 +156,39 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     descriptionHtml,
     totalShares,
     createRound,
-    transferTimestamp,
-    releaseTimestamp,
-    roundTimestamp,
+    // transferTimestamp,
+    // releaseTimestamp,
+    // roundTimestamp,
     projectOwner
   } = params
   const { shares } = roundData
+  const now = Math.floor(new Date().getTime() / 1000)
+  const tempRoundData = { ...roundData, deadline: roundData["deadline"] + now }
 
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
       <div className="pt-8 space-y-8">
-        <p>Proceeding will create a Juicebox project and a slicer.</p>
+        <p className="text-gray-600">
+          Proceeding will create a round with the settings below.
+        </p>
         <hr className="w-20 !my-12 mx-auto border-gray-300" />
         <RoundViewMain
-          roundData={roundData}
+          roundData={tempRoundData}
           descriptionHtml={descriptionHtml}
           isRoundClosed={false}
         />
 
-        <Locks
+        {/* <Locks
           transferTimestamp={transferTimestamp}
           releaseTimestamp={releaseTimestamp}
           roundTimestamp={roundTimestamp}
-        />
+        /> */}
 
-        <EmissionPreview shares={shares} totalShares={totalShares} />
+        {/* <EmissionPreview shares={shares} totalShares={totalShares} /> */}
 
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-4 h-4">
-            <Crown />
-          </div>
-          <p>Project owner: {formatAddress(projectOwner)}</p>
+        <div className="flex justify-center w-full">
+          <OwnerDisplay projectOwner={projectOwner} />
         </div>
 
         <div className="pt-6 text-center">
@@ -219,9 +220,22 @@ export const REDEEM_VIEW = (params: any) => {
     totalContributions,
     tokenIssuance
   } = params
-  const tokenCount = ethers.BigNumber.from(10)
-    .pow(12)
-    .mul(Math.round(redeemAmount * Number(tokenIssuance) * 1e6))
+
+  // TODO: Make this independent from total tokens owned, and calculate based on accountsContributions and tokenIssuance
+  const { data: tokenCountAll } = useContractRead({
+    address: addresses.JBTokenStore,
+    abi: JBTokenStore.abi,
+    functionName: "balanceOf",
+    args: [account, projectId]
+  }) as { data: BigNumber }
+
+  const tokenCount =
+    tokenCountAll &&
+    ethers.BigNumber.from(
+      Math.round((redeemAmount * 1e9) / formattedAccountContributions)
+    )
+      .mul(tokenCountAll)
+      .div(1e9)
 
   const { config, error } = usePrepareContractWrite({
     address: addresses.JBTerminal,
@@ -230,11 +244,11 @@ export const REDEEM_VIEW = (params: any) => {
     args: [
       account,
       projectId,
-      tokenCount,
+      tokenCount || 0,
       ethers.constants.AddressZero,
       0,
       account,
-      "Redeemed from blunt.finance",
+      "Redeemed from blunt.fund",
       []
     ]
   })
@@ -243,18 +257,18 @@ export const REDEEM_VIEW = (params: any) => {
 
   return (
     <div className="text-center">
-      <h1 className="text-2xl sm:text-3xl">Redeem contributions</h1>
+      <h1 className="text-2xl sm:text-3xl">Refund contributions</h1>
       <div className="pt-16 text-left">
         <p className="pb-2 text-sm">
           You contributed: <b>{formattedAccountContributions} ETH</b>
         </p>
         <Input
           type="number"
-          onClickLabel="Redeem"
+          onClickLabel="Refund"
           error={redeemAmount > formattedAccountContributions}
           min={0}
           max={formattedAccountContributions}
-          placeholder={`Redeem up to ${formattedAccountContributions} ETH`}
+          placeholder={`Refund up to ${formattedAccountContributions} ETH`}
           step={0.001}
           value={redeemAmount || ""}
           onChange={setRedeemAmount}
@@ -272,7 +286,27 @@ export const REDEEM_VIEW = (params: any) => {
             ))
           }
         />
-        <p className="pt-6 text-sm">
+        <div className="text-left text-xs xs:text-sm pt-1.5">
+          {tokenCountAll &&
+            (redeemAmount ? (
+              <p>
+                Return{" "}
+                <span className="font-bold">
+                  {formatNumber(Math.round(Number(formatEther(tokenCount))))}{" "}
+                  tokens
+                </span>
+              </p>
+            ) : (
+              <p>
+                Owned:{" "}
+                <span className="font-bold">
+                  {formatNumber(Math.round(Number(formatEther(tokenCountAll))))}{" "}
+                  tokens
+                </span>
+              </p>
+            ))}
+        </div>
+        {/* <p className="pt-6 text-sm">
           Remaining slices:{" "}
           <b>
             {formatNumber(
@@ -285,7 +319,7 @@ export const REDEEM_VIEW = (params: any) => {
               (totalContributions - redeemAmount) || 1) * 1e4
           ) / 100}
           % of round allocation)
-        </p>
+        </p> */}
       </div>
     </div>
   )

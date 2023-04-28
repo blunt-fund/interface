@@ -3,11 +3,11 @@ import executeTransaction from "@utils/executeTransaction"
 import { useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import { Button, Question } from ".."
-import BluntDelegate from "abi/BluntDelegate.json"
+import BluntDelegate from "abi/BluntDelegateClone.json"
 
 type Props = {
   projectId: number
-  bluntDelegate: string
+  bluntDelegate: `0x${string}`
 }
 
 const ClaimSlicesButton = ({ projectId, bluntDelegate }: Props) => {

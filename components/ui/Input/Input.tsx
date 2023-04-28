@@ -1,3 +1,4 @@
+import Arrow from "@components/icons/Arrow"
 import Spinner from "@components/icons/Spinner"
 import React, { InputHTMLAttributes } from "react"
 import Question from "../Question"
@@ -14,6 +15,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   submit?: boolean
   question?: JSX.Element
   questionPosition?: string
+  onClickArrow?: boolean
   onClickLabel?: string
   prefixAction?: (...args: any[]) => any
   onClick?: (...args: any[]) => any
@@ -37,6 +39,7 @@ const Input: React.FC<Props> = ({
   prefixAction,
   onClick,
   onClickLabel,
+  onClickArrow = true,
   onChange,
   ...rest
 }) => {
@@ -48,10 +51,10 @@ const Input: React.FC<Props> = ({
       : prefix
       ? "rounded-r-sm"
       : "rounded-l-sm"
-  const rootClassName = `peer bg-white py-2 pl-6 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-400 disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500 ${
+  const rootClassName = `peer bg-white py-2 pl-5 w-full appearance-none pr-4 border focus:outline-none placeholder-gray-400 disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500 ${
     error
       ? "border-red-500 text-red-500 focus:border-red-500"
-      : "border-gray-200 text-black focus:border-blue-600"
+      : "border-gray-200 text-black focus:border-yellow-600"
   } ${rounded} ${className}`
 
   const handleOnChange = (e: any) => {
@@ -77,33 +80,34 @@ const Input: React.FC<Props> = ({
       >
         {onClick && (
           <div
-            className={`relative text-sm font-bold group flex items-center justify-center px-8 text-white nightwind-prevent ${
+            className={`relative text-sm font-bold group flex items-center justify-center px-6 text-white ${
               error
                 ? "cursor-pointer bg-red-500"
-                : `bg-blue-600 ${
-                    !disabled && !loading
-                      ? "cursor-pointer hover:bg-blue-700"
-                      : ""
+                : `bg-yellow-600 ${
+                    !disabled && !loading ? "cursor-pointer" : ""
                   }`
             }`}
             onClick={!disabled && !loading ? onClick : null}
           >
             {onClickLabel && (
-              <span className={`mr-1 ${loading ? "-z-10" : ""}`}>
+              <span
+                className={`mr-2 whitespace-nowrap ${loading ? "-z-10" : ""}`}
+              >
                 {onClickLabel}
               </span>
             )}
-            {/* {" "}
-            <div
-              className={`w-[1.2rem] h-[1.2rem] text-white nightwind-prevent transition-transform duration-150 group-hover:translate-x-1 ${
-                loading ? "-z-10" : ""
-              }`}
-            >
-              <Arrow />
-            </div> */}
+            {onClickArrow && (
+              <div
+                className={`w-[1.2rem] h-[1.2rem] text-white transition-transform duration-100 group-hover:translate-x-1 ${
+                  loading ? "-z-10" : ""
+                }`}
+              >
+                <Arrow />
+              </div>
+            )}
             {loading && (
               <div className="absolute flex items-center justify-center w-full h-full">
-                <Spinner color="text-white nightwind-prevent" />
+                <Spinner color="text-white" />
               </div>
             )}
           </div>
@@ -128,7 +132,7 @@ const Input: React.FC<Props> = ({
               error
                 ? "border-red-400 peer-focus:border-red-400 dark:peer-focus:border-red-500 shadow-error"
                 : !disabled && !loading
-                ? "text-black focus:border-blue-600 peer-focus:border-blue-600 dark:peer-focus:border-blue-600"
+                ? "text-black focus:border-yellow-600 peer-focus:border-yellow-600 dark:peer-focus:border-yellow-300"
                 : ""
             } ${
               prefixAction && !disabled && !loading
@@ -136,7 +140,7 @@ const Input: React.FC<Props> = ({
                 : ""
             } ${
               disabled || loading
-                ? "text-gray-400 border-blue-100 bg-gray-100 "
+                ? "text-gray-400 border-yellow-100 bg-gray-100 "
                 : ""
             }`}
             onClick={

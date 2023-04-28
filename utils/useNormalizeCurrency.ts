@@ -1,19 +1,15 @@
-import useSWR from "swr"
-import fetcher from "./fetcher"
+import { useEthUsd } from "./useEthUsd"
 
 const useNormalizeCurrency = (
   value: number,
   isValueEth = true,
   convertToEth = true
 ) => {
-  const { data: ethUsd } = useSWR(
-    "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT",
-    fetcher
-  )
+  const ethUsd = useEthUsd()
   if (convertToEth) {
-    return isValueEth ? value : value / ethUsd?.price
+    return isValueEth ? value : value / ethUsd
   } else {
-    return isValueEth ? value * ethUsd?.price : value
+    return isValueEth ? value * ethUsd : value
   }
 }
 

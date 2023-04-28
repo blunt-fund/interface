@@ -49,9 +49,10 @@ export function TimeWrapper({ children }) {
   const [time, setTime] = useState(Math.floor(new Date().getTime() / 1000))
 
   useEffect(() => {
-    setInterval(() => {
-      setTime(Math.floor(new Date().getTime() / 1000))
+    const intervalId = setInterval(() => {
+      setTime((time) => time + 1)
     }, 1000)
+    return () => clearInterval(intervalId)
   }, [])
 
   return (
@@ -64,3 +65,25 @@ export function TimeWrapper({ children }) {
 export function useTimeContext() {
   return useContext(TimeContext)
 }
+
+// TODO: Add context to get EthUsd from priceFeed
+// export function EthUsdWrapper({ children }) {
+//   const [time, setTime] = useState(Math.floor(new Date().getTime() / 1000))
+
+//   useEffect(() => {
+//     const intervalId = setInterval(() => {
+//       setTime((time) => time + 1)
+//     }, 1000)
+//     return () => clearInterval(intervalId)
+//   }, [])
+
+//   return (
+//     <TimeContext.Provider value={{ now: time }}>
+//       {children}
+//     </TimeContext.Provider>
+//   )
+// }
+
+// export function useEthUsdContext() {
+//   return useContext(TimeContext)
+// }

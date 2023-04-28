@@ -4,12 +4,12 @@ import { useEffect, useState } from "react"
 import { BigNumber, ethers } from "ethers"
 import { RoundData } from "@utils/getRounds"
 import { useTimeContext } from "../context"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 
 type Props = {
   round: RoundData
   totalContributions: number
   isRoundClosed: boolean
-  timestamp?: number
   accountContributions: BigNumber
   bluntDelegate: string
 }
@@ -18,7 +18,6 @@ const RoundMainSection = ({
   round,
   totalContributions,
   isRoundClosed,
-  timestamp,
   accountContributions,
   bluntDelegate
 }: Props) => {
@@ -26,7 +25,13 @@ const RoundMainSection = ({
   const router = useRouter()
   const { id } = router.query
 
-  const isDeadlinepassed = timestamp + round.duration - now < 0
+  const isDeadlinepassed =
+    Number(round.deadline) != 0 && Number(round.deadline) - now < 0
+
+  const normalizedTarget = useNormalizeCurrency(
+    round.target,
+    !round.isTargetUsd
+  )
 
   const [accountHasContributed, setAccountHasContributed] = useState(false)
   useEffect(() => {
@@ -35,7 +40,10 @@ const RoundMainSection = ({
     )
   }, [accountContributions])
 
-  console.log(isRoundClosed)
+  // TODO: Best way to not hide FullRedeemButton after full redeem? Example: http://localhost:3000/rounds/332
+  // - update account contributions onchain also if round is closed
+  // - get value from JB?
+  // - ????
 
   return (
     <>
@@ -48,21 +56,22 @@ const RoundMainSection = ({
         />
       ) : (
         accountHasContributed &&
-        (totalContributions <= round.target ? (
+        (totalContributions <= normalizedTarget ? (
           <FullRedeemButton
             projectId={Number(id)}
             accountContributions={accountContributions}
           />
-        ) : round.isSlicerToBeCreated && !isRoundClosed ? (
-          <p className="text-sm font-bold text-yellow-600">
-            Wait for the project owner to close the round to claim your slices
-          </p>
-        ) : (
-          <ClaimSlicesButton
-            projectId={Number(id)}
-            bluntDelegate={bluntDelegate}
-          />
-        ))
+        ) : null)
+        //  round.isSlicerToBeCreated && !isRoundClosed ? (
+        //   <p className="text-sm font-bold text-yellow-600">
+        //     Wait for the project owner to close the round to claim your slices
+        //   </p>
+        // ) : (
+        //   <ClaimSlicesButton
+        //     projectId={Number(id)}
+        //     bluntDelegate={bluntDelegate}
+        //   />
+        // )
       )}
 
       {isDeadlinepassed ||
@@ -73,6 +82,7 @@ const RoundMainSection = ({
           totalContributions={totalContributions}
           accountContributions={accountContributions}
           tokenIssuance={round.tokenIssuance}
+          isRedeemDisabled={isRoundClosed && totalContributions > round.target}
         />
       )}
     </>

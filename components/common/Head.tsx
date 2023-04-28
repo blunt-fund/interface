@@ -1,13 +1,12 @@
 import { FC } from "react"
 import NextHead from "next/head"
 import { DefaultSeo } from "next-seo"
-import Script from "next/script"
 
-export const defaultTitle = "Blunt Finance"
+export const defaultTitle = "Blunt"
 export const longTitle =
-  "Blunt Finance – Fundraise bluntly in the open with your community"
+  "Blunt – Fundraise bluntly in the open with your community"
 export const defaultDescription =
-  "Manage terms sheets, fundraising, cashflow, and capital allocation, bluntly in the open with your community."
+  "Trustless, refundable funding rounds based on a set of pre-defined rules."
 export const domain = process.env.NEXT_PUBLIC_APP_URL
 export const twitterAccount = "blunt_finance"
 
@@ -31,7 +30,7 @@ const Head: FC = () => {
       />
       <NextHead>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="twitter:image" content={`${domain}/twitter_card.jpg`} />
+        <meta name="twitter:image" content={`${domain}/twitter_card.png`} />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -51,12 +50,6 @@ const Head: FC = () => {
         />
         <link rel="shortcut icon" href="/favicon/apple-touch-icon.png" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
-        <Script
-          id="sa_event"
-          dangerouslySetInnerHTML={{
-            __html: `window.sa_event=window.sa_event||function(){var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]};`
-          }}
-        />
       </NextHead>
     </>
   )

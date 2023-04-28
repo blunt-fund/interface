@@ -1,65 +1,79 @@
 import formatNumber from "@utils/formatNumber"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useTimeContext } from "../context"
 import ProgressBar from "../ProgressBar"
 
 type Props = {
   roundData: RoundData
   raised: number
-  timestamp: number
   issuance: boolean
   isRoundClosed: boolean
+  hasEndedUnsuccessfully: boolean
 }
 
 const RoundDetails = ({
   roundData,
   raised,
-  timestamp,
   issuance,
-  isRoundClosed
+  isRoundClosed,
+  hasEndedUnsuccessfully
 }: Props) => {
+  const [raisedUsd, setRaisedUsd] = useState<number>()
+  const [targetEth, setTargetEth] = useState<number>()
   const { now } = useTimeContext()
   const {
     tokenSymbol,
     tokenIssuance,
-    duration,
+    deadline,
     target,
     cap,
-    isTargetEth,
-    isCapEth
+    isTargetUsd,
+    isHardcapUsd
   } = roundData
 
-  const currency = (isEth: boolean) => (isEth ? "ETH" : "USD")
-  const targetEth = useNormalizeCurrency(target, isTargetEth)
-  const capEth = useNormalizeCurrency(cap, isCapEth)
+  const currency = (isUsd: boolean) => (isUsd ? "USD" : "ETH")
+  const normalizedTargetEth = useNormalizeCurrency(target, !isTargetUsd)
+  const capEth = useNormalizeCurrency(cap, !isHardcapUsd)
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
-  const raisedUsd = raised != 0 ? normalizedRaisedUsd || undefined : 0
-  const deadline = timestamp + duration - now
-  const formattedDeadlineUnits =
-    deadline / 86400 > 1
+
+  const timeLeft = Number(deadline) - now
+  const formattedTimeLeftUnits =
+    timeLeft && timeLeft / 86400 > 1
       ? "days"
-      : deadline / 3600 > 1
+      : timeLeft / 3600 > 1
       ? "hours"
-      : deadline / 60 > 1
+      : timeLeft / 60 > 1
       ? "minutes"
       : "seconds"
-  const formattedDeadline =
-    deadline &&
+  const formattedTimeLeft =
+    timeLeft &&
     Math.floor(
-      formattedDeadlineUnits == "days"
-        ? deadline / 86400
-        : formattedDeadlineUnits == "hours"
-        ? deadline / 3600
-        : formattedDeadlineUnits == "minutes"
-        ? deadline / 60
-        : deadline
+      formattedTimeLeftUnits == "days"
+        ? timeLeft / 86400
+        : formattedTimeLeftUnits == "hours"
+        ? timeLeft / 3600
+        : formattedTimeLeftUnits == "minutes"
+        ? timeLeft / 60
+        : timeLeft
     )
-  const active = (duration == 0 || deadline > 0) && !isRoundClosed
+  const active = (Number(deadline) == 0 || timeLeft > 0) && !isRoundClosed
+
+  useEffect(() => {
+    setRaisedUsd(
+      normalizedRaisedUsd != 0
+        ? Math.floor(normalizedRaisedUsd) || undefined
+        : 0
+    )
+  }, [normalizedRaisedUsd])
+
+  useEffect(() => {
+    setTargetEth(normalizedTargetEth)
+  }, [normalizedTargetEth])
 
   return (
-    <div className="mt-8 text-xs xs:text-sm">
+    <div className="mt-6 text-sm tracking-tight sm:tracking-normal">
       <ProgressBar
         max={
           cap != 0
@@ -72,6 +86,7 @@ const RoundDetails = ({
         raised={raised}
         isCapped={cap != 0}
         active={active}
+        hasEndedUnsuccessfully={hasEndedUnsuccessfully}
       />
       <div className="flex justify-between pt-5 pb-2">
         <p>
@@ -79,30 +94,28 @@ const RoundDetails = ({
           <b>
             <span
               className={
-                raised < targetEth
-                  ? "text-yellow-500 dark:text-yellow-300"
-                  : "text-blue-600 nightwind prevent"
+                raised <= targetEth || hasEndedUnsuccessfully
+                  ? "text-yellow-600"
+                  : "text-green-600"
               }
             >
-              {formatNumber(isCapEth ? raised : raisedUsd, 1)}
+              {formatNumber(isHardcapUsd || !cap ? raisedUsd : raised, 1)}
             </span>{" "}
             {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
-            {currency(isCapEth || !cap)}
+            {currency(isHardcapUsd || !cap)}
           </b>
         </p>
         <p>
           Deadline:{" "}
           <b
             className={
-              deadline > 0 && deadline < 259200 ? "text-yellow-500" : ""
+              timeLeft > 0 && timeLeft < 259200 ? "text-yellow-600" : ""
             }
           >
-            {duration
-              ? deadline != undefined
-                ? deadline > 0
-                  ? `${formattedDeadline} ${formattedDeadlineUnits}`
-                  : "passed"
-                : `${duration} days`
+            {deadline && Number(deadline) != 0
+              ? timeLeft > 0
+                ? `${formattedTimeLeft} ${formattedTimeLeftUnits}`
+                : "passed"
               : "none"}
           </b>
         </p>
@@ -114,16 +127,16 @@ const RoundDetails = ({
               Target:{" "}
               <b>
                 <span className="text-blue-600">{formatNumber(target, 1)}</span>{" "}
-                {currency(isTargetEth)}
+                {currency(isTargetUsd)}
               </b>
             </>
           )}
         </p>
         {issuance && tokenIssuance >= 1 && (
           <p>
-            Issuance:{" "}
+            Tokens:{" "}
             <b>
-              {formatNumber(tokenIssuance, 1)} {tokenSymbol || "tokens"} / ETH
+              {formatNumber(tokenIssuance, 1)} {tokenSymbol || ""}/ ETH
             </b>
           </p>
         )}

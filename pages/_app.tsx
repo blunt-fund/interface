@@ -5,6 +5,7 @@ import { Background, Layout } from "@components/ui"
 import "../styles/global/styles.scss"
 import { AppWrapper } from "@components/ui/context"
 import { AppProps } from "next/dist/shared/lib/router/router"
+import { Analytics } from "@vercel/analytics/react"
 
 import {
   getDefaultWallets,
@@ -12,14 +13,22 @@ import {
   lightTheme
 } from "@rainbow-me/rainbowkit"
 import { alchemyProvider } from "wagmi/providers/alchemy"
+import { infuraProvider } from "wagmi/providers/infura"
 import { publicProvider } from "wagmi/providers/public"
-import { chain, createClient, configureChains, WagmiConfig } from "wagmi"
+import {
+  createClient,
+  configureChains,
+  WagmiConfig,
+  goerli,
+  mainnet
+} from "wagmi"
 import "@rainbow-me/rainbowkit/styles.css"
 
 const defaultChains =
-  process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? [chain.goerli] : [chain.mainnet]
+  process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? [goerli] : [mainnet]
 
 const { chains, provider } = configureChains(defaultChains, [
+  infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
   publicProvider()
 ])
@@ -74,6 +83,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </RainbowKitProvider>
         </WagmiConfig>
       </ThemeProvider>
+      <Analytics />
     </>
   )
 }

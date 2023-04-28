@@ -10,11 +10,16 @@ project(
   deployer
   createdAt
   metadataUri
-  configureEvents {
+  configureEvents (orderBy: timestamp, orderDirection: asc) {
     timestamp
     duration
     weight
     dataSource
+  }
+  participants (orderBy: totalPaid, orderDirection: desc) {
+    wallet {
+      id
+    }
   }
 }
 `
@@ -31,7 +36,7 @@ projects(
   owner
   createdAt
   metadataUri
-  configureEvents {
+  configureEvents (orderBy: timestamp, orderDirection: asc)  {
     timestamp
     duration
     weight

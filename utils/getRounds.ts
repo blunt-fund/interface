@@ -1,16 +1,17 @@
 import { ImageType } from "@components/ui/CreateFormAdvancedLinks/CreateFormAdvancedLinks"
 import { Project } from "@prisma/client"
+import { BigNumber } from "ethers"
 import formatRound from "./formatRound"
 
 export type RoundData = {
   name: string
   description: string
   projectOwner: string
-  duration: number
+  deadline: string | BigNumber
   target: number
   cap: number
-  isTargetEth: boolean
-  isCapEth: boolean
+  isTargetUsd: boolean
+  isHardcapUsd: boolean
   isSlicerToBeCreated: boolean
   tokenSymbol: string
   tokenIssuance: number
@@ -31,9 +32,9 @@ export type RoundData = {
 
 export type RoundInfo = {
   round: RoundData
-  timestamp: number
   totalContributions: number
   roundId: number
+  hasEndedUnsuccessfully: boolean
 }
 
 const getRounds = (
@@ -49,19 +50,25 @@ const getRounds = (
       const projectMetadata = projectData.find(
         (el) => el.projectId == project.projectId
       ).metadata
-      const { round, timestamp, totalContributions, duration, isRoundClosed } =
+      const { round, totalContributions, deadline, isRoundClosed } =
         formatRound(project, roundInfo[i], projectMetadata)
+
+      const bluntDelegate = subgraphData[i]?.configureEvents[0].dataSource
+      const currentDelegate =
+        subgraphData[i]?.configureEvents[
+          subgraphData[i]?.configureEvents.length - 1
+        ].dataSource
 
       const data = {
         round,
-        timestamp,
         totalContributions,
-        roundId: project.projectId
+        roundId: project.projectId,
+        hasEndedUnsuccessfully:
+          isRoundClosed && currentDelegate == bluntDelegate
       }
 
       if (
-        (duration == 0 ||
-          timestamp + duration - new Date().getTime() / 1000 > 0) &&
+        (deadline == 0 || deadline - new Date().getTime() / 1000 > 0) &&
         !isRoundClosed
       ) {
         return data

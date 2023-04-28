@@ -19,8 +19,8 @@ const ConditionalLink = ({
         {children}
       </a>
     ) : (
-      <Link href={href}>
-        <a className={`cursor-pointer ${className}`}>{children}</a>
+      <Link href={href} className={`cursor-pointer ${className}`}>
+        {children}
       </Link>
     )
   ) : (

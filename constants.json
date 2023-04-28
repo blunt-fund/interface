@@ -4,21 +4,25 @@
   },
   "addresses": {
     "1": {
-      "BluntDelegateDeployer": "",
-      "BluntDelegateCloner": "",
-      "BluntDelegateProjectDeployer": "",
+      "BluntDelegateCloner": "0x339F97760cF413e61DF89890EfE7abf4E73E294c",
+      "BluntDelegateProjectDeployer": "0xAA6C20483b2E84c94f76B698a9e569d00A8eFDc5",
+      "PriceFeed": "0x71c96edD5D36935d5c8d6B78bCcD4113725297e3",
+      "ethAddress": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "usdcAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
       "JBTerminal": "0x594Cb208b5BB48db1bcbC9354d1694998864ec63",
       "JBDirectory": "0x65572FB928b46f9aDB7cfe5A4c41226F636161ea",
-      "JBFundingCycleStore": "0x6f18cF9173136c0B5A6eBF45f19D58d3ff2E17e6",
+      "JBTokenStore": "0x6FA996581D7edaABE62C15eaE19fEeD4F1DdDfE7",
       "SliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d"
     },
     "5": {
-      "BluntDelegateDeployer": "0xe179d0043b627130C0917107E62A0862b6DF3bf6",
-      "BluntDelegateCloner": "0x460996e8dDdaBE35eA48278111eD18202F4F1Fc7",
-      "BluntDelegateProjectDeployer": "0xA20294B04C9dE0dA8Ca83E5779b356462d2f0a65",
-      "JBTerminal": "0x55d4dfb578daA4d60380995ffF7a706471d7c719",
+      "BluntDelegateCloner": "0x339F97760cF413e61DF89890EfE7abf4E73E294c",
+      "BluntDelegateProjectDeployer": "0xAA6C20483b2E84c94f76B698a9e569d00A8eFDc5",
+      "PriceFeed": "0x71c96edD5D36935d5c8d6B78bCcD4113725297e3",
+      "ethAddress": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+      "usdcAddress": "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
+      "JBTerminal": "0x0baCb87Cf7DbDdde2299D92673A938E067a9eb29",
       "JBDirectory": "0x8E05bcD2812E1449f0EC3aE24E2C395F533d9A99",
-      "JBFundingCycleStore": "0xB9Ee9d8203467f6EC0eAC81163d210bd1a7d3b55",
+      "JBTokenStore": "0x1246a50e3aDaF684Ac566f0c40816fF738F309B3",
       "SliceCore": "0xAE38a794E839D045460839ABe288a8e5C28B0fc6"
     }
   }

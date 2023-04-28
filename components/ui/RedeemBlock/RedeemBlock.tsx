@@ -6,45 +6,50 @@ type Props = {
   totalContributions: number
   accountContributions: BigNumber
   tokenIssuance: number
+  isRedeemDisabled: boolean
 }
 
 const RedeemBlock = ({
   projectId,
   totalContributions,
   accountContributions,
-  tokenIssuance
+  tokenIssuance,
+  isRedeemDisabled
 }: Props) => {
   const { setModalView } = useAppContext()
-  const formattedAccountContributions = Number(
-    ethers.utils.formatUnits(accountContributions, 18)
-  )
+  const formattedAccountContributions =
+    Math.round(
+      Number(ethers.utils.formatUnits(accountContributions, 18)) * 1000
+    ) / 1000
 
   return (
-    <div className="space-y-2 text-sm text-left">
+    <div className="space-y-2 text-sm text-right">
       <p>
         You contributed:{" "}
         <b>
-          {formattedAccountContributions} ETH{" "}
-          <span
-            className="ml-2 text-blue-600 cursor-pointer"
-            onClick={() =>
-              setModalView({
-                name: "REDEEM_VIEW",
-                cross: true,
-                params: {
-                  projectId,
-                  formattedAccountContributions,
-                  totalContributions,
-                  tokenIssuance
-                }
-              })
-            }
-          >
-            Redeem
-          </span>
+          {formattedAccountContributions} ETH
+          {!isRedeemDisabled && (
+            <span
+              className="ml-3 text-yellow-600 cursor-pointer"
+              onClick={() =>
+                setModalView({
+                  name: "REDEEM_VIEW",
+                  cross: true,
+                  params: {
+                    projectId,
+                    formattedAccountContributions,
+                    totalContributions,
+                    tokenIssuance
+                  }
+                })
+              }
+            >
+              Get refund
+            </span>
+          )}
         </b>
       </p>
-      <p>
+      {/* <p>
         Blunt allocation:{" "}
         <b>
           {Math.floor(
@@ -52,7 +57,7 @@ const RedeemBlock = ({
           ) / 100}
           %
         </b>
-      </p>
+      </p> */}
     </div>
   )
 }

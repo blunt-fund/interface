@@ -26,7 +26,7 @@ const CreateFormAdvancedReservedRate = ({
   }
 
   return (
-    <div className="py-3 space-y-6">
+    <div className="py-3 space-y-8">
       <p>
         Add beneficiaries to the reserved rate in addition to blunt round
         participants.
@@ -52,7 +52,7 @@ const CreateFormAdvancedReservedRate = ({
           )
         })}
 
-        <div className="flex col-span-5 pl-1 text-blue-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
+        <div className="flex col-span-5 pl-1 text-yellow-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
           <Add onClick={() => addAccount()} />
           <p
             className="inline-block pl-4 font-semibold"

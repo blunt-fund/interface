@@ -7,19 +7,29 @@ type Props = {
   raised?: number
   isCapped?: boolean
   active?: boolean
+  hasEndedUnsuccessfully?: boolean
 }
 
-const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
+const ProgressBar = ({
+  max,
+  target,
+  raised,
+  isCapped,
+  active,
+  hasEndedUnsuccessfully
+}: Props) => {
   const targetPercentage = 100 - (target * 100) / max
-  const raisedPercentage = (raised * 100) / max
+  const raisedPercentage = raised
+    ? Math.round((raised * 1e8) / max) / 1e6 + 1.5
+    : 0
+  const raisedPercentageFormatted =
+    raisedPercentage > 100 ? 100 : raisedPercentage
 
   const raisedColor =
-    raised < target
+    raised < target || hasEndedUnsuccessfully
       ? active
         ? "currentColor"
         : "#6C6C76"
-      : active
-      ? "#2563EB"
       : "#22C55E"
 
   return (
@@ -27,7 +37,7 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
       <div
         className="flex items-center w-full h-2 text-yellow-500 rounded-sm dark:text-yellow-300 "
         style={{
-          background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentage}%, transparent ${raisedPercentage}%)`,
+          background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentageFormatted}%, transparent ${raisedPercentage}%)`,
           animation: active
             ? "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite"
             : ""
@@ -39,7 +49,9 @@ const ProgressBar = ({ max, target, raised, isCapped, active }: Props) => {
           {target != 0 && (
             <div
               className={`absolute w-1.5 py-3 rounded-sm ${
-                active || raised < target ? "bg-blue-600" : "bg-green-500"
+                raised < target || hasEndedUnsuccessfully
+                  ? "bg-blue-600"
+                  : "bg-green-500"
               } nightwind-prevent`}
               style={{ right: `${targetPercentage}%` }}
             />

@@ -1,7 +1,14 @@
-import { Input, InputAddress, NoteText } from "@components/ui"
+import {
+  Input,
+  InputAddress,
+  InputDeadlineUnits,
+  NoteText
+} from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RoundData } from "utils/getRounds"
+import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
+import { useAppContext } from "../context"
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -17,14 +24,17 @@ const CreateFormAdvancedFundraise = ({
   targetError,
   riskMargin
 }: Props) => {
-  const { duration, target, cap, isTargetEth, isCapEth, projectOwner } =
+  const { account } = useAppContext()
+  const { deadline, target, cap, isTargetUsd, isHardcapUsd, projectOwner } =
     roundData
 
   const [address, setAddress] = useState("")
   const [resolvedAddress, setResolvedAddress] = useState("")
+  const [deadlineUnits, setDeadlineUnits] = useState("days")
 
-  const handleSetDuration = (value: number) => {
-    handleSetObject("duration", value, roundData, setRoundData)
+  const handleSetDeadline = (value: number) => {
+    const formattedValue = value * timeFrames[deadlineUnits]
+    handleSetObject("deadline", formattedValue, roundData, setRoundData)
   }
   const handleSetTarget = (value: number) => {
     handleSetObject("target", value, roundData, setRoundData)
@@ -35,63 +45,89 @@ const CreateFormAdvancedFundraise = ({
   const handleSetUsd = (property: string, value: boolean) => {
     handleSetObject(property, value, roundData, setRoundData)
   }
-
-  useEffect(() => {
-    if (projectOwner) setAddress(projectOwner)
-  }, [])
-
-  useEffect(() => {
-    if (resolvedAddress && resolvedAddress != "Invalid ENS name") {
-      let newProjectOwner: string
-      if (resolvedAddress.substring(resolvedAddress.length - 4) !== ".eth") {
-        newProjectOwner = resolvedAddress
-      } else {
-        newProjectOwner = address
-      }
-      handleSetObject("projectOwner", newProjectOwner, roundData, setRoundData)
+  const handleSetOwner = (value: string) => {
+    setAddress(value)
+    if (resolvedAddress === "Invalid ENS name") {
+      handleSetObject("projectOwner", null, roundData, setRoundData)
+    } else {
+      handleSetObject("projectOwner", value, roundData, setRoundData)
     }
-  }, [resolvedAddress])
+  }
+
+  useEffect(() => {
+    if (!address) {
+      setAddress(account)
+    }
+  }, [account])
 
   return (
-    <div className="py-3 space-y-6">
-      <p>
+    <div className="py-3 space-y-8">
+      {/* <p>
         Blunt rounds are unlimited in duration, uncapped and without target by
         default.
-      </p>
-      <div>
-        <Input
-          type="number"
-          label="Fundraise duration (days)"
-          min={0}
-          value={duration || ""}
-          onChange={handleSetDuration}
-          placeholder="Leave blank for unlimited"
-          question={<p>Leave blank to set unlimited duration.</p>}
+      </p> */}
+      <div className="relative flex items-end gap-4">
+        <div className="flex-grow">
+          <Input
+            type="number"
+            label="Round duration"
+            min={0}
+            value={
+              Number(deadline)
+                ? Math.round(
+                    (Number(deadline) / timeFrames[deadlineUnits]) * 100
+                  ) / 100
+                : ""
+            }
+            step={deadlineUnits == "days" ? 0.01 : 0.1}
+            onChange={handleSetDeadline}
+            placeholder="Leave blank for unlimited"
+            question={
+              <>
+                <p>The period of time in which contributions are accepted.</p>
+                <p>Leave blank to set unlimited duration.</p>
+                <p className="text-yellow-600">
+                  Note: If not set, you will be able to set it while the round
+                  is in progress.
+                </p>
+              </>
+            }
+          />
+        </div>
+        <InputDeadlineUnits
+          deadlineUnits={deadlineUnits}
+          setDeadlineUnits={setDeadlineUnits}
         />
       </div>
-      {duration != 0 && (
-        <NoteText text="A deadline requires the round to be prepared with an additional transaction. Anyone can do it on the round page after its creation" />
-      )}
       <div>
         <Input
           type="number"
-          label="Target"
+          label="Fundraise target"
           error={targetError}
-          prefix={isTargetEth ? "Ξ" : "$"}
-          prefixAction={() => handleSetUsd("isTargetEth", !isTargetEth)}
+          prefix={isTargetUsd ? "$" : "Ξ"}
+          prefixAction={() => handleSetUsd("isTargetUsd", !isTargetUsd)}
           min={0}
-          step={isTargetEth ? 0.1 : 1}
+          step={isTargetUsd ? 1 : 0.1}
           value={target || ""}
           onChange={handleSetTarget}
           placeholder="Leave blank to disable"
-          helptext={`Minimum ${isTargetEth ? "ETH" : "USD"} to raise`}
+          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise. 
+          ${
+            process.env.NEXT_PUBLIC_CHAIN_ID == "5"
+              ? "Note that USD / ETH on Goerli is different than on mainnet"
+              : ""
+          }`}
           question={
             <>
               <p>
-                If the target is not reached in time, the round will close and
-                all contributions can be fully refunded.
+                If the target is not reached before the deadline, all
+                contributions can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
+              <p className="text-yellow-600">
+                Hint: Toggle between ETH and USD by clicking on the currency
+                icon
+              </p>
             </>
           }
         />
@@ -101,33 +137,41 @@ const CreateFormAdvancedFundraise = ({
           type="number"
           label="Hard cap"
           error={targetError}
-          prefix={isCapEth ? "Ξ" : "$"}
-          prefixAction={() => handleSetUsd("isCapEth", !isCapEth)}
+          prefix={isHardcapUsd ? "$" : "Ξ"}
+          prefixAction={() => handleSetUsd("isHardcapUsd", !isHardcapUsd)}
           min={0}
-          step={isCapEth ? 0.1 : 1}
+          step={isHardcapUsd ? 1 : 0.1}
           value={cap || ""}
           onChange={handleSetCap}
           placeholder="Leave blank to disable"
-          helptext={`Maximum ${isCapEth ? "ETH" : "USD"} to raise`}
+          helptext={`Maximum ${isHardcapUsd ? "USD" : "ETH"} to raise. 
+          ${
+            process.env.NEXT_PUBLIC_CHAIN_ID == "5"
+              ? "Note that USD / ETH on Goerli is different than on mainnet"
+              : ""
+          }`}
           question={
             <>
               <p>Contributions will be rejected once the cap is reached.</p>
-              <p>
+              {/* <p>
                 If a slicer is to be created, it limits ownership dilution among
                 round participants.
-              </p>
+              </p> */}
               <p>Leave blank to disable.</p>
+              <p className="text-yellow-600">
+                Hint: Toggle between ETH and USD by clicking on the currency
+                icon
+              </p>
             </>
           }
         />
       </div>
       {targetError && (
-        <NoteText error text="Target cannot be higher than cap" />
+        <NoteText error text="Cap needs to be higher than target" />
       )}
-      <NoteText text="Hint: Click on the currency icon to toggle between ETH and USD" />
       {cap != 0 &&
         !targetError &&
-        isTargetEth != isCapEth &&
+        isTargetUsd != isHardcapUsd &&
         riskMargin > 0.5 && (
           <NoteText text="Target value is close to the cap. Consider using the same currency for both, or increasing the cap / lowering the target." />
         )}
@@ -135,15 +179,15 @@ const CreateFormAdvancedFundraise = ({
         <InputAddress
           label="Project owner"
           address={address}
-          onChange={setAddress}
+          onChange={handleSetOwner}
           question={
             <>
               <p>
                 The project owner is responsible for closing the blunt round.
               </p>
               <p>
-                If the funding target has been reached when the round is closed,
-                ownership of the JB project will be transferred to this account.
+                If the funding target is reached when the round is closed,
+                ownership of the funds will be transferred to this account.
               </p>
             </>
           }
