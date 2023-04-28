@@ -8,7 +8,7 @@ export const longTitle =
 export const defaultDescription =
   "Trustless, refundable funding rounds based on a set of pre-defined rules."
 export const domain = process.env.NEXT_PUBLIC_APP_URL
-export const twitterAccount = "blunt_finance"
+export const twitterAccount = "blunt_fund"
 
 const Head: FC = () => {
   return (
