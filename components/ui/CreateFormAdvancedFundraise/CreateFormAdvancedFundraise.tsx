@@ -48,7 +48,7 @@ const CreateFormAdvancedFundraise = ({
   const handleSetOwner = (value: string) => {
     setAddress(value)
     if (resolvedAddress === "Invalid ENS name") {
-      handleSetObject("projectOwner", null, roundData, setRoundData)
+      handleSetObject("projectOwner", "", roundData, setRoundData)
     } else {
       handleSetObject("projectOwner", value, roundData, setRoundData)
     }
