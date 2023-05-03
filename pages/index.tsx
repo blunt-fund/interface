@@ -35,14 +35,14 @@ export default function Home({ subgraphData, projectData }) {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm pt-24 pb-8 mx-auto space-y-32">
+        <main className="max-w-screen-sm pt-12 pb-8 mx-auto space-y-32">
           <div>
-            <h1 className="pb-10 sm:text-5xl">Blunt</h1>
+            <h1 className="pb-8 sm:text-5xl">Blunt</h1>
             <p className="text-xl font-bold text-gray-500">
-              Bluntly simple fundraising on Juicebox
+              Bluntly simple fundraising
               {/* Fundraise bluntly in the open with your community */}
             </p>
-            <div className="pt-12">
+            <div className="pt-10">
               <Button label="Create round" href="/create" />
             </div>
           </div>

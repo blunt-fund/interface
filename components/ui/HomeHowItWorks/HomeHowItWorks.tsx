@@ -8,49 +8,49 @@ const HomeHowItWorks = () => {
         <p>
           Blunt rounds are{" "}
           <b className="text-yellow-600">trustless funding rounds</b> where
-          contributors can get refunds if the fundraising target isn&apos;t
-          reached.
+          contributors can get refunds until a round is closed successfully.
         </p>
         <p>
-          A set of pre-defined rules guarantees that all Blunt rounds behave the
-          same way, and allows fundraisers to start a round in seconds.
+          A set of rules guarantees that all Blunt rounds behave the same way,
+          and allows fundraisers to start a round in seconds.
         </p>
-        <h3>Blunt rules</h3>
+        <h2>Blunt rules</h2>
         <ul className="text-gray-700">
-          <li>Contributions can be made anytime while a round is active.</li>
           <li>
-            <b className="text-yellow-600">Full refunds</b> can be obtained by
-            contributors while a round is active, or once it has concluded
-            unsuccessfully.
+            <b className="text-yellow-600">Pay ETH in exchange for tokens</b> to
+            become a round contributor
           </li>
           <li>
-            <b className="text-yellow-600">
-              A round is successful when the fundraising target is reached
-            </b>
-            . If the target is not reached before the deadline (or the round is
-            closed), contributors can get full refunds for their contributions.
+            <b className="text-yellow-600">All funds raised are refundable</b>{" "}
+            until a round is closed and the fundraising target has been reached
           </li>
           <li>
-            A deadline can be set to limit the period of time in which
-            contributions are accepted. Rounds without deadline can accept
-            contributions until they&apos;re closed by their owner.
-          </li>
-          <li>A hard cap can be set to limit the maximum raised amount.</li>
-          <li>
-            When a round ends successfully, ownership of the project is
-            transferred to the rightful owner, who can then manage the funds
-            raised from Juicebox.
+            A <b className="text-yellow-600">target</b> and{" "}
+            <b className="text-yellow-600">hardcap</b> can be set to limit the
+            minimum and maximum amount to raise in a round
           </li>
           <li>
-            Blunt takes a fee from successful rounds in exchange for BF
+            Once the <b className="text-yellow-600">deadline</b> is reached
+            rounds cannot accept any more contributions
+          </li>
+          <li>
+            Rounds without deadline can accept contributions until they&apos;re
+            manually closed by their owner
+          </li>
+          <li>
+            When a successful round is closed, ownership of the project is given
+            to the round owner who can then manage the raised funds on Juicebox
+          </li>
+          <li>
+            Blunt takes a fee only from successful rounds in exchange for BLUNT
             governance tokens. The fee varies between 1,5% and 3,5% of total
-            amount raised (excluding 2,5% Juicebox base fee), so the more you
-            raise the less you pay.
+            amount raised (excl. 2,5% Juicebox fee) so the more you raise the
+            less you pay
           </li>
         </ul>
       </div>
       <p className="pt-4 text-sm font-bold text-gray-400">
-        Blunt is based on the{" "}
+        Blunt is built on the safe and trusted{" "}
         <a
           href="https://juicebox.money"
           className="text-gray-400 highlight"
@@ -59,7 +59,7 @@ const HomeHowItWorks = () => {
         >
           Juicebox
         </a>{" "}
-        protocol.
+        protocol
       </p>
       <div className="pt-12">
         <Button label="Create round" href="/create" />
