@@ -57,6 +57,7 @@ const CreateFormAdvancedFundraise = ({
   useEffect(() => {
     if (!address) {
       setAddress(account)
+      handleSetObject("projectOwner", account, roundData, setRoundData)
     }
   }, [account])
 
