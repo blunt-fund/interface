@@ -161,9 +161,9 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
     // roundTimestamp,
     projectOwner
   } = params
-  const { shares } = roundData
+  const { deadline, shares } = roundData
   const now = Math.floor(new Date().getTime() / 1000)
-  const tempRoundData = { ...roundData, deadline: roundData["deadline"] + now }
+  const tempRoundData = { ...roundData, deadline: deadline && deadline + now }
 
   return (
     <div className="text-center">
