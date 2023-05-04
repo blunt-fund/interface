@@ -1,3 +1,4 @@
+import NextHead from "next/head"
 import {
   ContributionsTable,
   EmissionPreview,
@@ -83,6 +84,14 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
           ]
         }}
       />
+
+      <NextHead>
+        <meta
+          name="twitter:image"
+          content={image?.url || `${domain}/twitter_card.png`}
+        />
+      </NextHead>
+
       <Suspense>
         <RoundViewMain
           roundData={round}
