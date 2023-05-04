@@ -19,7 +19,7 @@ const RoundViewMainLoading = () => {
           <div className="flex-grow pt-6 xs:pt-0">
             <div className={"h-8 w-44 animate-pulse bg-gray-300 rounded-sm"} />
 
-            <p className="pt-2 text-sm">Round allocation: ...</p>
+            {/* <p className="pt-2 text-sm">Round allocation: ...</p> */}
             <div className="mt-6 text-xs xs:text-sm">
               <ProgressBar
                 max={100}
