@@ -1,11 +1,5 @@
 import { NextSeo } from "next-seo"
 import { ActionScreen, Container, RoundViewFull } from "@components/ui"
-import {
-  defaultDescription,
-  defaultTitle,
-  longTitle,
-  domain
-} from "@components/common/Head"
 import fetcher from "@utils/fetcher"
 import { GetStaticPropsContext } from "next"
 import prisma from "@lib/prisma"
@@ -49,22 +43,7 @@ export default function Round({ subgraphData, projectData }) {
 
   return (
     <>
-      <NextSeo
-        title={`${projectData.metadata.name} | Round | Blunt`}
-        openGraph={{
-          title: longTitle,
-          description: defaultDescription,
-          url: domain,
-          images: [
-            {
-              url: `${domain}/og_image.png`,
-              width: 1000,
-              height: 1000,
-              alt: `${defaultTitle} cover image`
-            }
-          ]
-        }}
-      />
+      <NextSeo title={`${projectData.metadata.name} | Round | Blunt`} />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (

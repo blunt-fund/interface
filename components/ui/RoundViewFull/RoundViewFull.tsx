@@ -17,6 +17,13 @@ import Crown from "@components/icons/Crown"
 import formatAddress from "@utils/formatAddress"
 import { useAppContext } from "../context"
 import { TimeWrapper } from "../context"
+import { NextSeo } from "next-seo"
+import {
+  defaultDescription,
+  defaultTitle,
+  domain,
+  longTitle
+} from "@components/common/Head"
 
 type Props = {
   projectData: Project
@@ -36,6 +43,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
     projectData.metadata
   )
 
+  const { name, description, image } = round
   const totalShares = round.shares.reduce((a, b) => a + b)
   const formatTimestamp = (days: number) =>
     days && (subgraphData.configureEvents[0].timestamp + days * 86400) * 1000
@@ -61,6 +69,20 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
   return (
     <>
+      <NextSeo
+        title={`${name} | Blunt Round`}
+        openGraph={{
+          title: `${name} | Blunt Round`,
+          description: description || defaultDescription,
+          url: domain,
+          images: [
+            {
+              url: image?.url || `${domain}/og_image.png`,
+              alt: `${name} cover image`
+            }
+          ]
+        }}
+      />
       <Suspense>
         <RoundViewMain
           roundData={round}
