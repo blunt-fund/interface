@@ -33,9 +33,11 @@ const executeTransaction = async (
     }
 
     if (settlementLogic) {
-      return await settlementLogic(waitData)
+      await settlementLogic(waitData)
     }
-  } catch (err) {}
+  } catch (err) {
+    console.log(err)
+  }
   setLoading(false)
 }
 
