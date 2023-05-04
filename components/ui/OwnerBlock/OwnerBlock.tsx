@@ -119,7 +119,7 @@ const OwnerBlock = ({
                 `Close round | Round ${projectId}`,
                 addRecentTransaction,
                 null,
-                true
+                isTargetReached
               )
             }
           />
