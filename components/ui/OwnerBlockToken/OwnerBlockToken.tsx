@@ -39,14 +39,20 @@ const OwnerBlockToken = ({ projectId, bluntDelegate, round }: Props) => {
   return (
     <>
       <div className="relative flex items-center">
-        <p className="text-sm text-left">Token metadata</p>
+        <p className="text-sm text-left">Project Token</p>
         <Question
           position="bottom-0 left-[-24px]"
           text={
-            <p>
-              Set the name and symbol of the ERC20 token associated with the
-              Juicebox project related to the blunt round.
-            </p>
+            <>
+              <p>
+                Set the name and symbol of the ERC20 token associated with your
+                project.
+              </p>
+              <p>
+                The ERC20 token will be deployed once the round is closed
+                successfully.
+              </p>
+            </>
           }
         />
       </div>

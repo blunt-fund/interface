@@ -70,7 +70,6 @@ const OwnerBlockSetDeadline = ({ projectId, bluntDelegate }: Props) => {
           loading={loadingSetDeadline}
         />
       </div>
-      <hr className="w-20 !my-12 mx-auto border-gray-300" />
     </>
   )
 }

@@ -54,7 +54,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
           }
         />
       </div>
-      {/* <div>
+      <div>
         <Input
           type="string"
           label="Token name"
@@ -85,8 +85,8 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
             </>
           }
         />
-      </div> 
-      <NoteText text="Token name and symbol can also be set later, while the round is in progress" /> */}
+      </div>
+      <NoteText text="Token name and symbol can also be set later, while the round is in progress" />
     </div>
   )
 }
