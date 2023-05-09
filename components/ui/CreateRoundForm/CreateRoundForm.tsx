@@ -47,8 +47,8 @@ const CreateRoundForm = () => {
     transferTimelock: 0, // Unused
     releaseTimelock: 0, // Unused
     roundTimelock: 0, // Unused
-    tokenName: "", // Unused
-    tokenSymbol: "", // Unused
+    tokenName: "",
+    tokenSymbol: "",
     tokenIssuance: 1000000,
     image: {
       url: "",

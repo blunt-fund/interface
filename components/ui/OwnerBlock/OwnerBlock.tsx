@@ -51,18 +51,21 @@ const OwnerBlock = ({
         <p className="pb-6 text-sm font-bold text-center text-gray-500">
           Project owner
         </p>
-        {/* <OwnerBlockToken
-          projectId={projectId}
-          bluntDelegate={bluntDelegate}
-          round={round}
-        /> */}
-
-        {Number(round.deadline) == 0 && (
-          <OwnerBlockSetDeadline
+        <div className="space-y-2">
+          <OwnerBlockToken
             projectId={projectId}
             bluntDelegate={bluntDelegate}
+            round={round}
           />
-        )}
+
+          {Number(round.deadline) == 0 && (
+            <OwnerBlockSetDeadline
+              projectId={projectId}
+              bluntDelegate={bluntDelegate}
+            />
+          )}
+        </div>
+        <hr className="w-20 !my-12 mx-auto border-gray-300" />
 
         <div className="prose-sm prose text-left">
           <p>Finalize a round after reaching the fundraise target to:</p>
