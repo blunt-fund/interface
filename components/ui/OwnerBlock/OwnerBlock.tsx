@@ -40,7 +40,7 @@ const OwnerBlock = ({
     args: [],
     overrides: {
       // TODO: Figure out how to automatically correctly estimate it when round is successful
-      gasLimit: isTargetReached ? ethers.BigNumber.from(550000) : undefined
+      gasLimit: isTargetReached ? ethers.BigNumber.from(720000) : undefined
     }
   })
   const { writeAsync } = useContractWrite(config)
@@ -51,18 +51,21 @@ const OwnerBlock = ({
         <p className="pb-6 text-sm font-bold text-center text-gray-500">
           Project owner
         </p>
-        {/* <OwnerBlockToken
-          projectId={projectId}
-          bluntDelegate={bluntDelegate}
-          round={round}
-        /> */}
-
-        {Number(round.deadline) == 0 && (
-          <OwnerBlockSetDeadline
+        <div className="space-y-2">
+          <OwnerBlockToken
             projectId={projectId}
             bluntDelegate={bluntDelegate}
+            round={round}
           />
-        )}
+
+          {Number(round.deadline) == 0 && (
+            <OwnerBlockSetDeadline
+              projectId={projectId}
+              bluntDelegate={bluntDelegate}
+            />
+          )}
+        </div>
+        <hr className="w-20 !my-12 mx-auto border-gray-300" />
 
         <div className="prose-sm prose text-left">
           <p>Finalize a round after reaching the fundraise target to:</p>
@@ -119,7 +122,7 @@ const OwnerBlock = ({
                 `Close round | Round ${projectId}`,
                 addRecentTransaction,
                 null,
-                true
+                isTargetReached
               )
             }
           />

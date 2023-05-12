@@ -136,7 +136,7 @@ const RoundDetails = ({
           <p>
             Tokens:{" "}
             <b>
-              {formatNumber(tokenIssuance, 1)} {tokenSymbol || ""}/ ETH
+              {formatNumber(tokenIssuance, 1)} {tokenSymbol || ""} / ETH
             </b>
           </p>
         )}
