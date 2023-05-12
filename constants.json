@@ -4,12 +4,12 @@
   },
   "addresses": {
     "1": {
-      "BluntDelegateCloner": "0x339F97760cF413e61DF89890EfE7abf4E73E294c",
-      "BluntDelegateProjectDeployer": "0xAA6C20483b2E84c94f76B698a9e569d00A8eFDc5",
+      "BluntDelegateCloner": "0x2123c29B76EcEb8bB0893724f64F561ccFB38FAb",
+      "BluntDelegateProjectDeployer": "0x1d6b0Ff3D522C3870294a9e2948beb18994561dE",
       "PriceFeed": "0x71c96edD5D36935d5c8d6B78bCcD4113725297e3",
       "ethAddress": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
       "usdcAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-      "JBTerminal": "0x594Cb208b5BB48db1bcbC9354d1694998864ec63",
+      "JBTerminal": "0xFA391De95Fcbcd3157268B91d8c7af083E607A5C",
       "JBDirectory": "0x65572FB928b46f9aDB7cfe5A4c41226F636161ea",
       "JBTokenStore": "0x6FA996581D7edaABE62C15eaE19fEeD4F1DdDfE7",
       "SliceCore": "0x21da1b084175f95285B49b22C018889c45E1820d"
