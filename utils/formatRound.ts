@@ -3,7 +3,7 @@ import constants from "./constants"
 import { RoundData } from "./getRounds"
 
 const formatRound = (project: any, roundInfo: any, metadata: any) => {
-  const {
+  let {
     totalContributions,
     target: unformattedTarget,
     hardcap: unformattedCap,
@@ -31,6 +31,11 @@ const formatRound = (project: any, roundInfo: any, metadata: any) => {
     discord,
     docs
   } = metadata
+
+  if (process.env.NEXT_PUBLIC_CHAIN_ID == "5") {
+    isTargetUsd = false
+    isHardcapUsd = false
+  }
 
   const target = isTargetUsd
     ? Number(ethers.utils.formatUnits(unformattedTarget, 6))
