@@ -2,11 +2,12 @@ import { FC } from "react"
 import NextHead from "next/head"
 import { DefaultSeo } from "next-seo"
 
-export const defaultTitle = "Blunt"
+export const defaultTitle = "blunt"
 export const longTitle =
-  "Blunt – Fundraise bluntly in the open with your community"
+  // "Blunt – Fundraise bluntly in the open with your community"
+  "blunt – bluntly simple fundraising"
 export const defaultDescription =
-  "Trustless, refundable funding rounds based on a set of pre-defined rules."
+  "Trustless, refundable funding rounds based on preset rules."
 export const domain = process.env.NEXT_PUBLIC_APP_URL
 export const twitterAccount = "blunt_fund"
 
