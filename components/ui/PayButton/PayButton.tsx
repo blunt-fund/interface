@@ -48,6 +48,7 @@ const PayButton = ({
   const defaultIssuanceUsd =
     Math.floor(useNormalizeCurrency(round.tokenIssuance, isPaymentEth) * 100) /
     100
+  const isToggleCurrencyEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1"
 
   const { config, error } = usePrepareContractWrite({
     address: addresses.JBTerminal,
@@ -109,7 +110,9 @@ const PayButton = ({
           //     : ""
           // }
           prefix={isPaymentEth ? "Ξ" : "$"}
-          prefixAction={() => handlTogglePaymentCurrency()}
+          prefixAction={() =>
+            isToggleCurrencyEnabled && handlTogglePaymentCurrency()
+          }
           loading={loading}
           onClick={async () => {
             if (!isConnected) {
@@ -126,7 +129,7 @@ const PayButton = ({
             }
           }}
         />
-        {payment ? (
+        {isToggleCurrencyEnabled && payment ? (
           <p
             className={`absolute top-0 ${
               isConnected ? "right-[140px]" : "right-[176px]"

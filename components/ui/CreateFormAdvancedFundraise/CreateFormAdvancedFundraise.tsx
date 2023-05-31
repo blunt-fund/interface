@@ -54,6 +54,8 @@ const CreateFormAdvancedFundraise = ({
     }
   }
 
+  const isUsdEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1"
+
   useEffect(() => {
     if (!address) {
       setAddress(account)
@@ -106,7 +108,9 @@ const CreateFormAdvancedFundraise = ({
           label="Fundraise target"
           error={targetError}
           prefix={isTargetUsd ? "$" : "Ξ"}
-          prefixAction={() => handleSetUsd("isTargetUsd", !isTargetUsd)}
+          prefixAction={() =>
+            isUsdEnabled && handleSetUsd("isTargetUsd", !isTargetUsd)
+          }
           min={0}
           step={isTargetUsd ? 1 : 0.1}
           value={target || ""}
@@ -114,8 +118,8 @@ const CreateFormAdvancedFundraise = ({
           placeholder="Leave blank to disable"
           helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise. 
           ${
-            process.env.NEXT_PUBLIC_CHAIN_ID == "5"
-              ? "Note that USD / ETH on Goerli is different than on mainnet"
+            !isUsdEnabled
+              ? "Note that on Mainnet you'll also be able to select USD"
               : ""
           }`}
           question={
@@ -139,7 +143,9 @@ const CreateFormAdvancedFundraise = ({
           label="Hard cap"
           error={targetError}
           prefix={isHardcapUsd ? "$" : "Ξ"}
-          prefixAction={() => handleSetUsd("isHardcapUsd", !isHardcapUsd)}
+          prefixAction={() =>
+            isUsdEnabled && handleSetUsd("isHardcapUsd", !isHardcapUsd)
+          }
           min={0}
           step={isHardcapUsd ? 1 : 0.1}
           value={cap || ""}
@@ -147,8 +153,8 @@ const CreateFormAdvancedFundraise = ({
           placeholder="Leave blank to disable"
           helptext={`Maximum ${isHardcapUsd ? "USD" : "ETH"} to raise. 
           ${
-            process.env.NEXT_PUBLIC_CHAIN_ID == "5"
-              ? "Note that USD / ETH on Goerli is different than on mainnet"
+            !isUsdEnabled
+              ? "Note that on Mainnet you'll also be able to select USD"
               : ""
           }`}
           question={
