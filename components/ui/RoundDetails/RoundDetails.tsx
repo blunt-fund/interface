@@ -33,7 +33,7 @@ const RoundDetails = ({
     isHardcapUsd
   } = roundData
 
-  const currency = (isUsd: boolean) => (isUsd ? "USD" : "ETH")
+  const isCurrencyUsd = (isUsd: boolean) => (isUsd ? "USD" : "ETH")
   const normalizedTargetEth = useNormalizeCurrency(target, !isTargetUsd)
   const capEth = useNormalizeCurrency(cap, !isHardcapUsd)
   const normalizedRaisedUsd = useNormalizeCurrency(raised, true, false)
@@ -99,10 +99,13 @@ const RoundDetails = ({
                   : "text-green-600"
               }
             >
-              {formatNumber(isHardcapUsd || !cap ? raisedUsd : raised, 1)}
+              {formatNumber(
+                isHardcapUsd || (!cap && isTargetUsd) ? raisedUsd : raised,
+                1
+              )}
             </span>{" "}
             {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
-            {currency(isHardcapUsd || !cap)}
+            {isCurrencyUsd(isHardcapUsd || (!cap && isTargetUsd))}
           </b>
         </p>
         <p>
@@ -127,7 +130,7 @@ const RoundDetails = ({
               Target:{" "}
               <b>
                 <span className="text-blue-600">{formatNumber(target, 1)}</span>{" "}
-                {currency(isTargetUsd)}
+                {isCurrencyUsd(isTargetUsd)}
               </b>
             </>
           )}

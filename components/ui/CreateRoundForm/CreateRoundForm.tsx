@@ -34,14 +34,15 @@ const CreateRoundForm = () => {
   const [uploadStep, setUploadStep] = useState(0)
   const [roundId, setRoundId] = useState(0)
 
+  const isUsdEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1"
   const initRoundData = {
     name: "",
     description: "",
     deadline: undefined,
     target: 0,
     cap: 0,
-    isTargetUsd: true,
-    isHardcapUsd: true,
+    isTargetUsd: isUsdEnabled,
+    isHardcapUsd: isUsdEnabled,
     isSlicerToBeCreated: true, // Unused
     projectOwner: account || "",
     transferTimelock: 0, // Unused
