@@ -160,7 +160,7 @@ const CreateRoundForm = () => {
       })
       const wait: ContractReceipt = await tx.wait()
 
-      const event = wait.events[2]
+      const event = wait.events[3] // TODO: Fetch event by name
 
       const projectId = Number(event.topics[1])
       setRoundId(projectId)
