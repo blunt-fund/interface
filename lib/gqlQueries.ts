@@ -16,7 +16,7 @@ project(
     weight
     dataSource
   }
-  participants (orderBy: totalPaid, orderDirection: desc) {
+  participants (orderBy: volume, orderDirection: desc) {
     wallet {
       id
     }
