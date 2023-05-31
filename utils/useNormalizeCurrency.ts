@@ -7,9 +7,9 @@ const useNormalizeCurrency = (
 ) => {
   const ethUsd = useEthUsd()
   if (convertToEth) {
-    return isValueEth ? value : value / ethUsd
+    return isValueEth ? Number(value) : value / ethUsd
   } else {
-    return isValueEth ? value * ethUsd : value
+    return isValueEth ? Number(value) * ethUsd : value
   }
 }
 
