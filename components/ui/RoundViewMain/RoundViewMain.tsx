@@ -145,7 +145,7 @@ const RoundViewMain = ({
         </div>
 
         {descriptionHtml && (
-          <div className="py-6 prose-sm">
+          <div className="py-6 prose-sm prose max-w-none">
             <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           </div>
         )}
