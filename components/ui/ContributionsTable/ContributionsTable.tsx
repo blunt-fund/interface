@@ -27,8 +27,9 @@ const ContributionsTable = ({ subgraphData }: Props) => {
       wallet: participants[index].wallet.id,
       contribution
     }))
-    .filter(({ contribution }) =>
-      Number(BigNumber.from(contribution).div(1e15))
+    .filter(
+      ({ contribution }) =>
+        contribution && Number(BigNumber.from(contribution).div(1e15))
     )
     .sort((a, b) => Number(b.contribution) - Number(a.contribution))
 
