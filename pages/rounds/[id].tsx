@@ -47,7 +47,7 @@ export default function Round({ subgraphData, projectData }) {
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (
-            roundInfo?.length && (
+            roundInfo?.length > 1 && (
               <RoundViewFull
                 subgraphData={subgraphData}
                 projectData={projectData}
