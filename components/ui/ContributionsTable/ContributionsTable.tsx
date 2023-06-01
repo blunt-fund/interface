@@ -2,6 +2,7 @@ import { BigNumber } from "ethers"
 import { useState } from "react"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegateClone.json"
+import { ResolvedAddress } from "@components/ui"
 
 type Props = {
   subgraphData: any
@@ -55,11 +56,15 @@ const ContributionsTable = ({ subgraphData }: Props) => {
             .map(({ wallet, contribution }, index) => (
               <tr className="border-b border-gray-200" key={index}>
                 <td>
-                  <a className="highlight">
-                    {wallet.replace(
-                      wallet.substring(5, wallet.length - 3),
-                      `\xa0\xa0\xa0`
-                    )}
+                  <a
+                    className="highlight"
+                    href={`https://${
+                      process.env.NEXT_PUBLIC_CHAIN_ID == "5" ? "goerli." : ""
+                    }etherscan.io/address/${wallet}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ResolvedAddress address={wallet} />
                   </a>
                 </td>
                 <td className="font-bold">
