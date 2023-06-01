@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { ethers } from "ethers"
+import { useAppContext } from "@components/ui/context"
 
 const resolveEns = async (
   provider: ethers.providers.BaseProvider,
@@ -22,10 +23,8 @@ const resolveEns = async (
   }
 }
 
-export const useEns = (
-  provider: ethers.providers.BaseProvider,
-  address: string
-) => {
+export const useEns = (address: string) => {
+  const { provider } = useAppContext()
   const [resolvedAddress, setResolvedAddress] = useState("")
   useEffect(() => {
     resolveEns(provider, address, setResolvedAddress)
