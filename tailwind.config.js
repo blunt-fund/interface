@@ -29,6 +29,9 @@ module.exports = {
       },
       colors: {
         black: "gray.50",
+        gray: {
+          50: "#0F1115"
+        },
         sky: {
           50: "#001928"
         }
