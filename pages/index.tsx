@@ -36,13 +36,13 @@ export default function Home({ subgraphData, projectData }) {
       />
       <Container page={true}>
         <main className="max-w-screen-sm pt-12 pb-8 mx-auto space-y-32">
-          <div>
-            <h1 className="pb-8 sm:text-5xl">blunt</h1>
-            <p className="text-xl font-bold text-gray-500">
-              bluntly simple fundraising
-              {/* Fundraise bluntly in the open with your community */}
+          <div className="space-y-10">
+            <h1 className="sm:text-5xl">blunt</h1>
+            <p className="text-gray-500 tracking-wide sm:text-lg">
+              Blunts are trustless funding rounds where contributors can get
+              refunds until a round is closed successfully
             </p>
-            <div className="pt-10">
+            <div className="pt-2">
               <Button label="Create round" href="/create" />
             </div>
           </div>
