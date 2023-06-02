@@ -6,11 +6,6 @@ const HomeHowItWorks = () => {
       <h2 className="pb-12 text-xl text-gray-500">How it works</h2>
       <div className="prose text-left">
         <p>
-          Blunt rounds are{" "}
-          <b className="text-yellow-600">trustless funding rounds</b> where
-          contributors can get refunds until a round is closed successfully.
-        </p>
-        <p>
           A set of rules guarantees that all Blunt rounds behave the same way,
           and allows fundraisers to start a round in seconds.
         </p>
@@ -50,7 +45,7 @@ const HomeHowItWorks = () => {
         </ul>
       </div>
       <p className="pt-4 text-sm font-bold text-gray-400">
-        Blunt is built on the safe and trusted{" "}
+        Blunt is built on the battle-tested{" "}
         <a
           href="https://juicebox.money"
           className="text-gray-400 highlight"
