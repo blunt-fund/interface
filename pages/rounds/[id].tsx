@@ -19,33 +19,29 @@ export default function Round({ subgraphData, projectData }) {
 
   return (
     <>
-      {isBluntRound && (
-        <>
-          <NextSeo
-            title={`${name} | Blunt Round`}
-            description={description || defaultDescription}
-            openGraph={{
-              title: `${name} | Blunt Round`,
-              description: description || defaultDescription,
-              url: domain,
-              images: [
-                {
-                  url: imageUrl || `${domain}/og_image.png`,
-                  alt: `${name} cover image`
-                }
-              ]
-            }}
-          />
-          <NextHead>
-            {imageUrl && <meta name="twitter:image" content={imageUrl} />}
-            <meta name="twitter:title" content={`${name} | Blunt Round`} />
-            <meta
-              name="twitter:description"
-              content={description || defaultDescription}
-            />
-          </NextHead>
-        </>
-      )}
+      <NextSeo
+        title={`${name} | Blunt Round`}
+        description={description || defaultDescription}
+        openGraph={{
+          title: `${name} | Blunt Round`,
+          description: description || defaultDescription,
+          url: domain,
+          images: [
+            {
+              url: imageUrl || `${domain}/og_image.png`,
+              alt: `${name} cover image`
+            }
+          ]
+        }}
+      />
+      <NextHead>
+        {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+        <meta name="twitter:title" content={`${name} | Blunt Round`} />
+        <meta
+          name="twitter:description"
+          content={description || defaultDescription}
+        />
+      </NextHead>
 
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
