@@ -34,10 +34,15 @@ const RoundMainSection = ({
   )
 
   const [accountHasContributed, setAccountHasContributed] = useState(false)
+
   useEffect(() => {
-    setAccountHasContributed(
-      Number(ethers.utils.formatEther(accountContributions)) != 0
-    )
+    if (accountContributions) {
+      setAccountHasContributed(
+        Number(ethers.utils.formatEther(accountContributions)) != 0
+      )
+    } else {
+      setAccountHasContributed(false)
+    }
   }, [accountContributions])
 
   // TODO: Best way to not hide FullRedeemButton after full redeem? Example: http://localhost:3000/rounds/332
@@ -56,12 +61,12 @@ const RoundMainSection = ({
         />
       ) : (
         accountHasContributed &&
-        (totalContributions <= normalizedTarget ? (
+        totalContributions <= normalizedTarget && (
           <FullRedeemButton
             projectId={Number(id)}
             accountContributions={accountContributions}
           />
-        ) : null)
+        )
         //  round.isSlicerToBeCreated && !isRoundClosed ? (
         //   <p className="text-sm font-bold text-yellow-600">
         //     Wait for the project owner to close the round to claim your slices
