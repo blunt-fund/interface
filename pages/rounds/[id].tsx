@@ -23,6 +23,7 @@ export default function Round({ subgraphData, projectData }) {
         <>
           <NextSeo
             title={`${name} | Blunt Round`}
+            description={description || defaultDescription}
             openGraph={{
               title: `${name} | Blunt Round`,
               description: description || defaultDescription,
@@ -96,3 +97,5 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     revalidate: 600
   }
 }
+
+// TODO: Make everything more static
