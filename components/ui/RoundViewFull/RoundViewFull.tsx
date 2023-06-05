@@ -10,7 +10,7 @@ import {
   RoundViewMain
 } from "../"
 import { useRouter } from "next/router"
-import { Suspense, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
 import formatRound from "@utils/formatRound"
 import { Project } from "@prisma/client"
@@ -86,26 +86,26 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
       />
 
       <NextHead>
+        {image?.url && <meta name="twitter:image" content={image?.url} />}
+        <meta name="twitter:title" content={`${name} | Blunt Round`} />
         <meta
-          name="twitter:image"
-          content={image?.url || `${domain}/twitter_card.png`}
+          name="twitter:description"
+          content={description || defaultDescription}
         />
       </NextHead>
 
-      <Suspense>
-        <RoundViewMain
-          roundData={round}
-          descriptionHtml={descriptionHtml}
-          raised={totalContributions}
-          issuance={false}
-          isRoundClosed={isRoundClosed}
-          hasEndedUnsuccessfully={
-            isRoundClosed && currentDelegate == bluntDelegate
-          }
-          showLinks
-          roundId={Number(id)}
-        />
-      </Suspense>
+      <RoundViewMain
+        roundData={round}
+        descriptionHtml={descriptionHtml}
+        raised={totalContributions}
+        issuance={false}
+        isRoundClosed={isRoundClosed}
+        hasEndedUnsuccessfully={
+          isRoundClosed && currentDelegate == bluntDelegate
+        }
+        showLinks
+        roundId={Number(id)}
+      />
 
       <TimeWrapper>
         <RoundMainSection
@@ -119,11 +119,9 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
 
       {/* <EmissionPreview shares={round?.shares} totalShares={totalShares} /> */}
 
-      <Suspense>
-        {subgraphData.participants.length ? (
-          <ContributionsTable subgraphData={subgraphData} />
-        ) : null}
-      </Suspense>
+      {subgraphData?.participants?.length != 0 && (
+        <ContributionsTable subgraphData={subgraphData} />
+      )}
 
       <div className="flex justify-center w-full pb-4">
         <OwnerDisplay projectOwner={round.projectOwner} />

@@ -43,7 +43,6 @@ export default function Round({ subgraphData, projectData }) {
 
   return (
     <>
-      <NextSeo title={`${projectData.metadata.name} | Round | Blunt`} />
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (
