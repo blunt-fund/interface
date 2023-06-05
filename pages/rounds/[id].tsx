@@ -1,3 +1,4 @@
+import NextHead from "next/head"
 import { NextSeo } from "next-seo"
 import { ActionScreen, Container, RoundViewFull } from "@components/ui"
 import fetcher from "@utils/fetcher"
@@ -5,10 +6,11 @@ import { GetStaticPropsContext } from "next"
 import prisma from "@lib/prisma"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegateClone.json"
-import { addresses } from "@utils/constants"
+import constants, { addresses } from "@utils/constants"
 import { useRouter } from "next/router"
 import { useAppContext } from "@components/ui/context"
 import { ethers } from "ethers"
+import { defaultDescription, domain } from "@components/common/Head"
 
 export default function Round({ subgraphData, projectData }) {
   const router = useRouter()
@@ -17,6 +19,8 @@ export default function Round({ subgraphData, projectData }) {
   const isBluntRound =
     subgraphData.deployer ==
     addresses.BluntDelegateProjectDeployer.toLowerCase()
+  const { name, description, logoUri } = projectData.metadata
+  const imageUrl = constants.ipfsGateway + String(logoUri).split("ipfs/")[1]
 
   const {
     data: roundInfo,
@@ -43,14 +47,39 @@ export default function Round({ subgraphData, projectData }) {
 
   return (
     <>
+      <NextSeo
+        title={`${name} | Blunt Round`}
+        openGraph={{
+          title: `${name} | Blunt Round`,
+          description: description || defaultDescription,
+          url: domain,
+          images: [
+            {
+              url: imageUrl || `${domain}/og_image.png`,
+              alt: `${name} cover image`
+            }
+          ]
+        }}
+      />
+      <NextHead>
+        {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+        <meta name="twitter:title" content={`${name} | Blunt Round`} />
+        <meta
+          name="twitter:description"
+          content={description || defaultDescription}
+        />
+      </NextHead>
+
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (
-            <RoundViewFull
-              subgraphData={subgraphData}
-              projectData={projectData}
-              roundInfo={roundInfo}
-            />
+            roundInfo?.length > 1 && (
+              <RoundViewFull
+                subgraphData={subgraphData}
+                projectData={projectData}
+                roundInfo={roundInfo}
+              />
+            )
           ) : (
             <ActionScreen
               text="This project is not a Blunt round"
