@@ -7,7 +7,7 @@ import {
   QueueBlock,
   RoundMainSection,
   RoundViewMain
-} from "../"
+} from ".."
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import markdownToHtml from "@lib/markdownToHtml"
