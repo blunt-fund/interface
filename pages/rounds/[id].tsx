@@ -95,3 +95,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 // TODO: Make everything more static
+// TODO: Fix missing twitter description?
