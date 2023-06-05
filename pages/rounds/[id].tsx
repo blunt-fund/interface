@@ -46,13 +46,11 @@ export default function Round({ subgraphData, projectData }) {
       <Container page={true}>
         <main className="max-w-screen-sm mx-auto space-y-10">
           {isBluntRound ? (
-            roundInfo?.length > 1 && (
-              <RoundViewFull
-                subgraphData={subgraphData}
-                projectData={projectData}
-                roundInfo={roundInfo}
-              />
-            )
+            <RoundViewFull
+              subgraphData={subgraphData}
+              projectData={projectData}
+              roundInfo={roundInfo}
+            />
           ) : (
             <ActionScreen
               text="This project is not a Blunt round"
