@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useContractReads } from "wagmi"
 import bluntDelegate from "abi/BluntDelegateClone.json"
 import { ResolvedAddress } from "@components/ui"
@@ -10,6 +10,7 @@ type Props = {
 const ContributionsTable = ({ subgraphData }: Props) => {
   const increment = 10
   const [iterator, setIterator] = useState(increment)
+  const [displayParticipants, setDisplayParticipants] = useState([])
 
   const participants = subgraphData.participants
   const { data: contributions } = useContractReads({
@@ -19,22 +20,25 @@ const ContributionsTable = ({ subgraphData }: Props) => {
       functionName: "contributions",
       args: [wallet.id]
     })),
-    suspense: true,
     watch: true
   })
 
-  const orderedParticipants = contributions
-    .map((contribution, index) => ({
-      wallet: participants[index].wallet.id,
-      contribution
-    }))
-    .filter(
-      ({ contribution }) =>
-        contribution && Number(BigNumber.from(contribution).div(1e15))
-    )
-    .sort((a, b) => Number(b.contribution) - Number(a.contribution))
+  useEffect(() => {
+    const orderedParticipants = contributions
+      ?.map((contribution, index) => ({
+        wallet: participants[index].wallet.id,
+        contribution
+      }))
+      .filter(
+        ({ contribution }) =>
+          contribution && Number(BigNumber.from(contribution).div(1e15))
+      )
+      .sort((a, b) => Number(b.contribution) - Number(a.contribution))
 
-  return orderedParticipants.length ? (
+    setDisplayParticipants(orderedParticipants)
+  }, [contributions])
+
+  return displayParticipants?.length ? (
     <div className="my-4 text-center">
       <h3 className="mb-4 text-lg font-bold text-gray-600 ">
         Top contributors
@@ -51,7 +55,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {orderedParticipants
+          {displayParticipants
             .slice(0, iterator)
             .map(({ wallet, contribution }, index) => (
               <tr className="border-b border-gray-200" key={index}>

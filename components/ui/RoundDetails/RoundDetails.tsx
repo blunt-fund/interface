@@ -100,12 +100,12 @@ const RoundDetails = ({
               }
             >
               {formatNumber(
-                isHardcapUsd || (!cap && isTargetUsd) ? raisedUsd : raised,
+                (cap && isHardcapUsd) || isTargetUsd ? raisedUsd : raised,
                 1
               )}
             </span>{" "}
             {cap != 0 && `/ ${formatNumber(cap, 1)}`}{" "}
-            {isCurrencyUsd(isHardcapUsd || (!cap && isTargetUsd))}
+            {isCurrencyUsd((cap && isHardcapUsd) || isTargetUsd)}
           </b>
         </p>
         <p>
@@ -137,10 +137,10 @@ const RoundDetails = ({
         </p>
         {issuance && tokenIssuance >= 1 && (
           <p>
-            Tokens:{" "}
             <b>
-              {formatNumber(tokenIssuance, 1)} {tokenSymbol || ""} / ETH
-            </b>
+              {formatNumber(tokenIssuance, 1)} {tokenSymbol || ""}
+            </b>{" "}
+            / ETH
           </p>
         )}
       </div>
