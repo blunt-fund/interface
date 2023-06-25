@@ -2,6 +2,7 @@ import { RoundData } from "@utils/getRounds"
 import { BigNumber, ethers } from "ethers"
 import { addresses as addressConstants } from "utils/constants"
 import calculateSplits from "@utils/calculateSplits"
+import { parseEther } from "viem"
 
 const formatDeployData = (roundData: RoundData, totalShares: number) => {
   const {
@@ -25,10 +26,10 @@ const formatDeployData = (roundData: RoundData, totalShares: number) => {
       // sliceCore: addressConstants.SliceCore,
       projectOwner,
       hardcap: !isHardcapUsd
-        ? ethers.utils.parseEther(String(cap))
+        ? parseEther(String(cap))
         : BigNumber.from(10).pow(6).mul(cap),
       target: !isTargetUsd
-        ? ethers.utils.parseEther(String(target))
+        ? parseEther(String(target))
         : BigNumber.from(10).pow(6).mul(target),
       // releaseTimelock: releaseTimelock,
       // transferTimelock: transferTimelock,
