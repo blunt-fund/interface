@@ -3,7 +3,7 @@ import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import executeTransaction from "@utils/executeTransaction"
 import formatNumber from "@utils/formatNumber"
 import { addresses } from "@utils/constants"
-import { BigNumber, ethers } from "ethers"
+import { ethers } from "ethers"
 import { useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import JBTerminal from "abi/JBETHPaymentTerminal.json"
@@ -12,6 +12,7 @@ import { useAppContext } from "../context"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import { useEthUsd } from "@utils/useEthUsd"
 import { useConnectModal } from "@rainbow-me/rainbowkit"
+import { parseEther } from "viem"
 
 type Props = {
   projectId: number
@@ -64,9 +65,7 @@ const PayButton = ({
       "Paid from blunt.fund",
       []
     ],
-    value:
-      payment != 0 &&
-      ethers.utils.parseEther((Math.floor(paymentEth * 1e5) / 1e5).toString())
+    value: parseEther((Math.floor(paymentEth * 1e5) / 1e5).toString())
   })
 
   const handlTogglePaymentCurrency = () => {
