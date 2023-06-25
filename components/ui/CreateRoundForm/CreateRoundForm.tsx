@@ -18,7 +18,6 @@ import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import { constants } from "@utils/constants"
 import web3Storage from "lib/web3Storage"
 import React, { useEffect, useState } from "react"
-import { useSigner } from "wagmi"
 import { useAppContext } from "../context"
 import bluntDeployer from "abi/BluntDelegateProjectDeployer.json"
 import { ContractReceipt, ethers } from "ethers"
@@ -27,6 +26,7 @@ import { addresses as addressConstants } from "utils/constants"
 import { RoundData } from "@utils/getRounds"
 import timeout from "@utils/timeout"
 import { useConnectModal } from "@rainbow-me/rainbowkit"
+import { getEthersSigner } from "@utils/ethers"
 
 const CreateRoundForm = () => {
   const { openConnectModal } = useConnectModal()
@@ -109,11 +109,13 @@ const CreateRoundForm = () => {
   // const roundTimestamp = roundLockDate.getTime()
 
   const addRecentTransaction = useAddRecentTransaction()
-  const { data: signer } = useSigner()
 
   const createRound = async () => {
     const { name, description, image, website, twitter, discord, docs } =
       roundData
+    const signer = await getEthersSigner({
+      chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID)
+    })
 
     setUploadStep(1)
     let cid: string

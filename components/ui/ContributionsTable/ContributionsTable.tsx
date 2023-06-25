@@ -25,7 +25,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
 
   useEffect(() => {
     const orderedParticipants = contributions
-      ?.map((contribution, index) => ({
+      ?.map(({ result: contribution }, index) => ({
         wallet: participants[index].wallet.id,
         contribution
       }))

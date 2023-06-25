@@ -74,7 +74,11 @@ const ReservedInputBlock = ({
       </div>
       <div className="col-span-7 xs:col-span-6 md:col-span-8">
         <InputAddress
-          address={address != ethers.constants.AddressZero ? address : ""}
+          address={
+            (address != ethers.constants.AddressZero
+              ? address
+              : "") as `0x${string}`
+          }
           onChange={handleSetAddress}
           required={sharesAmount != 0}
           resolvedAddress={resolvedAddress}

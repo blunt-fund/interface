@@ -51,7 +51,7 @@ const getRounds = (
         (el) => el.projectId == project.projectId
       ).metadata
       const { round, totalContributions, deadline, isRoundClosed } =
-        formatRound(project, roundInfo[i], projectMetadata)
+        formatRound(project, roundInfo[i].result, projectMetadata)
 
       const bluntDelegate = subgraphData[i]?.configureEvents[0].dataSource
       const currentDelegate =
@@ -68,7 +68,8 @@ const getRounds = (
       }
 
       if (
-        (deadline == 0 || deadline - new Date().getTime() / 1000 > 0) &&
+        (Number(deadline) == 0 ||
+          Number(deadline) - new Date().getTime() / 1000 > 0) &&
         !isRoundClosed
       ) {
         return data

@@ -29,7 +29,8 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
   const router = useRouter()
   const { id } = router.query
 
-  const [roundData, accountContributions] = roundInfo
+  const [{ result: roundData }, { result: accountContributions }] = roundInfo
+
   const { round, totalContributions, isRoundClosed } = formatRound(
     subgraphData,
     roundData,
