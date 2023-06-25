@@ -185,7 +185,7 @@ const CreateFormAdvancedFundraise = ({
       <div className="pb-2">
         <InputAddress
           label="Project owner"
-          address={address}
+          address={address as `0x${string}`}
           onChange={handleSetOwner}
           question={
             <>
