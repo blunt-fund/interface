@@ -64,11 +64,9 @@ const PayButton = ({
       "Paid from blunt.fund",
       []
     ],
-    overrides: {
-      value:
-        payment != 0 &&
-        ethers.utils.parseEther((Math.floor(paymentEth * 1e5) / 1e5).toString())
-    }
+    value:
+      payment != 0 &&
+      ethers.utils.parseEther((Math.floor(paymentEth * 1e5) / 1e5).toString())
   })
 
   const handlTogglePaymentCurrency = () => {
