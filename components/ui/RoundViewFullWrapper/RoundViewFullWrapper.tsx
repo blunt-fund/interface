@@ -23,11 +23,13 @@ const RoundViewFullWrapper = ({ projectData, subgraphData }: Props) => {
     contracts: [
       {
         address: subgraphData?.configureEvents[0].dataSource,
+        // @ts-ignore
         abi: bluntDelegateJson.abi,
         functionName: "getRoundInfo"
       },
       {
         address: subgraphData?.configureEvents[0].dataSource,
+        // @ts-ignore
         abi: bluntDelegateJson.abi,
         functionName: "contributions",
         args: [account || ethers.constants.AddressZero]

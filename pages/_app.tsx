@@ -6,7 +6,7 @@ import "../styles/global/styles.scss"
 import { AppWrapper } from "@components/ui/context"
 import { AppProps } from "next/dist/shared/lib/router/router"
 import { Analytics } from "@vercel/analytics/react"
-
+import "@rainbow-me/rainbowkit/styles.css"
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -15,19 +15,13 @@ import {
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { infuraProvider } from "wagmi/providers/infura"
 import { publicProvider } from "wagmi/providers/public"
-import {
-  createClient,
-  configureChains,
-  WagmiConfig,
-  goerli,
-  mainnet
-} from "wagmi"
-import "@rainbow-me/rainbowkit/styles.css"
+import { createConfig, configureChains, WagmiConfig, mainnet } from "wagmi"
+import { goerli } from "viem/chains"
 
-const defaultChains =
-  process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? [goerli] : [mainnet]
-
-const { chains, provider } = configureChains(defaultChains, [
+const customChains = [
+  process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? goerli : mainnet
+]
+const { chains, publicClient } = configureChains(customChains, [
   infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
   publicProvider()
@@ -35,13 +29,14 @@ const { chains, provider } = configureChains(defaultChains, [
 
 const { connectors } = getDefaultWallets({
   appName: defaultTitle,
+  projectId: "2d82f7ed59eabc4af2f9216ecad01e21",
   chains
 })
 
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider
+  publicClient
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -54,7 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         storageKey="nightwind-mode"
         defaultTheme="system"
       >
-        <WagmiConfig client={wagmiClient}>
+        <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider
             chains={chains}
             theme={
