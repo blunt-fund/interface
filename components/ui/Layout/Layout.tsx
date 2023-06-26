@@ -1,6 +1,6 @@
-import dynamic from "next/dynamic"
+import { Footer, Navbar } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
-import { Navbar, Footer } from "@components/ui"
+import dynamic from "next/dynamic"
 import { useEffect } from "react"
 import { useNetwork } from "wagmi"
 
@@ -32,7 +32,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <div className="relative flex flex-col justify-between min-h-screen">
+      <div className="relative flex min-h-screen flex-col justify-between">
         <Navbar />
         {children}
         <Footer />

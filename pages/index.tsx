@@ -1,19 +1,19 @@
-import { NextSeo } from "next-seo"
+import {
+  defaultDescription,
+  defaultTitle,
+  domain,
+  longTitle
+} from "@components/common/Head"
 import {
   Button,
   Container,
   HomeHowItWorks,
   RoundsListMain
 } from "@components/ui"
-import {
-  defaultDescription,
-  defaultTitle,
-  longTitle,
-  domain
-} from "@components/common/Head"
-import { GetStaticPropsContext } from "next"
-import fetcher from "@utils/fetcher"
 import { Project } from "@prisma/client"
+import fetcher from "@utils/fetcher"
+import { GetStaticPropsContext } from "next"
+import { NextSeo } from "next-seo"
 
 export default function Home({ subgraphData, projectData }) {
   return (
@@ -35,10 +35,10 @@ export default function Home({ subgraphData, projectData }) {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm pt-12 pb-8 mx-auto space-y-32">
+        <main className="mx-auto max-w-screen-sm space-y-32 pt-12 pb-8">
           <div className="space-y-10">
             <h1 className="sm:text-5xl">blunt</h1>
-            <p className="text-gray-500 tracking-wide sm:text-lg">
+            <p className="tracking-wide text-gray-500 sm:text-lg">
               Blunts are trustless funding rounds where contributors can get
               refunds until a round is closed successfully
             </p>

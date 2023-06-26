@@ -2,6 +2,7 @@ import { Input, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
 import { RoundData } from "utils/getRounds"
+
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -25,7 +26,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
   }
 
   return (
-    <div className="py-3 space-y-8">
+    <div className="space-y-8 py-3">
       <p>Configure the amount of tokens issued to round participants.</p>
       <div>
         <Input

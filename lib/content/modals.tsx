@@ -9,22 +9,22 @@ import {
   RoundViewMain
 } from "@components/ui"
 import { useAppContext } from "@components/ui/context"
+import { ConnectButton, useAddRecentTransaction } from "@rainbow-me/rainbowkit"
 import { addresses } from "@utils/constants"
 import executeTransaction from "@utils/executeTransaction"
 import formatAddress from "@utils/formatAddress"
 import formatNumber from "@utils/formatNumber"
+import va from "@vercel/analytics"
+import JBTerminal from "abi/JBETHPaymentTerminal.json"
+import JBTokenStore from "abi/JBTokenStore.json"
+import { BigNumber, ethers } from "ethers"
+import { formatEther } from "ethers/lib/utils.js"
 import { useState } from "react"
 import {
   useContractRead,
   useContractWrite,
   usePrepareContractWrite
 } from "wagmi"
-import JBTerminal from "abi/JBETHPaymentTerminal.json"
-import JBTokenStore from "abi/JBTokenStore.json"
-import { BigNumber, ethers } from "ethers"
-import { ConnectButton, useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import va from "@vercel/analytics"
-import { formatEther } from "ethers/lib/utils.js"
 
 export type View = {
   name: ViewNames
@@ -112,7 +112,7 @@ export const CREATE_ROUND_VIEW = (params: any) => {
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Transaction in progress</h1>
       <div className="space-y-8">
-        <div className="grid items-center max-w-lg grid-cols-6 gap-2 px-4 pt-12 pb-8 mx-auto">
+        <div className="mx-auto grid max-w-lg grid-cols-6 items-center gap-2 px-4 pt-12 pb-8">
           <LoadingStep
             initCondition={uploadStep < 2}
             uploadState={uploadState}
@@ -168,11 +168,11 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
   return (
     <div className="text-center">
       <h1 className="text-2xl sm:text-3xl">Review terms</h1>
-      <div className="pt-8 space-y-8">
+      <div className="space-y-8 pt-8">
         <p className="text-gray-600">
           Proceeding will create a round with the settings below.
         </p>
-        <hr className="w-20 !my-12 mx-auto border-gray-300" />
+        <hr className="!my-12 mx-auto w-20 border-gray-300" />
         <RoundViewMain
           roundData={tempRoundData}
           descriptionHtml={descriptionHtml}
@@ -187,7 +187,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
 
         {/* <EmissionPreview shares={shares} totalShares={totalShares} /> */}
 
-        <div className="flex justify-center w-full">
+        <div className="flex w-full justify-center">
           <OwnerDisplay projectOwner={projectOwner} />
         </div>
 
@@ -198,7 +198,7 @@ export const REVIEW_ROUND_VIEW = (params: any) => {
           />
           <p>
             <span
-              className="inline-block mt-4 text-sm font-bold text-red-500 cursor-pointer hover:underline"
+              className="mt-4 inline-block cursor-pointer text-sm font-bold text-red-500 hover:underline"
               onClick={() => setModalView({ name: "" })}
             >
               Go back
@@ -286,7 +286,7 @@ export const REDEEM_VIEW = (params: any) => {
             ))
           }
         />
-        <div className="text-left text-xs xs:text-sm pt-1.5">
+        <div className="pt-1.5 text-left text-xs xs:text-sm">
           {tokenCountAll &&
             (redeemAmount ? (
               <p>

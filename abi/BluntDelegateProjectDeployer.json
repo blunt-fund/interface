@@ -1718,117 +1718,43 @@
     "absolutePath": "contracts/BluntDelegateProjectDeployer.sol",
     "id": 1535,
     "exportedSymbols": {
-      "BluntDelegateProjectDeployer": [
-        1534
-      ],
-      "Context": [
-        54733
-      ],
-      "DeployBluntDelegateData": [
-        1814
-      ],
-      "DeployBluntDelegateDeployerData": [
-        1839
-      ],
-      "IBluntDelegateCloner": [
-        1602
-      ],
-      "IBluntDelegateDeployer": [
-        1624
-      ],
-      "IBluntDelegateProjectDeployer": [
-        1673
-      ],
-      "IERC165": [
-        56113
-      ],
-      "IERC721": [
-        52712
-      ],
-      "IJBController": [
-        42580
-      ],
-      "IJBController3_0_1": [
-        42610
-      ],
-      "IJBController3_1": [
-        42971
-      ],
-      "IJBDirectory": [
-        43121
-      ],
-      "IJBFundAccessConstraintsStore": [
-        43211
-      ],
-      "IJBFundingCycleBallot": [
-        43235
-      ],
-      "IJBFundingCycleStore": [
-        43372
-      ],
-      "IJBMigratable": [
-        43382
-      ],
-      "IJBPaymentTerminal": [
-        43545
-      ],
-      "IJBProjects": [
-        44416
-      ],
-      "IJBSplitAllocator": [
-        44697
-      ],
-      "IJBSplitsStore": [
-        44753
-      ],
-      "IJBToken": [
-        44829
-      ],
-      "IJBTokenStore": [
-        45025
-      ],
-      "IJBTokenUriResolver": [
-        45035
-      ],
-      "JBBallotState": [
-        42134
-      ],
-      "JBConstants": [
-        45057
-      ],
-      "JBFundAccessConstraints": [
-        46000
-      ],
-      "JBFundingCycle": [
-        46023
-      ],
-      "JBFundingCycleData": [
-        46036
-      ],
-      "JBFundingCycleMetadata": [
-        46077
-      ],
-      "JBGlobalFundingCycleMetadata": [
-        46086
-      ],
-      "JBGroupedSplits": [
-        46096
-      ],
-      "JBLaunchProjectData": [
-        1873
-      ],
-      "JBProjectMetadata": [
-        46149
-      ],
-      "JBSplit": [
-        46208
-      ],
-      "JBSplitAllocationData": [
-        46225
-      ],
-      "Ownable": [
-        48696
-      ]
+      "BluntDelegateProjectDeployer": [1534],
+      "Context": [54733],
+      "DeployBluntDelegateData": [1814],
+      "DeployBluntDelegateDeployerData": [1839],
+      "IBluntDelegateCloner": [1602],
+      "IBluntDelegateDeployer": [1624],
+      "IBluntDelegateProjectDeployer": [1673],
+      "IERC165": [56113],
+      "IERC721": [52712],
+      "IJBController": [42580],
+      "IJBController3_0_1": [42610],
+      "IJBController3_1": [42971],
+      "IJBDirectory": [43121],
+      "IJBFundAccessConstraintsStore": [43211],
+      "IJBFundingCycleBallot": [43235],
+      "IJBFundingCycleStore": [43372],
+      "IJBMigratable": [43382],
+      "IJBPaymentTerminal": [43545],
+      "IJBProjects": [44416],
+      "IJBSplitAllocator": [44697],
+      "IJBSplitsStore": [44753],
+      "IJBToken": [44829],
+      "IJBTokenStore": [45025],
+      "IJBTokenUriResolver": [45035],
+      "JBBallotState": [42134],
+      "JBConstants": [45057],
+      "JBFundAccessConstraints": [46000],
+      "JBFundingCycle": [46023],
+      "JBFundingCycleData": [46036],
+      "JBFundingCycleMetadata": [46077],
+      "JBGlobalFundingCycleMetadata": [46086],
+      "JBGroupedSplits": [46096],
+      "JBLaunchProjectData": [1873],
+      "JBProjectMetadata": [46149],
+      "JBSplit": [46208],
+      "JBSplitAllocationData": [46225],
+      "Ownable": [48696]
     },
     "nodeType": "SourceUnit",
     "src": "32:7583:2",
@@ -1838,11 +1764,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:23:2",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".17"
-        ]
+        "literals": ["solidity", "0.8", ".17"]
       },
       {
         "id": 1214,
@@ -2045,9 +1967,7 @@
             "nodeType": "VariableDeclaration",
             "src": "1211:53:2",
             "nodes": [],
-            "baseFunctions": [
-              1638
-            ],
+            "baseFunctions": [1638],
             "constant": false,
             "documentation": {
               "id": 1236,
@@ -2078,9 +1998,7 @@
               "pathNode": {
                 "id": 1237,
                 "name": "IJBController3_1",
-                "nameLocations": [
-                  "1211:16:2"
-                ],
+                "nameLocations": ["1211:16:2"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 42971,
                 "src": "1211:16:2"
@@ -2221,9 +2139,7 @@
             "nodeType": "VariableDeclaration",
             "src": "1893:51:2",
             "nodes": [],
-            "baseFunctions": [
-              1644
-            ],
+            "baseFunctions": [1644],
             "constant": false,
             "documentation": {
               "id": 1250,
@@ -2254,9 +2170,7 @@
               "pathNode": {
                 "id": 1251,
                 "name": "IBluntDelegateCloner",
-                "nameLocations": [
-                  "1893:20:2"
-                ],
+                "nameLocations": ["1893:20:2"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 1602,
                 "src": "1893:20:2"
@@ -2782,9 +2696,7 @@
                     "pathNode": {
                       "id": 1257,
                       "name": "IBluntDelegateCloner",
-                      "nameLocations": [
-                        "2217:20:2"
-                      ],
+                      "nameLocations": ["2217:20:2"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1602,
                       "src": "2217:20:2"
@@ -2819,9 +2731,7 @@
                     "pathNode": {
                       "id": 1260,
                       "name": "IJBController3_1",
-                      "nameLocations": [
-                        "2259:16:2"
-                      ],
+                      "nameLocations": ["2259:16:2"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 42971,
                       "src": "2259:16:2"
@@ -3318,9 +3228,7 @@
                   "src": "3922:45:2"
                 },
                 {
-                  "assignments": [
-                    1354
-                  ],
+                  "assignments": [1354],
                   "declarations": [
                     {
                       "constant": false,
@@ -3343,9 +3251,7 @@
                         "pathNode": {
                           "id": 1352,
                           "name": "DeployBluntDelegateDeployerData",
-                          "nameLocations": [
-                            "3974:31:2"
-                          ],
+                          "nameLocations": ["3974:31:2"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 1839,
                           "src": "3974:31:2"
@@ -3725,9 +3631,7 @@
                   "src": "3974:332:2"
                 },
                 {
-                  "assignments": [
-                    1380
-                  ],
+                  "assignments": [1380],
                   "declarations": [
                     {
                       "constant": false,
@@ -3915,9 +3819,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1655
-            ],
+            "baseFunctions": [1655],
             "documentation": {
               "id": 1321,
               "nodeType": "StructuredDocumentation",
@@ -3961,9 +3863,7 @@
                     "pathNode": {
                       "id": 1322,
                       "name": "DeployBluntDelegateData",
-                      "nameLocations": [
-                        "3521:23:2"
-                      ],
+                      "nameLocations": ["3521:23:2"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1814,
                       "src": "3521:23:2"
@@ -3998,9 +3898,7 @@
                     "pathNode": {
                       "id": 1325,
                       "name": "JBLaunchProjectData",
-                      "nameLocations": [
-                        "3582:19:2"
-                      ],
+                      "nameLocations": ["3582:19:2"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1873,
                       "src": "3582:19:2"
@@ -4112,9 +4010,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1661
-            ],
+            "baseFunctions": [1661],
             "documentation": {
               "id": 1394,
               "nodeType": "StructuredDocumentation",
@@ -4131,9 +4027,7 @@
                 "modifierName": {
                   "id": 1400,
                   "name": "onlyOwner",
-                  "nameLocations": [
-                    "4819:9:2"
-                  ],
+                  "nameLocations": ["4819:9:2"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48615,
                   "src": "4819:9:2"
@@ -4175,9 +4069,7 @@
                     "pathNode": {
                       "id": 1395,
                       "name": "IBluntDelegateCloner",
-                      "nameLocations": [
-                        "4760:20:2"
-                      ],
+                      "nameLocations": ["4760:20:2"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1602,
                       "src": "4760:20:2"
@@ -4620,9 +4512,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1672
-            ],
+            "baseFunctions": [1672],
             "documentation": {
               "id": 1409,
               "nodeType": "StructuredDocumentation",
@@ -4639,9 +4529,7 @@
                 "modifierName": {
                   "id": 1420,
                   "name": "onlyOwner",
-                  "nameLocations": [
-                    "5377:9:2"
-                  ],
+                  "nameLocations": ["5377:9:2"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48615,
                   "src": "5377:9:2"
@@ -5679,9 +5567,7 @@
                               "pathNode": {
                                 "id": 1514,
                                 "name": "JBGroupedSplits",
-                                "nameLocations": [
-                                  "7474:15:2"
-                                ],
+                                "nameLocations": ["7474:15:2"],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 46096,
                                 "src": "7474:15:2"
@@ -5762,9 +5648,7 @@
                               "pathNode": {
                                 "id": 1520,
                                 "name": "JBFundAccessConstraints",
-                                "nameLocations": [
-                                  "7506:23:2"
-                                ],
+                                "nameLocations": ["7506:23:2"],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 46000,
                                 "src": "7506:23:2"
@@ -6010,9 +5894,7 @@
                     "pathNode": {
                       "id": 1462,
                       "name": "JBLaunchProjectData",
-                      "nameLocations": [
-                        "6238:19:2"
-                      ],
+                      "nameLocations": ["6238:19:2"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1873,
                       "src": "6238:19:2"
@@ -6047,9 +5929,7 @@
             "baseName": {
               "id": 1217,
               "name": "IBluntDelegateProjectDeployer",
-              "nameLocations": [
-                "288:29:2"
-              ],
+              "nameLocations": ["288:29:2"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 1673,
               "src": "288:29:2"
@@ -6062,9 +5942,7 @@
             "baseName": {
               "id": 1219,
               "name": "Ownable",
-              "nameLocations": [
-                "319:7:2"
-              ],
+              "nameLocations": ["319:7:2"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 48696,
               "src": "319:7:2"
@@ -6078,20 +5956,11 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          1534,
-          48696,
-          54733,
-          1673
-        ],
+        "linearizedBaseContracts": [1534, 48696, 54733, 1673],
         "name": "BluntDelegateProjectDeployer",
         "nameLocation": "256:28:2",
         "scope": 1535,
-        "usedErrors": [
-          1222,
-          1224,
-          1226
-        ]
+        "usedErrors": [1222, 1224, 1226]
       }
     ],
     "license": "MIT"

@@ -1,11 +1,11 @@
-import { NextSeo } from "next-seo"
-import { Container, CreateRoundForm } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
-  longTitle,
-  domain
+  domain,
+  longTitle
 } from "@components/common/Head"
+import { Container, CreateRoundForm } from "@components/ui"
+import { NextSeo } from "next-seo"
 
 export default function Create() {
   return (
@@ -27,12 +27,12 @@ export default function Create() {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto space-y-10 ">
+        <main className="mx-auto max-w-screen-sm space-y-10 ">
           <h1>Create blunt round</h1>
           <p className="mx-auto text-gray-600">
             Customize your round and add a target, cap and deadline
           </p>
-          <hr className="w-20 !my-12 mx-auto border-gray-300" />
+          <hr className="!my-12 mx-auto w-20 border-gray-300" />
           <CreateRoundForm />
         </main>
       </Container>

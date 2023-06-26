@@ -12,7 +12,7 @@ h3 {
 }
 
 a {
-  @apply text-black cursor-pointer hover:text-yellow-600 dark:hover:text-yellow-300;
+  @apply cursor-pointer text-black hover:text-yellow-600 dark:hover:text-yellow-300;
   text-decoration: none;
 }
 

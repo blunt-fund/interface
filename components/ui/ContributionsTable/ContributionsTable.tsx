@@ -1,8 +1,8 @@
+import { ResolvedAddress } from "@components/ui"
+import bluntDelegate from "abi/BluntDelegateClone.json"
 import { BigNumber } from "ethers"
 import { useEffect, useState } from "react"
 import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegateClone.json"
-import { ResolvedAddress } from "@components/ui"
 
 type Props = {
   subgraphData: any
@@ -81,7 +81,7 @@ const ContributionsTable = ({ subgraphData }: Props) => {
       {iterator < participants.length && (
         <p className="mt-6">
           <a
-            className="text-sm font-bold text-gray-600 underline cursor-pointer hover:text-yellow-600"
+            className="cursor-pointer text-sm font-bold underline text-gray-600 hover:text-yellow-600"
             onClick={() => setIterator(iterator + increment)}
           >
             Load more

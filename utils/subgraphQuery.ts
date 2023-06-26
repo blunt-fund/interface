@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { ApolloQueryResult } from "@apollo/client"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 export const graphQuery = async (
   tokensQuery: string,

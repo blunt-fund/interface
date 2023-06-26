@@ -1,13 +1,13 @@
-import NextHead from "next/head"
 import File from "@components/icons/File"
 import Link from "@components/icons/Link"
 import Logo from "@components/icons/Logo"
 import { Discord, Juicebox, Twitter } from "@components/icons/Social"
-import Image from "next/image"
 import { ConditionalLink, RoundDetails } from "@components/ui"
+import { NextSeo } from "next-seo"
+import NextHead from "next/head"
+import Image from "next/image"
 import { RoundData } from "utils/getRounds"
 import { TimeWrapper } from "../context"
-import { NextSeo } from "next-seo"
 
 type Props = {
   roundData: RoundData
@@ -50,13 +50,13 @@ const RoundViewMain = ({
 
       <ConditionalLink
         href={roundId && !showLinks ? `/rounds/${roundId}` : undefined}
-        className="block rounded-sm hover:text-black sm:border sm:border-transparent sm:px-4 sm:py-6 sm:hover:border-gray-300 sm:hover:shadow-inner"
+        className="block rounded-sm hover:text-black sm:border sm:px-4 sm:py-6 sm:border-transparent sm:hover:shadow-inner sm:hover:border-gray-300"
       >
         <div className="text-left">
           <div className="xs:flex">
             <div
-              className={`flex items-center flex-shrink-0 bg-white border border-gray-200 rounded-sm shadow-md xs:mr-4 bg-opacity-20 ${
-                showLinks ? "w-44 h-44" : "w-40 h-40"
+              className={`flex flex-shrink-0 items-center rounded-sm border bg-opacity-20 shadow-md bg-white border-gray-200 xs:mr-4 ${
+                showLinks ? "h-44 w-44" : "h-40 w-40"
               }`}
             >
               {image.url &&
@@ -69,10 +69,10 @@ const RoundViewMain = ({
                   alt={`${name} logo`}
                   width={196}
                   height={196}
-                  className="object-cover h-full"
+                  className="h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full p-10">
+                <div className="h-full w-full p-10">
                   <Logo />
                 </div>
               )}
@@ -87,10 +87,10 @@ const RoundViewMain = ({
               </h1>
               {
                 showLinks ? (
-                  <div className="flex items-center gap-6 mt-4 ml-1">
+                  <div className="mt-4 ml-1 flex items-center gap-6">
                     {website && (
                       <a
-                        className="w-5 h-5 higlight"
+                        className="higlight h-5 w-5"
                         target="_blank"
                         rel="noreferrer"
                         href={website}
@@ -100,7 +100,7 @@ const RoundViewMain = ({
                     )}
                     {twitter && (
                       <a
-                        className="w-5 h-5 higlight"
+                        className="higlight h-5 w-5"
                         target="_blank"
                         rel="noreferrer"
                         href={twitterUrl}
@@ -110,7 +110,7 @@ const RoundViewMain = ({
                     )}
                     {discord && (
                       <a
-                        className="w-5 h-5 mt-0.5 hover:text-indigo-500"
+                        className="mt-0.5 h-5 w-5 hover:text-indigo-500"
                         target="_blank"
                         rel="noreferrer"
                         href={discord}
@@ -120,7 +120,7 @@ const RoundViewMain = ({
                     )}
                     {docs && (
                       <a
-                        className="w-5 h-5 hover:text-gray-500"
+                        className="h-5 w-5 hover:text-gray-500"
                         target="_blank"
                         rel="noreferrer"
                         href={docs}
@@ -129,7 +129,7 @@ const RoundViewMain = ({
                       </a>
                     )}
                     <a
-                      className="w-5 h-5 hover:text-yellow-600"
+                      className="h-5 w-5 hover:text-yellow-600"
                       target="_blank"
                       rel="noreferrer"
                       href={`https://${
@@ -158,7 +158,7 @@ const RoundViewMain = ({
           </div>
 
           {descriptionHtml && (
-            <div className="py-6 prose-sm prose max-w-none">
+            <div className="prose-sm max-w-none py-6 prose">
               <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
             </div>
           )}

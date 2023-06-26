@@ -1,4 +1,4 @@
-import { type WalletClient, getWalletClient } from "@wagmi/core"
+import { getWalletClient, type WalletClient } from "@wagmi/core"
 import { providers } from "ethers"
 
 export function walletClientToSigner(walletClient: WalletClient) {

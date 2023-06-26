@@ -35,7 +35,7 @@ const ProgressBar = ({
   return (
     <div className="relative">
       <div
-        className="flex items-center w-full h-2 text-yellow-500 rounded-sm dark:text-yellow-300 "
+        className="flex h-2 w-full items-center rounded-sm text-yellow-500 dark:text-yellow-300 "
         style={{
           background: `linear-gradient(to right, ${raisedColor}, ${raisedColor} ${raisedPercentageFormatted}%, transparent ${raisedPercentage}%)`,
           animation: active
@@ -43,12 +43,12 @@ const ProgressBar = ({
             : ""
         }}
       />
-      <div className="absolute top-0 w-full h-2 border border-gray-400" />
-      <div className="absolute top-[-8px] w-full px-3 overflow-hidden">
-        <div className="relative flex items-center h-6 ">
+      <div className="absolute top-0 h-2 w-full border border-gray-400" />
+      <div className="absolute top-[-8px] w-full overflow-hidden px-3">
+        <div className="relative flex h-6 items-center ">
           {target != 0 && (
             <div
-              className={`absolute w-1.5 py-3 rounded-sm ${
+              className={`absolute w-1.5 rounded-sm py-3 ${
                 raised < target || hasEndedUnsuccessfully
                   ? "bg-blue-600"
                   : "bg-green-500"
@@ -57,7 +57,7 @@ const ProgressBar = ({
             />
           )}
           {isCapped && (
-            <div className="absolute w-1.5 py-3 right-0 rounded-sm bg-black" />
+            <div className="absolute right-0 w-1.5 rounded-sm py-3 bg-black" />
           )}
         </div>
       </div>

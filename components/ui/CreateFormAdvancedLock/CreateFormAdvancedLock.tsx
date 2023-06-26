@@ -2,6 +2,7 @@ import { Input, NoteText } from "@components/ui"
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction } from "react"
 import { RoundData } from "utils/getRounds"
+
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -40,7 +41,7 @@ const CreateFormAdvancedLock = ({
   const isSlicerNotToBeCreated = !enforceSlicerCreation && shares[0] == 0
 
   return (
-    <div className="py-3 space-y-8">
+    <div className="space-y-8 py-3">
       <p>
         Lock slice transfers, token withdrawals and modifications to the blunt
         round allocation.
@@ -70,7 +71,7 @@ const CreateFormAdvancedLock = ({
           }
         />
         {transferTimelock != 0 && (
-          <p className="absolute text-xs left-0 bottom-[-20px]">
+          <p className="absolute left-0 bottom-[-20px] text-xs">
             Unlock date:{" "}
             <span className="font-bold text-yellow-600">
               {transferLockDate.toLocaleDateString()}
@@ -99,7 +100,7 @@ const CreateFormAdvancedLock = ({
           }
         />
         {releaseTimelock != 0 && (
-          <p className="absolute text-xs left-0 bottom-[-20px]">
+          <p className="absolute left-0 bottom-[-20px] text-xs">
             Unlock date:{" "}
             <span className="font-bold text-yellow-600">
               {releaseLockDate.toLocaleDateString()}
@@ -133,7 +134,7 @@ const CreateFormAdvancedLock = ({
           }
         />
         {roundTimelock != 0 && (
-          <p className="absolute text-xs left-0 bottom-[-20px]">
+          <p className="absolute left-0 bottom-[-20px] text-xs">
             Unlock date:{" "}
             <span className="font-bold text-yellow-600">
               {roundLockDate.toLocaleDateString()}

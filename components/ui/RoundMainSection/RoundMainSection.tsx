@@ -1,10 +1,10 @@
-import { ClaimSlicesButton, FullRedeemButton, PayButton, RedeemBlock } from ".."
+import { RoundData } from "@utils/getRounds"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import { BigNumber, ethers } from "ethers"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { BigNumber, ethers } from "ethers"
-import { RoundData } from "@utils/getRounds"
+import { ClaimSlicesButton, FullRedeemButton, PayButton, RedeemBlock } from ".."
 import { useTimeContext } from "../context"
-import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 
 type Props = {
   round: RoundData

@@ -1,6 +1,6 @@
-import { FC } from "react"
 import Spinner from "@components/icons/Spinner"
 import Link from "next/link"
+import { FC } from "react"
 
 interface ButtonProps {
   loading?: boolean
@@ -54,7 +54,7 @@ const Button: FC<ButtonProps> = (props) => {
       disabled={disabled}
       onClick={!disabled && !loading ? onClick : null}
     >
-      <div className="flex items-center justify-center w-full">
+      <div className="flex w-full items-center justify-center">
         {loading ? <Spinner /> : <p>{label}</p>}
       </div>
     </button>

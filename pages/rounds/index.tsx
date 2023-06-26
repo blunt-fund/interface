@@ -1,14 +1,14 @@
-import { NextSeo } from "next-seo"
-import { Container, RoundsList } from "@components/ui"
 import {
   defaultDescription,
   defaultTitle,
-  longTitle,
-  domain
+  domain,
+  longTitle
 } from "@components/common/Head"
-import { GetStaticPropsContext } from "next"
-import fetcher from "@utils/fetcher"
+import { Container, RoundsList } from "@components/ui"
 import { Project } from "@prisma/client"
+import fetcher from "@utils/fetcher"
+import { GetStaticPropsContext } from "next"
+import { NextSeo } from "next-seo"
 
 export default function Explore({ subgraphData, projectData }) {
   return (
@@ -30,7 +30,7 @@ export default function Explore({ subgraphData, projectData }) {
         }}
       />
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto">
+        <main className="mx-auto max-w-screen-sm">
           <h2 className="pb-20">Blunt rounds</h2>
           <RoundsList subgraphData={subgraphData} projectData={projectData} />
         </main>
