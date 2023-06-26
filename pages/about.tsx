@@ -2,11 +2,11 @@ import {
   defaultDescription,
   defaultTitle,
   domain,
-  longTitle,
-} from "@components/common/Head";
-import { Container } from "@components/ui";
-import { NextSeo } from "next-seo";
-import Link from "next/link";
+  longTitle
+} from "@components/common/Head"
+import { Container } from "@components/ui"
+import { NextSeo } from "next-seo"
+import Link from "next/link"
 
 export default function About() {
   return (
@@ -22,14 +22,14 @@ export default function About() {
               url: `${domain}/og_image.png`,
               width: 1000,
               height: 1000,
-              alt: `${defaultTitle} cover image`,
-            },
-          ],
+              alt: `${defaultTitle} cover image`
+            }
+          ]
         }}
       />
 
       <Container page={true}>
-        <main className="max-w-screen-sm pt-12 pb-8 mx-auto space-y-32">
+        <main className="mx-auto max-w-screen-sm space-y-32 pt-12 pb-8">
           <h2>What does blunt do?</h2>
           <p>
             Blunt lets you launch a crowdfunding campaign and issue tokens to
@@ -122,5 +122,5 @@ export default function About() {
         </main>
       </Container>
     </>
-  );
+  )
 }

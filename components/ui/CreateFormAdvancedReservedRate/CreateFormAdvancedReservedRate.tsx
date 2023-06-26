@@ -4,26 +4,26 @@ import { Dispatch, SetStateAction } from "react"
 import { RoundData } from "utils/getRounds"
 
 type Props = {
-  roundData: RoundData;
-  setRoundData: Dispatch<SetStateAction<RoundData>>;
-  totalShares: number;
-  projectOwner: string;
-};
+  roundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
+  totalShares: number
+  projectOwner: string
+}
 
 const CreateFormAdvancedReservedRate = ({
   roundData,
   setRoundData,
   totalShares,
-  projectOwner,
+  projectOwner
 }: Props) => {
-  const { addresses } = roundData;
+  const { addresses } = roundData
 
   const addAccount = () => {
-    const data = { ...roundData };
-    data["addresses"].push("");
-    data["shares"].push(0);
-    setRoundData(data);
-  };
+    const data = { ...roundData }
+    data["addresses"].push("")
+    data["shares"].push(0)
+    setRoundData(data)
+  }
 
   return (
     <div className="space-y-8 py-3">
@@ -38,7 +38,7 @@ const CreateFormAdvancedReservedRate = ({
           Reserved %
         </p>
         {addresses.map((el, key) => {
-          const i = key;
+          const i = key
           return (
             <ReservedInputBlock
               key={key}
@@ -48,7 +48,7 @@ const CreateFormAdvancedReservedRate = ({
               totalShares={totalShares}
               projectOwner={projectOwner}
             />
-          );
+          )
         })}
 
         <div className="col-span-5 flex cursor-pointer pl-1 opacity-75 text-yellow-600 hover:opacity-100 xs:pl-2.5">
@@ -83,7 +83,7 @@ const CreateFormAdvancedReservedRate = ({
         />
       </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default CreateFormAdvancedReservedRate;
+export default CreateFormAdvancedReservedRate

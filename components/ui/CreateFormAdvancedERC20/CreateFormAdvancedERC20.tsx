@@ -27,7 +27,10 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
 
   return (
     <div className="space-y-8 py-3">
-      <p>Set the number of tokens issued to round participants per ETH contributed.</p>
+      <p>
+        Set the number of tokens issued to round participants per ETH
+        contributed.
+      </p>
       <div>
         <Input
           type="number"

@@ -13,56 +13,56 @@ import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
 export type NewImage = { url: string; file: File }
 
 type Props = {
-  roundData: RoundData;
-  setRoundData: Dispatch<SetStateAction<RoundData>>;
-  targetError: boolean;
-  riskMargin: number;
-};
+  roundData: RoundData
+  setRoundData: Dispatch<SetStateAction<RoundData>>
+  targetError: boolean
+  riskMargin: number
+}
 
 const CreateFormAdvancedFundraise = ({
   roundData,
   setRoundData,
   targetError,
-  riskMargin,
+  riskMargin
 }: Props) => {
-  const { account } = useAppContext();
+  const { account } = useAppContext()
   const { deadline, target, cap, isTargetUsd, isHardcapUsd, projectOwner } =
-    roundData;
+    roundData
 
-  const [address, setAddress] = useState("");
-  const [resolvedAddress, setResolvedAddress] = useState("");
-  const [deadlineUnits, setDeadlineUnits] = useState("days");
+  const [address, setAddress] = useState("")
+  const [resolvedAddress, setResolvedAddress] = useState("")
+  const [deadlineUnits, setDeadlineUnits] = useState("days")
 
   const handleSetDeadline = (value: number) => {
-    const formattedValue = value * timeFrames[deadlineUnits];
-    handleSetObject("deadline", formattedValue, roundData, setRoundData);
-  };
+    const formattedValue = value * timeFrames[deadlineUnits]
+    handleSetObject("deadline", formattedValue, roundData, setRoundData)
+  }
   const handleSetTarget = (value: number) => {
-    handleSetObject("target", value, roundData, setRoundData);
-  };
+    handleSetObject("target", value, roundData, setRoundData)
+  }
   const handleSetCap = (value: number) => {
-    handleSetObject("cap", value, roundData, setRoundData);
-  };
+    handleSetObject("cap", value, roundData, setRoundData)
+  }
   const handleSetUsd = (property: string, value: boolean) => {
-    handleSetObject(property, value, roundData, setRoundData);
-  };
+    handleSetObject(property, value, roundData, setRoundData)
+  }
   const handleSetOwner = (value: string) => {
-    setAddress(value);
+    setAddress(value)
     if (resolvedAddress === "Invalid ENS name") {
-      handleSetObject("projectOwner", "", roundData, setRoundData);
+      handleSetObject("projectOwner", "", roundData, setRoundData)
     } else {
-      handleSetObject("projectOwner", value, roundData, setRoundData);
+      handleSetObject("projectOwner", value, roundData, setRoundData)
     }
-  };
+  }
 
-  const isUsdEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1";
+  const isUsdEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1"
 
   useEffect(() => {
     if (!address) {
-      setAddress(account);
-      handleSetObject("projectOwner", account, roundData, setRoundData);
+      setAddress(account)
+      handleSetObject("projectOwner", account, roundData, setRoundData)
     }
-  }, [account]);
+  }, [account])
 
   return (
     <div className="space-y-8 py-3">
@@ -126,8 +126,8 @@ const CreateFormAdvancedFundraise = ({
           question={
             <>
               <p>
-                If the target is not met before the deadline, all
-                contributions can be fully refunded.
+                If the target is not met before the deadline, all contributions
+                can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
               <p className="text-yellow-600">
@@ -194,8 +194,8 @@ const CreateFormAdvancedFundraise = ({
                 The project owner is responsible for closing the blunt round.
               </p>
               <p>
-                If the funding target is met when the round is closed,
-                ownership of the funds will be transferred to this address.
+                If the funding target is met when the round is closed, ownership
+                of the funds will be transferred to this address.
               </p>
             </>
           }
@@ -206,7 +206,7 @@ const CreateFormAdvancedFundraise = ({
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CreateFormAdvancedFundraise;
+export default CreateFormAdvancedFundraise

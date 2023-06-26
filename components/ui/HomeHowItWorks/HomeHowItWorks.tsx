@@ -1,5 +1,5 @@
-import Link from "next/link";
-import Button from "../Button";
+import Link from "next/link"
+import Button from "../Button"
 
 const HomeHowItWorks = () => {
   return (
@@ -62,7 +62,7 @@ const HomeHowItWorks = () => {
         <Button label="Create round" href="/create" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomeHowItWorks;
+export default HomeHowItWorks

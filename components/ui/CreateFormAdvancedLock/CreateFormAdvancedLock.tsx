@@ -91,9 +91,9 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents round participants from withdrawing any currency
-                earned by the slicer until the specified date, including the
-                project tokens reserved for the round allocation.
+                This lock prevents round participants from withdrawing any
+                currency earned by the slicer until the specified date,
+                including the project tokens reserved for the round allocation.
               </p>
               <p>Leave blank to always allow token withdrawals.</p>
             </>
@@ -123,8 +123,9 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents the project owner from reducing the round&apos;s token
-                allocation by reconfiguring a future funding cycle.
+                This lock prevents the project owner from reducing the
+                round&apos;s token allocation by reconfiguring a future funding
+                cycle.
               </p>
               <p>
                 A longer allocation lock can act as assurance to prospective

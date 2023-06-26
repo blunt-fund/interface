@@ -6,18 +6,18 @@ import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import Button from "../Button"
 import Question from "../Question"
 
-type Props = { projectId: number; bluntDelegate: `0x${string}` };
+type Props = { projectId: number; bluntDelegate: `0x${string}` }
 
 const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { config, error } = usePrepareContractWrite({
     address: bluntDelegate,
     abi: BluntDelegate.abi,
     functionName: "queueNextPhase",
-    args: [],
-  });
-  const addRecentTransaction = useAddRecentTransaction();
-  const { writeAsync } = useContractWrite(config);
+    args: []
+  })
+  const addRecentTransaction = useAddRecentTransaction()
+  const { writeAsync } = useContractWrite(config)
 
   return (
     <div className="relative flex items-center gap-4 text-left">
@@ -51,7 +51,7 @@ const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
         }
       />
     </div>
-  );
-};
+  )
+}
 
-export default QueueBlock;
+export default QueueBlock
