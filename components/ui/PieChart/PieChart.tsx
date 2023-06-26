@@ -95,7 +95,7 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
             <p className="text-sm">
               Future token
               <br />
-              emission
+              issuance
             </p>
           </>
         )}

@@ -62,7 +62,7 @@ const CreateFormAdvancedLock = ({
               </p>
               <p>
                 By default, slices are transferable. This lock prevents round
-                participants to transfer or trade their slices until the
+                participants from transferring or trading their slices until the
                 specified date.
               </p>
               <p>Leave blank to always allow slice transfers.</p>
@@ -90,7 +90,7 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents round participants to withdraw any currency
+                This lock prevents round participants from withdrawing any currency
                 earned by the slicer until the specified date, including the
                 project tokens reserved for the round allocation.
               </p>
@@ -122,11 +122,11 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents the project owner to reduce the round token
+                This lock prevents the project owner from reducing the round&lsquo;s token
                 allocation by reconfiguring a future funding cycle.
               </p>
               <p>
-                A longer timelock can act as assurance to prospective
+                A longer allocation lock can act as assurance to prospective
                 contributors.
               </p>
             </>

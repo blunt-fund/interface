@@ -71,8 +71,8 @@ const OwnerBlock = ({
           <p>Finalize a round after reaching the fundraise target to:</p>
           <ul className="pb-1">
             <li>
-              Consolidate the amount raised, preventing further payments or
-              redemptions.
+              Settle the amount raised, preventing further payments or
+              redemptions
             </li>
             <li>
               Claim ownership of the project, and manage funds on Juicebox
@@ -86,7 +86,7 @@ const OwnerBlock = ({
             !isTargetReached ? (
               <NoteText
                 error
-                text="Closing the round before reaching the target will permanently disable contributions, only allowing refunds"
+                text="Closing the round before the target is met will permanently disable contributions, only allowing refunds"
               />
             ) : (
               !isDeadlinepassed && (

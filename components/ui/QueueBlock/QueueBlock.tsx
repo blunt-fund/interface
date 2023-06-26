@@ -1,23 +1,23 @@
-import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
-import Button from "../Button"
-import Question from "../Question"
-import BluntDelegate from "abi/BluntDelegateClone.json"
-import executeTransaction from "@utils/executeTransaction"
-import { useState } from "react"
+import { useAddRecentTransaction } from "@rainbow-me/rainbowkit";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import Button from "../Button";
+import Question from "../Question";
+import BluntDelegate from "abi/BluntDelegateClone.json";
+import executeTransaction from "@utils/executeTransaction";
+import { useState } from "react";
 
-type Props = { projectId: number; bluntDelegate: `0x${string}` }
+type Props = { projectId: number; bluntDelegate: `0x${string}` };
 
 const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { config, error } = usePrepareContractWrite({
     address: bluntDelegate,
     abi: BluntDelegate.abi,
     functionName: "queueNextPhase",
-    args: []
-  })
-  const addRecentTransaction = useAddRecentTransaction()
-  const { writeAsync } = useContractWrite(config)
+    args: [],
+  });
+  const addRecentTransaction = useAddRecentTransaction();
+  const { writeAsync } = useContractWrite(config);
 
   return (
     <div className="relative flex items-center gap-4 text-left">
@@ -27,11 +27,11 @@ const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
           text={
             <>
               <p>
-                In order to finalize rounds immediately as the deadline is over,
-                an additional transaction needs to be executed while the round
-                is in progress.
+                In order to finalize rounds immediately after the deadline, an
+                additional transaction needs to be executed while the round is
+                in progress.
               </p>
-              <p>Rounds need to be queued only once.</p>
+              <p>Rounds only need to be queued once.</p>
             </>
           }
         />
@@ -51,7 +51,7 @@ const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
         }
       />
     </div>
-  )
-}
+  );
+};
 
-export default QueueBlock
+export default QueueBlock;

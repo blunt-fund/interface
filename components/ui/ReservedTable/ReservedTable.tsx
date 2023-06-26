@@ -18,7 +18,7 @@ const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
               Blunt round
             </th>
             <th className="w-1/3 text-xs xs:text-sm" scope="col">
-              Others reserved
+              Other reserves
             </th>
           </tr>
         </thead>

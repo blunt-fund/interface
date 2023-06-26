@@ -49,7 +49,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
           onChange={handleSetReservedStake}
           question={
             <>
-              Percentage of future issued tokens shared between the round
+              Percentage of future token issuance to split between the blunt round
               participants.
             </>
           }
@@ -67,7 +67,7 @@ const CreateFormGeneral = ({ roundData, setRoundData }: Props) => {
                 slices once the round ends successfully.
               </p>
               <p>
-                Can be used to later split payments and tokens among
+                Can be used later to split payments and tokens between
                 contributors.
               </p>
             </>

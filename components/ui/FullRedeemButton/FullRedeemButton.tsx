@@ -61,8 +61,8 @@ const FullRedeemButton = ({ accountContributions, projectId }: Props) => {
             text={
               <>
                 <p>
-                  Since the round ended without reaching the target, you can
-                  claim back the full sum contributed.
+                  Since the round ended without reaching its target, you can
+                  reclaim your full contribution.
                 </p>
               </>
             }

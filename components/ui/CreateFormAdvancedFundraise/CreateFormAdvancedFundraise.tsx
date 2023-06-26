@@ -2,66 +2,66 @@ import {
   Input,
   InputAddress,
   InputDeadlineUnits,
-  NoteText
-} from "@components/ui"
-import handleSetObject from "@utils/handleSetObject"
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { RoundData } from "utils/getRounds"
-import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
-import { useAppContext } from "../context"
-export type NewImage = { url: string; file: File }
+  NoteText,
+} from "@components/ui";
+import handleSetObject from "@utils/handleSetObject";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { RoundData } from "utils/getRounds";
+import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits";
+import { useAppContext } from "../context";
+export type NewImage = { url: string; file: File };
 
 type Props = {
-  roundData: RoundData
-  setRoundData: Dispatch<SetStateAction<RoundData>>
-  targetError: boolean
-  riskMargin: number
-}
+  roundData: RoundData;
+  setRoundData: Dispatch<SetStateAction<RoundData>>;
+  targetError: boolean;
+  riskMargin: number;
+};
 
 const CreateFormAdvancedFundraise = ({
   roundData,
   setRoundData,
   targetError,
-  riskMargin
+  riskMargin,
 }: Props) => {
-  const { account } = useAppContext()
+  const { account } = useAppContext();
   const { deadline, target, cap, isTargetUsd, isHardcapUsd, projectOwner } =
-    roundData
+    roundData;
 
-  const [address, setAddress] = useState("")
-  const [resolvedAddress, setResolvedAddress] = useState("")
-  const [deadlineUnits, setDeadlineUnits] = useState("days")
+  const [address, setAddress] = useState("");
+  const [resolvedAddress, setResolvedAddress] = useState("");
+  const [deadlineUnits, setDeadlineUnits] = useState("days");
 
   const handleSetDeadline = (value: number) => {
-    const formattedValue = value * timeFrames[deadlineUnits]
-    handleSetObject("deadline", formattedValue, roundData, setRoundData)
-  }
+    const formattedValue = value * timeFrames[deadlineUnits];
+    handleSetObject("deadline", formattedValue, roundData, setRoundData);
+  };
   const handleSetTarget = (value: number) => {
-    handleSetObject("target", value, roundData, setRoundData)
-  }
+    handleSetObject("target", value, roundData, setRoundData);
+  };
   const handleSetCap = (value: number) => {
-    handleSetObject("cap", value, roundData, setRoundData)
-  }
+    handleSetObject("cap", value, roundData, setRoundData);
+  };
   const handleSetUsd = (property: string, value: boolean) => {
-    handleSetObject(property, value, roundData, setRoundData)
-  }
+    handleSetObject(property, value, roundData, setRoundData);
+  };
   const handleSetOwner = (value: string) => {
-    setAddress(value)
+    setAddress(value);
     if (resolvedAddress === "Invalid ENS name") {
-      handleSetObject("projectOwner", "", roundData, setRoundData)
+      handleSetObject("projectOwner", "", roundData, setRoundData);
     } else {
-      handleSetObject("projectOwner", value, roundData, setRoundData)
+      handleSetObject("projectOwner", value, roundData, setRoundData);
     }
-  }
+  };
 
-  const isUsdEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1"
+  const isUsdEnabled = process.env.NEXT_PUBLIC_CHAIN_ID === "1";
 
   useEffect(() => {
     if (!address) {
-      setAddress(account)
-      handleSetObject("projectOwner", account, roundData, setRoundData)
+      setAddress(account);
+      handleSetObject("projectOwner", account, roundData, setRoundData);
     }
-  }, [account])
+  }, [account]);
 
   return (
     <div className="py-3 space-y-8">
@@ -87,11 +87,11 @@ const CreateFormAdvancedFundraise = ({
             placeholder="Leave blank for unlimited"
             question={
               <>
-                <p>The period of time in which contributions are accepted.</p>
-                <p>Leave blank to set unlimited duration.</p>
+                <p>How long to accept contributions for.</p>
+                <p>Leave blank for an unlimited duration.</p>
                 <p className="text-yellow-600">
-                  Note: If not set, you will be able to set it while the round
-                  is in progress.
+                  Note: If you don&lsquo;t set a duration now, you can add one
+                  during the round.
                 </p>
               </>
             }
@@ -116,7 +116,7 @@ const CreateFormAdvancedFundraise = ({
           value={target || ""}
           onChange={handleSetTarget}
           placeholder="Leave blank to disable"
-          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise. 
+          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} amount to raise. 
           ${
             !isUsdEnabled
               ? "Note that on Mainnet you'll also be able to select USD"
@@ -125,7 +125,7 @@ const CreateFormAdvancedFundraise = ({
           question={
             <>
               <p>
-                If the target is not reached before the deadline, all
+                If the target is not met before the deadline, all
                 contributions can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
@@ -159,7 +159,7 @@ const CreateFormAdvancedFundraise = ({
           }`}
           question={
             <>
-              <p>Contributions will be rejected once the cap is reached.</p>
+              <p>Contributions will be rejected once the cap is met.</p>
               {/* <p>
                 If a slicer is to be created, it limits ownership dilution among
                 round participants.
@@ -193,8 +193,8 @@ const CreateFormAdvancedFundraise = ({
                 The project owner is responsible for closing the blunt round.
               </p>
               <p>
-                If the funding target is reached when the round is closed,
-                ownership of the funds will be transferred to this account.
+                If the funding target is met when the round is closed,
+                ownership of the funds will be transferred to this address.
               </p>
             </>
           }
@@ -205,7 +205,7 @@ const CreateFormAdvancedFundraise = ({
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateFormAdvancedFundraise
+export default CreateFormAdvancedFundraise;

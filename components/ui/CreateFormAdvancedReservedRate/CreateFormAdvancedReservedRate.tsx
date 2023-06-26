@@ -1,35 +1,34 @@
-import { Dispatch, SetStateAction } from "react"
-import { ReservedInputBlock } from "@components/ui"
-import Add from "@components/icons/Add"
-import { RoundData } from "utils/getRounds"
+import { Dispatch, SetStateAction } from "react";
+import { ReservedInputBlock } from "@components/ui";
+import Add from "@components/icons/Add";
+import { RoundData } from "utils/getRounds";
 
 type Props = {
-  roundData: RoundData
-  setRoundData: Dispatch<SetStateAction<RoundData>>
-  totalShares: number
-  projectOwner: string
-}
+  roundData: RoundData;
+  setRoundData: Dispatch<SetStateAction<RoundData>>;
+  totalShares: number;
+  projectOwner: string;
+};
 
 const CreateFormAdvancedReservedRate = ({
   roundData,
   setRoundData,
   totalShares,
-  projectOwner
+  projectOwner,
 }: Props) => {
-  const { addresses } = roundData
+  const { addresses } = roundData;
 
   const addAccount = () => {
-    const data = { ...roundData }
-    data["addresses"].push("")
-    data["shares"].push(0)
-    setRoundData(data)
-  }
+    const data = { ...roundData };
+    data["addresses"].push("");
+    data["shares"].push(0);
+    setRoundData(data);
+  };
 
   return (
     <div className="py-3 space-y-8">
       <p>
-        Add beneficiaries to the reserved rate in addition to blunt round
-        participants.
+        Add reserved rate beneficiaries in addition to blunt round participants.
       </p>
       <div className="grid items-center grid-cols-8 text-left xs:grid-cols-10 md:grid-cols-12 gap-x-4 gap-y-6 xs:gap-y-10">
         <p className="mb-[-25px] text-sm text-gray-700 font-semibold hidden xs:block xs:col-span-6 xs:col-start-2 md:col-span-7 md:col-start-2">
@@ -39,7 +38,7 @@ const CreateFormAdvancedReservedRate = ({
           Reserved %
         </p>
         {addresses.map((el, key) => {
-          const i = key
+          const i = key;
           return (
             <ReservedInputBlock
               key={key}
@@ -49,7 +48,7 @@ const CreateFormAdvancedReservedRate = ({
               totalShares={totalShares}
               projectOwner={projectOwner}
             />
-          )
+          );
         })}
 
         <div className="flex col-span-5 pl-1 text-yellow-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
@@ -84,7 +83,7 @@ const CreateFormAdvancedReservedRate = ({
         />
       </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default CreateFormAdvancedReservedRate
+export default CreateFormAdvancedReservedRate;

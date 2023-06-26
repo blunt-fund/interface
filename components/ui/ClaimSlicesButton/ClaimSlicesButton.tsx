@@ -29,7 +29,7 @@ const ClaimSlicesButton = ({ projectId, bluntDelegate }: Props) => {
         <Question
           text={
             <>
-              <p>Get ownership of the slicer related to the blunt round.</p>
+              <p>Get ownership of the slicer associated with this blunt round.</p>
             </>
           }
         />

@@ -26,7 +26,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
 
   return (
     <div className="py-3 space-y-8">
-      <p>Configure the amount of tokens issued to round participants.</p>
+      <p>Set the number of tokens issued to round participants per ETH contributed.</p>
       <div>
         <Input
           type="number"
@@ -39,7 +39,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
           question={
             <>
               <p>
-                The amount of tokens to issue per ETH contributed during the
+                The number of tokens to issue per ETH contributed during the
                 blunt round.
               </p>
               <p>
@@ -47,7 +47,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
                 be issued in order to handle refunds (0.001 tokens/ETH).
               </p>
               <p>
-                Once the round ends, token emission can be modified by the
+                Once the round ends, token issuance can be modified by the
                 project owner.
               </p>
             </>
@@ -80,8 +80,8 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
           }
           question={
             <>
-              <p>Symbol of the ERC20 token to be issued for the project. </p>
-              <p>Tipically between 3 and 7 letters.</p>
+              <p>Symbol of the ERC20 token to be issued for the project.</p>
+              <p>Typically between 3 and 7 letters.</p>
             </>
           }
         />
