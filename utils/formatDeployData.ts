@@ -1,7 +1,7 @@
+import calculateSplits from "@utils/calculateSplits"
 import { RoundData } from "@utils/getRounds"
 import { BigNumber, ethers } from "ethers"
 import { addresses as addressConstants } from "utils/constants"
-import calculateSplits from "@utils/calculateSplits"
 import { parseEther } from "viem"
 
 const formatDeployData = (roundData: RoundData, totalShares: number) => {

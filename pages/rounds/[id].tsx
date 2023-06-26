@@ -1,12 +1,12 @@
-import NextHead from "next/head"
-import { NextSeo } from "next-seo"
+import { defaultDescription, domain } from "@components/common/Head"
 import { ActionScreen, Container, RoundViewFullWrapper } from "@components/ui"
-import fetcher from "@utils/fetcher"
-import { GetStaticPropsContext } from "next"
 import prisma from "@lib/prisma"
 import constants, { addresses } from "@utils/constants"
+import fetcher from "@utils/fetcher"
+import { GetStaticPropsContext } from "next"
+import { NextSeo } from "next-seo"
+import NextHead from "next/head"
 import { useRouter } from "next/router"
-import { defaultDescription, domain } from "@components/common/Head"
 
 export default function Round({ subgraphData, projectData }) {
   const router = useRouter()
@@ -44,7 +44,7 @@ export default function Round({ subgraphData, projectData }) {
       </NextHead>
 
       <Container page={true}>
-        <main className="max-w-screen-sm mx-auto space-y-10">
+        <main className="mx-auto max-w-screen-sm space-y-10">
           {isBluntRound ? (
             <RoundViewFullWrapper
               subgraphData={subgraphData}

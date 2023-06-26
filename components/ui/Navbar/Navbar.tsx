@@ -1,11 +1,11 @@
-import Link from "next/link"
 import Logo from "@components/icons/Logo"
+import Nightwind from "@components/icons/Nightwind"
+import UserIcon from "@components/icons/UserIcon"
 import { Container, CustomConnectButton, DropdownMenu } from "@components/ui"
 import va from "@vercel/analytics"
-import Nightwind from "@components/icons/Nightwind"
-import { useAppContext } from "../context"
+import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
-import UserIcon from "@components/icons/UserIcon"
+import { useAppContext } from "../context"
 
 const Navbar = () => {
   const { isConnected } = useAppContext()
@@ -29,9 +29,9 @@ const Navbar = () => {
   return (
     <header className="shadow-sm">
       <Container>
-        <nav className="relative px-3 sm:px-6 h-[4.25rem] items-center mx-auto flex justify-between">
+        <nav className="relative mx-auto flex h-[4.25rem] items-center justify-between px-3 sm:px-6">
           <div className="flex items-center space-x-5 sm:space-x-10">
-            <Link href="/" className="w-7 h-7" aria-label="Blunt logo">
+            <Link href="/" className="h-7 w-7" aria-label="Blunt logo">
               <Logo />
             </Link>
             <Link href="/rounds" className="text-sm font-bold">
@@ -40,7 +40,7 @@ const Navbar = () => {
           </div>
 
           <div className="relative z-10 flex items-center space-x-5 xs:space-x-6">
-            <div className="hidden xs:block xs:mr-2">
+            <div className="hidden xs:mr-2 xs:block">
               <Nightwind size="h-[24px]" />
             </div>
             <div onClick={() => va.track("connect_wallet_attempt")}>

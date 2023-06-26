@@ -1,5 +1,5 @@
-import Spinner from "@components/icons/Spinner"
 import Check from "@components/icons/Check"
+import Spinner from "@components/icons/Spinner"
 
 type Props = {
   initCondition: boolean

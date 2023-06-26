@@ -80,7 +80,7 @@ const Input: React.FC<Props> = ({
       >
         {onClick && (
           <div
-            className={`relative text-sm font-bold group flex items-center justify-center px-6 text-white ${
+            className={`group relative flex items-center justify-center px-6 text-sm font-bold text-white ${
               error
                 ? "cursor-pointer bg-red-500"
                 : `bg-yellow-600 ${
@@ -98,7 +98,7 @@ const Input: React.FC<Props> = ({
             )}
             {onClickArrow && (
               <div
-                className={`w-[1.2rem] h-[1.2rem] text-white transition-transform duration-100 group-hover:translate-x-1 ${
+                className={`h-[1.2rem] w-[1.2rem] transition-transform duration-100 text-white group-hover:translate-x-1 ${
                   loading ? "-z-10" : ""
                 }`}
               >
@@ -106,13 +106,13 @@ const Input: React.FC<Props> = ({
               </div>
             )}
             {loading && (
-              <div className="absolute flex items-center justify-center w-full h-full">
+              <div className="absolute flex h-full w-full items-center justify-center">
                 <Spinner color="text-white" />
               </div>
             )}
           </div>
         )}
-        <p className="absolute right-[40px] flex items-center h-full text-sm text-gray-400">
+        <p className="absolute right-[40px] flex h-full items-center text-sm text-gray-400">
           {after}
         </p>
         <input
@@ -128,9 +128,9 @@ const Input: React.FC<Props> = ({
         />
         {prefix && (
           <div
-            className={`flex items-center rounded-l-sm justify-center px-5 text-gray-600 bg-gray-200 border-b-[3px] dark:border-gray-700 ${
+            className={`flex items-center justify-center rounded-l-sm border-b-[3px] px-5 text-gray-600 bg-gray-200 dark:border-gray-700 ${
               error
-                ? "border-red-400 peer-focus:border-red-400 dark:peer-focus:border-red-500 shadow-error"
+                ? "shadow-error border-red-400 peer-focus:border-red-400 dark:peer-focus:border-red-500"
                 : !disabled && !loading
                 ? "text-black focus:border-yellow-600 peer-focus:border-yellow-600 dark:peer-focus:border-yellow-300"
                 : ""
@@ -140,7 +140,7 @@ const Input: React.FC<Props> = ({
                 : ""
             } ${
               disabled || loading
-                ? "text-gray-400 border-yellow-100 bg-gray-100 "
+                ? "text-gray-400 bg-gray-100 border-yellow-100 "
                 : ""
             }`}
             onClick={

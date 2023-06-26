@@ -1,6 +1,6 @@
-import { FC } from "react"
-import NextHead from "next/head"
 import { DefaultSeo } from "next-seo"
+import NextHead from "next/head"
+import { FC } from "react"
 
 export const defaultTitle = "blunt"
 export const longTitle =

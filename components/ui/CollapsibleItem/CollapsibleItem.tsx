@@ -25,30 +25,30 @@ const CollapsibleItem = ({
   return (
     <li>
       <div
-        className={`inline-flex items-center cursor-pointer group ${
+        className={`group inline-flex cursor-pointer items-center ${
           wrapperClassName || ""
         } ${secondary ? "opacity-50" : ""}`}
         onClick={() => setShowDetail((showDetail) => !showDetail)}
         id={id || undefined}
       >
-        <div className={`flex-shrink-0 w-4 h-4 mr-4 ${showDetail && "pb-2"}`}>
+        <div className={`mr-4 h-4 w-4 flex-shrink-0 ${showDetail && "pb-2"}`}>
           <Chevron
-            className={`transition-transform duration-50 ease-out ${
+            className={`duration-50 transition-transform ease-out ${
               showDetail
-                ? "rotate-180 group-hover:translate-x-[4px] translate-x-[8px]"
+                ? "translate-x-[8px] rotate-180 group-hover:translate-x-[4px]"
                 : "group-hover:translate-x-[4px]"
             } `}
           />
         </div>
         <p>{label}</p>
         {error && (
-          <div className="w-5 h-5 ml-2 text-red-500">
+          <div className="ml-2 h-5 w-5 text-red-500">
             <Alert />
           </div>
         )}
       </div>
       {showDetail && (
-        <div className="px-3 py-6 mt-3 border border-gray-200 xs:px-5">
+        <div className="mt-3 border px-3 py-6 border-gray-200 xs:px-5">
           {typeof detail == "string" ? <p className="">{detail}</p> : detail}
         </div>
       )}

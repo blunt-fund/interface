@@ -8,7 +8,7 @@ const ConnectBlock = ({ children }) => {
     children
   ) : (
     <>
-      <div className="flex flex-col items-center py-6 mx-auto max-w-screen-xs">
+      <div className="mx-auto flex max-w-screen-xs flex-col items-center py-6">
         <h1>Log in</h1>
         <p className="py-10 text-gray-600 sm:text-lg">
           Connect your wallet to view this page

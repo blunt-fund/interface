@@ -1,10 +1,10 @@
-import { useAddRecentTransaction } from "@rainbow-me/rainbowkit";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import Button from "../Button";
-import Question from "../Question";
-import BluntDelegate from "abi/BluntDelegateClone.json";
-import executeTransaction from "@utils/executeTransaction";
-import { useState } from "react";
+import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import executeTransaction from "@utils/executeTransaction"
+import BluntDelegate from "abi/BluntDelegateClone.json"
+import { useState } from "react"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import Button from "../Button"
+import Question from "../Question"
 
 type Props = { projectId: number; bluntDelegate: `0x${string}` };
 

@@ -1,6 +1,8 @@
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import executeTransaction from "@utils/executeTransaction"
 import { addresses } from "@utils/constants"
+import executeTransaction from "@utils/executeTransaction"
+import JBTerminal from "abi/JBETHPaymentTerminal.json"
+import JBTokenStore from "abi/JBTokenStore.json"
 import { BigNumber, ethers } from "ethers"
 import { useState } from "react"
 import {
@@ -8,8 +10,6 @@ import {
   useContractWrite,
   usePrepareContractWrite
 } from "wagmi"
-import JBTerminal from "abi/JBETHPaymentTerminal.json"
-import JBTokenStore from "abi/JBTokenStore.json"
 import { Button, Question } from "../"
 import { useAppContext } from "../context"
 

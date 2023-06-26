@@ -1,13 +1,13 @@
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import executeTransaction from "@utils/executeTransaction"
+import { RoundData } from "@utils/getRounds"
+import handleSetObject from "@utils/handleSetObject"
+import BluntDelegate from "abi/BluntDelegateClone.json"
+import { useState } from "react"
 import { useContractWrite, usePrepareContractWrite } from "wagmi"
 import Button from "../Button"
-import Question from "../Question"
-import BluntDelegate from "abi/BluntDelegateClone.json"
-import executeTransaction from "@utils/executeTransaction"
-import { useState } from "react"
-import { RoundData } from "@utils/getRounds"
 import Input from "../Input"
-import handleSetObject from "@utils/handleSetObject"
+import Question from "../Question"
 
 type Props = {
   projectId: number
@@ -39,7 +39,7 @@ const OwnerBlockToken = ({ projectId, bluntDelegate, round }: Props) => {
   return (
     <>
       <div className="relative flex items-center">
-        <p className="text-sm text-left">Project Token</p>
+        <p className="text-left text-sm">Project Token</p>
         <Question
           position="bottom-0 left-[-24px]"
           text={

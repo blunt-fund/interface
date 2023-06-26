@@ -5,7 +5,7 @@ const HomeHowItWorks = () => {
   return (
     <div>
       <h2 className="pb-12 text-xl text-gray-500">How it works</h2>
-      <div className="prose text-left">
+      <div className="text-left prose">
         <p>
           A set of rules guarantees that all Blunt rounds behave the same way,
           and allows fundraisers to start a round in seconds.
@@ -50,7 +50,7 @@ const HomeHowItWorks = () => {
         Blunt is built on the battle-tested{" "}
         <a
           href="https://juicebox.money"
-          className="text-gray-400 highlight"
+          className="highlight text-gray-400"
           target="_blank"
           rel="noreferrer"
         >

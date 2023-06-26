@@ -1,13 +1,13 @@
 import Cross from "@components/icons/Cross"
-import { Dispatch, SetStateAction, useEffect, useRef } from "react"
 import {
-  View,
   CREATE_ROUND_VIEW,
-  REVIEW_ROUND_VIEW,
   NETWORK_VIEW,
+  REDEEM_VIEW,
+  REVIEW_ROUND_VIEW,
   ROUND_INFO_VIEW,
-  REDEEM_VIEW
+  View
 } from "@lib/content/modals"
+import { Dispatch, SetStateAction, useEffect, useRef } from "react"
 
 type Props = {
   modalView: View
@@ -56,20 +56,20 @@ const Modal = ({ modalView, setModalView }: Props) => {
   }, [cross, modalRef, setModalView])
 
   return (
-    <div className="fixed top-0 z-50 w-screen h-screen py-12 overflow-y-scroll xs:py-20 background-modal">
-      <div className="absolute w-full h-full mt-[-3rem] xs:mt-[-5rem]" />
+    <div className="background-modal fixed top-0 z-50 h-screen w-screen overflow-y-scroll py-12 xs:py-20">
+      <div className="absolute mt-[-3rem] h-full w-full xs:mt-[-5rem]" />
       <div
         className="flex items-center justify-center"
         style={{ minHeight: "100%" }}
       >
         <div
-          className="relative w-full max-w-screen-md px-2 py-16 mx-2 bg-white border border-gray-200 rounded-sm shadow-xl xs:py-20 xs:px-8"
+          className="relative mx-2 w-full max-w-screen-md rounded-sm border px-2 py-16 shadow-xl bg-white border-gray-200 xs:py-20 xs:px-8"
           ref={modalRef}
         >
           {cross && (
             <div className="absolute top-[24px] right-[24px]">
               <Cross
-                className="text-right cursor-pointer hover:text-red-500"
+                className="cursor-pointer text-right hover:text-red-500"
                 onClick={() => setModalView({ name: "" })}
               />
             </div>

@@ -34,7 +34,7 @@ const ReservedTable = ({ reservedPool, reservedStake }: Props) => {
           <tr className="border-b border-gray-200">
             {/* <th scope="row">Next</th> */}
             <td>{Number(100 - reservedPool).toFixed(1)}%</td>
-            <td className="font-bold text-yellow-600 nightwind-prevent">
+            <td className="nightwind-prevent font-bold text-yellow-600">
               {Number(reservedStake).toFixed(1)}%
             </td>
             <td className="font-bold text-yellow-400 dark:text-yellow-300 ">

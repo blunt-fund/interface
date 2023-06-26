@@ -7,8 +7,8 @@ type Props = {
 
 const EmissionPreview = ({ shares, totalShares }: Props) => {
   return (
-    <div className="py-6 space-y-10">
-      <p className="text-base text-center">
+    <div className="space-y-10 py-6">
+      <p className="text-center text-base">
         Token emission (after blunt round)
       </p>
       <div className="text-black">

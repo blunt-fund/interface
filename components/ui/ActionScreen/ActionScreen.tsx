@@ -1,6 +1,6 @@
-import { FC } from "react"
 import { Button } from "@components/ui"
 import { NextSeo } from "next-seo"
+import { FC } from "react"
 
 export interface ActionScreenProps {
   highlightTitle?: string
@@ -28,17 +28,17 @@ const ActionScreen: FC<ActionScreenProps> = ({
   onClickSecondary = () => null
 }) => {
   return (
-    <main className="w-full max-w-screen-sm mx-auto">
+    <main className="mx-auto w-full max-w-screen-sm">
       {title && <NextSeo title={title} />}
       <div className="flex flex-col items-center text-center">
         {highlightTitle && <h1>{highlightTitle}</h1>}
         {text && typeof text === "string" ? (
-          <h3 className="font-bold mb-7">{text}</h3>
+          <h3 className="mb-7 font-bold">{text}</h3>
         ) : (
           text
         )}
         {helpText && typeof helpText === "string" ? (
-          <p className="opacity-70 mb-7">{helpText}</p>
+          <p className="mb-7 opacity-70">{helpText}</p>
         ) : (
           helpText
         )}
@@ -50,7 +50,7 @@ const ActionScreen: FC<ActionScreenProps> = ({
           <Button label={buttonLabel} onClick={onClick} />
         )}
         {buttonLabelSecondary && (
-          <a className="mt-8 highlight" onClick={onClickSecondary}>
+          <a className="highlight mt-8" onClick={onClickSecondary}>
             {buttonLabelSecondary}
           </a>
         )}

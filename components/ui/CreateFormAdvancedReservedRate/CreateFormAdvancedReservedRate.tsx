@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
-import { ReservedInputBlock } from "@components/ui";
-import Add from "@components/icons/Add";
-import { RoundData } from "utils/getRounds";
+import Add from "@components/icons/Add"
+import { ReservedInputBlock } from "@components/ui"
+import { Dispatch, SetStateAction } from "react"
+import { RoundData } from "utils/getRounds"
 
 type Props = {
   roundData: RoundData;
@@ -26,15 +26,15 @@ const CreateFormAdvancedReservedRate = ({
   };
 
   return (
-    <div className="py-3 space-y-8">
+    <div className="space-y-8 py-3">
       <p>
         Add reserved rate beneficiaries in addition to blunt round participants.
       </p>
-      <div className="grid items-center grid-cols-8 text-left xs:grid-cols-10 md:grid-cols-12 gap-x-4 gap-y-6 xs:gap-y-10">
-        <p className="mb-[-25px] text-sm text-gray-700 font-semibold hidden xs:block xs:col-span-6 xs:col-start-2 md:col-span-7 md:col-start-2">
+      <div className="grid grid-cols-8 items-center gap-x-4 gap-y-6 text-left xs:grid-cols-10 xs:gap-y-10 md:grid-cols-12">
+        <p className="mb-[-25px] hidden text-sm font-semibold text-gray-700 xs:col-span-6 xs:col-start-2 xs:block md:col-span-7 md:col-start-2">
           Beneficiary
         </p>
-        <p className="mb-[-25px] col-span-3 text-gray-700 relative hidden pr-1 text-sm font-semibold xs:block">
+        <p className="relative col-span-3 mb-[-25px] hidden pr-1 text-sm font-semibold text-gray-700 xs:block">
           Reserved %
         </p>
         {addresses.map((el, key) => {
@@ -51,7 +51,7 @@ const CreateFormAdvancedReservedRate = ({
           );
         })}
 
-        <div className="flex col-span-5 pl-1 text-yellow-600 opacity-75 cursor-pointer hover:opacity-100 xs:pl-2.5">
+        <div className="col-span-5 flex cursor-pointer pl-1 opacity-75 text-yellow-600 hover:opacity-100 xs:pl-2.5">
           <Add onClick={() => addAccount()} />
           <p
             className="inline-block pl-4 font-semibold"
@@ -61,7 +61,7 @@ const CreateFormAdvancedReservedRate = ({
           </p>
         </div>
 
-        <div className="flex items-center col-span-3 col-start-6 xs:col-start-8">
+        <div className="col-span-3 col-start-6 flex items-center xs:col-start-8">
           <p
             className={`text-sm font-bold ${
               totalShares > 100 ? "text-red-500" : ""

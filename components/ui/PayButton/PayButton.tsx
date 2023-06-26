@@ -1,18 +1,20 @@
 import { Input } from "@components/ui"
-import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
+import {
+  useAddRecentTransaction,
+  useConnectModal
+} from "@rainbow-me/rainbowkit"
+import { addresses } from "@utils/constants"
 import executeTransaction from "@utils/executeTransaction"
 import formatNumber from "@utils/formatNumber"
-import { addresses } from "@utils/constants"
+import { useEthUsd } from "@utils/useEthUsd"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import { ethers } from "ethers"
 import { useState } from "react"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
-import JBTerminal from "abi/JBETHPaymentTerminal.json"
 import { RoundData } from "utils/getRounds"
-import { useAppContext } from "../context"
-import useNormalizeCurrency from "@utils/useNormalizeCurrency"
-import { useEthUsd } from "@utils/useEthUsd"
-import { useConnectModal } from "@rainbow-me/rainbowkit"
 import { parseEther } from "viem"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import { useAppContext } from "../context"
 
 type Props = {
   projectId: number
@@ -130,7 +132,7 @@ const PayButton = ({
           <p
             className={`absolute top-0 ${
               isConnected ? "right-[140px]" : "right-[176px]"
-            } text-sm text-gray-600 flex items-center h-full`}
+            } flex h-full items-center text-sm text-gray-600`}
           >
             {isPaymentEth
               ? `$${Math.round(payment * ethUsd)}`
@@ -138,7 +140,7 @@ const PayButton = ({
           </p>
         ) : null}
       </div>
-      <div className="text-left text-xs xs:text-sm pt-1.5">
+      <div className="pt-1.5 text-left text-xs xs:text-sm">
         {!error ? (
           round.tokenIssuance >= 1 /* || isSlicerToBeCreated */ && (
             <p>

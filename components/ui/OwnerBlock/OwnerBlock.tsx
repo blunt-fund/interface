@@ -1,12 +1,12 @@
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
-import { Button, NoteText, OwnerBlockSetDeadline, OwnerBlockToken } from "../"
-import BluntDelegate from "abi/BluntDelegateClone.json"
 import executeTransaction from "@utils/executeTransaction"
-import { useState } from "react"
 import { RoundData } from "@utils/getRounds"
 import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import BluntDelegate from "abi/BluntDelegateClone.json"
 import { ethers } from "ethers"
+import { useState } from "react"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import { Button, NoteText, OwnerBlockSetDeadline, OwnerBlockToken } from "../"
 import { useTimeContext } from "../context"
 
 type Props = {
@@ -47,8 +47,8 @@ const OwnerBlock = ({
 
   return (
     <div className="pt-6">
-      <div className="w-full px-4 pt-6 pb-10 bg-gray-100 rounded-sm shadow-md sm:px-6">
-        <p className="pb-6 text-sm font-bold text-center text-gray-500">
+      <div className="w-full rounded-sm px-4 pt-6 pb-10 shadow-md bg-gray-100 sm:px-6">
+        <p className="pb-6 text-center text-sm font-bold text-gray-500">
           Project owner
         </p>
         <div className="space-y-2">
@@ -65,9 +65,9 @@ const OwnerBlock = ({
             />
           )}
         </div>
-        <hr className="w-20 !my-12 mx-auto border-gray-300" />
+        <hr className="!my-12 mx-auto w-20 border-gray-300" />
 
-        <div className="prose-sm prose text-left">
+        <div className="prose-sm text-left prose">
           <p>Finalize a round after reaching the fundraise target to:</p>
           <ul className="pb-1">
             <li>
