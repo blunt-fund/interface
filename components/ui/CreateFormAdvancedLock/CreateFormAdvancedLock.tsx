@@ -122,7 +122,7 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents the project owner from reducing the round&lsquo;s token
+                This lock prevents the project owner from reducing the round&apos;s token
                 allocation by reconfiguring a future funding cycle.
               </p>
               <p>

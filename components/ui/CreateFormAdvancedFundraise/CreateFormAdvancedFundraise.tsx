@@ -90,7 +90,7 @@ const CreateFormAdvancedFundraise = ({
                 <p>How long to accept contributions for.</p>
                 <p>Leave blank for an unlimited duration.</p>
                 <p className="text-yellow-600">
-                  Note: If you don&lsquo;t set a duration now, you can add one
+                  Note: If you don&apos;t set a duration now, you can add one
                   during the round.
                 </p>
               </>
