@@ -1,5 +1,5 @@
-import chartGenerator from "./chartGenerator"
 import { useState } from "react"
+import chartGenerator from "./chartGenerator"
 
 type Props = {
   addresses: string[]
@@ -29,7 +29,7 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
         height={20}
         width={20}
         viewBox={"0 0 20 20"}
-        className="w-4/5 max-w-[18rem] h-4/5"
+        className="h-4/5 w-4/5 max-w-[18rem]"
       >
         {newConfiguration.map((slice, index) => {
           if (!slice || !slice.percentageToRender) return null
@@ -74,7 +74,7 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
           className="text-white"
         />
       </svg>
-      <div className="absolute mt-0 text-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+      <div className="absolute top-1/2 left-1/2 mt-0 -translate-x-1/2 -translate-y-1/2 transform text-center">
         {sliceData.percentageToRender ? (
           <>
             <p className="text-xs">
@@ -85,7 +85,7 @@ const PieChart = ({ addresses, shares, minimumShares, total }: Props) => {
                 : sliceData.address}
               {minimumShares && (sliceData.isSuperOwner ? " 👑" : "")}
             </p>
-            <p className={`sm:text-3xl text-xl font-black`}>
+            <p className={`text-xl font-black sm:text-3xl`}>
               {sliceData.percentageToRender * 10}
             </p>
             <p className="text-xs">out of 1000</p>

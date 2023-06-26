@@ -1,5 +1,5 @@
-import getSelector from "./getSelector"
 import defaultProvider from "./defaultProvider"
+import getSelector from "./getSelector"
 
 const multicall = async (
   to: string | string[],

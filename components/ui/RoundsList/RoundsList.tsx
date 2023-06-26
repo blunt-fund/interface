@@ -1,10 +1,10 @@
 import { MySwitch, RoundViewMain, RoundViewMainLoading } from "@components/ui"
-import getRounds, { RoundInfo } from "@utils/getRounds"
-import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegateClone.json"
 import { Project } from "@prisma/client"
-import { useEffect, useState } from "react"
+import getRounds, { RoundInfo } from "@utils/getRounds"
 import { useEthUsd } from "@utils/useEthUsd"
+import bluntDelegate from "abi/BluntDelegateClone.json"
+import { useEffect, useState } from "react"
+import { useContractReads } from "wagmi"
 
 type Props = {
   projectData: Project[]
@@ -65,7 +65,7 @@ const RoundsList = ({ projectData, subgraphData, accountFilter }: Props) => {
   return (
     <>
       {(!rounds || rounds.filteredActiveRounds.length != 0) && (
-        <div className="pb-20 space-y-20 sm:space-y-8">
+        <div className="space-y-20 pb-20 sm:space-y-8">
           {!rounds
             ? [...Array(3)].map((el, key) => <RoundViewMainLoading key={key} />)
             : rounds.filteredActiveRounds

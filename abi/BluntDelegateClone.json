@@ -2585,153 +2585,55 @@
     "absolutePath": "contracts/BluntDelegateClone.sol",
     "id": 1153,
     "exportedSymbols": {
-      "AddressUpgradeable": [
-        48583
-      ],
-      "BluntDelegateClone": [
-        1152
-      ],
-      "DeployBluntDelegateData": [
-        1814
-      ],
-      "DeployBluntDelegateDeployerData": [
-        1839
-      ],
-      "IBluntDelegate": [
-        1576
-      ],
-      "IBluntDelegateClone": [
-        1591
-      ],
-      "IERC165": [
-        56113
-      ],
-      "IERC721": [
-        52712
-      ],
-      "IERC721Receiver": [
-        52730
-      ],
-      "IJBController": [
-        42580
-      ],
-      "IJBController3_0_1": [
-        42610
-      ],
-      "IJBController3_1": [
-        42971
-      ],
-      "IJBDirectory": [
-        43121
-      ],
-      "IJBFundAccessConstraintsStore": [
-        43211
-      ],
-      "IJBFundingCycleBallot": [
-        43235
-      ],
-      "IJBFundingCycleDataSource": [
-        43276
-      ],
-      "IJBFundingCycleStore": [
-        43372
-      ],
-      "IJBMigratable": [
-        43382
-      ],
-      "IJBPayDelegate": [
-        43475
-      ],
-      "IJBPaymentTerminal": [
-        43545
-      ],
-      "IJBPayoutTerminal3_1": [
-        44283
-      ],
-      "IJBProjects": [
-        44416
-      ],
-      "IJBRedemptionDelegate": [
-        44431
-      ],
-      "IJBSplitAllocator": [
-        44697
-      ],
-      "IJBSplitsStore": [
-        44753
-      ],
-      "IJBToken": [
-        44829
-      ],
-      "IJBTokenStore": [
-        45025
-      ],
-      "IJBTokenUriResolver": [
-        45035
-      ],
-      "IPriceFeed": [
-        1792
-      ],
-      "Initializable": [
-        48299
-      ],
-      "JBBallotState": [
-        42134
-      ],
-      "JBDidPayData": [
-        45948
-      ],
-      "JBDidRedeemData": [
-        45972
-      ],
-      "JBFundAccessConstraints": [
-        46000
-      ],
-      "JBFundingCycle": [
-        46023
-      ],
-      "JBFundingCycleData": [
-        46036
-      ],
-      "JBFundingCycleMetadata": [
-        46077
-      ],
-      "JBGlobalFundingCycleMetadata": [
-        46086
-      ],
-      "JBGroupedSplits": [
-        46096
-      ],
-      "JBPayDelegateAllocation": [
-        46115
-      ],
-      "JBPayParamsData": [
-        46142
-      ],
-      "JBProjectMetadata": [
-        46149
-      ],
-      "JBRedeemParamsData": [
-        46180
-      ],
-      "JBRedemptionDelegateAllocation": [
-        46189
-      ],
-      "JBSplit": [
-        46208
-      ],
-      "JBSplitAllocationData": [
-        46225
-      ],
-      "JBTokenAmount": [
-        46236
-      ],
-      "PoolData": [
-        1884
-      ],
-      "RoundInfo": [
-        1908
-      ]
+      "AddressUpgradeable": [48583],
+      "BluntDelegateClone": [1152],
+      "DeployBluntDelegateData": [1814],
+      "DeployBluntDelegateDeployerData": [1839],
+      "IBluntDelegate": [1576],
+      "IBluntDelegateClone": [1591],
+      "IERC165": [56113],
+      "IERC721": [52712],
+      "IERC721Receiver": [52730],
+      "IJBController": [42580],
+      "IJBController3_0_1": [42610],
+      "IJBController3_1": [42971],
+      "IJBDirectory": [43121],
+      "IJBFundAccessConstraintsStore": [43211],
+      "IJBFundingCycleBallot": [43235],
+      "IJBFundingCycleDataSource": [43276],
+      "IJBFundingCycleStore": [43372],
+      "IJBMigratable": [43382],
+      "IJBPayDelegate": [43475],
+      "IJBPaymentTerminal": [43545],
+      "IJBPayoutTerminal3_1": [44283],
+      "IJBProjects": [44416],
+      "IJBRedemptionDelegate": [44431],
+      "IJBSplitAllocator": [44697],
+      "IJBSplitsStore": [44753],
+      "IJBToken": [44829],
+      "IJBTokenStore": [45025],
+      "IJBTokenUriResolver": [45035],
+      "IPriceFeed": [1792],
+      "Initializable": [48299],
+      "JBBallotState": [42134],
+      "JBDidPayData": [45948],
+      "JBDidRedeemData": [45972],
+      "JBFundAccessConstraints": [46000],
+      "JBFundingCycle": [46023],
+      "JBFundingCycleData": [46036],
+      "JBFundingCycleMetadata": [46077],
+      "JBGlobalFundingCycleMetadata": [46086],
+      "JBGroupedSplits": [46096],
+      "JBPayDelegateAllocation": [46115],
+      "JBPayParamsData": [46142],
+      "JBProjectMetadata": [46149],
+      "JBRedeemParamsData": [46180],
+      "JBRedemptionDelegateAllocation": [46189],
+      "JBSplit": [46208],
+      "JBSplitAllocationData": [46225],
+      "JBTokenAmount": [46236],
+      "PoolData": [1884],
+      "RoundInfo": [1908]
     },
     "nodeType": "SourceUnit",
     "src": "32:23739:0",
@@ -2741,11 +2643,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:23:0",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "0.8",
-          ".17"
-        ]
+        "literals": ["solidity", "0.8", ".17"]
       },
       {
         "id": 2,
@@ -2974,9 +2872,7 @@
                     "pathNode": {
                       "id": 29,
                       "name": "DeployBluntDelegateData",
-                      "nameLocations": [
-                        "1287:23:0"
-                      ],
+                      "nameLocations": ["1287:23:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1814,
                       "src": "1287:23:0"
@@ -3308,9 +3204,7 @@
               "pathNode": {
                 "id": 58,
                 "name": "IPriceFeed",
-                "nameLocations": [
-                  "1961:10:0"
-                ],
+                "nameLocations": ["1961:10:0"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 1792,
                 "src": "1961:10:0"
@@ -3405,9 +3299,7 @@
               "pathNode": {
                 "id": 65,
                 "name": "IJBDirectory",
-                "nameLocations": [
-                  "2144:12:0"
-                ],
+                "nameLocations": ["2144:12:0"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 43121,
                 "src": "2144:12:0"
@@ -3449,9 +3341,7 @@
               "pathNode": {
                 "id": 69,
                 "name": "IJBController3_1",
-                "nameLocations": [
-                  "2265:16:0"
-                ],
+                "nameLocations": ["2265:16:0"],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 42971,
                 "src": "2265:16:0"
@@ -5805,9 +5695,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1590
-            ],
+            "baseFunctions": [1590],
             "documentation": {
               "id": 136,
               "nodeType": "StructuredDocumentation",
@@ -5824,9 +5712,7 @@
                 "modifierName": {
                   "id": 145,
                   "name": "initializer",
-                  "nameLocations": [
-                    "6080:11:0"
-                  ],
+                  "nameLocations": ["6080:11:0"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 48201,
                   "src": "6080:11:0"
@@ -5868,9 +5754,7 @@
                     "pathNode": {
                       "id": 137,
                       "name": "DeployBluntDelegateDeployerData",
-                      "nameLocations": [
-                        "5925:31:0"
-                      ],
+                      "nameLocations": ["5925:31:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1839,
                       "src": "5925:31:0"
@@ -5905,9 +5789,7 @@
                     "pathNode": {
                       "id": 140,
                       "name": "DeployBluntDelegateData",
-                      "nameLocations": [
-                        "6002:23:0"
-                      ],
+                      "nameLocations": ["6002:23:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1814,
                       "src": "6002:23:0"
@@ -6718,9 +6600,7 @@
                   "src": "8914:49:0"
                 },
                 {
-                  "assignments": [
-                    341
-                  ],
+                  "assignments": [341],
                   "declarations": [
                     {
                       "constant": false,
@@ -7252,9 +7132,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              43474
-            ],
+            "baseFunctions": [43474],
             "documentation": {
               "id": 277,
               "nodeType": "StructuredDocumentation",
@@ -7298,9 +7176,7 @@
                     "pathNode": {
                       "id": 278,
                       "name": "JBDidPayData",
-                      "nameLocations": [
-                        "8253:12:0"
-                      ],
+                      "nameLocations": ["8253:12:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45948,
                       "src": "8253:12:0"
@@ -7891,9 +7767,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              44430
-            ],
+            "baseFunctions": [44430],
             "documentation": {
               "id": 384,
               "nodeType": "StructuredDocumentation",
@@ -7937,9 +7811,7 @@
                     "pathNode": {
                       "id": 385,
                       "name": "JBDidRedeemData",
-                      "nameLocations": [
-                        "9797:15:0"
-                      ],
+                      "nameLocations": ["9797:15:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 45972,
                       "src": "9797:15:0"
@@ -8379,9 +8251,7 @@
                         }
                       },
                       {
-                        "assignments": [
-                          470
-                        ],
+                        "assignments": [470],
                         "declarations": [
                           {
                             "constant": false,
@@ -8428,9 +8298,7 @@
                         "src": "11370:36:0"
                       },
                       {
-                        "assignments": [
-                          474
-                        ],
+                        "assignments": [474],
                         "declarations": [
                           {
                             "constant": false,
@@ -8858,14 +8726,7 @@
                         }
                       },
                       {
-                        "assignments": [
-                          505,
-                          507,
-                          510,
-                          513,
-                          517,
-                          521
-                        ],
+                        "assignments": [505, 507, 510, 513, 517, 521],
                         "declarations": [
                           {
                             "constant": false,
@@ -8943,9 +8804,7 @@
                               "pathNode": {
                                 "id": 508,
                                 "name": "JBFundingCycleData",
-                                "nameLocations": [
-                                  "11772:18:0"
-                                ],
+                                "nameLocations": ["11772:18:0"],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 46036,
                                 "src": "11772:18:0"
@@ -8980,9 +8839,7 @@
                               "pathNode": {
                                 "id": 511,
                                 "name": "JBFundingCycleMetadata",
-                                "nameLocations": [
-                                  "11812:22:0"
-                                ],
+                                "nameLocations": ["11812:22:0"],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 46077,
                                 "src": "11812:22:0"
@@ -9018,9 +8875,7 @@
                                 "pathNode": {
                                   "id": 514,
                                   "name": "JBGroupedSplits",
-                                  "nameLocations": [
-                                    "11860:15:0"
-                                  ],
+                                  "nameLocations": ["11860:15:0"],
                                   "nodeType": "IdentifierPath",
                                   "referencedDeclaration": 46096,
                                   "src": "11860:15:0"
@@ -9064,9 +8919,7 @@
                                 "pathNode": {
                                   "id": 518,
                                   "name": "JBFundAccessConstraints",
-                                  "nameLocations": [
-                                    "11901:23:0"
-                                  ],
+                                  "nameLocations": ["11901:23:0"],
                                   "nodeType": "IdentifierPath",
                                   "referencedDeclaration": 46000,
                                   "src": "11901:23:0"
@@ -9736,9 +9589,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1558
-            ],
+            "baseFunctions": [1558],
             "documentation": {
               "id": 434,
               "nodeType": "StructuredDocumentation",
@@ -10310,9 +10161,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1563
-            ],
+            "baseFunctions": [1563],
             "documentation": {
               "id": 569,
               "nodeType": "StructuredDocumentation",
@@ -10696,9 +10545,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1570
-            ],
+            "baseFunctions": [1570],
             "documentation": {
               "id": 619,
               "nodeType": "StructuredDocumentation",
@@ -10801,9 +10648,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    674
-                  ],
+                  "assignments": [674],
                   "declarations": [
                     {
                       "constant": false,
@@ -10827,9 +10672,7 @@
                           "pathNode": {
                             "id": 671,
                             "name": "JBPayDelegateAllocation",
-                            "nameLocations": [
-                              "14766:23:0"
-                            ],
+                            "nameLocations": ["14766:23:0"],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 46115,
                             "src": "14766:23:0"
@@ -10897,9 +10740,7 @@
                           "pathNode": {
                             "id": 675,
                             "name": "JBPayDelegateAllocation",
-                            "nameLocations": [
-                              "14817:23:0"
-                            ],
+                            "nameLocations": ["14817:23:0"],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 46115,
                             "src": "14817:23:0"
@@ -11243,9 +11084,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              43260
-            ],
+            "baseFunctions": [43260],
             "documentation": {
               "id": 655,
               "nodeType": "StructuredDocumentation",
@@ -11289,9 +11128,7 @@
                     "pathNode": {
                       "id": 656,
                       "name": "JBPayParamsData",
-                      "nameLocations": [
-                        "14561:15:0"
-                      ],
+                      "nameLocations": ["14561:15:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 46142,
                       "src": "14561:15:0"
@@ -11388,9 +11225,7 @@
                       "pathNode": {
                         "id": 665,
                         "name": "JBPayDelegateAllocation",
-                        "nameLocations": [
-                          "14699:23:0"
-                        ],
+                        "nameLocations": ["14699:23:0"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 46115,
                         "src": "14699:23:0"
@@ -11432,9 +11267,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    724
-                  ],
+                  "assignments": [724],
                   "declarations": [
                     {
                       "constant": false,
@@ -11458,9 +11291,7 @@
                           "pathNode": {
                             "id": 721,
                             "name": "JBRedemptionDelegateAllocation",
-                            "nameLocations": [
-                              "15805:30:0"
-                            ],
+                            "nameLocations": ["15805:30:0"],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 46189,
                             "src": "15805:30:0"
@@ -11528,9 +11359,7 @@
                           "pathNode": {
                             "id": 725,
                             "name": "JBRedemptionDelegateAllocation",
-                            "nameLocations": [
-                              "15863:30:0"
-                            ],
+                            "nameLocations": ["15863:30:0"],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 46189,
                             "src": "15863:30:0"
@@ -11890,9 +11719,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              43275
-            ],
+            "baseFunctions": [43275],
             "documentation": {
               "id": 705,
               "nodeType": "StructuredDocumentation",
@@ -11936,9 +11763,7 @@
                     "pathNode": {
                       "id": 706,
                       "name": "JBRedeemParamsData",
-                      "nameLocations": [
-                        "15583:18:0"
-                      ],
+                      "nameLocations": ["15583:18:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 46180,
                       "src": "15583:18:0"
@@ -12035,9 +11860,7 @@
                       "pathNode": {
                         "id": 715,
                         "name": "JBRedemptionDelegateAllocation",
-                        "nameLocations": [
-                          "15731:30:0"
-                        ],
+                        "nameLocations": ["15731:30:0"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 46189,
                         "src": "15731:30:0"
@@ -12279,9 +12102,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1555
-            ],
+            "baseFunctions": [1555],
             "documentation": {
               "id": 756,
               "nodeType": "StructuredDocumentation",
@@ -12331,9 +12152,7 @@
                     "pathNode": {
                       "id": 759,
                       "name": "RoundInfo",
-                      "nameLocations": [
-                        "16271:9:0"
-                      ],
+                      "nameLocations": ["16271:9:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 1908,
                       "src": "16271:9:0"
@@ -12367,9 +12186,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    785
-                  ],
+                  "assignments": [785],
                   "declarations": [
                     {
                       "constant": false,
@@ -12741,9 +12558,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              1575
-            ],
+            "baseFunctions": [1575],
             "documentation": {
               "id": 778,
               "nodeType": "StructuredDocumentation",
@@ -13031,12 +12846,7 @@
                         "17682:12:0",
                         "17705:6:0"
                       ],
-                      "names": [
-                        "duration",
-                        "weight",
-                        "discountRate",
-                        "ballot"
-                      ],
+                      "names": ["duration", "weight", "discountRate", "ballot"],
                       "nodeType": "FunctionCall",
                       "src": "17589:164:0",
                       "tryCall": false,
@@ -13763,9 +13573,7 @@
                   "src": "18474:39:0"
                 },
                 {
-                  "assignments": [
-                    914
-                  ],
+                  "assignments": [914],
                   "declarations": [
                     {
                       "constant": false,
@@ -13789,9 +13597,7 @@
                           "pathNode": {
                             "id": 911,
                             "name": "JBSplit",
-                            "nameLocations": [
-                              "18546:7:0"
-                            ],
+                            "nameLocations": ["18546:7:0"],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 46208,
                             "src": "18546:7:0"
@@ -13860,9 +13666,7 @@
                           "pathNode": {
                             "id": 915,
                             "name": "JBSplit",
-                            "nameLocations": [
-                              "18579:7:0"
-                            ],
+                            "nameLocations": ["18579:7:0"],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 46208,
                             "src": "18579:7:0"
@@ -14336,9 +14140,7 @@
                             "pathNode": {
                               "id": 945,
                               "name": "JBGroupedSplits",
-                              "nameLocations": [
-                                "18938:15:0"
-                              ],
+                              "nameLocations": ["18938:15:0"],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 46096,
                               "src": "18938:15:0"
@@ -14515,9 +14317,7 @@
                   "src": "18964:41:0"
                 },
                 {
-                  "assignments": [
-                    964
-                  ],
+                  "assignments": [964],
                   "declarations": [
                     {
                       "constant": false,
@@ -14540,9 +14340,7 @@
                         "pathNode": {
                           "id": 962,
                           "name": "IJBPaymentTerminal",
-                          "nameLocations": [
-                            "19062:18:0"
-                          ],
+                          "nameLocations": ["19062:18:0"],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 43545,
                           "src": "19062:18:0"
@@ -14795,9 +14593,7 @@
                             "pathNode": {
                               "id": 979,
                               "name": "JBFundAccessConstraints",
-                              "nameLocations": [
-                                "19250:23:0"
-                              ],
+                              "nameLocations": ["19250:23:0"],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 46000,
                               "src": "19250:23:0"
@@ -15158,9 +14954,7 @@
                     "pathNode": {
                       "id": 821,
                       "name": "JBFundingCycleData",
-                      "nameLocations": [
-                        "17359:18:0"
-                      ],
+                      "nameLocations": ["17359:18:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 46036,
                       "src": "17359:18:0"
@@ -15195,9 +14989,7 @@
                     "pathNode": {
                       "id": 824,
                       "name": "JBFundingCycleMetadata",
-                      "nameLocations": [
-                        "17397:22:0"
-                      ],
+                      "nameLocations": ["17397:22:0"],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 46077,
                       "src": "17397:22:0"
@@ -15233,9 +15025,7 @@
                       "pathNode": {
                         "id": 827,
                         "name": "JBGroupedSplits",
-                        "nameLocations": [
-                          "17443:15:0"
-                        ],
+                        "nameLocations": ["17443:15:0"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 46096,
                         "src": "17443:15:0"
@@ -15279,9 +15069,7 @@
                       "pathNode": {
                         "id": 831,
                         "name": "JBFundAccessConstraints",
-                        "nameLocations": [
-                          "17482:23:0"
-                        ],
+                        "nameLocations": ["17482:23:0"],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 46000,
                         "src": "17482:23:0"
@@ -15328,9 +15116,7 @@
                   "src": "19724:871:0",
                   "statements": [
                     {
-                      "assignments": [
-                        1010
-                      ],
+                      "assignments": [1010],
                       "declarations": [
                         {
                           "constant": false,
@@ -15528,9 +15314,7 @@
                       "src": "19742:92:0"
                     },
                     {
-                      "assignments": [
-                        1023
-                      ],
+                      "assignments": [1023],
                       "declarations": [
                         {
                           "constant": false,
@@ -16980,9 +16764,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              52729
-            ],
+            "baseFunctions": [52729],
             "documentation": {
               "id": 1087,
               "nodeType": "StructuredDocumentation",
@@ -17718,9 +17500,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              56112
-            ],
+            "baseFunctions": [56112],
             "documentation": {
               "id": 1107,
               "nodeType": "StructuredDocumentation",
@@ -17819,9 +17599,7 @@
             "baseName": {
               "id": 7,
               "name": "IBluntDelegateClone",
-              "nameLocations": [
-                "528:19:0"
-              ],
+              "nameLocations": ["528:19:0"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 1591,
               "src": "528:19:0"
@@ -17834,9 +17612,7 @@
             "baseName": {
               "id": 9,
               "name": "Initializable",
-              "nameLocations": [
-                "549:13:0"
-              ],
+              "nameLocations": ["549:13:0"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 48299,
               "src": "549:13:0"
@@ -17857,30 +17633,12 @@
         },
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          1152,
-          48299,
-          1591,
-          1576,
-          52730,
-          44431,
-          43475,
-          43276,
-          56113
+          1152, 48299, 1591, 1576, 52730, 44431, 43475, 43276, 56113
         ],
         "name": "BluntDelegateClone",
         "nameLocation": "506:18:0",
         "scope": 1153,
-        "usedErrors": [
-          12,
-          14,
-          16,
-          18,
-          20,
-          22,
-          24,
-          26,
-          28
-        ]
+        "usedErrors": [12, 14, 16, 18, 20, 22, 24, 26, 28]
       }
     ],
     "license": "MIT"

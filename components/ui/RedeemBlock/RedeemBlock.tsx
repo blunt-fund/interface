@@ -23,14 +23,14 @@ const RedeemBlock = ({
     ) / 1000
 
   return (
-    <div className="space-y-2 text-sm text-right">
+    <div className="space-y-2 text-right text-sm">
       <p>
         You contributed:{" "}
         <b>
           {formattedAccountContributions} ETH
           {!isRedeemDisabled && (
             <span
-              className="ml-3 text-yellow-600 cursor-pointer"
+              className="ml-3 cursor-pointer text-yellow-600"
               onClick={() =>
                 setModalView({
                   name: "REDEEM_VIEW",

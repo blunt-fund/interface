@@ -1,19 +1,19 @@
-import { FC } from "react"
+import { twitterAccount } from "@components/common/Head"
 import {
-  Twitter,
+  Blog,
+  Discord,
   Facebook,
+  Github,
   Instagram,
-  Reddit,
+  Juicebox,
   Linkedin,
   Mail,
-  Github,
-  Discord,
-  Blog,
-  Juicebox,
+  Notion,
+  Reddit,
   Slice,
-  Notion
+  Twitter
 } from "@components/icons/Social"
-import { twitterAccount } from "@components/common/Head"
+import { FC } from "react"
 
 type Props = {
   accounts: object
@@ -52,7 +52,7 @@ const Social: FC<Props> = ({ wrapperClassName, accounts }, props) => {
   const size = "h-6"
 
   return (
-    <div className={`${wrapperClassName} flex justify-center items-center`}>
+    <div className={`${wrapperClassName} flex items-center justify-center`}>
       {Object.keys(accounts).map((key) => {
         const DynamicComponent = components[key].element
         const componentColor = components[key].color

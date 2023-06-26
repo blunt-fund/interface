@@ -1,10 +1,10 @@
-import { RoundViewFull } from ".."
 import { Project } from "@prisma/client"
-import { useAppContext } from "../context"
 import bluntDelegateJson from "abi/BluntDelegateClone.json"
-import { useContractReads } from "wagmi"
 import { ethers } from "ethers"
 import { useEffect, useState } from "react"
+import { useContractReads } from "wagmi"
+import { RoundViewFull } from ".."
+import { useAppContext } from "../context"
 
 type Props = {
   projectData: Project

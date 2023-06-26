@@ -9,24 +9,26 @@ import {
   CreateFormGeneral,
   ReservedTable
 } from "@components/ui"
-import { useAddRecentTransaction } from "@rainbow-me/rainbowkit"
-import deletePins from "@utils/deletePins"
-import fetcher from "@utils/fetcher"
-import getRequestIds from "@utils/getRequestIds"
-import jsonToFile from "@utils/jsonToFile"
-import useNormalizeCurrency from "@utils/useNormalizeCurrency"
+import {
+  useAddRecentTransaction,
+  useConnectModal
+} from "@rainbow-me/rainbowkit"
 import { constants } from "@utils/constants"
-import web3Storage from "lib/web3Storage"
-import React, { useEffect, useState } from "react"
-import { useAppContext } from "../context"
+import deletePins from "@utils/deletePins"
+import { getEthersSigner } from "@utils/ethers"
+import fetcher from "@utils/fetcher"
+import formatDeployData from "@utils/formatDeployData"
+import getRequestIds from "@utils/getRequestIds"
+import { RoundData } from "@utils/getRounds"
+import jsonToFile from "@utils/jsonToFile"
+import timeout from "@utils/timeout"
+import useNormalizeCurrency from "@utils/useNormalizeCurrency"
 import bluntDeployer from "abi/BluntDelegateProjectDeployer.json"
 import { ContractReceipt, ethers } from "ethers"
-import formatDeployData from "@utils/formatDeployData"
+import web3Storage from "lib/web3Storage"
+import React, { useEffect, useState } from "react"
 import { addresses as addressConstants } from "utils/constants"
-import { RoundData } from "@utils/getRounds"
-import timeout from "@utils/timeout"
-import { useConnectModal } from "@rainbow-me/rainbowkit"
-import { getEthersSigner } from "@utils/ethers"
+import { useAppContext } from "../context"
 
 const CreateRoundForm = () => {
   const { openConnectModal } = useConnectModal()
@@ -249,7 +251,7 @@ const CreateRoundForm = () => {
         riskMargin={riskMargin}
       />
       <p className="pt-4 font-bold">Advanced settings</p>
-      <ul className="pb-6 space-y-8">
+      <ul className="space-y-8 pb-6">
         <CollapsibleItem
           label="Project details"
           detail={

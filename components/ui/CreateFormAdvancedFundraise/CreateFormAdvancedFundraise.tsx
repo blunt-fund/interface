@@ -7,8 +7,9 @@ import {
 import handleSetObject from "@utils/handleSetObject"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { RoundData } from "utils/getRounds"
-import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
 import { useAppContext } from "../context"
+import { timeFrames } from "../InputDeadlineUnits/InputDeadlineUnits"
+
 export type NewImage = { url: string; file: File }
 
 type Props = {
@@ -64,7 +65,7 @@ const CreateFormAdvancedFundraise = ({
   }, [account])
 
   return (
-    <div className="py-3 space-y-8">
+    <div className="space-y-8 py-3">
       {/* <p>
         Blunt rounds are unlimited in duration, uncapped and without target by
         default.

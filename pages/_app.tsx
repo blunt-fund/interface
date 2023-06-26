@@ -1,22 +1,22 @@
-import { ClickToComponent } from "click-to-react-component"
-import { ThemeProvider } from "next-themes"
 import Head, { defaultTitle } from "@components/common/Head"
 import { Background, Layout } from "@components/ui"
+import { ClickToComponent } from "click-to-react-component"
+import { ThemeProvider } from "next-themes"
 import "../styles/global/styles.scss"
 import { AppWrapper } from "@components/ui/context"
-import { AppProps } from "next/dist/shared/lib/router/router"
 import { Analytics } from "@vercel/analytics/react"
+import { AppProps } from "next/dist/shared/lib/router/router"
 import "@rainbow-me/rainbowkit/styles.css"
 import {
   getDefaultWallets,
-  RainbowKitProvider,
-  lightTheme
+  lightTheme,
+  RainbowKitProvider
 } from "@rainbow-me/rainbowkit"
+import { goerli } from "viem/chains"
+import { configureChains, createConfig, mainnet, WagmiConfig } from "wagmi"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { infuraProvider } from "wagmi/providers/infura"
 import { publicProvider } from "wagmi/providers/public"
-import { createConfig, configureChains, WagmiConfig, mainnet } from "wagmi"
-import { goerli } from "viem/chains"
 
 const customChains = [
   process.env.NEXT_PUBLIC_CHAIN_ID === "5" ? goerli : mainnet

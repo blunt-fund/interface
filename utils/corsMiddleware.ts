@@ -1,5 +1,5 @@
-import Cors from "cors"
 import initMiddleware from "@utils/initMiddleware"
+import Cors from "cors"
 
 const whitelist = [process.env.NEXT_PUBLIC_APP_URL]
 
