@@ -1,8 +1,8 @@
+import Nightwind from "@components/icons/Nightwind"
 import { useTheme } from "next-themes"
 import nightwind from "nightwind/helper"
-import Nightwind from "@components/icons/Nightwind"
-import { DropdownMenuElement } from ".."
 import { Dispatch, SetStateAction } from "react"
+import { DropdownMenuElement } from ".."
 
 function DropdownMenu({
   setShowDropdown
@@ -22,12 +22,12 @@ function DropdownMenu({
 
   return (
     <div
-      className={`z-20 absolute text-sm top-0 right-0 w-56 mt-20 border border-gray-200 space-y-1 bg-white rounded-sm shadow-base nightwind-prevent-block`}
+      className={`shadow-base nightwind-prevent-block absolute top-0 right-0 z-20 mt-20 w-56 space-y-1 rounded-sm border text-sm bg-white border-gray-200`}
     >
       <DropdownMenuElement
         href="/myrounds"
         image={
-          <div className="w-5 h-5 border-2 border-blue-600 rounded-full group-hover:border-white" />
+          <div className="h-5 w-5 rounded-full border-2 border-blue-600 group-hover:border-white" />
         }
         label="My rounds"
         onClick={() => setShowDropdown(false)}

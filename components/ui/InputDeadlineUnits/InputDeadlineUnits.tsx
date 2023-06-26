@@ -13,16 +13,16 @@ export const timeFrames = {
 
 const InputDeadlineUnits = ({ deadlineUnits, setDeadlineUnits }: Props) => {
   return (
-    <div className="relative flex items-center w-36">
+    <div className="relative flex w-36 items-center">
       <select
-        className="w-full py-2 pl-6 pr-4 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-sm appearance-none focus:border-yellow-600 focus:outline-none peer disabled:text-gray-400 disabled:border-gray-200 disabled:bg-gray-200 disabled:cursor-not-allowed dark:disabled:bg-gray-700 dark:disabled:border-gray-700 dark:disabled:text-gray-500"
+        className="peer w-full appearance-none rounded-sm border py-2 pl-6 pr-4 placeholder-gray-400 text-black bg-white border-gray-200 focus:outline-none focus:border-yellow-600 disabled:cursor-not-allowed disabled:text-gray-400 disabled:bg-gray-200 disabled:border-gray-200 dark:disabled:text-gray-500 dark:disabled:bg-gray-700 dark:disabled:border-gray-700"
         value={deadlineUnits}
         onChange={(e) => setDeadlineUnits(e.target.value)}
       >
         <option value="days">Days</option>
         <option value="minutes">Minutes</option>
       </select>
-      <div className="absolute right-[16px] mb-0.5 rotate-90 text-gray-600 w-3 h-3">
+      <div className="absolute right-[16px] mb-0.5 h-3 w-3 rotate-90 text-gray-600">
         <Chevron />
       </div>
     </div>

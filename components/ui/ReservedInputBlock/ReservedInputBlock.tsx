@@ -1,9 +1,9 @@
-import { useEffect, Dispatch, SetStateAction, useState } from "react"
-import { Input, InputAddress } from "@components/ui"
-import Delete from "@components/icons/Delete"
 import Crown from "@components/icons/Crown"
-import { RoundData } from "utils/getRounds"
+import Delete from "@components/icons/Delete"
+import { Input, InputAddress } from "@components/ui"
 import { ethers } from "ethers"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { RoundData } from "utils/getRounds"
 
 type Props = {
   index: number
@@ -64,7 +64,7 @@ const ReservedInputBlock = ({
               projectOwner?.toLowerCase() ===
                 resolvedAddress?.toLowerCase()) && (
               <div
-                className="hidden sm:block absolute top-[6px] right-[-20px] w-3 h-3"
+                className="absolute top-[6px] right-[-20px] hidden h-3 w-3 sm:block"
                 title="Project owner"
               >
                 <Crown />
@@ -87,7 +87,7 @@ const ReservedInputBlock = ({
           placeholder={index === 0 ? "Blunt round" : undefined}
         />
       </div>
-      <p className="col-span-5 pr-2 text-sm text-right xs:hidden">Reserved %</p>
+      <p className="col-span-5 pr-2 text-right text-sm xs:hidden">Reserved %</p>
       <div className="col-span-3">
         <Input
           type="number"
@@ -104,7 +104,7 @@ const ReservedInputBlock = ({
         />
       </div>
 
-      <hr className="w-20 col-span-8 mx-auto my-6 border-gray-300 xs:hidden" />
+      <hr className="col-span-8 mx-auto my-6 w-20 border-gray-300 xs:hidden" />
     </>
   )
 }

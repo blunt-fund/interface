@@ -3,7 +3,7 @@ import { accounts } from "../Social/Social"
 
 const Footer = () => {
   return (
-    <footer className="relative z-20 py-8 text-center bg-white shadow-sm">
+    <footer className="relative z-20 py-8 text-center shadow-sm bg-white">
       <Container>
         <Social wrapperClassName="flex justify-center" accounts={accounts} />
 

@@ -1,6 +1,6 @@
 const Chevron = ({ ...props }) => {
   return (
-    <svg viewBox="0 0 38 38" fill="none" className="w-full h-full" {...props}>
+    <svg viewBox="0 0 38 38" fill="none" className="h-full w-full" {...props}>
       <rect
         x="19"
         y="0.615234"

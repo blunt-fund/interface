@@ -1,5 +1,5 @@
-import { useState } from "react"
 import QuestionMark from "@components/icons/QuestionMark"
+import { useState } from "react"
 
 type Props = {
   text: string | JSX.Element
@@ -14,9 +14,9 @@ export default function Question({ text, position }: Props) {
       <div
         className={`${
           !show ? "hidden " : ""
-        }prose text-left text-sm absolute p-4 w-[21.5rem] xs:w-[26rem] z-10 bg-white shadow-md ${
+        }prose absolute z-10 w-[21.5rem] p-4 text-left text-sm shadow-md bg-white xs:w-[26rem] ${
           position || "bottom-0 left-0"
-        } mb-9 rounded-sm overflow-hidden border border-yellow-600`}
+        } mb-9 overflow-hidden rounded-sm border border-yellow-600`}
       >
         {text}
       </div>

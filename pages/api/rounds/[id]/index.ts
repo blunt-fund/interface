@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client"
-import client from "@utils/apollo-client"
-import prisma from "@lib/prisma"
-import type { NextApiRequest, NextApiResponse } from "next"
 import { tokensQueryProject } from "@lib/gqlQueries"
-import fetcher from "@utils/fetcher"
+import prisma from "@lib/prisma"
+import client from "@utils/apollo-client"
 import constants from "@utils/constants"
+import fetcher from "@utils/fetcher"
+import type { NextApiRequest, NextApiResponse } from "next"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {

@@ -1,8 +1,8 @@
-import { useContractRead } from "wagmi"
 import PriceFeed from "abi/PriceFeed.json"
-import { addresses } from "./constants"
 import { BigNumber } from "ethers"
 import { parseEther } from "viem"
+import { useContractRead } from "wagmi"
+import { addresses } from "./constants"
 
 export const useEthUsd = () => {
   const { data: ethUsd } = useContractRead({

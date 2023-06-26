@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { useAppContext } from "@components/ui/context"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { PublicClient } from "wagmi"
 
 const resolveEns = async (

@@ -1186,30 +1186,14 @@
     "absolutePath": "contracts/PriceFeed.sol",
     "id": 18989,
     "exportedSymbols": {
-      "FullMath": [
-        14683
-      ],
-      "IPriceFeed": [
-        19229
-      ],
-      "IUniswapV3Factory": [
-        13668
-      ],
-      "IUniswapV3Pool": [
-        13700
-      ],
-      "OracleLibrary": [
-        19944
-      ],
-      "PoolAddress": [
-        19326
-      ],
-      "PoolData": [
-        20343
-      ],
-      "PriceFeed": [
-        18988
-      ]
+      "FullMath": [14683],
+      "IPriceFeed": [19229],
+      "IUniswapV3Factory": [13668],
+      "IUniswapV3Pool": [13700],
+      "OracleLibrary": [19944],
+      "PoolAddress": [19326],
+      "PoolData": [20343],
+      "PriceFeed": [18988]
     },
     "nodeType": "SourceUnit",
     "src": "32:18403:0",
@@ -1219,12 +1203,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:24:0",
         "nodes": [],
-        "literals": [
-          "solidity",
-          ">=",
-          "0.8",
-          ".0"
-        ]
+        "literals": ["solidity", ">=", "0.8", ".0"]
       },
       {
         "id": 18063,
@@ -1765,9 +1744,7 @@
             "nodeType": "VariableDeclaration",
             "src": "1503:46:0",
             "nodes": [],
-            "baseFunctions": [
-              19132
-            ],
+            "baseFunctions": [19132],
             "constant": false,
             "documentation": {
               "id": 18107,
@@ -1892,9 +1869,7 @@
             "nodeType": "VariableDeclaration",
             "src": "1587:41:0",
             "nodes": [],
-            "baseFunctions": [
-              19125
-            ],
+            "baseFunctions": [19125],
             "constant": false,
             "documentation": {
               "id": 18116,
@@ -1949,9 +1924,7 @@
             "nodeType": "VariableDeclaration",
             "src": "1672:41:0",
             "nodes": [],
-            "baseFunctions": [
-              19118
-            ],
+            "baseFunctions": [19118],
             "constant": false,
             "documentation": {
               "id": 18121,
@@ -1988,9 +1961,7 @@
             "nodeType": "VariableDeclaration",
             "src": "1879:61:0",
             "nodes": [],
-            "baseFunctions": [
-              19147
-            ],
+            "baseFunctions": [19147],
             "constant": false,
             "documentation": {
               "id": 18124,
@@ -2322,9 +2293,7 @@
                   },
                   "id": 18161,
                   "initializationExpression": {
-                    "assignments": [
-                      18142
-                    ],
+                    "assignments": [18142],
                     "declarations": [
                       {
                         "constant": false,
@@ -2432,10 +2401,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18175,
-                    18177
-                  ],
+                  "assignments": [18175, 18177],
                   "declarations": [
                     {
                       "constant": false,
@@ -2728,9 +2694,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              19157
-            ],
+            "baseFunctions": [19157],
             "documentation": {
               "id": 18164,
               "nodeType": "StructuredDocumentation",
@@ -2864,9 +2828,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18213
-                  ],
+                  "assignments": [18213],
                   "declarations": [
                     {
                       "constant": false,
@@ -3132,9 +3094,7 @@
                           "src": "4334:252:0",
                           "statements": [
                             {
-                              "assignments": [
-                                18248
-                              ],
+                              "assignments": [18248],
                               "declarations": [
                                 {
                                   "constant": false,
@@ -3649,9 +3609,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              19170
-            ],
+            "baseFunctions": [19170],
             "documentation": {
               "id": 18199,
               "nodeType": "StructuredDocumentation",
@@ -4387,9 +4345,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              19189
-            ],
+            "baseFunctions": [19189],
             "documentation": {
               "id": 18270,
               "nodeType": "StructuredDocumentation",
@@ -4640,11 +4596,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18350,
-                    18353,
-                    18355
-                  ],
+                  "assignments": [18350, 18353, 18355],
                   "declarations": [
                     {
                       "constant": false,
@@ -5011,9 +4963,7 @@
                           "src": "8521:884:0",
                           "statements": [
                             {
-                              "assignments": [
-                                18399
-                              ],
+                              "assignments": [18399],
                               "declarations": [
                                 {
                                   "constant": false,
@@ -5234,9 +5184,7 @@
                                 "src": "8664:464:0",
                                 "statements": [
                                   {
-                                    "assignments": [
-                                      18406
-                                    ],
+                                    "assignments": [18406],
                                     "declarations": [
                                       {
                                         "constant": false,
@@ -6353,9 +6301,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              19206
-            ],
+            "baseFunctions": [19206],
             "documentation": {
               "id": 18331,
               "nodeType": "StructuredDocumentation",
@@ -6590,10 +6536,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18495,
-                    18497
-                  ],
+                  "assignments": [18495, 18497],
                   "declarations": [
                     {
                       "constant": false,
@@ -7091,9 +7034,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              19223
-            ],
+            "baseFunctions": [19223],
             "documentation": {
               "id": 18477,
               "nodeType": "StructuredDocumentation",
@@ -7672,9 +7613,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              19228
-            ],
+            "baseFunctions": [19228],
             "documentation": {
               "id": 18534,
               "nodeType": "StructuredDocumentation",
@@ -7744,9 +7683,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18586
-                  ],
+                  "assignments": [18586],
                   "declarations": [
                     {
                       "constant": false,
@@ -7781,9 +7718,7 @@
                   "src": "12184:24:0"
                 },
                 {
-                  "assignments": [
-                    18589
-                  ],
+                  "assignments": [18589],
                   "declarations": [
                     {
                       "constant": false,
@@ -7819,9 +7754,7 @@
                   "src": "12260:19:0"
                 },
                 {
-                  "assignments": [
-                    18592
-                  ],
+                  "assignments": [18592],
                   "declarations": [
                     {
                       "constant": false,
@@ -8682,9 +8615,7 @@
                   },
                   "id": 18660,
                   "initializationExpression": {
-                    "assignments": [
-                      18595
-                    ],
+                    "assignments": [18595],
                     "declarations": [
                       {
                         "constant": false,
@@ -9569,9 +9500,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18723
-                  ],
+                  "assignments": [18723],
                   "declarations": [
                     {
                       "constant": false,
@@ -9835,10 +9764,7 @@
                   "src": "14884:27:0"
                 },
                 {
-                  "assignments": [
-                    18743,
-                    18745
-                  ],
+                  "assignments": [18743, 18745],
                   "declarations": [
                     {
                       "constant": false,
@@ -10053,10 +9979,7 @@
                     "src": "15127:499:0",
                     "statements": [
                       {
-                        "assignments": [
-                          18760,
-                          null
-                        ],
+                        "assignments": [18760, null],
                         "declarations": [
                           {
                             "constant": false,
@@ -10249,9 +10172,7 @@
                         "src": "15188:75:0"
                       },
                       {
-                        "assignments": [
-                          18774
-                        ],
+                        "assignments": [18774],
                         "declarations": [
                           {
                             "constant": false,
@@ -11000,10 +10921,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    18833,
-                    18835
-                  ],
+                  "assignments": [18833, 18835],
                   "declarations": [
                     {
                       "constant": false,
@@ -11218,9 +11136,7 @@
                     "src": "16549:559:0",
                     "statements": [
                       {
-                        "assignments": [
-                          18850
-                        ],
+                        "assignments": [18850],
                         "declarations": [
                           {
                             "constant": false,
@@ -11471,9 +11387,7 @@
                         "src": "16710:118:0"
                       },
                       {
-                        "assignments": [
-                          18869
-                        ],
+                        "assignments": [18869],
                         "declarations": [
                           {
                             "constant": false,
@@ -12062,9 +11976,7 @@
                     "src": "18179:249:0",
                     "statements": [
                       {
-                        "assignments": [
-                          18951
-                        ],
+                        "assignments": [18951],
                         "declarations": [
                           {
                             "constant": false,
@@ -12594,9 +12506,7 @@
                     "src": "17940:233:0",
                     "statements": [
                       {
-                        "assignments": [
-                          18918
-                        ],
+                        "assignments": [18918],
                         "declarations": [
                           {
                             "constant": false,
@@ -13266,16 +13176,11 @@
           "text": " @title PriceFeed\n @author jacopo.eth <jacopo@slice.so>\n @notice Price feed based on Uniswap V3 TWAP oracles."
         },
         "fullyImplemented": true,
-        "linearizedBaseContracts": [
-          18988,
-          19229
-        ],
+        "linearizedBaseContracts": [18988, 19229],
         "name": "PriceFeed",
         "nameLocation": "637:9:0",
         "scope": 18989,
-        "usedErrors": [
-          17264
-        ]
+        "usedErrors": [17264]
       }
     ],
     "license": "MIT"

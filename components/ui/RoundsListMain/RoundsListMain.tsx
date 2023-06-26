@@ -1,10 +1,10 @@
 import { RoundViewMain, RoundViewMainLoading } from "@components/ui"
-import getRounds, { RoundInfo } from "@utils/getRounds"
-import { useContractReads } from "wagmi"
-import bluntDelegate from "abi/BluntDelegateClone.json"
 import { Project } from "@prisma/client"
+import getRounds, { RoundInfo } from "@utils/getRounds"
+import bluntDelegate from "abi/BluntDelegateClone.json"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useContractReads } from "wagmi"
 
 type Props = {
   projectData: Project[]
@@ -64,7 +64,7 @@ const RoundsListMain = ({ projectData, subgraphData }: Props) => {
       <p className="pt-10 sm:pt-6">
         <Link
           href="/rounds"
-          className="text-sm font-bold text-gray-600 underline hover:text-yellow-600"
+          className="text-sm font-bold underline text-gray-600 hover:text-yellow-600"
         >
           View all rounds
         </Link>

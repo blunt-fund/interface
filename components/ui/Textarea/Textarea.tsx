@@ -47,8 +47,8 @@ const Textarea: React.FC<Props> = ({
   return (
     <label>
       {label && (
-        <div className="relative flex items-center h-9">
-          <p className={`text-sm text-left`}>{label}</p>
+        <div className="relative flex h-9 items-center">
+          <p className={`text-left text-sm`}>{label}</p>
 
           {markdownView && !showPreview && (
             <Question
@@ -73,7 +73,7 @@ const Textarea: React.FC<Props> = ({
           )}
           {markdownView && value && (
             <a
-              className="absolute top-0 right-0 flex items-center h-full mr-1 text-sm text-yellow-600"
+              className="absolute top-0 right-0 mr-1 flex h-full items-center text-sm text-yellow-600"
               onClick={async () => await handleShowPreview()}
             >
               {!showPreview ? "Show preview" : "Hide preview"}
@@ -98,7 +98,7 @@ const Textarea: React.FC<Props> = ({
           className={
             previewBox
               ? previewBox
-              : "px-6 py-3 mt-2 prose shadow-md border border-gray-200 rounded-sm"
+              : "mt-2 rounded-sm border px-6 py-3 shadow-md border-gray-200 prose"
           }
           dangerouslySetInnerHTML={{ __html: htmlContent }}
         />

@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react"
 import { View } from "@lib/content/modals"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useAccount, usePublicClient } from "wagmi"
 
 const AppContext = createContext<any>({

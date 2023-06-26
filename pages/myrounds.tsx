@@ -1,19 +1,19 @@
-import { NextSeo } from "next-seo"
+import {
+  defaultDescription,
+  defaultTitle,
+  domain,
+  longTitle
+} from "@components/common/Head"
 import {
   ConnectBlock,
   Container,
   RoundsList,
   RoundViewMainLoading
 } from "@components/ui"
-import {
-  defaultDescription,
-  defaultTitle,
-  longTitle,
-  domain
-} from "@components/common/Head"
-import useSWR from "swr"
-import fetcher from "@utils/fetcher"
 import { useAppContext } from "@components/ui/context"
+import fetcher from "@utils/fetcher"
+import { NextSeo } from "next-seo"
+import useSWR from "swr"
 
 export default function Rounds() {
   const { account } = useAppContext()
@@ -41,7 +41,7 @@ export default function Rounds() {
       />
       <Container page={true}>
         <ConnectBlock>
-          <main className="max-w-screen-sm mx-auto">
+          <main className="mx-auto max-w-screen-sm">
             <h2 className="pb-20">My rounds</h2>
             {!data ? (
               <div className="space-y-20">

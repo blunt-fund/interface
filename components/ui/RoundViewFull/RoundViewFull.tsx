@@ -1,3 +1,10 @@
+import Crown from "@components/icons/Crown"
+import markdownToHtml from "@lib/markdownToHtml"
+import { Project } from "@prisma/client"
+import formatAddress from "@utils/formatAddress"
+import formatRound from "@utils/formatRound"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import {
   ContributionsTable,
   EmissionPreview,
@@ -8,15 +15,7 @@ import {
   RoundMainSection,
   RoundViewMain
 } from ".."
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import markdownToHtml from "@lib/markdownToHtml"
-import formatRound from "@utils/formatRound"
-import { Project } from "@prisma/client"
-import Crown from "@components/icons/Crown"
-import formatAddress from "@utils/formatAddress"
-import { useAppContext } from "../context"
-import { TimeWrapper } from "../context"
+import { TimeWrapper, useAppContext } from "../context"
 
 type Props = {
   projectData: Project
@@ -91,7 +90,7 @@ const RoundViewFull = ({ projectData, subgraphData, roundInfo }: Props) => {
         <ContributionsTable subgraphData={subgraphData} />
       )}
 
-      <div className="flex justify-center w-full pb-4">
+      <div className="flex w-full justify-center pb-4">
         <OwnerDisplay projectOwner={round.projectOwner} />
       </div>
 

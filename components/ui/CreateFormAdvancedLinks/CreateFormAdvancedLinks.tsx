@@ -1,11 +1,11 @@
-import Image from "next/image"
-import { Input, Textarea } from "@components/ui"
-import React, { Dispatch, SetStateAction, useState } from "react"
 import Camera from "@components/icons/Camera"
-import { Message } from "@utils/handleMessage"
 import Logo from "@components/icons/Logo"
-import { RoundData } from "utils/getRounds"
+import { Input, Textarea } from "@components/ui"
+import { Message } from "@utils/handleMessage"
 import handleSetObject from "@utils/handleSetObject"
+import Image from "next/image"
+import React, { Dispatch, SetStateAction, useState } from "react"
+import { RoundData } from "utils/getRounds"
 import { accounts } from "../Social/Social"
 
 export type ImageType = { url: string; file: File }
@@ -65,7 +65,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
   }
 
   return (
-    <div className="py-3 space-y-8">
+    <div className="space-y-8 py-3">
       <div>
         <Textarea
           label="Project description"
@@ -80,7 +80,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
         <p className="pb-2 text-sm">Logo</p>
         <label
           htmlFor="upload"
-          className="relative flex items-center justify-center bg-white border border-gray-200 rounded-sm shadow-md cursor-pointer bg-opacity-20 w-36 h-36 group"
+          className="group relative flex h-36 w-36 cursor-pointer items-center justify-center rounded-sm border bg-opacity-20 shadow-md bg-white border-gray-200"
         >
           <div className="flex flex-grow group-hover:opacity-20">
             {image.url ? (
@@ -91,18 +91,18 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
                 height={196}
               />
             ) : (
-              <div className="w-20 h-20 mx-auto">
+              <div className="mx-auto h-20 w-20">
                 <Logo />
               </div>
             )}
           </div>
           <Camera
-            className={`absolute top-[8px] right-[8px] w-4 h-4 text-black group-hover:text-yellow-600 dark:group-hover:text-yellow-300`}
+            className={`absolute top-[8px] right-[8px] h-4 w-4 text-black group-hover:text-yellow-600 dark:group-hover:text-yellow-300`}
           />
         </label>
         {image.url && (
           <a
-            className="text-sm text-gray-600 highlight highlight-red"
+            className="highlight highlight-red text-sm text-gray-600"
             onClick={() => handleSetImage({ url: "", file: undefined })}
           >
             Remove image
