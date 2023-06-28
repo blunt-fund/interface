@@ -23,7 +23,7 @@ const Locks = ({
       )}
       {releaseTimestamp != 0 && releaseTimestamp > now && (
         <p className="text-sm">
-          Token withdraws locked until:{" "}
+          Token withdrawals locked until:{" "}
           <span className="font-bold">
             {new Date(releaseTimestamp).toDateString().substring(4)}
           </span>

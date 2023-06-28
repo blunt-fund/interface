@@ -90,7 +90,7 @@ const CreateFormAdvancedERC20 = ({ roundData, setRoundData }: Props) => {
           }
         />
       </div>
-      <NoteText text="Token name and symbol can also be set later, while the round is in progress" />
+      <NoteText text="If you don&apos;t set a token name and symbol now, you can add them during the round" />
     </div>
   )
 }

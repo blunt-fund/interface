@@ -77,7 +77,7 @@ export default function About() {
               successfully closed by the deadline, further payments are rejected
               and all all funds can be refunded.
             </li>
-            <li>
+            {/*<li>
               <b>A slicer.</b>
               Blunt can deploy a <Link href="https://slice.so/">
                 slicer
@@ -85,11 +85,11 @@ export default function About() {
               for your round. A slicer allows you to split tokens, ETH, or other
               onchain assets between your round&apos;s participants in the
               future.
-            </li>
+            </li>*/}
             <li>
               <b>Locks.</b>
               Blunt round participants are given a percentage of future token
-              issuance, but by default, the project&apos;s owner can remove this
+              issuance. By default, the project&apos;s owner can remove this
               allocation. Blunt lets you lock this percentage in place to assure
               prospective contributors.
             </li>

@@ -43,7 +43,7 @@ const CreateFormAdvancedLock = ({
   return (
     <div className="space-y-8 py-3">
       <p>
-        Lock slice transfers, token withdrawals and modifications to the blunt
+        Lock slice transfers, token withdrawals, or modifications to the blunt
         round allocation.
       </p>
       <div className="relative">

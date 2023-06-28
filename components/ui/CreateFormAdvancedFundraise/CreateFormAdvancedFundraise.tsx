@@ -160,7 +160,7 @@ const CreateFormAdvancedFundraise = ({
           }`}
           question={
             <>
-              <p>Contributions will be rejected once the cap is met.</p>
+              <p>New contributions will be rejected after the cap is met.</p>
               {/* <p>
                 If a slicer is to be created, it limits ownership dilution among
                 round participants.
@@ -195,7 +195,7 @@ const CreateFormAdvancedFundraise = ({
               </p>
               <p>
                 If the funding target is met when the round is closed, ownership
-                of the funds will be transferred to this address.
+                of the project and the funds will be transferred to this address.
               </p>
             </>
           }

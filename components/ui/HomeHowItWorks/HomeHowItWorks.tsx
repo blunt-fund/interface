@@ -7,8 +7,8 @@ const HomeHowItWorks = () => {
       <h2 className="pb-12 text-xl text-gray-500">How it works</h2>
       <div className="text-left prose">
         <p>
-          A set of rules guarantees that all Blunt rounds behave the same way,
-          and allows fundraisers to start a round in seconds.
+          Fixed rules guarantee that all Blunt rounds behave the same way,
+          and allow fundraisers to start a round in seconds.
         </p>
         <h2>Blunt rules</h2>
         <ul className="text-gray-700">
@@ -23,11 +23,11 @@ const HomeHowItWorks = () => {
           <li>
             A <b className="text-yellow-600">target</b> and{" "}
             <b className="text-yellow-600">hard cap</b> can be set to limit the
-            minimum and maximum amount to raise in a round
+            minimum and maximum raised in a round
           </li>
           <li>
-            Once the <b className="text-yellow-600">deadline</b> is reached
-            rounds cannot accept any more contributions
+            Once the <b className="text-yellow-600">deadline</b> is reached,
+            a rounds cannot accept any more contributions
           </li>
           <li>
             Rounds without a deadline can accept contributions until
