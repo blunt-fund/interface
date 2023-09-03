@@ -74,7 +74,7 @@ const CreateFormAdvancedLinks = ({ roundData, setRoundData }: Props) => {
           rows={5}
         />
       </div>
-      <p>Add a logo, website and social links</p>
+      <p>Add a logo, a website, and social links</p>
 
       <div>
         <p className="pb-2 text-sm">Logo</p>

@@ -27,11 +27,11 @@ const QueueBlock = ({ projectId, bluntDelegate }: Props) => {
           text={
             <>
               <p>
-                In order to finalize rounds immediately as the deadline is over,
-                an additional transaction needs to be executed while the round
-                is in progress.
+                To finalize a round immediately after the deadline, an
+                additional transaction must be executed while the round is
+                in progress.
               </p>
-              <p>Rounds need to be queued only once.</p>
+              <p>Rounds only need to be queued once.</p>
             </>
           }
         />

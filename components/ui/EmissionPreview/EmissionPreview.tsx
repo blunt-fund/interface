@@ -13,7 +13,7 @@ const EmissionPreview = ({ shares, totalShares }: Props) => {
       </p>
       <div className="text-black">
         <PieChart
-          addresses={["Contributor", "Others reserved", "Blunt round"]}
+          addresses={["Contributor", "Other reserves", "Blunt round"]}
           shares={[100 - totalShares, totalShares - shares[0], shares[0]]}
           total={100}
         />

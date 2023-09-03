@@ -43,7 +43,7 @@ const CreateFormAdvancedLock = ({
   return (
     <div className="space-y-8 py-3">
       <p>
-        Lock slice transfers, token withdrawals and modifications to the blunt
+        Lock slice transfers, token withdrawals, or modifications to the blunt
         round allocation.
       </p>
       <div className="relative">
@@ -63,7 +63,7 @@ const CreateFormAdvancedLock = ({
               </p>
               <p>
                 By default, slices are transferable. This lock prevents round
-                participants to transfer or trade their slices until the
+                participants from transferring or trading their slices until the
                 specified date.
               </p>
               <p>Leave blank to always allow slice transfers.</p>
@@ -91,9 +91,9 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents round participants to withdraw any currency
-                earned by the slicer until the specified date, including the
-                project tokens reserved for the round allocation.
+                This lock prevents round participants from withdrawing any
+                currency earned by the slicer until the specified date,
+                including the project tokens reserved for the round allocation.
               </p>
               <p>Leave blank to always allow token withdrawals.</p>
             </>
@@ -123,11 +123,12 @@ const CreateFormAdvancedLock = ({
           question={
             <>
               <p>
-                This lock prevents the project owner to reduce the round token
-                allocation by reconfiguring a future funding cycle.
+                This lock prevents the project owner from reducing the
+                round&apos;s token allocation by reconfiguring a future funding
+                cycle.
               </p>
               <p>
-                A longer timelock can act as assurance to prospective
+                A longer allocation lock can act as assurance to prospective
                 contributors.
               </p>
             </>

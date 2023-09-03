@@ -88,11 +88,11 @@ const CreateFormAdvancedFundraise = ({
             placeholder="Leave blank for unlimited"
             question={
               <>
-                <p>The period of time in which contributions are accepted.</p>
-                <p>Leave blank to set unlimited duration.</p>
+                <p>How long to accept contributions for.</p>
+                <p>Leave blank for an unlimited duration.</p>
                 <p className="text-yellow-600">
-                  Note: If not set, you will be able to set it while the round
-                  is in progress.
+                  Note: If you don&apos;t set a duration now, you can add one
+                  during the round.
                 </p>
               </>
             }
@@ -117,7 +117,7 @@ const CreateFormAdvancedFundraise = ({
           value={target || ""}
           onChange={handleSetTarget}
           placeholder="Leave blank to disable"
-          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} to raise. 
+          helptext={`Minimum ${isTargetUsd ? "USD" : "ETH"} amount to raise. 
           ${
             !isUsdEnabled
               ? "Note that on Mainnet you'll also be able to select USD"
@@ -126,8 +126,8 @@ const CreateFormAdvancedFundraise = ({
           question={
             <>
               <p>
-                If the target is not reached before the deadline, all
-                contributions can be fully refunded.
+                If the target is not met before the deadline, all contributions
+                can be fully refunded.
               </p>
               <p>Leave blank to disable.</p>
               <p className="text-yellow-600">
@@ -160,7 +160,7 @@ const CreateFormAdvancedFundraise = ({
           }`}
           question={
             <>
-              <p>Contributions will be rejected once the cap is reached.</p>
+              <p>New contributions will be rejected after the cap is met.</p>
               {/* <p>
                 If a slicer is to be created, it limits ownership dilution among
                 round participants.
@@ -194,8 +194,8 @@ const CreateFormAdvancedFundraise = ({
                 The project owner is responsible for closing the blunt round.
               </p>
               <p>
-                If the funding target is reached when the round is closed,
-                ownership of the funds will be transferred to this account.
+                If the funding target is met when the round is closed, ownership
+                of the project and the funds will be transferred to this address.
               </p>
             </>
           }

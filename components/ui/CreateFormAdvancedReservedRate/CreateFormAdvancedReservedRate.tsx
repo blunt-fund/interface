@@ -28,8 +28,7 @@ const CreateFormAdvancedReservedRate = ({
   return (
     <div className="space-y-8 py-3">
       <p>
-        Add beneficiaries to the reserved rate in addition to blunt round
-        participants.
+        Add reserved rate beneficiaries in addition to blunt round participants.
       </p>
       <div className="grid grid-cols-8 items-center gap-x-4 gap-y-6 text-left xs:grid-cols-10 xs:gap-y-10 md:grid-cols-12">
         <p className="mb-[-25px] hidden text-sm font-semibold text-gray-700 xs:col-span-6 xs:col-start-2 xs:block md:col-span-7 md:col-start-2">

@@ -44,13 +44,10 @@ const OwnerBlockToken = ({ projectId, bluntDelegate, round }: Props) => {
           position="bottom-0 left-[-24px]"
           text={
             <>
+              <p>Set the name and symbol of your project&apos;s ERC20 token.</p>
               <p>
-                Set the name and symbol of the ERC20 token associated with your
-                project.
-              </p>
-              <p>
-                The ERC20 token will be deployed once the round is closed
-                successfully.
+                The ERC20 token will be deployed once the round is successfully
+                closed.
               </p>
             </>
           }
